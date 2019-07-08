@@ -59,7 +59,7 @@ git commit -m "[첫번째 줄 메세지]
 [마지막 줄 메세지]"
 
 -- 첫번째 줄은 다음과 같이 작성
-Refactor, Update, Remove, Merge, Fix, Change, Move, Release
+Refactor, Update, Remove, Merge, Fix, Release, Change, Move
 ```
 
 
