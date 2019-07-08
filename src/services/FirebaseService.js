@@ -7,13 +7,13 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-	apiKey: "AIzaSyAps-oE5kJWQoJ0TpqYo2IMGj58nVk5uYA",
-	authDomain: "ssafy-team3.firebaseapp.com",
-	databaseURL: "https://ssafy-team3.firebaseio.com",
-	projectId: "ssafy-team3",
-	storageBucket: "",
-	messagingSenderId: "293998470745",
-	appId: "1:293998470745:web:e9c3db4f2a728316"
+	apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
+	authDomain: "team3-435f1.firebaseapp.com",
+	databaseURL: "https://team3-435f1.firebaseio.com",
+	projectId: "team3-435f1",
+	storageBucket: "team3-435f1.appspot.com",
+	messagingSenderId: "804761067334",
+	appId: "1:804761067334:web:de1801641a9f3ddc"
   };
 
   
