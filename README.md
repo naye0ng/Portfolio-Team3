@@ -39,8 +39,8 @@ git checkout -b [branch name]
 2. git checkout dev
 3. (dev) git merge [내꺼]
 4. (dev) git push dev
-5. (dev) git branch -d [내꺼] -- 내 브랜치 삭제
-6. (dev) git branch -b [새로운 내꺼] -- 새 기능 브랜치 시작
+5. (dev) git branch -D [내꺼] -- 내 브랜치 삭제
+6. (dev) git checkout -b [새로운 내꺼] -- 새 기능 브랜치 시작
 
 -- 기능 하나당 branch 삭제/생성하기
 ```
