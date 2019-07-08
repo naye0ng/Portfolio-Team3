@@ -16,20 +16,20 @@ export default new Router({
 			name: 'home',
 			component: HomePage
 		},
-		{
-			path: '/post',
-			name: 'post',
-			component: PostPage
-		},
-		{
-			path: '/portfolio',
-			name: 'portfolio',
-			component: PortfolioPage
-		},
-		{
-			path: '/login',
-			name: 'login',
-			component: LoginPage
-		}
+		// {
+		// 	path: '/post',
+		// 	name: 'post',
+		// 	component: PostPage
+		// },
+		// {
+		// 	path: '/portfolio',
+		// 	name: 'portfolio',
+		// 	component: PortfolioPage
+		// },
+		// {
+		// 	path: '/login',
+		// 	name: 'login',
+		// 	component: LoginPage
+		// }
   ]
 })
