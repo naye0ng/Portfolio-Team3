@@ -7,13 +7,16 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-	projectId: 'elice-ssafy',
-	authDomain: 'elice-ssafy.firebaseapp.com',
-	apiKey: 'AIzaSyCax1KLYHHlLEoxNkRIW8efgUBWooyEB2Q',
-	databaseURL: 'https://elice-ssafy.firebaseio.com',
-	storageBucket: 'gs://elice-ssafy.appspot.com'
-}
+	apiKey: "AIzaSyAps-oE5kJWQoJ0TpqYo2IMGj58nVk5uYA",
+	authDomain: "ssafy-team3.firebaseapp.com",
+	databaseURL: "https://ssafy-team3.firebaseio.com",
+	projectId: "ssafy-team3",
+	storageBucket: "",
+	messagingSenderId: "293998470745",
+	appId: "1:293998470745:web:e9c3db4f2a728316"
+  };
 
+  
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 
