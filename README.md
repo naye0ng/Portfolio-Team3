@@ -13,4 +13,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
+`
+
+회원 가입 기능입니다.!!!
