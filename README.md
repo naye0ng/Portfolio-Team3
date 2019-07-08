@@ -26,8 +26,9 @@ npm run build
 git remote add origin [repository name]
 
 -- 풀 받아오기 (pull 받기 전에 )
-git commit -m "메세지"
-(내꺼) git pull origin dev
+(내꺼) git commit -m "메세지"
+git checkout dev
+(dev) git pull origin dev
 
 -- 내 브랜치 설정하기
 git checkout -b [branch name]
@@ -43,7 +44,7 @@ git checkout -b [branch name]
 1. git checkout dev
 2. (dev) git merge [내꺼]
 3. (dev) git branch -D [내꺼] -- 내 브랜치 삭제
-4. (dev) git push dev
+4. (dev) git push origin dev
 -- !!dev push 한 후에는 dev pull 받으라고 알려주기!!
 5. (dev) git checkout -b [새로운 내꺼] -- 새 기능 브랜치 시작
 
