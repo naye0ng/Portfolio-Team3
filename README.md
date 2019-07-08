@@ -1,4 +1,4 @@
-# ssafy
+# ssafy 🙋
 
 ## Project setup
 ```
