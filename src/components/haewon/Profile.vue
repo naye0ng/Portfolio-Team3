@@ -1,15 +1,21 @@
 <template>
   <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex xs12 sm6 offset-sm3 v-if="!isAno">
       <v-card>
         <v-img :src="photoURL" min-height="200px" max-height="300px"></v-img>
         <v-card-title primary-title>
           <h3 class="headline mb-0">{{displayName}}</h3>
-          <div>{{providerId}}</div>
         </v-card-title>
         <v-card-text>
-          <div>{{email}}</div>
+          <div class="text-xs-left">{{email}}</div>
         </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex xs12 sm6 offset-sm3 v-if="isAno">
+      <v-card>
+        <v-card-title primary-title>
+          <h3>익명 회원 공간</h3>
+        </v-card-title>
       </v-card>
     </v-flex>
   </v-layout>
@@ -27,18 +33,23 @@ export default {
       email: "",
       phoneNumber: "",
       providerId: "",
-      displayName: ""
+      displayName: "",
+      isAno: false
     };
   },
   mounted() {
     this.user = FirebaseService.curUser();
-    var profile = this.user.providerData[0];
 
-    this.providerId = profile.providerId;
-    this.displayName = profile.displayName;
-    this.email = profile.email;
-    this.photoURL = profile.photoURL;
-    this.phoneNumber = profile.phoneNumber;
+    this.isAno = this.user.isAnonymous;
+
+    if (!this.isAno) {
+      var profile = this.user.providerData[0];
+      this.providerId = profile.providerId;
+      this.displayName = profile.displayName;
+      this.email = profile.email;
+      this.photoURL = profile.photoURL;
+      this.phoneNumber = profile.phoneNumber;
+    }
   }
 };
 </script>
