@@ -28,61 +28,61 @@ export default {
       );
       return response.data;
     },
-    // createTeamGraph(data) {
-    //   var end = new Date(data[0].commit.author.date.slice(0, 10));
-    //   var start = new Date(
-    //     data[data.length - 1].commit.author.date.slice(0, 10)
-    //   );
+    createTeamGraph(data) {
+      var end = new Date(data[0].commit.author.date.slice(0, 10));
+      var start = new Date(
+        data[data.length - 1].commit.author.date.slice(0, 10)
+      );
 
-    //   var labels = [];
-    //   var commits = [];
-    //   while (start <= end) {
-    //     commits.push(0);
-    //     labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
-    //     start.setDate(start.getDate() + 1);
-    //   }
+      var labels = [];
+      var commits = [];
+      while (start <= end) {
+        commits.push(0);
+        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
+        start.setDate(start.getDate() + 1);
+      }
 
-    //   let c = 0;
-    //   let before = new Date(
-    //     data[data.length - 1].commit.author.date.slice(0, 10)
-    //   );
-    //   for (let i = data.length - 1; i >= 0; i--) {
-    //     var dt = new Date(data[i].commit.author.date.slice(0, 10));
-    //     if (dt - before == 0) {
-    //       commits[c] += 1;
-    //     } else {
-    //       before = dt;
-    //       commits[++c] += 1;
-    //     }
-    //   }
+      let c = 0;
+      let before = new Date(
+        data[data.length - 1].commit.author.date.slice(0, 10)
+      );
+      for (let i = data.length - 1; i >= 0; i--) {
+        var dt = new Date(data[i].commit.author.date.slice(0, 10));
+        if (dt - before == 0) {
+          commits[c] += 1;
+        } else {
+          before = dt;
+          commits[++c] += 1;
+        }
+      }
 
-    //   var ctx = document.getElementById("teamChart");
-    //   var teamChart = new chart.Chart(ctx, {
-    //     type: "line",
-    //     data: {
-    //       labels: labels,
-    //       datasets: [
-    //         {
-    //           label: "# Team3 TA commits",
-    //           data: commits,
-    //           backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-    //           borderColor: ["rgba(153, 102, 255, 1)"],
-    //           borderWidth: 1
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       scales: {
-    //         yAxes: [
-    //           {
-    //             ticks: {
-    //               beginAtZero: true
-    //             }
-    //           }
-    //         ]
-    //       }
-    //     }
-    //   });
+      var ctx = document.getElementById("teamChart");
+      var teamChart = new chart.Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "# Team3 TA commits",
+              data: commits,
+              backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+              borderColor: ["rgba(153, 102, 255, 1)"],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          }
+        }
+      });
     },
     createMemberGraph(data) {
       var m_na = 0;
