@@ -9,17 +9,23 @@ import WeatherService from '@/services/WeatherService'
 
 export default {
 	name: 'weather',
-  props : {
-      loc : {}
+  data() {
+    return {
+      weather : { t : 1 }
+    }
   },
   mounted() {
    this.getLocation()
+   this.getWeather()
   },
   methods : {
     async getLocation() {
-      this.loc = await WeatherService.getLocation();
-      console.log("...")
-      console.log(this.loc)
+      await WeatherService.getLocation();
+    },
+
+    async getWeather() {
+      this.weather = await WeatherService.getWeather();
+      console.log(this.weather);
     }
   }
 }
