@@ -32,7 +32,6 @@ export default {
       photoURL: "",
       email: "",
       phoneNumber: "",
-      providerId: "",
       displayName: "",
       isAno: false
     };
@@ -43,17 +42,10 @@ export default {
     this.isAno = this.user.isAnonymous;
 
     if (!this.isAno) {
-      if (this.user.providerData.length>1){
-        var profile = this.user.providerData[1];
-      }
-      else{
-        var profile = this.user.providerData[0];
-      }
-      this.providerId = profile.providerId;
-      this.displayName = profile.displayName;
-      this.email = profile.email;
-      this.photoURL = profile.photoURL;
-      this.phoneNumber = profile.phoneNumber;
+      this.displayName = this.user.displayName;
+      this.email = this.user.email;
+      this.photoURL = this.user.photoURL;
+      this.phoneNumber = this.user.phoneNumber;
     }
   }
 };
