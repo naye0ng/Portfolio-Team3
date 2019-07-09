@@ -122,6 +122,11 @@ export default {
       })
     })
   },
+  loginAnno(){
+    return firebase.auth().signInAnonymously().catch(function(error) {
+      console.error(error);
+    });
+  },
   logout() {
     return firebase.auth().signOut().then(function () {
     }).catch(function (error) {
@@ -139,6 +144,6 @@ export default {
     //     console.log("  Photo URL: " + profile.photoURL);
     //   });
     // }
-    return user
+    return user;
   }
 }
