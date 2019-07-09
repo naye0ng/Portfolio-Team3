@@ -28,36 +28,29 @@ export default {
 	},
   methods: {
 		async loginWithGoogle() {
-			const result = await FirebaseService.loginWithGoogle()
-			this.$store.state.accessToken = result.credential.accessToken
-      this.$store.state.user = result.user
-      this.user=FirebaseService.curUser()
+      const result = await FirebaseService.loginWithGoogle()
+			this.user = FirebaseService.curUser()
       console.log(this.user)
     },
     async loginWithFacebook(){
       const result = await FirebaseService.loginWithFacebook()
-      this.$store.state.accessToken = result.credential.accessToken
-      this.$store.state.user = result.user
       this.user = FirebaseService.curUser()
       console.log(this.user)
     },
     async loginWithGithub(){
       const result = await FirebaseService.loginWithGithub()
-      this.$store.state.accessToken = result.credential.accessToken
-      this.$store.state.user = result.user
       this.user = FirebaseService.curUser()
       console.log(this.user)
-      console.log(this.$store.state.user)
     },
     async logout(){
       const result = await FirebaseService.logout()
       this.user= await FirebaseService.curUser()
       console.log(this.user)
-      console.log(this.$store.state.user)
     }
-	},
+  },
 	mounted() {
     this.user= FirebaseService.curUser()
-	}
+    console.log(this.user)
+  }
 }
 </script>
