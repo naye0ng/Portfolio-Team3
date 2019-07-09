@@ -26,10 +26,10 @@ export default new Router({
 		// 	name: 'portfolio',
 		// 	component: PortfolioPage
 		// },
-		// {
-		// 	path: '/login',
-		// 	name: 'login',
-		// 	component: LoginPage
-		// }
+		{
+			path: '/login',
+			name: 'login',
+			component: LoginPage
+		}
   ]
 })
