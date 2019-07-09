@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-toolbar fixed="true">
+    <v-toolbar app fixed dense>
       <v-toolbar-side-icon class="hidden-md-and-up">
         <v-btn flat icon @click.stop="drawer = !drawer">
           <v-icon>menu</v-icon>
