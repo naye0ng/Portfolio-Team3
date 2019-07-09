@@ -43,7 +43,12 @@ export default {
     this.isAno = this.user.isAnonymous;
 
     if (!this.isAno) {
-      var profile = this.user.providerData[0];
+      if (this.user.providerData.length>1){
+        var profile = this.user.providerData[1];
+      }
+      else{
+        var profile = this.user.providerData[0];
+      }
       this.providerId = profile.providerId;
       this.displayName = profile.displayName;
       this.email = profile.email;
