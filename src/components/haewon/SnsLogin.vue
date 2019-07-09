@@ -15,6 +15,9 @@
     <v-flex xs12 text-xs-center v-if="!user">
       <v-btn round color="#F8F9F9" v-on:click="loginAnno" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 익명 로그인</v-btn>
     </v-flex>
+    <v-flex xs12 text-xs-center v-if="user">
+      <v-btn to="/profile" round color="#F8F9F9" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 프로필 </v-btn>
+    </v-flex>
   </v-layout>
 </template>
 
