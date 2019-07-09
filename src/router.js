@@ -4,7 +4,7 @@ import HomePage from './views/HomePage.vue'
 import PostPage from './views/PostPage.vue'
 import PortfolioPage from './views/PortfolioPage.vue'
 import LoginPage from './views/LoginPage.vue'
-
+import TeamGitGraph from './views/TeamGitGraph.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -31,5 +31,10 @@ export default new Router({
 		// 	name: 'login',
 		// 	component: LoginPage
 		// }
+		{
+			path: '/team3',
+			name: 'team3',
+			component: TeamGitGraph
+		}
   ]
 })
