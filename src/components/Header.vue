@@ -30,11 +30,9 @@
             <v-list-tile @click.stop="dialog = true">
               <v-list-tile-title>logout</v-list-tile-title>
             </v-list-tile>
-            <router-link to="/profile" style="color:black; text-decoration:none;">
-              <v-list-tile>
-                <v-list-tile-title>My Page</v-list-tile-title>
-              </v-list-tile>
-            </router-link>
+            <v-list-tile @click.stop="" to="/profile" style="color:black;">
+              <v-list-tile-title>My Page</v-list-tile-title>
+            </v-list-tile>
           </v-list>
         </v-menu>
 
@@ -141,7 +139,7 @@ export default {
         console.log(this.items[3]);
         this.login_title = "LOGOUT";
         this.user = FirebaseService.curUser();
-        console.log(this.user)
+        console.log(this.user);
         if (this.user.isAnonymous) {
           this.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }
