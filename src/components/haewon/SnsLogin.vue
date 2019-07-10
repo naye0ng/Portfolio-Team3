@@ -3,9 +3,6 @@
     <v-flex xs12 text-xs-center v-if="user">
       <v-btn round color="#000000" dark v-on:click="logout" style="width:50%;"><v-icon size="25" class="mr-2">fa-sign-out</v-icon> 로그아웃 </v-btn>
     </v-flex>
-    <v-flex xs12 text-xs-center v-if="user">
-      <v-btn to="/profile" round color="#F8F9F9" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 프로필 </v-btn>
-    </v-flex>
     <v-flex xs12 text-xs-center v-if="!user">
       <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;"><v-icon size="25" class="mr-2">fa-google</v-icon> Google 로그인</v-btn>
     </v-flex>
@@ -60,6 +57,11 @@ export default {
 	mounted() {
     this.user = FirebaseService.curUser()
     console.log(this.user)
+  },
+  watch:{
+    user: function(val){
+      this.$loginBus.$emit('loggedIn',this.user)
+    }
   }
 }
 </script>
