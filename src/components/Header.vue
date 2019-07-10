@@ -30,8 +30,8 @@
             <v-list-tile @click.stop="dialog = true">
               <v-list-tile-title>logout</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click.stop="" to="/profile" style="color:black;">
-              <v-list-tile-title>My Page</v-list-tile-title>
+            <v-list-tile @click.stop="" to="/profile">
+              <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -128,7 +128,7 @@ export default {
     this.$loginBus.$on("loggedIn", l => {
       this.logged_in = l;
       this.user = FirebaseService.curUser();
-      if (this.user.isAnonymous) {
+      if (this.user && this.user.isAnonymous) {
         this.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
     });
@@ -136,11 +136,10 @@ export default {
   watch: {
     logged_in: function(val) {
       if (val) {
-        console.log(this.items[3]);
         this.login_title = "LOGOUT";
         this.user = FirebaseService.curUser();
         console.log(this.user);
-        if (this.user.isAnonymous) {
+        if (this.user && this.user.isAnonymous) {
           this.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }
         this.dialog = false;
