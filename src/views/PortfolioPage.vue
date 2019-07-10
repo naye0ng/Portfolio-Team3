@@ -5,7 +5,7 @@
     </ImgBanner>
     <v-container>
 
-      <!-- Portfolio -->
+      <!-- Portfolio Writer -->
       <portfolio-writer></portfolio-writer>
       <v-layout>
         <v-flex xs12>
@@ -19,8 +19,9 @@
 <script>
 import ImgBanner from '../components/ImgBanner'
 import PortfolioList from '../components/PortfolioList'
-import PortfolioWriter from '../components/PortfolioWriter'
-
+import PortfolioWriter from '../components/yongbeom/PortfolioWrite'
+/* import PortfolioWriter from '../components/PortfolioWriter'
+ */
 export default {
 	name: 'PortfolioPage',
 	components: {
