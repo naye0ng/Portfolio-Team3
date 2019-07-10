@@ -65,8 +65,8 @@ export default{
         }
         this.dialog=false;
        firebase.database().ref("user").once('value')
-         .then(function(snapshot){
-             console.log(snapshot.val())
+         .then(function(snapshot){  
+             console.log(snapshot.val().password)
          })
         .catch((error)=>{
           console.log(error);
