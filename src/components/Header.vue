@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-toolbar fixed="true">
+    <v-toolbar fixed>
       <v-toolbar-side-icon class="hidden-md-and-up">
         <v-btn flat icon @click.stop="drawer = !drawer">
           <v-icon>menu</v-icon>
@@ -10,6 +10,12 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">
         <v-btn flat :to="item.to">{{ item.title }}</v-btn>
+      </v-toolbar-items>
+      <v-toolbar-items>
+        <v-btn flat @click.stop="dialog = true">{{login_title}}</v-btn>
+        <v-dialog v-model="dialog" max-width="290">
+          <SnsLogin></SnsLogin>
+        </v-dialog>
       </v-toolbar-items>
       <v-toolbar-items>
         <v-btn icon @click="notify()">
@@ -42,33 +48,55 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-
   </v-layout>
 </template>
 
 <script>
+import FirebaseService from "@/services/FirebaseService";
+import SnsLogin from "@/components/haewon/SnsLogin";
+
 export default {
-	name: 'main-header',
+  name: "main-header",
   data() {
     return {
-      drawer : null,
-      items : [
-        { title : 'HOME', icon : 'home', to : '/' },
-        { title : 'POST', icon : 'web', to : '/post' },
-        { title : 'PORTFOLIO', icon : 'border_color', to : '/portfolio' },
-        { title : 'LOGIN', icon : 'mood', to : 'login' }
-
+      logged_in: "",
+      login_title: "LOGIN",
+      drawer: null,
+      dialog: false,
+      items: [
+        { title: "HOME", icon: "home", to: "/" },
+        { title: "POST", icon: "web", to: "/post" },
+        { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" }
+        // { title : 'LOGIN', icon : 'mood', to : 'login' }
       ]
-    }
+    };
   },
-  methods : {
-    notify : function() {
+  components: {
+    SnsLogin
+  },
+  methods: {
+    notify: function() {
       this.$swal({
-        type : 'info',
-        title : 'Notification',
-        text : '우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!'
+        type: "info",
+        title: "Notification",
+        text: "우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!"
       });
     }
+  },
+  mounted() {
+    this.$loginBus.$on("loggedIn", l => {
+      this.logged_in = l;
+    });
+  },
+  watch: {
+    logged_in: function(val) {
+      if (val) {
+        console.log(this.items[3]);
+        this.login_title = "LOGOUT";
+      } else {
+        this.login_title = "LOGIN";
+      }
+    }
   }
-}
+};
 </script>
