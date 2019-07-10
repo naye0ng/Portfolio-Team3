@@ -28,7 +28,7 @@
           </template>
           <v-list>
             <v-list-tile @click.stop="dialog = true">
-              <v-list-tile-title>logout</v-list-tile-title>
+              <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile>
             <v-list-tile @click.stop="" to="/profile">
               <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
