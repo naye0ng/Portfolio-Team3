@@ -1,11 +1,7 @@
 <template>
-  <!-- <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white pa-4> -->
-  <v-card>
+  <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white pa-4>
     <v-flex xs12 text-xs-center v-if="user">
       <v-btn round color="#000000" dark v-on:click="logout" style="width:50%;"><v-icon size="25" class="mr-2">fa-sign-out</v-icon> 로그아웃 </v-btn>
-    </v-flex>
-    <v-flex xs12 text-xs-center v-if="user">
-      <v-btn to="/profile" round color="#F8F9F9" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 프로필 </v-btn>
     </v-flex>
     <v-flex xs12 text-xs-center v-if="!user">
       <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;"><v-icon size="25" class="mr-2">fa-google</v-icon> Google 로그인</v-btn>
@@ -19,8 +15,7 @@
     <v-flex xs12 text-xs-center v-if="!user">
       <v-btn round color="#F8F9F9" v-on:click="loginAnno" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 익명 로그인</v-btn>
     </v-flex>
-  </v-card>
-  <!-- </v-layout> -->
+  </v-layout>
 </template>
 
 <script>
