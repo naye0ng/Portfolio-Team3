@@ -10,7 +10,6 @@
 
 <script>
 import Repository from '@/components/Repository'
-import GitlabService from '@/services/GitlabService'
 
 export default {
 	name: 'RepositoryList',
@@ -20,24 +19,22 @@ export default {
 	},
 	data() {
 		return {
-			repositories: []
+			repositories: [
+				{"username":"naye0ng <김나영>", "path_name": "naye0ng/Grape-Theme","http_url":"https://github.com/naye0ng/Grape-Theme",
+				"color": ["rgba(255, 99, 132, 0.2)","rgba(255,99,132,1)"]},
+				{"username":"ehddnr8813 <김동욱>", "path_name": "ehddnr8813/Algorithm","http_url":"https://github.com/ehddnr8813/Algorithm",
+				"color": ["rgba(54, 162, 235, 0.2)","rgba(54, 162, 235, 1)"]},
+				{"username":"hanaluana <박해원>", "path_name": "hanaluana/deep_learning","http_url":"https://github.com/hanaluana/deep_learning",
+				"color": ["rgba(255, 206, 86, 0.2)","rgba(255, 206, 86, 1)"]},
+				{"username":"ahlim721 <임현아>", "path_name": "ahlim721/dna_railro","http_url":"https://github.com/ahlim721/dna_railro",
+				"color": ["rgba(75, 192, 192, 0.2)","rgba(75, 192, 192, 1)"]},
+				{"username":"YongbeomJo <조용범>", "path_name": "YongbeomJo/vscore-repo","http_url":"https://github.com/YongbeomJo/vscore-repo",
+				"color": ["rgba(153, 102, 255, 0.2)","rgba(153, 102, 255, 1)"]},
+			]
     }
 	},
 	components: {
 		Repository
 	},
-	mounted() {
-		this.getGitlabRepos('hackurity01')
-	},
-	methods: {
-		async getGitlabRepos(userName) {
-			const response = await GitlabService.getRepos(userName)
-			if(response.status !== 200) {
-				return
-			}
-
-			this.repositories = response.data
-		}
-	}
 }
 </script>
