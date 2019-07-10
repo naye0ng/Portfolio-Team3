@@ -27,6 +27,8 @@ Vue.use(VueSimplemde)
 
 Vue.use(VueSweetalert2)
 
+Vue.prototype.$loginBus = new Vue();
+
 new Vue({
   router,
   store,
