@@ -24,38 +24,32 @@ export default {
   methods: {
     async getCommits() {
       var response = await axios.get(
-        "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits"
+        "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100"
       );
       return response.data;
     },
     createTeamGraph(data) {
-      var end = new Date(data[0].commit.author.date.slice(0, 10));
-      var start = new Date(
+      let end = new Date(data[0].commit.author.date.slice(0, 10));
+      let start = new Date(
         data[data.length - 1].commit.author.date.slice(0, 10)
       );
-
-      var labels = [];
-      var commits = [];
+      let labels = [];
+      let commits = [];
+      let k = data.length-1
       while (start <= end) {
+        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일"); 
         commits.push(0);
-        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
+        while(k>=0){
+          var dt = new Date(data[k].commit.author.date.slice(0, 10))
+          if(dt-start==0){
+            commits[commits.length-1] += 1
+            k -= 1
+          }else{
+            break
+          }
+        }
         start.setDate(start.getDate() + 1);
       }
-
-      let c = 0;
-      let before = new Date(
-        data[data.length - 1].commit.author.date.slice(0, 10)
-      );
-      for (let i = data.length - 1; i >= 0; i--) {
-        var dt = new Date(data[i].commit.author.date.slice(0, 10));
-        if (dt - before == 0) {
-          commits[c] += 1;
-        } else {
-          before = dt;
-          commits[++c] += 1;
-        }
-      }
-
       var ctx = document.getElementById("teamChart");
       var teamChart = new chart.Chart(ctx, {
         type: "line",
