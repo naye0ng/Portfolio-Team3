@@ -67,7 +67,6 @@ export default{
     },
     methods : {
       SignUp() {
-        var crypto= require('crypto');
         const user = {
           email : this.email,
           password : this.password,

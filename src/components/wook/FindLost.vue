@@ -42,18 +42,21 @@
 import firebase from 'firebase' 
 import { Decipher } from 'crypto';
 import FirebaseService from '../../services/FirebaseService'
+import registerService from '../../services/wook/RegisterService'
 
 export default{
     data (){
       return{
         dialog : false,
+        password : '',
         email : '',
         findPass : '',
         answer : '',
       }
     },
     components : {
-      FirebaseService
+      FirebaseService,
+      registerService
     },
     methods : {
       Find() {
@@ -64,13 +67,20 @@ export default{
           answer : this.answer
         }
         this.dialog=false;
-       firebase.database().ref("user").once('value')
-         .then(function(snapshot){  
-             console.log(snapshot.val().password)
-         })
-        .catch((error)=>{
-          console.log(error);
-        })
+        var query=firebase.database().ref("user").orderByKey();
+        query.once("value")
+          .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) { 
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();
+              var before;
+              if(user.email===childData.email && user.findPass===childData.findPass&& user.answer===childData.answer ){
+                before=(childData.password);
+                user.answer=registerService.Decrpyto(user.email, before);
+                alert("당신의 비밀번호는 : "+user.answer+" 입니다.");
+              }
+          });
+        });
       }
     }
   }
