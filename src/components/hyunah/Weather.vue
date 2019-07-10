@@ -1,6 +1,50 @@
 <template>
   <div>
-    <img :src="icon"/>
+    <v-tooltip top>
+      <template v-slot:activator = "{on}">
+        <div v-on="on">
+          <v-avatar color="pink lighten-5" size="32">
+            <v-img :src="icon"/>
+          </v-avatar>
+          &nbsp;
+          <span>{{temp}}</span>
+        </div>
+      </template>
+        <v-container fluid grid-list-md>
+           <v-layout row wrap>
+             <v-flex d-flex xs12 order-xs5>
+               <v-layout column>
+                 <v-flex d-flex>
+                   <span style="font-size:16pt">{{desc}}</span>
+                 </v-flex>
+                 <v-flex d-flex>
+                   <span>Humidity : {{humidity}}</span>
+                 </v-flex>
+               </v-layout>
+             </v-flex>
+             <v-flex d-flex xs6 sm6>
+               <v-layout row wrap>
+                 <v-flex d-flex>
+                   <v-img :src="icon"/>
+                 </v-flex>
+               </v-layout>
+             </v-flex>
+             <v-flex d-flex xs6 sm6>
+               <v-layout column>
+                 <v-flex d-flex>
+                   <span style="font-size:16pt">{{temp}}</span>
+                 </v-flex>
+                 <v-flex d-flex>
+                   <span>Max : {{tempMax}}</span>
+                 </v-flex>
+                 <v-flex d-flex>
+                   <span>Min : {{tempMin}}</span>
+                 </v-flex>
+               </v-layout>
+             </v-flex>
+           </v-layout>
+         </v-container>
+    </v-tooltip>
   </div>
 </template>
 
@@ -24,7 +68,6 @@ export default {
   },
   beforeMount() {
    this.geolocation()
-   console.log(this.icon)
   },
   methods : {
     getWeather(url) {
@@ -37,7 +80,6 @@ export default {
           this.desc = response.data.weather[0].description;
           this.icon = "http://openweathermap.org/img/wn/" + response.data.weather[0].icon + "@2x.png";
           this.humidity = response.data.main.humidity + "%";
-          console.log(this.temp);
         })
         .catch(error => {
           console.log(error);
@@ -51,7 +93,6 @@ export default {
       const lon = position.coords.longitude;
 
       const url = API + "lat=" + lat + "&lon=" + lon + "&appid=" + KEY;
-      console.log(url);
 
       this.getWeather(url);
     }
