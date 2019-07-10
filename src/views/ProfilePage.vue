@@ -1,22 +1,22 @@
 <template>
   <v-layout align-center justify-center row fill-height>
-    <v-flex xs5 text-xs-center>
-      <SnsLogin></SnsLogin>
+    <v-flex xs10 text-xs-center>
+      <Profile></Profile>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 
-import SnsLogin from '../components/haewon/SnsLogin'
+import Profile from '../components/haewon/Profile'
 
 export default {
-	name: 'LoginPage',
+	name: 'ProfilePage',
 	data() {
 		return {}
 	},
 	components: {
-    SnsLogin
+    Profile
   },
 	methods: {
 	},
