@@ -33,15 +33,16 @@ export default {
       email: "",
       phoneNumber: "",
       displayName: "",
-      isAno: false
+      isAno: ""
     };
   },
   mounted() {
     this.user = FirebaseService.curUser();
 
-    this.isAno = this.user.isAnonymous;
-
-    if (!this.isAno) {
+    if (this.user){
+      this.isAno = this.user.isAnonymous;
+    }
+    if (this.user && !this.isAno) {
       this.displayName = this.user.displayName;
       this.email = this.user.email;
       this.photoURL = this.user.photoURL;
