@@ -10,7 +10,7 @@
       </v-avatar>
     </v-hover>
 
-    <v-layout row justify-center>
+    <v-layout row justify-center class="dev-dialog">
       <v-dialog v-model="dialog" max-width="600">
         <v-card>
           <v-layout row>
@@ -21,10 +21,29 @@
               <v-card-title primary-title>
                 <div class="headline">{{name}}</div>
               </v-card-title>
+              <v-layout row align-center>
+                <div class="icon">
+                  <i class="fa fa-quote-left fa-2x"></i>
+                </div>
+                <v-card-text>
+                  <span v-for="i in intro">
+                    {{i}}<br>
+                  </span>
+                </v-card-text>
+                <div class="icon">
+                  <i class="fa fa-quote-right fa-2x"></i>
+                </div>
+              </v-layout>
+              <v-layout row justify-space-around align-start style="padding-top:3vh;">
+                <i class="fa fa-github fa-3x" @click="openWindow(repo[0])"></i>
+                <i class="fa fa-at fa-3x" @click="openWindow(repo[1])"></i>
+                <i class="fa fa-instagram fa-3x" @click="openWindow(repo[2])"></i>
+                <i class="fa fa-envelope fa-3x" @click="show = !show"></i>
+              </v-layout>
               <v-card-text>
-                <span v-for="i in intro">
-                  {{i}}<br>
-                </span>
+                <v-slide-y-transition>
+                  <span v-show="show">{{email}}</span>
+                </v-slide-y-transition>
               </v-card-text>
             </v-layout>
           </v-layout>
@@ -42,17 +61,22 @@ export default {
     name : {type: String},
     image : {type: String},
     intro : {type: Array},
-    repo : {type: String}
+    repo : {type: Array},
+    email : {type: String}
   },
   data() {
     return {
       hover: false,
       dialog: false,
+      show: false
     }
   },
   methods : {
     showModal() {
       this.dialog = true;
+    },
+    openWindow(url) {
+      window.open(url);
     }
   }
 }
@@ -68,5 +92,11 @@ export default {
   height: 100%;
   background-color: rgb(255, 255, 255, 0.3);
 }
+
+.icon {
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
+
 
 </style>
