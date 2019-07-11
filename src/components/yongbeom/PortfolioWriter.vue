@@ -1,11 +1,5 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="dialog" fullscreen hide-overlay>
-
-      <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark v-on="on">Write Your Portfolio ♥</v-btn>
-      </template>
-
       <v-card>
         <v-card-title>
           <span class="headline">Your Portfolio</span>
@@ -47,7 +41,7 @@
           <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+   
   </v-layout>
 </template>
 
@@ -67,16 +61,13 @@ export default {
       imageName : '',
       imageUrl : '',
       imageFile : '',
-      dialog: false,
     };
   },
   mounted() {
     this.$refs.editor.focus();
   },
   methods : {
-    close : function(event) {
-      this.dialog = false
-    },
+
     save : function(event) {
       // FirebaseError: Missing or insufficient permissions.
       // 권한이 없으므로 주석처리함.
