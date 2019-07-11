@@ -15,6 +15,7 @@
     <v-flex xs12 text-xs-center v-if="!user">
       <v-btn round color="#F8F9F9" v-on:click="loginAnno" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 익명 로그인</v-btn>
     </v-flex>
+    <Register v-model="dialog"></Register>
   </v-layout>
 </template>
 
@@ -22,17 +23,24 @@
 import FirebaseService from '@/services/FirebaseService'
 import Firebase from "firebase";
 
+import Register from "@/components/wook/Register"
+
 export default {
   name: 'SnsLogin',
 	data() {
 		return {
-      user: ""
+      user: "",
+      dialog:false
     }
-	},
+  },
+  components: {
+    Register
+  },
   methods: {
 		async loginWithGoogle() {
       const result = await FirebaseService.loginWithGoogle()
       this.user = FirebaseService.curUser()
+      console.log(this.user)
     },
     async loginWithFacebook(){
       const result = await FirebaseService.loginWithFacebook()
