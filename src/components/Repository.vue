@@ -1,13 +1,13 @@
 <template>
   <div class="py-3">
     <v-layout>
-      <v-flex xs12 sm8>
+      <v-flex xs12 sm6>
         <a :href="repos.http_url" class="repo-btn">
           <h2 class="font-weight-regular headline">{{repos.path_name}}</h2>
           <p class="subheading mb-1 grey--text text--darken-1 font-weight-light">{{repos.username}}</p>
         </a>
       </v-flex>        
-      <v-flex xs12 sm4>
+      <v-flex hidden-xs-only sm6>
         <canvas :id="repos.username" width="100%" height="50%"></canvas>
       </v-flex>
     </v-layout>
