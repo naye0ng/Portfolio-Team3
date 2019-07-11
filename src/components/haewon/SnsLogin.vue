@@ -55,7 +55,6 @@ export default {
     Firebase.auth().onAuthStateChanged(user=>{
       this.user = user;
     })
-    console.log(this.user)
   },
   watch:{
     user: function(val){
