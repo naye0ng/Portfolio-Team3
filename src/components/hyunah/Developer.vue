@@ -13,11 +13,19 @@
     <v-layout row justify-center>
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
-          <v-img :src="image" min-height="200px" max-height="300px"></v-img>
-          <v-card-title primary-title>
-              <div class="headline">{{name}}</div>
-              <span class="grey--text">{{status}}</span>
-          </v-card-title>
+          <v-layout row>
+            <v-flex xs4>
+              <v-img :src="image" height="300px" width="auto"></v-img>
+            </v-flex>
+            <v-layout column>
+              <v-card-title primary-title>
+                <div class="headline">{{name}}</div>
+              </v-card-title>
+              <v-card-text>
+                {{intro}}
+              </v-card-text>
+            </v-layout>
+          </v-layout>
         </v-card>
       </v-dialog>
     </v-layout>
@@ -30,7 +38,9 @@ export default {
   props : {
     status : {type: String},
     name : {type: String},
-    image : {type: String}
+    image : {type: String},
+    intro : {type: String},
+    repo : {type: String}
   },
   data() {
     return {
