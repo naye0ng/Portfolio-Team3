@@ -11,10 +11,10 @@
     </v-hover>
 
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="290">
+      <v-dialog v-model="dialog" max-width="600">
         <v-card>
           <v-layout row>
-            <v-flex xs4>
+            <v-flex xs5>
               <v-img :src="image" height="300px" width="auto"></v-img>
             </v-flex>
             <v-layout column>
@@ -22,7 +22,9 @@
                 <div class="headline">{{name}}</div>
               </v-card-title>
               <v-card-text>
-                {{intro}}
+                <span v-for="i in intro">
+                  {{i}}<br>
+                </span>
               </v-card-text>
             </v-layout>
           </v-layout>
@@ -39,13 +41,13 @@ export default {
     status : {type: String},
     name : {type: String},
     image : {type: String},
-    intro : {type: String},
+    intro : {type: Array},
     repo : {type: String}
   },
   data() {
     return {
       hover: false,
-      dialog: false
+      dialog: false,
     }
   },
   methods : {
