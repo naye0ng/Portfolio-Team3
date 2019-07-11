@@ -1,21 +1,41 @@
 <template>
-  <v-footer class="pa-3">
-    <v-spacer></v-spacer>
-    <div>HYUNAH &copy; {{ new Date().getFullYear() }}</div>
-    &nbsp; &nbsp; &nbsp; &nbsp;
-    <weather/>
-    <v-spacer></v-spacer>
+  <v-footer 
+    height="auto"
+  >
+    <v-layout
+      justify-center
+      row
+      wrap
+    >
+      <v-flex xs6 py-3 class="footer-el text-xs-center">
+        <weather/>
+      </v-flex>
+      <v-flex xs6 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem;">
+        <Visited ></Visited>
+      </v-flex>
+      <v-flex
+        grey darken-3 
+        py-3
+        text-xs-center
+        white--text
+        xs12
+      >
+        &copy;2019 — <strong>SSSAFY Team3</strong>
+      </v-flex>
+    </v-layout>
   </v-footer>
 </template>
 
 <script>
 import Weather from './hyunah/Weather.vue'
+import Visited from './nayeong/Visited.vue'
+import firebase from 'firebase'
 
 export default {
 	name: 'main-footer',
   components : {
-    'weather' : Weather
-  }
-
+    'weather' : Weather,
+    Visited
+  },
 }
 </script>

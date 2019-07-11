@@ -48,7 +48,7 @@ import ImgBanner from '../components/ImgBanner'
 import PortfolioList from '../components/PortfolioList'
 import PostList from '../components/PostList'
 import RepositoryList from '../components/RepositoryList'
-import firebase from 'firebase' 
+import firebase from 'firebase'
 
 export default {
 	name: 'HomePage',
@@ -62,30 +62,26 @@ export default {
 		getImgUrl(img) {
 			return require('../assets/' + img)
     },
-    pushWebLog(){
-      const date_time = new Date();
-      const log = {
-        date_time : date_time,
+    checkChrome(){
+      var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+      if(isChrome == false) {
+        this.$swal({
+            type: 'error',
+            title: 'Oops...',
+            text: '해당 사이트는 크롬에 최적화되어있습니다. 정상적으로 작동하지 않을 수 있습니다.'
+        });
       }
-      // firebase.database().ref("log").push(log)
-      //    .then((data)=>{
-      //     alert(data);
-      //     commit('createdLog', log);
-      //   })
-      //   .catch((error)=>{
-      //     alert(error);
-      //   })
+    },
+    pushWebLog(){
+      var date_time = new Date();
+      var date = date_time.toDateString()
+      var log = {}
+      log.date_time = date_time.toString()
+      firebase.database().ref().child("logs").child(date).push(log);
     }
   },
-  created() {
-    var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-    if(isChrome == false) {
-      this.$swal({
-          type: 'error',
-          title: 'Oops...',
-          text: '해당 사이트는 크롬에 최적화되어있습니다. 정상적으로 작동하지 않을 수 있습니다.'
-      });
-    }
+  mounted() {
+    this.checkChrome()
     this.pushWebLog()
   }
 }
