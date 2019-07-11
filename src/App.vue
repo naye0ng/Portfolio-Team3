@@ -21,13 +21,17 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
+
   },
 	store,
 	data() {
 		return {
 			//
 		}
-	},
+  },
+  methods : {
+
+  },
   beforeMount() {
     var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
     if(isChrome == false) {
