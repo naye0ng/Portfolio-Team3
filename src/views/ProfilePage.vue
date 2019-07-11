@@ -7,20 +7,30 @@
 </template>
 
 <script>
-
-import Profile from '../components/haewon/Profile'
+import Profile from "../components/haewon/Profile";
+import Firebase from "firebase";
 
 export default {
-	name: 'ProfilePage',
-	data() {
-		return {}
-	},
-	components: {
+  name: "ProfilePage",
+  data() {
+    return {
+      user: ""
+    };
+  },
+  components: {
     Profile
   },
-	methods: {
-	},
-	mounted() {
-	}
-}
+  mounted() {
+    Firebase.auth().onAuthStateChanged(user => {
+      this.user = user;
+    });
+  },
+  watch: {
+	  user: function(val) {
+      if (!this.user) {
+        this.$router.push('/')
+      }
+    }
+  }
+};
 </script>
