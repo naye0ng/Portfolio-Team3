@@ -38,8 +38,7 @@ export default {
   },
   mounted() {
     this.user = FirebaseService.curUser();
-
-    if (this.user){
+    if (this.user) {
       this.isAno = this.user.isAnonymous;
     }
     if (this.user && !this.isAno) {

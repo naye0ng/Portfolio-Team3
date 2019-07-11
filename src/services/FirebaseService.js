@@ -14,7 +14,7 @@ const config = {
   storageBucket: "team3-435f1.appspot.com",
   messagingSenderId: "804761067334",
   appId: "1:804761067334:web:de1801641a9f3ddc"
-};
+}; 
 
 
 firebase.initializeApp(config)
@@ -77,53 +77,53 @@ export default {
       .then(function () {
         let provider = new firebase.auth.FacebookAuthProvider()
         return firebase.auth().signInWithPopup(provider)
-        .catch(function (error) {
-          console.error(error)
-        })
+          .catch(function (error) {
+            console.error(error)
+          })
       })
   },
   loginWithGithub() {
     return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-    .then(function () {
-      let provider = new firebase.auth.GithubAuthProvider()
-      return firebase.auth().signInWithPopup(provider)
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        if (errorCode === 'auth/account-exists-with-different-credential') {
-          var pendingCred = error.credential;
-          var email = error.email;
-          firebase.auth().fetchSignInMethodsForEmail(email).then(function (methods) {
-            if (methods[0] === 'password') {
-              var password = promptUserForPassword();
-              return firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-                return user.linkWithCredential(pendingCred);
-              }).then(function () {
-                return result
-              });
-            }
-            return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-              .then(function () {
-                let provider = new firebase.auth.GoogleAuthProvider()
-                return firebase.auth().signInWithPopup(provider).then(function(result){
-                  return result.user.linkAndRetrieveDataWithCredential(pendingCred)
-                })
-                  .catch(function (error) {
-                    console.error(error)
+      .then(function () {
+        let provider = new firebase.auth.GithubAuthProvider()
+        return firebase.auth().signInWithPopup(provider)
+          .catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+            if (errorCode === 'auth/account-exists-with-different-credential') {
+              var pendingCred = error.credential;
+              var email = error.email;
+              firebase.auth().fetchSignInMethodsForEmail(email).then(function (methods) {
+                if (methods[0] === 'password') {
+                  var password = promptUserForPassword();
+                  return firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+                    return user.linkWithCredential(pendingCred);
+                  }).then(function () {
+                    return result
+                  });
+                }
+                return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                  .then(function () {
+                    let provider = new firebase.auth.GoogleAuthProvider()
+                    return firebase.auth().signInWithPopup(provider).then(function (result) {
+                      return result.user.linkAndRetrieveDataWithCredential(pendingCred)
+                    })
+                      .catch(function (error) {
+                        console.error(error)
+                      })
                   })
               })
-            })
-        }
-        else {
-          console.error(error);
-        }
+            }
+            else {
+              console.error(error);
+            }
+          })
       })
-    })
   },
-  loginAnno(){
-    return firebase.auth().signInAnonymously().catch(function(error) {
+  loginAnno() {
+    return firebase.auth().signInAnonymously().catch(function (error) {
       console.error(error);
     });
   },

@@ -30,7 +30,7 @@
             <v-list-tile @click.stop="dialog = true">
               <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click.stop="" to="/profile">
+            <v-list-tile @click.stop="dialog=false" to="/profile">
               <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -101,7 +101,7 @@ export default {
     return {
       logged_in: "",
       user: "",
-      login_title: "LOGIN",
+      login_title: "",
       drawer: null,
       dialog: false,
       items: [
@@ -138,7 +138,6 @@ export default {
       if (val) {
         this.login_title = "LOGOUT";
         this.user = FirebaseService.curUser();
-        console.log(this.user);
         if (this.user && this.user.isAnonymous) {
           this.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }
