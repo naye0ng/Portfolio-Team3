@@ -1,14 +1,4 @@
-<style>
-iframe {
-   position: absolute;
-   left: 5px;
-   margin-top: 50px;
-   z-index: 1;
- }
- #header {
-   margin-top: 10px;
- }
-</style>
+
 <template>
   <v-layout>
     <v-toolbar fixed>
