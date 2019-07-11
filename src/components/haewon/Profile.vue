@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex xs12 sm6 offset-sm3 v-if="!isAno">
       <v-card>
-        <v-img :src="photoURL" min-height="200px" max-height="300px"></v-img>
+        <v-img :src="photoURL" aspect-ratio="1" width="300px"></v-img>
         <v-card-title primary-title>
           <h3 class="headline mb-0">{{displayName}}</h3>
         </v-card-title>
