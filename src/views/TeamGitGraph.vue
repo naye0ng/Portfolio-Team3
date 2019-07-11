@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-layout align-center justify-center row fill-height>
 	  <TeamGraph></TeamGraph>
-  </div>
+  </v-layout>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs12>
-        <p class="display-3 my-5 pt-5 text-xs-left text-sm-center">Hi, We are Team3!</p>
+        <p class="display-3 my-5 pt-3 text-xs-left text-sm-center">Hi, We are Team3!</p>
       </v-flex>
       <v-flex xs12 md6 px-3>
         <canvas id="teamChart" width="100%" height="50%"></canvas>
