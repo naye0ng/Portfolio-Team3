@@ -27,10 +27,10 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-tile @click.stop="dialog = true">
+            <v-list-tile @click="dialog = true">
               <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click.stop="dialog=false" to="/profile">
+            <v-list-tile to="/profile">
               <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
             </v-list-tile>
           </v-list>
