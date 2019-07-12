@@ -90,17 +90,16 @@ export default {
         .push(user)
         .then(data => {
           console.log(data);
-          commit('createdUser', user);
-        })  
-        .catch((error)=>{
-          console.log(error);
+          commit("createdUser", user);
         })
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(errorCode+" : "+errorMessage);
+        .catch(error => {
+          console.log(error);
         });
-      }
+        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode+" : "+errorMessage);
+        });
     }
   }
 };
