@@ -63,11 +63,16 @@ export default {
 }
 
 .port-body {
-  max-height: 6.4em;
+  margin-top : 0.4em;
+  height: 4.4em;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+p {
+  margin-bottom : 0px;
 }
 
 </style>
