@@ -127,6 +127,14 @@ export default {
       console.error(error);
     });
   },
+  loginUser(){
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.console.log(errorCode+ " : "+errorMessage);
+    });
+  }
+  ,
   logout() {
     return firebase.auth().signOut().then(function () {
     }).catch(function (error) {
