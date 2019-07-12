@@ -2,10 +2,8 @@
 <template>
   <v-layout>
     <v-toolbar fixed>
-      <v-toolbar-side-icon class="hidden-md-and-up">
-        <v-btn flat icon @click.stop="drawer = !drawer">
-          <v-icon>menu</v-icon>
-        </v-btn>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer">
+        <v-icon>menu</v-icon>
       </v-toolbar-side-icon>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>

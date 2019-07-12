@@ -107,13 +107,34 @@ export default {
     save : function(event) {
       // FirebaseError: Missing or insufficient permissions.
       // 권한이 없으므로 주석처리함.
-      FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
-      this.dialog = false
-      this.imageName = ''
-      this.imageUrl = ''
-      this.imageFile = ''
-      this.text = ''
-      this.title = ''
+      if(this.text == '' || this.title == '' || this.imageUrl == '') {
+        var alertMsg = '';
+
+        if(this.imageUrl == '') {
+          alertMsg = '이미지는 필수항목입니다. 이미지를 선택해주세요.'
+        } else if(this.title == '') {
+          alertMsg = '제목은 필수항목입니다. 제목을 입력해주세요.'
+        } else if(this.text == '') {
+          alertMsg = '내용은 필수항목입니다. 내용을 입력해주세요';
+        }
+
+        this.$swal({
+            type: 'error',
+            title: 'Oops...',
+            text: alertMsg
+        });
+      }
+
+      else {
+        FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
+        this.dialog = false
+        this.imageName = ''
+        this.imageUrl = ''
+        this.imageFile = ''
+        this.text = ''
+        this.title = ''
+        this.$router.push('/portfolio');
+      }
     },
     clear : function(event) {
       this.text = ''
