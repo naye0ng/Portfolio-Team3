@@ -76,12 +76,16 @@ export default {
     async loginAnno() {
       const result = await FirebaseService.loginAnno();
       this.$store.state.user = result.user;
-      this.$store.state.user.photoURL =  "https://i.stack.imgur.com/34AD2.jpg";
+      this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
     }
   },
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       this.$store.state.user = user;
+      if (this.$store.state.user.isAnonymous) {
+        this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+      }
+      console.log(this.$store.state.user);
     });
   }
 };

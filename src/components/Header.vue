@@ -131,7 +131,7 @@ export default {
   },
   watch:{
     userState(){
-      this.dialog=!this.dialog;
+      this.dialog=false;
     }
   }
 };
