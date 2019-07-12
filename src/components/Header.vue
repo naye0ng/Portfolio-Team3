@@ -123,6 +123,16 @@ export default {
         text: "우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!"
       });
     }
+  },
+  computed:{
+    userState(){
+      return this.$store.state.user;
+    }
+  },
+  watch:{
+    userState(){
+      this.dialog=!this.dialog;
+    }
   }
 };
 </script>
