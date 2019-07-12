@@ -6,7 +6,7 @@
     <v-container>
 
       <!-- Portfolio Writer -->
-      <v-btn router to="/makeport">포트폴리오 작성</v-btn>
+      <portfolio-writer></portfolio-writer>
       <v-layout>
         <v-flex xs12>
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
@@ -18,13 +18,12 @@
 
 <script>
 import ImgBanner from '../components/ImgBanner'
-import PortfolioList from '../components/PortfolioList'
-
+import PortfolioWriter from '../components/yongbeom/PortfolioWriter'
 export default {
-	name: 'PortfolioPage',
+	name: 'Makeportfolio',
 	components: {
 		ImgBanner,
-		PortfolioList,
+    PortfolioWriter
 	},
 }
 </script>
