@@ -1,62 +1,58 @@
 <template>
-  <div>
-    <v-tooltip top>
-      <template v-slot:activator = "{on}">
-        <div v-on="on" >
-          <span>🚀 오늘의 방문자 : {{ visited }}명</span>
-        </div>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog2" persistent max-width="600px">
+      <template v-slot:activator="{ on }">
+        <v-btn round color="#4078c0" v-on="on" style="width:50%; color:#f7f7f7;">
+          <v-icon size="25" class="mr-2">fa-user</v-icon>회원 로그인
+        </v-btn>
       </template>
-        <v-container fluid grid-list-md>
-           <v-layout row wrap>
-             <v-flex style="font-size:18px;text-align:center;padding-bottom:10px;">금주의 방문 👻</v-flex>
-             <v-flex d-flex xs12 order-xs5>
-               <v-layout column>
-                 <v-flex v-for="(num, date) in visitedWeek" d-flex style="font-size:13px;text-align:center">
-                   <span>{{ date }}</span>
-                   <span>{{ num }}명</span>
-                 </v-flex>
-               </v-layout>
-             </v-flex>
-           </v-layout>
-         </v-container>
-    </v-tooltip>
-  </div>
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-toolbar-title>Login form</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-card-text>
+          <v-flex xs12 sm6>
+            <v-text-field prepend-icon="person" v-model="email" label="Login" type="text"></v-text-field>
+            <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password"></v-text-field>
+          </v-flex>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click="Login()">Login</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
+
 </template>
 
 <script>
 import firebase from 'firebase'
+import firebaseService from '../../services/FirebaseService';
 
 export default {
-  name: "Visited",
-  data() {
-      return {
-          visited: 0,
-          visitedWeek: {},
-          dates: [],
-      }
-  },
-  methods: {
-    getVisited(){
-      var date_time = new Date()
-      var start = new Date()
-      start.setDate(date_time.getDate()-4)
-      this.dates = []
-      while (start <= date_time) {
-        this.dates.push(start.toDateString())
-        start.setDate(start.getDate() + 1);
-      }
-      firebase.database().ref().child("logs").on('value', (snapshot)=>{
-        var todayV = snapshot.val()
-        this.visited = Object.keys(todayV[this.dates[4]]).length
-        this.visitedWeek = {}
-        this.dates.forEach(date=>{
-          this.visitedWeek[date] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
-        })
-      });
+  data(){
+    return{
+      drawer: null,
+      dialog2 : false,
+      email: "",
+      password:""
     }
   },
-  mounted() {
-      this.getVisited()
+  components : {
+    firebaseService
+  },
+  methods : {
+    Login(){
+      const user={
+        email: this.email,
+        password: this.password
+      }
+      firebaseService.loginUser(user.email, user.password);
+      this.dialog2=false;
+      firebaseService.LoginSuccess();
+    }
   }
 };
 </script>

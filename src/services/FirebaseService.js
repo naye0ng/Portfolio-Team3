@@ -127,7 +127,7 @@ export default {
       console.error(error);
     });
   },
-  loginUser(){
+  loginUser(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -144,5 +144,13 @@ export default {
   curUser() {
     var user = firebase.auth().currentUser;
     return user;
+  },
+  LoginSuccess(){
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        alert(user.email)
+      } else {
+      }
+    });
   }
 }
