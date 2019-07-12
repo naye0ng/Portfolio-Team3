@@ -16,6 +16,14 @@
       <v-btn round color="#F8F9F9" v-on:click="loginAnno" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 익명 로그인</v-btn>
     </v-flex>
     <Register v-model="dialog" v-if="!user"></Register>
+
+    <v-flex xs12 text-xs-center v-if="!user">
+      <v-btn round color="#F8F9F9" v-on:click="loginUser" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 회원 로그인</v-btn>
+    </v-flex>
+    <Register v-model="dialog"></Register>
+
+    <Register v-model="dialog" v-if="!user"></Register>
+
   </v-layout>
 </template>
 
@@ -54,10 +62,15 @@ export default {
       const result = await FirebaseService.logout()
       this.user= await FirebaseService.curUser()
     },
+    async loginUser(){
+      const result= await FirebaseService.loginUser()
+      this.user= await FirebaseService.curUser()
+    },
     async loginAnno(){
       const result = await FirebaseService.loginAnno()
       this.user = await FirebaseService.curUser()
-    }
+    },
+
   },
 	mounted() {
     Firebase.auth().onAuthStateChanged(user=>{
