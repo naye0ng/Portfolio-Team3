@@ -9,6 +9,9 @@ import MakePortfolio from './views/MakePortfolio.vue'
 import TeamGitGraph from './views/TeamGitGraph.vue'
 import ProfilePage from './views/ProfilePage.vue'
 
+import TeamGitGraph from './views/TeamGitGraph.vue'
+import ProfilePage from './views/ProfilePage.vue'
+
 Vue.use(Router)
 
 export default new Router({

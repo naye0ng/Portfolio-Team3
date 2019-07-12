@@ -1,8 +1,11 @@
 <template>
   <div>
+    <!--
     <ImgBanner imgSrc="https://source.unsplash.com/random/1600x900">
       <div style="line-height:1.2em; font-size:3.3vw;" slot="text">We will find a way.<br> We always have.</div>
     </ImgBanner>
+    -->
+    <DeveloperList imgSrc="https://source.unsplash.com/random/1600x900"/>
     <v-container>
       <!-- About Me -->
       <v-layout my-5>
@@ -49,6 +52,10 @@ import PortfolioList from '../components/PortfolioList'
 import PostList from '../components/PostList'
 import RepositoryList from '../components/RepositoryList'
 import firebase from 'firebase'
+<<<<<<< HEAD
+=======
+import DeveloperList from '../components/hyunah/DeveloperList'
+>>>>>>> e47f10bf265463fe3c2cc048c4a29f55557dd4f2
 
 export default {
 	name: 'HomePage',
@@ -56,7 +63,8 @@ export default {
 		ImgBanner,
 		PortfolioList,
 		PostList,
-		RepositoryList
+		RepositoryList,
+    DeveloperList
 	},
 	methods: {
 		getImgUrl(img) {
