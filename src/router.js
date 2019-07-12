@@ -6,6 +6,9 @@ import PortfolioPage from './views/PortfolioPage.vue'
 import LoginPage from './views/LoginPage.vue'
 import MakePortfolio from './views/MakePortfolio.vue'
 
+import TeamGitGraph from './views/TeamGitGraph.vue'
+import ProfilePage from './views/ProfilePage.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +30,22 @@ export default new Router({
 			name: 'portfolio',
 			component: PortfolioPage
 		},
+		// {
+		// 	path: '/post',
+		// 	name: 'post',
+		// 	component: PostPage
+		// },
+		// {
+		// 	path: '/portfolio',
+		// 	name: 'portfolio',
+		// 	component: PortfolioPage
+		// },
+
+		{
+			path: '/team3',
+			name: 'team3',
+			component: TeamGitGraph
+		},
 		{
 			path: '/login',
 			name: 'login',
@@ -36,7 +55,11 @@ export default new Router({
 			path: '/makeport',
 			name: 'makeportfolio',
 			component: MakePortfolio
+		},
+		{	
+			path: '/profile',
+			name: 'profile',
+			component: ProfilePage
 		}
-
 	]
 })

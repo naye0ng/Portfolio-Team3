@@ -21,6 +21,7 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
+
   },
 	store,
 	data() {
@@ -28,15 +29,5 @@ export default {
 			//
 		}
 	},
-  beforeMount() {
-    var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-    if(isChrome == false) {
-      this.$swal({
-          type: 'error',
-          title: 'Oops...',
-          text: '해당 사이트는 크롬에 최적화되어있습니다. 정상적으로 작동하지 않을 수 있습니다.'
-      });
-    }
-  }
 }
 </script>
