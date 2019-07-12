@@ -1,17 +1,13 @@
 <template>
   <div>
     <ImgBanner imgSrc="https://source.unsplash.com/random/1600x900">
-      <div style="line-height:1.2em; font-size:3.3vw;" slot="text">Portfolio</div>
+      <div style="line-height:1.2em; font-size:3.3vw;" slot="text">Portfolio Writer</div>
     </ImgBanner>
     <v-container>
 
       <!-- Portfolio Writer -->
       <portfolio-writer></portfolio-writer>
-      <v-layout>
-        <v-flex xs12>
-          <PortfolioList :limits="4" :load-more="true"></PortfolioList>
-        </v-flex>
-      </v-layout>
+
     </v-container>
   </div>
 </template>

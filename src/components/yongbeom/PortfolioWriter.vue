@@ -100,10 +100,8 @@ export default {
     };
   },
   mounted() {
-    this.$refs.editor.focus();
   },
   methods : {
-
     save : function(event) {
       // FirebaseError: Missing or insufficient permissions.
       // 권한이 없으므로 주석처리함.
@@ -133,7 +131,21 @@ export default {
         this.imageFile = ''
         this.text = ''
         this.title = ''
-        this.$router.push('/portfolio');
+
+        this.$swal({
+          type : 'success',
+          title : 'Great!',
+          html : '저장되었습니다!</br>더 작성하시겠습니까?',
+          showCancelButton : true,
+          showConfirmButton : true,
+        }).then((result) => {
+          if(result.value) {
+            // if clink ok
+          }
+          else {
+            this.goPortfolio();
+          }
+        })
       }
     },
     clear : function(event) {
@@ -184,6 +196,9 @@ export default {
       reader.onload = e =>{
         this.imageUrl = e.target.result;
       };
+    },
+    goPortfolio() {
+      this.$router.push('/portfolio');
     }
   }
 };

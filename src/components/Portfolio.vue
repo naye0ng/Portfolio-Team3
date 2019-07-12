@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card @click="showModal" hover='true'>
+    <v-card @click="showModal" hover>
       <v-img :src="imgSrc" height="200px">
       </v-img>
       <v-card-title primary-title>
