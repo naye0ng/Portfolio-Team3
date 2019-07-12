@@ -6,7 +6,9 @@
     <v-container>
 
       <!-- Portfolio Writer -->
-      <v-btn router to="/makeport">포트폴리오 작성</v-btn>
+      <v-flex xs12 text-xs-center round my-5>
+        <v-btn router to="/makeport">포트폴리오 작성</v-btn>
+      </v-flex>
       <v-layout>
         <v-flex xs12>
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
