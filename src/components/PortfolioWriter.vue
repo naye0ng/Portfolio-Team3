@@ -20,9 +20,6 @@
                 <v-text-field label="Select Image" @click="pickFile" v-model="imageName" prepend-icon="attach_file"></v-text-field>
                 <input type="file" style="display:none" ref="image" accept="image/*" @change="onFilePicked">
               </v-flex>
-              <v-flex xs12>
-                <Editor ref="editor" :nativeEmoji="true" :preview="true" v-model="text"/>
-              </v-flex>
             </v-layout>
           </v-container>
           <small>*indicates required field</small>
@@ -39,13 +36,11 @@
 </template>
 
 <script>
-import {Editor} from 'vuetify-markdown-editor';
 import FirebaseService from '@/services/FirebaseService'
 
 export default {
   name : 'portfolio-writer',
   components : {
-    Editor
   },
   data() {
     return {
