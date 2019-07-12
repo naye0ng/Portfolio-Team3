@@ -1,14 +1,4 @@
-<style>
-iframe {
-   position: absolute;
-   left: 5px;
-   margin-top: 50px;
-   z-index: 1;
- }
- #header {
-   margin-top: 10px;
- }
-</style>
+
 <template>
   <v-layout>
     <v-toolbar fixed>
@@ -118,7 +108,8 @@ export default {
       items: [
         { title: "HOME", icon: "home", to: "/" },
         { title: "POST", icon: "web", to: "/post" },
-        { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" }
+        { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
+        { title: "TEAM3", icon: "border_color", to: "/team3" },
         // { title : 'LOGIN', icon : 'mood', to : 'login' }
       ]
     };

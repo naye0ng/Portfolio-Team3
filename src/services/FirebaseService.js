@@ -7,14 +7,15 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-	apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
-	authDomain: "team3-435f1.firebaseapp.com",
-	databaseURL: "https://team3-435f1.firebaseio.com",
-	projectId: "team3-435f1",
-	storageBucket: "team3-435f1.appspot.com",
-	messagingSenderId: "804761067334",
-	appId: "1:804761067334:web:de1801641a9f3ddc"
-  };
+  apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
+  authDomain: "team3-435f1.firebaseapp.com",
+  databaseURL: "https://team3-435f1.firebaseio.com",
+  projectId: "team3-435f1",
+  storageBucket: "team3-435f1.appspot.com",
+  messagingSenderId: "804761067334",
+  appId: "1:804761067334:web:de1801641a9f3ddc"
+}; 
+
 
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
@@ -126,6 +127,14 @@ export default {
       console.error(error);
     });
   },
+  loginUser(){
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.console.log(errorCode+ " : "+errorMessage);
+    });
+  }
+  ,
   logout() {
     return firebase.auth().signOut().then(function () {
     }).catch(function (error) {
