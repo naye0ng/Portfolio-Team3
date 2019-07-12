@@ -18,7 +18,7 @@
                    <span style="font-size:16pt">{{desc}}</span>
                  </v-flex>
                  <v-flex d-flex>
-                   <span>Humidity : {{humidity}}</span>
+                   <span>Humidity : {{hum}}</span>
                  </v-flex>
                </v-layout>
              </v-flex>
@@ -79,7 +79,7 @@ export default {
           this.tempMax = Math.round((response.data.main.temp_max - 273.15)*10)/10 + "˚C";
           this.desc = response.data.weather[0].description;
           this.icon = "http://openweathermap.org/img/wn/" + response.data.weather[0].icon + "@2x.png";
-          this.humidity = response.data.main.humidity + "%";
+          this.hum = response.data.main.humidity + "%";
         })
         .catch(error => {
           console.log(error);
