@@ -131,7 +131,7 @@ export default {
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.console.log(errorCode+ " : "+errorMessage);
+      console.log(errorCode+ " : "+errorMessage);
     });
   }
   ,
