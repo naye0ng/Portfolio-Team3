@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card @click="showModal" hover='true'>
+    <v-card @click="showModal" hover>
       <v-img :src="imgSrc" height="200px">
       </v-img>
       <v-card-title primary-title>
@@ -61,6 +61,10 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+p {
+    margin-bottom: 0;  
+  }
 
 .port-body {
   max-height: 6.4em;
