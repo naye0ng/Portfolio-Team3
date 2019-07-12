@@ -15,10 +15,11 @@
     <v-flex xs12 text-xs-center v-if="!user">
       <v-btn round color="#F8F9F9" v-on:click="loginAnno" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 익명 로그인</v-btn>
     </v-flex>
-    <Register v-model="dialog" v-if="!user"></Register>
-
     <v-flex xs12 text-xs-center v-if="!user">
-      <v-btn round color="#F8F9F9" v-on:click="loginUser" style="width:50%;"><v-icon size="25" class="mr-2">fa-user</v-icon> 회원 로그인</v-btn>
+      <UserLogin v-model="dialog2"></UserLogin>
+    </v-flex>
+    <v-flex xs12 text-xs-center v-if="!user">
+      <Register v-model="dialog"></Register>
     </v-flex>
   </v-layout>
 </template>
@@ -26,7 +27,7 @@
 <script>
 import FirebaseService from '@/services/FirebaseService'
 import Firebase from "firebase";
-
+import UserLogin from "@/components/wook/UserLogin"
 import Register from "@/components/wook/Register"
 
 export default {
@@ -34,11 +35,13 @@ export default {
 	data() {
 		return {
       user: "",
+      dialog2:false,
       dialog:false
     }
   },
   components: {
-    Register
+    Register,
+    UserLogin
   },
   methods: {
 		async loginWithGoogle() {
@@ -56,10 +59,6 @@ export default {
     },
     async logout(){
       const result = await FirebaseService.logout()
-      this.user= await FirebaseService.curUser()
-    },
-    async loginUser(){
-      const result= await FirebaseService.loginUser()
       this.user= await FirebaseService.curUser()
     },
     async loginAnno(){
