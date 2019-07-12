@@ -1,6 +1,6 @@
 <template>
-  <v-layout align-center justify-center row fill-height>
-    <v-flex xs10 text-xs-center>
+  <v-layout justify-center row fill-height>
+    <v-flex xs10 text-xs-center style="margin-top:150px">
       <Profile></Profile>
     </v-flex>
   </v-layout>
