@@ -82,7 +82,8 @@ export default {
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       this.$store.state.user = user;
-      if (this.$store.state.user.isAnonymous != null && this.$store.state.user.isAnonymous) {
+
+      if (this.$store.state.user && this.$store.state.user.isAnonymous) {
         this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
       console.log(this.$store.state.user);
