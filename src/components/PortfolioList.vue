@@ -32,9 +32,9 @@ export default {
 	components: {
 		Portfolio
 	},
-	mounted() {
-		this.getPortfolios()
-	},
+  mounted() {
+    this.getPortfolios()
+  },
 	methods: {
 		async getPortfolios() {
 			this.portfolios = await FirebaseService.getPortfolios()

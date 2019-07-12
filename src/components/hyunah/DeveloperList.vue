@@ -5,7 +5,7 @@
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members">
             <Developer
-              :image="member.img"
+              :image="getImgUrl(member.img)"
               :status="member.status"
               :name="member.name"
               :intro="member.intro"
@@ -32,7 +32,7 @@ export default {
         {
           status : 'T',
           name : '임현아',
-          img : "https://cdn1.imggmi.com/uploads/2019/7/12/39136e1a0bd265f445075189dee87e1f-full.png",
+          img : "imageHA.png",
           intro : ['안녕하세요','그림쟁이 개발자입니다.', '그림은 못그려요'],
           repo :
             [
@@ -45,7 +45,7 @@ export default {
         {
           status : 'E',
           name : '김동욱',
-          img : "https://cdn1.imggmi.com/uploads/2019/7/11/1abbab7b37505e946a530d1baca99ea9-full.png",
+          img : "imageDU.png",
           intro : ['안녕하세요 김동욱입니다.','백엔드 개발을 가장 좋아하지만,', '요즘은 프론트에 꽂힌 개발자입니다.', '알고리즘 B형을 목표로 하고있습니다.'],
           repo :
             [
@@ -58,7 +58,7 @@ export default {
         {
           status : 'A',
           name : '김나영',
-          img : "https://cdn1.imggmi.com/uploads/2019/7/11/a6309555e65c8c59f1a77d48c80d1e5b-full.png",
+          img : "imageNY.png",
           intro : ['안녕하세요 김나영입니다.', '작은 요정이죠'],
           repo :
             [
@@ -71,7 +71,7 @@ export default {
         {
           status : 'M',
           name : '박해원',
-          img : "https://cdn1.imggmi.com/uploads/2019/7/11/ec1f48fbde8177df0b60a7f2599a4f67-full.png",
+          img : "imageHW.png",
           intro : ['안녕하세여 해원이에여!', '망고패션스무디가 제일로 꿀맛!'],
           repo :
             [
@@ -84,7 +84,7 @@ export default {
         {
           status : '3',
           name : '조용범',
-          img : "https://cdn1.imggmi.com/uploads/2019/7/11/0523d7317dfb0774f6dbb06a85ea08a6-full.png",
+          img : "imageYB.png",
           intro : ['안녕하세요','주니어 개발자 조용범입니다.','3조의 RM을 맡고있습니다.'],
           repo :
             [
@@ -100,5 +100,10 @@ export default {
 	components: {
     Developer
 	},
+  methods : {
+    getImgUrl(img) {
+      return require('@/assets/' + img)
+    }
+  }
 }
 </script>
