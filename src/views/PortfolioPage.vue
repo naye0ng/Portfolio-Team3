@@ -6,8 +6,8 @@
     <v-container>
 
       <!-- Portfolio Writer -->
-      <v-flex xs12 text-xs-center round my-5>
-        <v-btn router to="/makeport">포트폴리오 작성</v-btn>
+      <v-flex xs12 text-xs-center>
+        <v-btn color="pink accent-1" light router to="/makeport">포트폴리오 작성</v-btn>
       </v-flex>
       <v-layout>
         <v-flex xs12>
