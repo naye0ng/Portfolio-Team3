@@ -32,7 +32,7 @@ export default {
         {
           status : 'T',
           name : '임현아',
-          img : "https://cdn1.imggmi.com/uploads/2019/7/11/9dffa34d21da9a1ff22b64acb748a3b2-full.png",
+          img : "https://cdn1.imggmi.com/uploads/2019/7/12/39136e1a0bd265f445075189dee87e1f-full.png",
           intro : ['안녕하세요','그림쟁이 개발자입니다.', '그림은 못그려요'],
           repo :
             [
