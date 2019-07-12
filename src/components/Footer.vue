@@ -14,10 +14,14 @@
       row
       wrap
     >
-      <v-flex xs6 py-3 class="footer-el text-xs-center">
+      <v-flex xs4 py-3 class="footer-el text-xs-center">
+        <div id="google_translate_element" style="position : absoulte"></div>
+      </v-flex>
+      <v-flex xs4 py-3 class="footer-el text-xs-center">
+           
         <weather/>
       </v-flex>
-      <v-flex xs6 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem;">
+      <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem;">
         <Visited ></Visited>
       </v-flex>
       <v-flex
