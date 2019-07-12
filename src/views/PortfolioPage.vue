@@ -7,7 +7,7 @@
 
       <!-- Portfolio Writer -->
       <v-flex xs12 text-xs-center>
-        <v-btn color="pink accent-1" light router to="/makeport">포트폴리오 작성</v-btn>
+        <v-btn color="info" router to="/makeport"><v-icon size="25" class="mr-2">border_color</v-icon> 포트폴리오 작성</v-btn>
       </v-flex>
       <v-layout>
         <v-flex xs12>
