@@ -4,8 +4,12 @@
       <v-img :src="imgSrc" height="200px">
       </v-img>
       <v-card-title primary-title>
-          <div class="headline port-title">{{title}}</div>
-          <span class="grey--text port-body">{{body}}</span>
+          <v-flex xs12>
+            <div class="headline port-title">{{title}}</div>
+          </v-flex>
+          <v-flex xs12>
+            <div v-html="body" class="grey--text port-body"></div>
+          </v-flex>
       </v-card-title>
     </v-card>
 
@@ -14,8 +18,12 @@
         <v-card>
           <v-img :src="imgSrc" min-height="200px" max-height="300px"></v-img>
           <v-card-title primary-title>
-              <div class="headline">{{title}}</div>
-              <span class="grey--text">{{body}}</span>
+              <v-flex xs12>
+                <div class="headline">{{title}}</div>
+              </v-flex>
+              <v-flex xs12>
+                <div v-html="body" class="grey--text port-body"></div>
+              </v-flex>
           </v-card-title>
         </v-card>
     </v-dialog>

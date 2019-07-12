@@ -59,7 +59,11 @@
               <v-flex xs2>
               </v-flex>
               <v-flex xs12>
-                <Editor ref="editor" :nativeEmoji="true" :preview="true" v-model="text"/>
+                <template>
+                  <div id="app">
+                    <vue-editor v-model="text"></vue-editor>
+                  </div>
+                </template>
               </v-flex>
             </v-layout>
           </v-container>
@@ -76,13 +80,13 @@
 </template>
 
 <script>
-import {Editor} from 'vuetify-markdown-editor';
+import { VueEditor } from "vue2-editor";
 import FirebaseService from '@/services/FirebaseService'
 
 export default {
   name : 'portfolio-writer',
   components : {
-    Editor
+    VueEditor,
   },
   data() {
     return {
