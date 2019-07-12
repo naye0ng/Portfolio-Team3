@@ -25,13 +25,8 @@
     "vue-sweetalert2": "^2.1.1",
     "vue2-editor": "^2.9.1",
     "vuetify": "^1.5.5",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     "vuetify-markdown-editor": "^0.4.1",
->>>>>>> translate
-=======
->>>>>>> translate
+
     "vuex": "^3.0.1"
   },
   "devDependencies": {
