@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-img :src="imgSrc"
-           aspect-ratio="1.6">
+           aspect-ratio="1.6"
+           color="rgb(255,255,255,0.5)">
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members">
             <Developer

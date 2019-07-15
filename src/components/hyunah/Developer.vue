@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-hover>
-      <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.3)">
+      <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)">
         <v-img :aspect-ratio="16/9" :src="image">
           <div v-if="hover" class="display-3 dev-frame">
             <span class="dev-content">{{status}}</span>
