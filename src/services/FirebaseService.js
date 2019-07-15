@@ -175,20 +175,6 @@ export default {
         alert('이미 다른 이메일에 연결된 계정입니다');
       }
       else if (errorCode === 'auth/credential-already-in-use') {
-        // var errorEmail = error.email
-        // var errorCred = error.credential
-        // firebase.auth().signInWithCredential(errorCred).catch(function (error) {
-        //   // Handle Errors here.
-        //   var errorCode2 = error.code;
-        //   var errorMessage = error.message;
-        //   var email = error.email;
-        //   var credential = error.credential;
-        //   if (errorCode2 === 'auth/account-exists-with-different-credential') {
-        //     alert('Email already associated with another account.');
-        //   } else {
-        //     console.error(error);
-        //   }
-        // });
         alert('이미 등록된 SNS 계정입니다')
       }
       console.log(error);
