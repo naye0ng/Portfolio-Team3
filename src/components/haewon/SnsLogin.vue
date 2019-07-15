@@ -37,17 +37,17 @@
 <script>
 import FirebaseService from "@/services/FirebaseService";
 import Firebase from "firebase";
-import UserLogin from "@/components/wook/UserLogin"
-import Register from "@/components/wook/Register"
+import UserLogin from "@/components/wook/UserLogin";
+import Register from "@/components/wook/Register";
 
 export default {
   name: "SnsLogin",
   data() {
     return {
       user: "",
-      dialog2:false,
-      dialog:false
-    }
+      dialog2: false,
+      dialog: false
+    };
   },
   components: {
     Register,
@@ -80,6 +80,9 @@ export default {
     Firebase.auth().onAuthStateChanged(user => {
       this.$store.state.user = user;
       if (this.$store.state.user && this.$store.state.user.isAnonymous) {
+        this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+      }
+      if (this.$store.state.user && !this.$store.state.user.photoURL) {
         this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
       console.log(this.$store.state.user);

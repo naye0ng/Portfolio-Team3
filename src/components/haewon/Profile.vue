@@ -88,6 +88,9 @@ export default {
         this.displayName = this.user.displayName;
         this.email = this.user.email;
         this.photoURL = this.user.photoURL;
+        if (!this.photoURL){
+          this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+        }
       }
       if (this.user && this.isAno) {
         this.displayName = "Unknown";
