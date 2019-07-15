@@ -4,7 +4,7 @@
       <v-flex @click="showModal" row>
         <div class="caption">{{formatedDate}}</div>
         <h2 class="color-333 headline post-title font-weight-heavy">{{title}}</h2>
-        <p class="mb-1 color-666 font-weight-light post-body subheading">{{body}}</p>
+        <p v-html="body" class="mb-1 color-666 font-weight-light post-body subheading"></p>
       </v-flex>
     </v-layout>
     <v-layout row justify-center>
@@ -16,7 +16,7 @@
           <v-divider></v-divider>
           <v-card-text>
             <div class="caption">{{formatedDate}}</div>
-            <p class="color-666 font-weight-light subheading">{{body}}</p>
+            <p v-html="body" class="color-666 font-weight-light subheading"></p>
           </v-card-text>
         </v-card>
       </v-dialog>

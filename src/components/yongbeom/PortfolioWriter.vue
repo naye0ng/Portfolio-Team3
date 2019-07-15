@@ -2,7 +2,7 @@
   <v-layout row justify-center>
       <v-card>
         <v-card-title>
-          <span class="headline">Your Portfolio</span>
+          <span class="headline">Portfolio Writer</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -31,7 +31,7 @@
                           class="headline grey lighten-2"
                           primary-title
                         >
-                          Privacy Policy
+                          사진 업로드
                         </v-card-title>
                         <v-card-text>
                           <v-text-field label="Add Img By URL" v-model="selectUrl" required @change="setImg"></v-text-field>
@@ -39,7 +39,7 @@
                         <v-divider></v-divider>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn color="primary" flat @click="dialog = false">I accept</v-btn>
+                          <v-btn color="primary" flat @click="dialog = false">올리기!</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -67,7 +67,6 @@
               </v-flex>
             </v-layout>
           </v-container>
-<!--           <small>*indicates required field</small>-->
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -84,7 +83,7 @@ import { VueEditor } from "vue2-editor";
 import FirebaseService from '@/services/FirebaseService'
 
 export default {
-  name : 'portfolio-writer',
+  name : 'PortfolioWriter',
   components : {
     VueEditor,
   },
@@ -103,8 +102,7 @@ export default {
   },
   methods : {
     save : function(event) {
-      // FirebaseError: Missing or insufficient permissions.
-      // 권한이 없으므로 주석처리함.
+ 
       if(this.text == '' || this.title == '' || this.imageUrl == '') {
         var alertMsg = '';
 

@@ -7,8 +7,16 @@
 
       <!-- Portfolio Writer -->
       <v-flex xs12 text-xs-center>
-        <v-btn color="info" router to="/makeport"><v-icon size="25" class="mr-2">border_color</v-icon> 포트폴리오 작성</v-btn>
+        <v-btn color="info" router :to="{
+          name: 'makecontents',
+          params: {
+            kind: 'portfolio'
+          }}" exact>
+          <v-icon size="25" class="mr-2">border_color</v-icon> 포트폴리오 작성
+        </v-btn>
       </v-flex>
+
+      <!-- Portfolio List -->
       <v-layout>
         <v-flex xs12>
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
@@ -27,6 +35,6 @@ export default {
 	components: {
 		ImgBanner,
 		PortfolioList,
-	},
+	}
 }
 </script>

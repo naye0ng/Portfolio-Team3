@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-card @click="showModal" hover>
+    <v-card router :to="{
+      name: 'portdetail',
+      params: {
+        title: title,
+        body: body,
+        imgSrc: imgSrc
+      }}" exact>
       <v-img :src="imgSrc" height="200px">
       </v-img>
       <v-card-title primary-title>
@@ -12,22 +18,6 @@
           </v-flex>
       </v-card-title>
     </v-card>
-
-    <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="290">
-        <v-card>
-          <v-img :src="imgSrc" min-height="200px" max-height="300px"></v-img>
-          <v-card-title primary-title>
-              <v-flex xs12>
-                <div class="headline">{{title}}</div>
-              </v-flex>
-              <v-flex xs12>
-                <div v-html="body" class="grey--text port-body"></div>
-              </v-flex>
-          </v-card-title>
-        </v-card>
-    </v-dialog>
-  </v-layout>
   </div>
 </template>
 
@@ -44,13 +34,7 @@ export default {
 		return {
 			dialog : false
 		}
-	},
-  methods : {
-    showModal() {
-      this.dialog = true;
-      console.log(this.imgSrc)
-    }
-  }
+	}
 }
 </script>
 
@@ -61,6 +45,10 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+p {
+    margin-bottom: 0;  
+  }
 
 .port-body {
   margin-top : 0.4em;

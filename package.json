@@ -26,7 +26,6 @@
     "vue2-editor": "^2.9.1",
     "vuetify": "^1.5.5",
     "vuetify-markdown-editor": "^0.4.1",
-
     "vuex": "^3.0.1"
   },
   "devDependencies": {
