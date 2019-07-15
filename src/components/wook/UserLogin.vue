@@ -30,6 +30,7 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../services/FirebaseService';
+import registerService from '../../services/wook/RegisterService';
 
 export default {
   data(){
@@ -41,7 +42,8 @@ export default {
     }
   },
   components : {
-    firebaseService
+    firebaseService,
+    registerService
   },
   methods : {
     Login(){
@@ -49,6 +51,7 @@ export default {
         email: this.email,
         password: this.password
       }
+      user.password=registerService.Decrpyto(user.password);
       firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
       firebaseService.LoginSuccess();
