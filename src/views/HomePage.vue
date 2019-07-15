@@ -75,9 +75,20 @@ export default {
     pushWebLog(){
       var date_time = new Date();
       var date = date_time.toDateString()
-      var log = {}
-      log.date_time = date_time.toString()
-      firebase.database().ref().child("logs").child(date).push(log);
+
+      if(this.$store.state.date != date){
+        var log = {}
+        log.date_time = date_time.toString()
+        log.user = this.$store.state.user === null ? '' : this.$store.state.user.email
+        this.$store.state.date = date
+        this.$store.state.key =  firebase.database().ref().child("logs").child(date).push(log).key
+        localStorage.setItem('log_date',this.$store.state.date)
+        localStorage.setItem('log_key',this.$store.state.key)
+      }
+      // else {
+      //   // 스토리지 초기화 테스트 코드
+      //   localStorage.setItem('log_date',"DELELTE DATE")
+      // }
     }
   },
   mounted() {
