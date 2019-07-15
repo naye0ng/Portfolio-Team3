@@ -64,7 +64,7 @@
     </v-toolbar>
 
     <!-- navigation area -->
-    <v-navigation-drawer v-model="drawer" absolute temporary fixed>
+    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed">
       <v-list class="pa-1">
         <v-list-tile avatar to="/">
           <v-list-tile-avatar>
