@@ -25,12 +25,11 @@
         <v-icon size="25" class="mr-2">fa-user</v-icon>익명 로그인
       </v-btn>
     </v-flex>
-    <Register v-model="dialog" v-if="!$store.state.user"></Register>
-
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
-      <v-btn round color="#F8F9F9" v-on:click="loginUser" style="width:50%;">
-        <v-icon size="25" class="mr-2">fa-user</v-icon>회원 로그인
-      </v-btn>
+      <UserLogin v-model="dialog2"></UserLogin>
+    </v-flex>
+    <v-flex xs12 text-xs-center v-if="!$store.state.user">
+      <Register v-model="dialog"></Register>
     </v-flex>
   </v-layout>
 </template>
@@ -38,7 +37,7 @@
 <script>
 import FirebaseService from "@/services/FirebaseService";
 import Firebase from "firebase";
-
+import UserLogin from "@/components/wook/UserLogin";
 import Register from "@/components/wook/Register";
 
 export default {
@@ -46,6 +45,7 @@ export default {
   data() {
     return {
       user: "",
+      dialog2: false,
       dialog: false
     };
   },
@@ -69,10 +69,6 @@ export default {
       const result = await FirebaseService.logout();
       this.$store.state.user = null;
     },
-    async loginUser() {
-      const result = await FirebaseService.loginUser();
-      this.$store.state.user = result.user;
-    },
     async loginAnno() {
       const result = await FirebaseService.loginAnno();
       this.$store.state.user = result.user;
@@ -83,6 +79,9 @@ export default {
     Firebase.auth().onAuthStateChanged(user => {
       this.$store.state.user = user;
       if (this.$store.state.user && this.$store.state.user.isAnonymous) {
+        this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+      }
+      if (this.$store.state.user && !this.$store.state.user.photoURL) {
         this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
       console.log(this.$store.state.user);
