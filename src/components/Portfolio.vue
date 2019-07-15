@@ -1,34 +1,21 @@
 <template>
-  <div>
-    <v-card @click="showModal" hover>
-      <v-img :src="imgSrc" height="200px">
-      </v-img>
-      <v-card-title primary-title>
-          <v-flex xs12>
-            <div class="headline port-title">{{title}}</div>
-          </v-flex>
-          <v-flex xs12>
-            <div v-html="body" class="grey--text port-body"></div>
-          </v-flex>
-      </v-card-title>
-    </v-card>
-
-    <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="290">
-        <v-card>
-          <v-img :src="imgSrc" min-height="200px" max-height="300px"></v-img>
-          <v-card-title primary-title>
-              <v-flex xs12>
-                <div class="headline">{{title}}</div>
-              </v-flex>
-              <v-flex xs12>
-                <div v-html="body" class="grey--text port-body"></div>
-              </v-flex>
-          </v-card-title>
-        </v-card>
-    </v-dialog>
-  </v-layout>
-  </div>
+  <!-- Add route, parameter binding -->
+  <v-card router :to="{
+      name: 'portdetail',
+      params: {
+        title: title,
+        body: body,
+        imgSrc: imgSrc
+      }
+    }" exact>
+    <v-img :src="imgSrc" min-height="200px" max-height="300px"></v-img>
+    <v-card-title primary-title>
+        <div>
+          <div class="headline">{{title}}</div>
+          <span v-html="body" class="grey--text port-body"></span>
+        </div>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
@@ -44,27 +31,21 @@ export default {
 		return {
 			dialog : false
 		}
-	},
-  methods : {
-    showModal() {
-      this.dialog = true;
-      console.log(this.imgSrc)
-    }
-  }
+	}
 }
 </script>
 
 <style>
 
+p {
+    margin-bottom: 0;  
+  }
 .port-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-p {
-    margin-bottom: 0;  
-  }
 
 .port-body {
   margin-top : 0.4em;
@@ -73,10 +54,6 @@ p {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-}
-
-p {
-  margin-bottom : 0px;
 }
 
 </style>

@@ -7,7 +7,7 @@ import LoginPage from './views/LoginPage.vue'
 import MakePortfolio from './views/MakePortfolio.vue'
 import TeamGitGraph from './views/TeamGitGraph.vue'
 import ProfilePage from './views/ProfilePage.vue'
-
+import PortDetail from './views/PortDetail.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -48,6 +48,12 @@ export default new Router({
 			path: '/profile',
 			name: 'profile',
 			component: ProfilePage
+		},
+		{
+			path: '/portdetail/:title',
+			name: 'portdetail',
+			component: PortDetail,
+			props: true //props access permission
 		}
 	]
 })
