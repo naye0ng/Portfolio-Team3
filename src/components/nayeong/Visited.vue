@@ -1,11 +1,11 @@
 <template>
   <div>
-    <v-tooltip bottom>
-   <template v-slot:activator = "{on}">
-     <div v-on="on" >
-       <span>🚀 오늘의 방문자 : {{ visited }}명</span>
-     </div>
-   </template>
+    <v-tooltip bottom transition="slide-y-transition" width="100%">
+     <template v-slot:activator = "{on}">
+       <div v-on="on" >
+         <span>🚀 오늘의 방문자 : {{ visited }}명 </span>
+       </div>
+     </template>
      <v-container fluid grid-list-md>
         <v-layout row wrap>
           <v-flex style="font-size:18px;text-align:center;padding-bottom:10px;">금주의 방문 👻</v-flex>

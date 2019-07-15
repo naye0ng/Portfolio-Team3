@@ -6,32 +6,16 @@
 </style>
 
 <template>
-  <v-footer
-    height="auto"
-  >
-    <v-layout
-      justify-center
-      row
-      wrap
-    >
+  <v-footer height="auto">
+    <v-layout justify-center align-center row wrap>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
         <div id="google_translate_element" style="position : absoulte"></div>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
-
-        <weather/>
+        &copy;2019 — <strong>SSSAFY Team3</strong>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem;">
-        <!--<Visited ></Visited>-->
-      </v-flex>
-      <v-flex
-        grey darken-3
-        py-3
-        text-xs-center
-        white--text
-        xs12
-      >
-        &copy;2019 — <strong>SSSAFY Team3</strong>
+        <weather/>
       </v-flex>
     </v-layout>
   </v-footer>
