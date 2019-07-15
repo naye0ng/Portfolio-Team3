@@ -2,10 +2,8 @@
 <template>
   <v-layout>
     <v-toolbar fixed>
-      <v-toolbar-side-icon class="hidden-md-and-up">
-        <v-btn flat icon @click.stop="drawer = !drawer">
-          <v-icon>menu</v-icon>
-        </v-btn>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer">
+        <v-icon>menu</v-icon>
       </v-toolbar-side-icon>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
@@ -13,15 +11,15 @@
         <v-btn flat :to="item.to">{{ item.title }}</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat @click.stop="dialog = true" v-if="!logged_in">{{login_title}}</v-btn>
-        <v-menu v-if="logged_in" offset-y>
+        <v-btn flat @click.stop="dialog = true" v-if="!$store.state.user">{{login_title}}</v-btn>
+        <v-menu v-if="$store.state.user" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-img
                 contain
                 max-width="40px"
                 max-height="40px"
-                :src="user.photoURL"
+                :src="$store.state.user.photoURL"
                 style="border-radius:100%;"
                 aspect-ratio="1"
               ></v-img>
@@ -47,12 +45,12 @@
             <v-card-title
               style="padding-top:0px;"
               class="headline justify-center"
-              v-if="!logged_in"
+              v-if="!$store.state.user"
             >로그인</v-card-title>
             <v-card-title
               style="padding-top:0px;"
               class="headline justify-center"
-              v-if="logged_in"
+              v-if="$store.state.user"
             >로그아웃</v-card-title>
             <SnsLogin></SnsLogin>
           </v-card>
@@ -100,9 +98,7 @@ export default {
   name: "main-header",
   data() {
     return {
-      logged_in: "",
-      user: "",
-      login_title: "",
+      login_title: "LOGIN",
       drawer: null,
       dialog: false,
       items: [
@@ -126,29 +122,14 @@ export default {
       });
     }
   },
-  mounted() {
-    this.$loginBus.$on("loggedIn", l => {
-      this.logged_in = l;
-      this.user = FirebaseService.curUser();
-      if (this.user && this.user.isAnonymous) {
-        this.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-      }
-    });
+  computed:{
+    userState(){
+      return this.$store.state.user;
+    }
   },
-  watch: {
-    logged_in: function(val) {
-      if (val) {
-        this.login_title = "LOGOUT";
-        this.user = FirebaseService.curUser();
-        if (this.user && this.user.isAnonymous) {
-          this.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-        }
-        this.dialog = false;
-      } else {
-        this.login_title = "LOGIN";
-        this.dialog = false;
-        this.user = FirebaseService.curUser();
-      }
+  watch:{
+    userState(){
+      this.dialog=false;
     }
   }
 };
