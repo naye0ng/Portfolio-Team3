@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-img :src="imgSrc"
-           aspect-ratio="1.6">
+           aspect-ratio="1.6"
+           color="rgb(255,255,255,0.5)">
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members">
             <Developer
@@ -10,7 +11,9 @@
               :name="member.name"
               :intro="member.intro"
               :repo="member.repo"
-              :email="member.email"/>
+              :email="member.email"
+              :bgcolor="member.color"
+              :capa="member.capa"/>
           </div>
         </v-layout>
     </v-img>
@@ -40,7 +43,16 @@ export default {
               'https://hyunah030.tistory.com/',
               'https://www.instagram.com/hyunah_0_0'
             ],
-          email : 'ahlim721@gmail.com'
+          email : 'ahlim721@gmail.com',
+          color : 'rgba(75,192,192,1)',
+          capa : [
+            {title : 'JAVA', prog: '90'},
+            {title : 'PYTHON & Django', prog: '75'},
+            {title : 'C++', prog: '80'},
+            {title : 'Javascript', prog: '85'},
+            {title : 'Vue', prog: '85'},
+            {title : 'Algorithm', prog: '85'}
+          ]
         },
         {
           status : 'E',
@@ -53,7 +65,16 @@ export default {
               'https://blog.naver.com/ehddnr8813',
               'https://www.instagram.com/kdong1129'
             ],
-          email : 'ehddnr8813@naver.com'
+          email : 'ehddnr8813@naver.com',
+          color : 'rgb(54, 162, 235, 0.5)',
+          capa : [
+            {title : 'JAVA', prog: '90'},
+            {title : 'C++', prog: '65'},
+            {title : 'Javascript', prog: '85'},
+            {title : 'Vue', prog: '85'},
+            {title : 'MYSQL', prog: '85'},
+            {title : 'Algorithm', prog: '90'}
+          ]
         },
         {
           status : 'A',
@@ -66,7 +87,16 @@ export default {
               'https://naye0ng.github.io',
               'https://www.instagram.com/nayeong_ee'
             ],
-          email : 'nayeong_e@naver.com'
+          email : 'nayeong_e@naver.com',
+          color : 'rgb(255, 99, 132, 0.5)',
+          capa : [
+            {title : 'PYTHON & Django', prog: '80'},
+            {title : 'Javascript & Jquery', prog: '65'},
+            {title : 'HTML5', prog: '90'},
+            {title : 'CSS3', prog: '90'},
+            {title : 'Vue', prog: '65'},
+            {title : 'Git', prog: '95'}
+          ]
         },
         {
           status : 'M',
@@ -79,7 +109,16 @@ export default {
               'https://hanaluana.github.io/',
               'https://www.instagram.com/hanaluana'
             ],
-          email : 'hanaluana23@gmail.com'
+          email : 'hanaluana23@gmail.com',
+          color : 'rgb(255,206,86,0.5)',
+          capa : [
+            {title : 'PYTHON', prog: '85'},
+            {title : 'Javascript', prog: '75'},
+            {title : 'Vue', prog: '75'},
+            {title : 'Deep Learning', prog: '70'},
+            {title : 'Algorithm', prog: '80'},
+            {title : 'Git', prog: '95'}
+          ]
         },
         {
           status : '3',
@@ -92,7 +131,16 @@ export default {
               'https://www.instagram.com/liveindive',
               'https://www.instagram.com/liveindive'
             ],
-          email : 'jybtask@gmail.com'
+          email : 'jybtask@gmail.com',
+          color : 'rgb(153,102,255,0.5)',
+          capa : [
+            {title : 'JAVA', prog: '85'},
+            {title : 'C++', prog: '55'},
+            {title : 'Javascript', prog: '65'},
+            {title : 'Vue', prog: '65'},
+            {title : 'Spring', prog: '80'},
+            {title : 'Algorithm', prog: '75'}
+          ]
         }
       ]
     }

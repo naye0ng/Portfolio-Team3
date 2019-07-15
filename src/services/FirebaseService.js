@@ -127,11 +127,15 @@ export default {
       console.error(error);
     });
   },
-  loginUser(email, password){
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  loginUser(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode+ " : "+errorMessage);
+      if (errorCode === 'auth/wrong-password') {
+        alert('비밀번호가 틀렸습니다.');
+      } else if (errorCode === 'auth/invalid-email') {
+        alert('해당 이메일로 가입된 사용자가 존재하지 않습니다.');
+      }
+      console.log(error);
     });
   }
   ,
@@ -145,12 +149,35 @@ export default {
     var user = firebase.auth().currentUser;
     return user;
   },
-  LoginSuccess(){
-    firebase.auth().onAuthStateChanged(function(user) {
+  LoginSuccess() {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         alert(user.email)
       } else {
       }
+    });
+  },
+  LinkSNS(num) {
+    if (num == 1) {
+      var provider = new firebase.auth.GoogleAuthProvider();
+    } else if (num == 2) {
+      var provider = new firebase.auth.FacebookAuthProvider();
+    } else {
+      var provider = new firebase.auth.GithubAuthProvider();
+    }
+    return firebase.auth().currentUser.linkWithPopup(provider).then(function (result) {
+      var credential = result.credential;
+      var user = result.user;
+      return user
+    }).catch(function (error) {
+      var errorCode = error.code;
+      if (errorCode === 'auth/email-already-in-use') {
+        alert('이미 다른 이메일에 연결된 계정입니다');
+      }
+      else if (errorCode === 'auth/credential-already-in-use') {
+        alert('이미 등록된 SNS 계정입니다')
+      }
+      console.log(error);
     });
   }
 }
