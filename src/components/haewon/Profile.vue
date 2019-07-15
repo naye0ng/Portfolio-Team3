@@ -14,7 +14,7 @@
           <h3>즐거운 인생</h3>
           <h3>어제도 개발 오늘도 개발</h3>
         </div>
-        <v-btn class="mt-3" round color="#8E5DF6" dark>Team 3</v-btn>
+        <v-btn class="mt-3" round color="#8E5DF6" dark to="/team3">Team 3</v-btn>
         <div v-if="isemail">
           <v-btn class="mt-3" round color="#3EAF0E" dark @click="dialog = true">SNS 계정과 연동하기</v-btn>
         </div>
@@ -97,7 +97,7 @@ export default {
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       this.user = user;
-      if (user){
+      if (user && !user.isAnonymous){
         this.isemail = this.user.providerData[0].providerId == "password";
       }
       // console.log(this.user);
