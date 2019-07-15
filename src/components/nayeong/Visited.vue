@@ -1,25 +1,26 @@
 <template>
   <div>
-    <v-tooltip top>
-      <template v-slot:activator = "{on}">
-        <div v-on="on" >
-          <span>🚀 오늘의 방문자 : {{ visited }}명</span>
-        </div>
-      </template>
-        <v-container fluid grid-list-md>
-           <v-layout row wrap>
-             <v-flex style="font-size:18px;text-align:center;padding-bottom:10px;">금주의 방문 👻</v-flex>
-             <v-flex d-flex xs12 order-xs5>
-               <v-layout column>
-                 <v-flex v-for="(num, date) in visitedWeek" d-flex style="font-size:13px;text-align:center">
-                   <span>{{ date }}</span>
-                   <span>{{ num }}명</span>
-                 </v-flex>
-               </v-layout>
-             </v-flex>
-           </v-layout>
-         </v-container>
-    </v-tooltip>
+    <v-tooltip bottom>
+   <template v-slot:activator = "{on}">
+     <div v-on="on" >
+       <span>🚀 오늘의 방문자 : {{ visited }}명</span>
+     </div>
+   </template>
+     <v-container fluid grid-list-md>
+        <v-layout row wrap>
+          <v-flex style="font-size:18px;text-align:center;padding-bottom:10px;">금주의 방문 👻</v-flex>
+          <v-flex d-flex xs12 order-xs5>
+            <v-layout column>
+              <v-flex v-for="(num, date) in visitedWeek" d-flex style="font-size:13px;">
+                <span style="width:80%;text-align:left">{{ date }}</span>
+                <span style="width:20%; text-align:right">{{ num }}명</span>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-container>
+ </v-tooltip>
+
   </div>
 </template>
 
@@ -29,11 +30,11 @@ import firebase from 'firebase'
 export default {
   name: "Visited",
   data() {
-      return {
-          visited: 0,
-          visitedWeek: {},
-          dates: [],
-      }
+    return {
+      visited: 0,
+      visitedWeek: {},
+      dates: []
+    }
   },
   methods: {
     getVisited(){
@@ -49,10 +50,13 @@ export default {
         var todayV = snapshot.val()
         this.visited = Object.keys(todayV[this.dates[4]]).length
         this.visitedWeek = {}
+
         this.dates.forEach(date=>{
           this.visitedWeek[date] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
         })
+
       });
+
     }
   },
   mounted() {

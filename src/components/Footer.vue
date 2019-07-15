@@ -6,7 +6,7 @@
 </style>
 
 <template>
-  <v-footer 
+  <v-footer
     height="auto"
   >
     <v-layout
@@ -18,14 +18,14 @@
         <div id="google_translate_element" style="position : absoulte"></div>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
-           
+
         <weather/>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem;">
-        <Visited ></Visited>
+        <!--<Visited ></Visited>-->
       </v-flex>
       <v-flex
-        grey darken-3 
+        grey darken-3
         py-3
         text-xs-center
         white--text
