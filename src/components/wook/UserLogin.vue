@@ -1,6 +1,13 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="dialog2" persistent max-width="600px">
+    <br style="width:2px;color:black;">
+    <v-flex xs10 justify-center text-xs-center>
+      <v-text-field prepend-icon="person" v-model="email" label="Email" type="text"></v-text-field>
+      <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password"></v-text-field>
+      <v-btn color="primary" @click="Login()" dark style="width:100%;"><v-icon size="25" class="mr-2">fa-user</v-icon>회원 로그인</v-btn>
+    </v-flex>
+    
+    <!-- <v-dialog v-model="dialog2" persistent max-width="600px">
       <template v-slot:activator="{ on }">
         <v-btn round color="#4078c0" v-on="on" style="width:50%; color:#f7f7f7;">
           <v-icon size="25" class="mr-2">fa-user</v-icon>회원 로그인
@@ -23,7 +30,7 @@
           <v-btn color="primary" flat @click="Login()">Login</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-layout>
 
 </template>
