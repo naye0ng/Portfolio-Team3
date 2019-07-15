@@ -75,14 +75,17 @@ export default {
     async loginWithGoogle() {
       const result = await FirebaseService.loginWithGoogle();
       this.$store.state.user = result.user;
+      this.$store.commit('pushWebLog','google')
     },
     async loginWithFacebook() {
       const result = await FirebaseService.loginWithFacebook();
       this.$store.state.user = result.user;
+      this.$store.commit('pushWebLog','facebook')
     },
     async loginWithGithub() {
       const result = await FirebaseService.loginWithGithub();
       this.$store.state.user = result.user;
+      this.$store.commit('pushWebLog','github')
     },
     async logout() {
       const result = await FirebaseService.logout();
@@ -92,7 +95,8 @@ export default {
       const result = await FirebaseService.loginAnno();
       this.$store.state.user = result.user;
       this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-    }
+      this.$store.commit('pushWebLog','anonymous')
+    },
   },
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
@@ -103,7 +107,6 @@ export default {
       if (this.$store.state.user && !this.$store.state.user.photoURL) {
         this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
-      console.log(this.$store.state.user);
     });
   }
 };
