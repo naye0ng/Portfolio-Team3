@@ -6,18 +6,8 @@
       </v-btn>
     </v-flex>
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
-      <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
-        <v-icon size="25" class="mr-2">fa-google</v-icon>Google 로그인
-      </v-btn>
-    </v-flex>
-    <v-flex xs12 text-xs-center v-if="!$store.state.user">
-      <v-btn round color="#3C5A99" dark v-on:click="loginWithFacebook" style="width:50%;">
-        <v-icon size="25" class="mr-2">fa-facebook</v-icon>Facebook 로그인
-      </v-btn>
-    </v-flex>
-    <v-flex xs12 text-xs-center v-if="!$store.state.user">
-      <v-btn round color="#4078c0" dark v-on:click="loginWithGithub" style="width:50%;">
-        <v-icon size="25" class="mr-2">fa-github</v-icon>Github 로그인
+      <v-btn round color="#df4a31" dark @click="snsdialog = true" style="width:50%;">
+        <v-icon size="25" class="mr-2">fa-google-plus-square</v-icon>SNS 로그인
       </v-btn>
     </v-flex>
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
@@ -26,11 +16,38 @@
       </v-btn>
     </v-flex>
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
-      <UserLogin v-model="dialog2"></UserLogin>
+      <UserLogin></UserLogin>
     </v-flex>
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
-      <Register v-model="dialog"></Register>
+      <Register></Register>
     </v-flex>
+    <v-dialog v-model="snsdialog" max-width="400">
+      <v-card style="border-radius:20px;">
+        <v-flex class="text-xs-right">
+          <v-btn small icon @click="snsdialog = false" style="margin-bottom:0px">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-card-title style="padding-top:0px;" class="headline justify-center">SNS 로그인</v-card-title>
+        <v-layout align-center justify-center row wrap style="height:100%;" white pa-4>
+          <v-flex xs12 text-xs-center v-if="!$store.state.user">
+            <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
+              <v-icon size="25" class="mr-2">fa-google</v-icon>Google 로그인
+            </v-btn>
+          </v-flex>
+          <v-flex xs12 text-xs-center v-if="!$store.state.user">
+            <v-btn round color="#3C5A99" dark v-on:click="loginWithFacebook" style="width:50%;">
+              <v-icon size="25" class="mr-2">fa-facebook</v-icon>Facebook 로그인
+            </v-btn>
+          </v-flex>
+          <v-flex xs12 text-xs-center v-if="!$store.state.user">
+            <v-btn round color="#4078c0" dark v-on:click="loginWithGithub" style="width:50%;">
+              <v-icon size="25" class="mr-2">fa-github</v-icon>Github 로그인
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
@@ -46,11 +63,13 @@ export default {
     return {
       user: "",
       dialog2: false,
-      dialog: false
+      dialog: false,
+      snsdialog: false
     };
   },
   components: {
-    Register
+    Register,
+    UserLogin
   },
   methods: {
     async loginWithGoogle() {
