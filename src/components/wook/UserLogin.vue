@@ -51,7 +51,8 @@ export default {
         email: this.email,
         password: this.password
       }
-      user.password=registerService.Decrpyto(user.password);
+      console.log(this.email+" "+this.password);
+      user.password=registerService.Crypto(user.email,user.password);
       firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
       firebaseService.LoginSuccess();
