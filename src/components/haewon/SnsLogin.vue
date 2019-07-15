@@ -20,7 +20,7 @@
       </v-btn>
     </v-flex>
     <v-flex xs4 text-xs-center v-if="!$store.state.user">
-      <v-btn color="#B0B0B0" v-on:click="loginAnno" style="width:100%;">
+      <v-btn color="#7A7A7A" dark v-on:click="loginAnno" style="width:100%;">
         <v-icon size="25" class="mr-2">fa-question-circle</v-icon>익명 로그인
       </v-btn>
     </v-flex>
