@@ -8,11 +8,6 @@
                 <div class="mb-3">{{title}}</div>
                 </v-flex>
 
-                <!-- Image -->
-                <v-flex xs12>
-                    <v-img :src="imgSrc"></v-img>
-                </v-flex>
-
                 <!-- Contentes -->
                 <v-flex xs12>
                 <br/>
@@ -30,19 +25,16 @@
 </template>
 
 <script>
-import PortfolioList from '../components/PortfolioList'
+import PostList from '../components/PostList'
 
 export default {
-    name: 'PortDetail',
+    name: 'PostList',
     components: {
-        PortfolioList
+        PostList
     },
     computed: {
         title(){
             return this.$route.params.title
-        },
-        imgSrc(){
-            return this.$route.params.imgSrc
         },
         body(){
             return this.$route.params.body
