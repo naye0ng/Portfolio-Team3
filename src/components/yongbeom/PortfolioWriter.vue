@@ -122,6 +122,14 @@ export default {
       }
 
       else {
+        console.log("save section")
+        console.log("name : " + this.imageName)
+        console.log("url : " + this.imageUrl)
+        console.log("file : " + this.imageFile)
+        console.log(this.imageUrl.name)
+
+        /* firebase storage test */
+        FirebaseService.storagetest(this.title, this.imageUrl)
         FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
         this.dialog = false
         this.imageName = ''
@@ -129,6 +137,7 @@ export default {
         this.imageFile = ''
         this.text = ''
         this.title = ''
+
 
         this.$swal({
           type : 'success',
