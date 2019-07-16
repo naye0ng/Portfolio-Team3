@@ -7,7 +7,7 @@
     </v-flex>
     <v-flex xs12 justify-center text-xs-center mb-5>
       <div class="mt-4">
-        <h1>{{displayName}}</h1>
+        <h1>{{name}}</h1>
         <span class="grey--text">{{email}}</span>
         <br />
         <div class="mt-4">
@@ -59,25 +59,57 @@
 
 <script>
 import FirebaseService from "@/services/FirebaseService";
-import Firebase from "firebase";
+import firebase from "firebase";
 
 export default {
   name: "SnsLogin",
   data() {
     return {
-      user: "",
       photoURL: "",
       email: "",
-      phoneNumber: "",
-      displayName: "",
-      isAno: ""
-    };
+      telephone: "",
+      name: "",
+      isAno: "",
+      findPass:"",
+      answer:""
+    }   
+  },
+  methods : {
+    back(user){
+      this.email=user.email;
+      this.telephone=user.telephone;
+      this.name=user.name;
+      this.findPass=user.findPass;
+      this.answer=this.answer;
+    } 
   },
   mounted() {
-    Firebase.auth().onAuthStateChanged(user => {
-      this.user = user;
-      console.log(this.user);
+    const user = {
+      email: "",
+      telephone: "",
+      name: "",
+      findPass:"",
+      answer:""
+    };
+    var query=firebase.database().ref("user").orderByKey();
+    query.once("value")
+      .then((snapshot) => {
+        var curEmail=firebase.auth().currentUser.email;
+        snapshot.forEach(function(childSnapshot) { 
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if(curEmail===childData.email){
+            user.email=childData.email;
+            user.telephone=childData.telephone;
+            user.name=childData.name;
+            user.findPass=childData.findPass;
+            user.answer=childData.answer;
+            console.log(user);
+          }
+      });
+    this.back(user);
     });
+    console.log("this : "+this);
   },
   watch: {
     user: function(val) {
@@ -85,9 +117,8 @@ export default {
         this.isAno = this.user.isAnonymous;
       }
       if (this.user && !this.isAno) {
-        this.displayName = this.user.displayName;
-        this.email = this.user.email;
-        this.photoURL = this.user.photoURL;
+        var user = firebase.auth().currentUser;
+        console.log(user);
         if (!this.photoURL){
           this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }

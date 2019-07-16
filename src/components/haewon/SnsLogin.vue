@@ -85,7 +85,6 @@ export default {
       if (this.$store.state.user && !this.$store.state.user.photoURL) {
         this.$store.state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
-      console.log(this.$store.state.user);
     });
   }
 };

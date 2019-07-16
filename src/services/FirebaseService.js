@@ -128,7 +128,8 @@ export default {
     });
   },
   loginUser(email, password){
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(function(error) {
       var errorCode=error.code;
       if (errorCode === 'auth/wrong-password') {
         alert('비밀번호가 틀렸습니다.');
@@ -153,6 +154,7 @@ export default {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         alert(user.email)
+        return user;
       } else {
       }
     });

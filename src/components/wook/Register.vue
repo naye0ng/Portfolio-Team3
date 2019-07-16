@@ -15,7 +15,7 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field label="이메일(아이디)*" v-model="email"></v-text-field>
+                <v-text-field label="이메일(아이디)*" v-model="email" required></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
@@ -39,6 +39,9 @@
               </v-flex>
               <v-flex sm6 md4>
                 <v-text-field label="답변" v-model="answer" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field label="핸드폰번호" v-model="telephone" required></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -66,6 +69,7 @@ export default {
       email: "",
       password: "",
       name: "",
+      phoneNumber : "",
       findPass: "",
       answer: ""
     };
@@ -80,7 +84,8 @@ export default {
         password: this.password,
         findPass: this.findPass,
         name: this.name,
-        answer: this.answer
+        answer: this.answer,
+        telephone: this.telephone
       };
       this.dialog = false;
       user.password = registerService.Crypto(user.email, user.password);
@@ -96,9 +101,9 @@ export default {
           console.log(error);
         });
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode+" : "+errorMessage);
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode+" : "+errorMessage);
         });
     }
   }
