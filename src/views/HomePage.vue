@@ -4,13 +4,26 @@
     <v-container>
       <!-- About Me -->
       <v-layout my-5>
-        <v-flex class="text-xs-center text-md-left" sm12 md8>
+        <v-flex class="text-xs-center" xs12>
           <h2 class="headline mb-3">About Me</h2>
-          <p class="mr-4"></p>
+          <!--<p class="mr-4"></p>-->
+          <v-img :src="getImgUrl('profile.png')" aspect-ratio="2">
+            <!--
+            <v-layout justify-center style="height:100%;">
+              <v-flex xs6>
+                <p>test</p>
+              </v-flex>
+            </v-layout>
+          -->
+            <AboutUs></AboutUs>
+          </v-img>
+
         </v-flex>
+        <!--
         <v-flex xs4  hidden-sm-and-down>
-          <v-img :src="getImgUrl('profile.png')" aspect-ratio="1.5"/>
+
         </v-flex>
+      -->
       </v-layout>
 
       <!-- Portfolio -->
@@ -48,6 +61,7 @@ import PostList from '../components/PostList'
 import RepositoryList from '../components/RepositoryList'
 import firebase from 'firebase'
 import DeveloperList from '../components/hyunah/DeveloperList'
+import AboutUs from '../components/hyunah/AboutUs'
 
 export default {
 	name: 'HomePage',
@@ -56,7 +70,8 @@ export default {
 		PortfolioList,
 		PostList,
 		RepositoryList,
-    DeveloperList
+    DeveloperList,
+    AboutUs
 	},
 	methods: {
 		getImgUrl(img) {

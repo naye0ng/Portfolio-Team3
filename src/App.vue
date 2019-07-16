@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-content style="background-color:#ffffff;">
       <main-header/>
       <router-view/>
       <go-to-top/>
