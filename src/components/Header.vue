@@ -64,8 +64,8 @@
     </v-toolbar>
 
     <!-- navigation area -->
-    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed">
-      <v-list class="pa-1">
+    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed" class="grey lighten-5">
+      <v-list class="pa-1 white">
         <v-list-tile avatar to="/">
           <v-list-tile-avatar>
             <v-icon color="pink">favorite</v-icon>
@@ -76,7 +76,7 @@
         </v-list-tile>
       </v-list>
       <v-divider></v-divider>
-      <v-list class="pt-0" dense>
+      <v-list class="pt-0 white" dense>
         <v-list-tile v-for="item in items" :key="item.title" :to="item.to">
           <v-list-tile-action>
             <v-icon color="pink lighten-4">{{ item.icon }}</v-icon>
