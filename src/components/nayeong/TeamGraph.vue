@@ -5,10 +5,23 @@
         <p class="display-3 my-5 pt-3 text-xs-left text-sm-center">Hi, We are Team3!</p>
       </v-flex>
       <v-flex xs12 md6 px-3>
-        <canvas id="teamChart" width="100%" height="50%"></canvas>
+        <p class="my-4" style="font-size:25px;">Team3 Total Commits</p>
+        <canvas id="teamChart" width="100%" height="50%" class="mb-4"></canvas>
       </v-flex>
       <v-flex xs12 md6 px-3>
-        <canvas id="memberChart" width="100%" height="50%"></canvas>
+        <p class="my-4" style="font-size:25px;">Commit by Members</p>
+        <canvas id="memberChart" width="100%" height="50%" class="mb-4"></canvas>
+      </v-flex>
+    </v-layout>
+    <hr>
+    <v-layout row wrap>
+      <v-flex xs12 md6 px-3>
+        <p class="my-4" style="font-size:25px;">Our Site Visitors</p>
+        <canvas id="todayChart" width="100%" height="50%" class="mb-4"></canvas>
+      </v-flex>
+      <v-flex xs12 md6 px-3>
+        <p class="my-4" style="font-size:25px;">How to sign in our site</p>
+        <canvas id="socialChart" width="100%" height="50%" class="mb-4"></canvas>
       </v-flex>
     </v-layout>
   </v-container>
@@ -17,6 +30,7 @@
 <script>
 import chart from "chart.js";
 import axios from "axios";
+import firebase from 'firebase'
 
 export default {
   name: "TeamGraph",
@@ -57,7 +71,7 @@ export default {
           labels: labels,
           datasets: [
             {
-              label: "# Team3 TA commits",
+              label: "# commits",
               data: commits,
               backgroundColor: ["rgba(153, 102, 255, 0.2)"],
               borderColor: ["rgba(153, 102, 255, 1)"],
@@ -105,7 +119,7 @@ export default {
           labels: ["김나영", "김동욱", "박해원", "임현아", "조용범"],
           datasets: [
             {
-              label: "# Team3 member commits",
+              label: "# commit",
               data: [m_na, m_tong, m_won, m_ah, m_jo],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
@@ -137,14 +151,96 @@ export default {
           }
         }
       });
-    }
+    },
+    createVisitorChart(){
+      var dates = []
+      var visitor = []
+      firebase.database().ref().child("logs").on('value', (snapshot)=>{
+        var logs = snapshot.val()
+        dates = Object.keys(logs)
+        dates.forEach(date =>{
+          visitor.push(Object.keys(logs[date]).length)
+        })
+        var ctx = document.getElementById("todayChart");
+        var teamChart = new chart.Chart(ctx, {
+          type: "line",
+          data: {
+            labels: dates,
+            datasets: [
+              {
+                label: "# visitors",
+                data: visitor,
+                backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+                borderColor: ["rgba(255, 99, 132, 1)"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }
+              ]
+            }
+          }
+        })
+      })
+    },
+    socialLoginChart(){
+      var socialName = []
+      var socialLogin = []
+      firebase.database().ref().child("social").on('value', (snapshot)=>{
+        var social = snapshot.val()
+        socialName = Object.keys(social)
+        socialName.forEach(name =>{
+          socialLogin.push(social[name])
+        })
+        var ctx = document.getElementById("socialChart");
+        var memberChart = new chart.Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: socialName,
+            datasets: [
+              {
+                label: "# social",
+                data: socialLogin,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)"
+                ],
+                borderColor: [
+                  "rgba(255,99,132,1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)"
+                ],
+                borderWidth: 1
+              }
+            ]
+          },
+        })
+      })
+    },
   },
   mounted() {
+    // git graph
     var commits = this.getCommits();
     commits.then(data => {
-      this.createTeamGraph(data);
-      this.createMemberGraph(data);
+      this.createTeamGraph(data)
+      this.createMemberGraph(data)
     });
+
+    // team3 web site graph
+    this.createVisitorChart()
+    this.socialLoginChart()
   }
 };
 </script>
