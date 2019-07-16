@@ -118,7 +118,7 @@ export default {
   },
   mounted() {
     const user = {
-      email: "asd",
+      email: "",
       telephone: "",
       name: "",
       findPass: "",
