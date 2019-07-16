@@ -9,7 +9,7 @@
       <div class="mt-4">
         <h1>{{name}}</h1>
         <span class="grey--text">{{email}}</span>
-        <br>
+        <br />
         <span class="grey--text">{{telephone}}</span>
         <br />
         <div class="mt-4">
@@ -103,13 +103,13 @@ export default {
       curU: ""
     };
   },
-  methods : {
-    back(user){
-      this.email=user.email;
-      this.telephone=user.telephone;
-      this.name=user.name;
-      this.findPass=user.findPass;
-      this.answer=user.answer;
+  methods: {
+    back(user) {
+      this.email = user.email;
+      this.telephone = user.telephone;
+      this.name = user.name;
+      this.findPass = user.findPass;
+      this.answer = user.answer;
     },
     async linkwithSNS(num) {
       var res = await FirebaseService.LinkSNS(num);
@@ -124,7 +124,10 @@ export default {
       findPass: "",
       answer: ""
     };
-    var query = firebase.database().ref("user").orderByKey();
+    var query = firebase
+      .database()
+      .ref("user")
+      .orderByKey();
     query.once("value").then(snapshot => {
       var curEmail = firebase.auth().currentUser.email;
       snapshot.forEach(function(childSnapshot) {
@@ -139,32 +142,32 @@ export default {
         }
       });
       this.back(user);
-    });
-    if (this.curU) {
-      this.isAno = this.curU.isAnonymous;
-    }
-    if (this.curU && !this.isAno) {
-      this.photoURL = this.curU.photoURL;
-      if (!this.photoURL) {
+      if (this.curU) {
+        this.isAno = this.curU.isAnonymous;
+      }
+      if (this.curU && !this.isAno) {
+        this.photoURL = this.curU.photoURL;
+        if (!this.photoURL) {
+          this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+        }
+      }
+      if (!this.isemail) {
+        this.name = this.curU.displayName;
+        this.email = this.curU.email;
+        console.log(this.email);
+      }
+      if (this.curU && this.isAno) {
+        this.name = "Unknown";
+        this.email = "unknown@ssafy.com";
         this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
-    }
-    if (!this.isemail) {
-      this.name = this.curU.displayName;
-      this.email = this.curU.email;
-      console.log(this.email);
-    }
-    if (this.curU && this.isAno) {
-      this.name = "Unknown";
-      this.email = "unknown@ssafy.com";
-      this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-    }
-    firebase.auth().onAuthStateChanged(user => {
-      this.curU = user;
-      if (user && !user.isAnonymous) {
-        this.isemail = user.providerData[0].providerId == "password";
-        console.log(this.isemail);
-      }
+      firebase.auth().onAuthStateChanged(user => {
+        this.curU = user;
+        if (user && !user.isAnonymous) {
+          this.isemail = user.providerData[0].providerId == "password";
+          console.log(this.isemail);
+        }
+      });
     });
   }
 };
