@@ -47,15 +47,19 @@ export default {
     registerService
   },
   methods : {
-    Login(){
+     async Login(){
       const user={
         email: this.email,
-        password: this.password
+        password: this.password,
+        name: "",
+        phoneNumber : "",
+        findPass: "",
+        answer: ""
       }
-      console.log(this.email+" "+this.password);
       user.password=registerService.Crypto(user.email,user.password);
       firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
+      this.$store.state.user=result.user;
       firebaseService.LoginSuccess();
     }
   }

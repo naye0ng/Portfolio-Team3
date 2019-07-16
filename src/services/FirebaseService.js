@@ -153,6 +153,7 @@ export default {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         alert(user.email)
+        return user;
       } else {
       }
     });

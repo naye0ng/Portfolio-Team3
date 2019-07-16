@@ -7,7 +7,7 @@
     </v-flex>
     <v-flex xs12 justify-center text-xs-center mb-5>
       <div class="mt-4">
-        <h1>{{displayName}}</h1>
+        <h1>{{name}}</h1>
         <span class="grey--text">{{email}}</span>
         <br />
         <div class="mt-4">
@@ -78,30 +78,66 @@
 
 <script>
 import FirebaseService from "@/services/FirebaseService";
-import Firebase from "firebase";
+import firebase from "firebase";
 
 export default {
   name: "SnsLogin",
   data() {
     return {
-      user: "",
       photoURL: "",
       email: "",
+      telephone: "",
+      name: "",
+      findPass:"",
+      answer:"",
       phoneNumber: "",
       displayName: "",
       isAno: "",
       isemail: false,
       dialog: false
-    };
+    }   
+  },
+  methods : {
+    back(user){
+      this.email=user.email;
+      this.telephone=user.telephone;
+      this.name=user.name;
+      this.findPass=user.findPass;
+      this.answer=this.answer;
+    } 
   },
   mounted() {
+    const user = {
+      email: "",
+      telephone: "",
+      name: "",
+      findPass:"",
+      answer:""
+    };
+    var query=firebase.database().ref("user").orderByKey();
+    query.once("value")
+      .then((snapshot) => {
+        var curEmail=firebase.auth().currentUser.email;
+        snapshot.forEach(function(childSnapshot) { 
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if(curEmail===childData.email){
+            user.email=childData.email;
+            user.telephone=childData.telephone;
+            user.name=childData.name;
+            user.findPass=childData.findPass;
+            user.answer=childData.answer;
+            console.log(user);
+          }
+      });
+    this.back(user);
+    });
     Firebase.auth().onAuthStateChanged(user => {
       this.user = user;
       if (user && !user.isAnonymous){
         this.isemail = this.user.providerData[0].providerId == "password";
       }
-      // console.log(this.user);
-    });
+    })
   },
   watch: {
     user: function(val) {
