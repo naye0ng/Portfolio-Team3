@@ -123,10 +123,7 @@ export default {
       findPass: "",
       answer: ""
     };
-    var query = firebase
-      .database()
-      .ref("user")
-      .orderByKey();
+    var query = firebase.database().ref("user").orderByKey();
     query.once("value").then(snapshot => {
       var curEmail = firebase.auth().currentUser.email;
       snapshot.forEach(function(childSnapshot) {
