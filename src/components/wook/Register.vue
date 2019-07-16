@@ -69,7 +69,7 @@ export default {
       email: "",
       password: "",
       name: "",
-      phoneNumber : "",
+      telephone : "",
       findPass: "",
       answer: ""
     };

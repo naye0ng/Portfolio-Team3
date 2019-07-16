@@ -39,7 +39,7 @@
           <v-card style="border-radius:20px;">
             <v-flex class="text-xs-right">
               <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
-                <v-icon>close</v-icon>
+                  <v-icon>close</v-icon>
               </v-btn>
             </v-flex>
             <v-card-title
@@ -64,28 +64,30 @@
     </v-toolbar>
 
     <!-- navigation area -->
-    <v-navigation-drawer v-model="drawer" absolute temporary>
-      <v-list class="pa-1">
+    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed" class="grey lighten-5">
+      <v-list class="pa-1 white">
         <v-list-tile avatar to="/">
           <v-list-tile-avatar>
             <v-icon color="pink">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title></v-list-tile-title>
+            <v-list-tile-title><!-- insert user name --></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-list class="pt-0" dense>
-        <v-divider></v-divider>
+      <v-divider></v-divider>
+      <v-list class="pt-0 white" dense>
         <v-list-tile v-for="item in items" :key="item.title" :to="item.to">
           <v-list-tile-action>
-            <v-icon color="pink">{{ item.icon }}</v-icon>
+            <v-icon color="pink lighten-4">{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <v-divider></v-divider>
+      <Visited ></Visited>
     </v-navigation-drawer>
   </v-layout>
 </template>
@@ -93,6 +95,8 @@
 <script>
 import FirebaseService from "@/services/FirebaseService";
 import SnsLogin from "@/components/haewon/SnsLogin";
+import Visited from './nayeong/Visited.vue'
+import BackToTop from 'vue-backtotop'
 
 export default {
   name: "main-header",
@@ -105,13 +109,15 @@ export default {
         { title: "HOME", icon: "home", to: "/" },
         { title: "POST", icon: "web", to: "/post" },
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
-        { title: "TEAM3", icon: "border_color", to: "/team3" },
+        { title: "TEAM3", icon: "group", to: "/team3" },
         // { title : 'LOGIN', icon : 'mood', to : 'login' }
       ]
     };
   },
   components: {
-    SnsLogin
+    SnsLogin,
+    Visited,
+    BackToTop
   },
   methods: {
     notify: function() {

@@ -1,39 +1,39 @@
 <template>
-  <div>
-    <v-tooltip top>
-      <template v-slot:activator = "{on}">
-        <div v-on="on" >
-          <span>🚀 오늘의 방문자 : {{ visited }}명</span>
-        </div>
-      </template>
-        <v-container fluid grid-list-md>
-           <v-layout row wrap>
-             <v-flex style="font-size:18px;text-align:center;padding-bottom:10px;">금주의 방문 👻</v-flex>
-             <v-flex d-flex xs12 order-xs5>
-               <v-layout column>
-                 <v-flex v-for="(num, date) in visitedWeek" d-flex style="font-size:13px;text-align:center">
-                   <span>{{ date }}</span>
-                   <span>{{ num }}명</span>
-                 </v-flex>
-               </v-layout>
-             </v-flex>
-           </v-layout>
-         </v-container>
-    </v-tooltip>
-  </div>
+  <v-container>
+    <v-layout column>
+      <v-flex xs12>
+        <v-card >
+          <v-card-title>
+            <span>🚀 오늘의 방문자 : <strong>{{ visited }}</strong>명 🚀</span>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <canvas id="visitedChart" width="100%" height="50%"></canvas>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 import firebase from 'firebase'
+import chart from "chart.js";
 
 export default {
   name: "Visited",
   data() {
-      return {
-          visited: 0,
-          visitedWeek: {},
-          dates: [],
-      }
+    return {
+      visited: 0,
+      visitedWeek: {},
+      dates: [],
+      count: []
+    }
+  },
+  computed : {
+    getCount() {
+      return this.count;
+    }
   },
   methods: {
     getVisited(){
@@ -49,10 +49,53 @@ export default {
         var todayV = snapshot.val()
         this.visited = Object.keys(todayV[this.dates[4]]).length
         this.visitedWeek = {}
-        this.dates.forEach(date=>{
+
+        var cnt = [];
+        this.dates.forEach((date, index)=>{
           this.visitedWeek[date] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
+          cnt[index] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
         })
+        this.setCount(cnt)
       });
+
+    },
+    setCount(cnt) {
+      var ctx = document.getElementById("visitedChart");
+      var visitedChart = new chart.Chart(ctx, {
+        type:"line",
+        data : {
+          labels: this.dates,
+          datasets : [
+            {
+              data: cnt,
+              backgroundColor: 'rgba(30,30,180,0.3)'
+            }
+          ]
+        },
+        options : {
+          legend : {
+            display: false
+          },
+          scales:{
+            xAxes: [{
+              display: false, //this will remove all the x-axis grid lines
+              gridLines: {
+                display:false
+              }
+            }],
+            yAxes: [{
+              display: false,
+              gridLines: {
+                display:false
+              }
+            }]
+          },
+          layout : {
+            padding: 5
+          }
+        }
+      });
+      this.count = cnt;
     }
   },
   mounted() {
