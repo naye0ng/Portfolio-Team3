@@ -20,7 +20,7 @@ import axios from "axios";
 
 export default {
   name: "TeamGraph",
-  data: {},
+  data() {},
   methods: {
     async getCommits() {
       var response = await axios.get(
