@@ -107,12 +107,6 @@ export default {
     } 
   },
   mounted() {
-      Firebase.auth().onAuthStateChanged(user => {
-        this.user = user;
-        if (user && !user.isAnonymous){
-          this.isemail = this.user.providerData[0].providerId == "password";
-        }
-      }
     const user = {
       email: "",
       telephone: "",
@@ -138,7 +132,12 @@ export default {
       });
     this.back(user);
     });
-    console.log("this : "+this);
+    Firebase.auth().onAuthStateChanged(user => {
+      this.user = user;
+      if (user && !user.isAnonymous){
+        this.isemail = this.user.providerData[0].providerId == "password";
+      }
+    })
   },
   watch: {
     user: function(val) {
