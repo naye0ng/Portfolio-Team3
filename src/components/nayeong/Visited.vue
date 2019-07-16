@@ -81,6 +81,9 @@ export default {
               data: cnt,
             }
           ]
+        },
+        options : {
+          scaleShowGridLines : false,
         }
       });
       this.count = cnt;
