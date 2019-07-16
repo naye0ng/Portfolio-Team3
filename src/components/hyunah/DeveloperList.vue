@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <v-img :src="imgSrc"
+  <div id="banner">
+    <!-- <v-img :src="imgSrc"
            aspect-ratio="1.6"
-           color="rgb(255,255,255,0.5)">
+           color="rgb(255,255,255,0.5)"> -->
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members">
             <Developer
@@ -16,7 +16,7 @@
               :capa="member.capa"/>
           </div>
         </v-layout>
-    </v-img>
+    <!-- </v-img> -->
   </div>
 </template>
 
@@ -155,3 +155,10 @@ export default {
   }
 }
 </script>
+<style>
+#banner{
+  width:100%;
+  height: 100vh;
+  background-color: #181818;
+}
+</style>

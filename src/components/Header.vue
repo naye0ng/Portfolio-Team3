@@ -1,7 +1,7 @@
 
 <template>
   <v-layout>
-    <v-toolbar fixed>
+    <v-toolbar fixed id="header">
       <v-toolbar-side-icon @click.stop="drawer = !drawer">
         <v-icon>menu</v-icon>
       </v-toolbar-side-icon>
@@ -140,3 +140,12 @@ export default {
   }
 };
 </script>
+<style>
+#header{
+  background-color: #181818;
+  box-shadow: 0 0 0 0;
+}
+#header *{
+  color: #fff!important;
+}
+</style>
