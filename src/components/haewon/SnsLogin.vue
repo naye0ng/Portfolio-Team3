@@ -8,6 +8,9 @@
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
       <UserLogin></UserLogin>
     </v-flex>
+    <v-flex xs4 text-xs-center v-if="!$store.state.user">
+    <FindLost></FindLost>
+    </v-flex>
     <v-flex xs12 pt-3 pb-3>
       <hr>
     </v-flex>
@@ -59,6 +62,7 @@ import FirebaseService from "@/services/FirebaseService";
 import Firebase from "firebase";
 import UserLogin from "@/components/wook/UserLogin";
 import Register from "@/components/wook/Register";
+import FindLost from "@/components/wook/FindLost";
 
 export default {
   name: "SnsLogin",
@@ -72,7 +76,8 @@ export default {
   },
   components: {
     Register,
-    UserLogin
+    UserLogin,
+    FindLost
   },
   methods: {
     async loginWithGoogle() {

@@ -10,6 +10,8 @@
         <h1>{{name}}</h1>
         <span class="grey--text">{{email}}</span>
         <br />
+        <span class="grey--text">{{telephone}}</span>
+        <br />
         <div class="mt-4">
           <h3>즐거운 인생</h3>
           <h3>어제도 개발 오늘도 개발</h3>
@@ -95,7 +97,6 @@ export default {
       name: "",
       findPass: "",
       answer: "",
-      phoneNumber: "",
       isAno: "",
       isemail: false,
       dialog: false,
@@ -123,7 +124,10 @@ export default {
       findPass: "",
       answer: ""
     };
-    var query = firebase.database().ref("user").orderByKey();
+    var query = firebase
+      .database()
+      .ref("user")
+      .orderByKey();
     query.once("value").then(snapshot => {
       var curEmail = firebase.auth().currentUser.email;
       snapshot.forEach(function(childSnapshot) {
@@ -135,7 +139,6 @@ export default {
           user.name = childData.name;
           user.findPass = childData.findPass;
           user.answer = childData.answer;
-          console.log(user);
         }
       });
       this.back(user);
@@ -159,12 +162,13 @@ export default {
         this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
     });
-    firebase.auth().onAuthStateChanged(user => {
-      this.curU = user;
-      if (user && !user.isAnonymous) {
-        this.isemail = user.providerData[0].providerId == "password";
-        console.log(this.isemail);
-      }
+      firebase.auth().onAuthStateChanged(user => {
+        this.curU = user;
+        if (user && !user.isAnonymous) {
+          this.isemail = user.providerData[0].providerId == "password";
+          console.log(this.isemail);
+        }
+      
     });
   }
 };
