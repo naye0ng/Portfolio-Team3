@@ -28,10 +28,15 @@
       </v-layout>
 
       <!-- Portfolio -->
-      <v-layout my-5>
+      <v-layout my-5 row wrap>
         <v-flex xs12>
           <h2 class="headline my-5 text-xs-center">Portfolio</h2>
           <PortfolioList></PortfolioList>
+        </v-flex>
+        <v-flex xs12 text-xs-center mt-3>
+          <v-btn color="#df4a31" dark to="/portfolio">
+            <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
+          </v-btn>
         </v-flex>
       </v-layout>
 
