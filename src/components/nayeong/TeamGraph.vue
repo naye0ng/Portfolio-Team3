@@ -34,7 +34,6 @@ import firebase from 'firebase'
 
 export default {
   name: "TeamGraph",
-  data() {},
   methods: {
     async getCommits() {
       var response = await axios.get(
