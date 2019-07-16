@@ -8,7 +8,7 @@
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
       <UserLogin></UserLogin>
     </v-flex>
-    <v-flex xs4 text-xs-center v-if="!$store.state.user">
+    <v-flex mt-1 xs4 offset-xs7 text-xs-center v-if="!$store.state.user">
     <FindLost></FindLost>
     </v-flex>
     <v-flex xs12 pt-3 pb-3>
