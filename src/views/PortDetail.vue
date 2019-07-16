@@ -21,9 +21,10 @@
           <v-card elevation-5>
             <v-img :src="imgSrc"></v-img>
             <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">{{title}}</h3>
-                <div><p v-html="body"></p></div>
+              <div style="width:100%;">
+                <h3 class="headline mb-1">{{title}}</h3>
+                <hr style="height:2.8px; background-color:#FFBA6C;">
+                <div class="mt-2"><p v-html="body"></p></div>
               </div>
             </v-card-title>
           </v-card>
