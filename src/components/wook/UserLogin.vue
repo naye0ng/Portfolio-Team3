@@ -66,7 +66,7 @@ export default {
       user.password=registerService.Crypto(user.email,user.password);
       firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
-      this.$store.state.user=result.user;
+      // this.$store.state.user=result.user;
       firebaseService.LoginSuccess();
     }
   }
