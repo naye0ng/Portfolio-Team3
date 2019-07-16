@@ -18,10 +18,10 @@
           <v-expand-transition>
             <div
               v-if="hover"
-              class="d-flex transition-fast-in-fast-out grey darken-2 v-card--reveal display-3 white--text"
+              class="d-flex transition-fast-in-fast-out pink darken-2 v-card--reveal display-3 white--text"
               style="height: 100%;"
             >
-              {{title}}
+              <div class="d-flex" style="font-size:0.7em; justify-content:center;">{{title}}</div>
               <!-- <div v-html="body" class="grey--text port-body"></div> -->
             </div>
           </v-expand-transition>
@@ -82,11 +82,10 @@ p {
 
 .v-card--reveal {
   align-items: center;
-  bottom: 0;
   justify-content: center;
-  opacity: .8;
+  bottom: 0;
+  opacity: .7;
   position: absolute;
   width: 100%;
-  font-size:1.5em;
 }
 </style>
