@@ -3,7 +3,7 @@
     <v-hover>
       <v-card
         slot-scope="{ hover }"
-        color="grey lighten-4"
+        color="white lighten-4"
         router
         :to="{
       name: 'portdetail',
@@ -13,19 +13,19 @@
         imgSrc: imgSrc
       }}"
         exact
+        light
       >
-        <v-img :src="imgSrc" height="370px">
-          <v-expand-transition>
-            <div
-              v-if="hover"
-              class="d-flex transition-ease-in-out black darken-1 v-card--reveal display-3 white--text"
-              style="height: 100%;"
-            >
-              <div class="d-flex" style="font-size:0.7em; justify-content:center;">{{title}}</div>
-              <!-- <div v-html="body" class="grey--text port-body"></div> -->
-            </div>
-          </v-expand-transition>
-        </v-img>
+        <v-img :src="imgSrc" height="370px"></v-img>
+        <v-expand-transition>
+          <div
+            v-if="hover"
+            class="d-flex transition-ease-in-out black darken-1 v-card--reveal display-3 white--text"
+            style="height: 100%; justify-content:center;"
+          >
+            <div class="d-flex" style="font-size:0.7em; justify-content:center;">{{title}}</div>
+            <!-- <div v-html="body" class="d-flex" style="font-size:0.48em; text-align:center;"></div> -->
+          </div>
+        </v-expand-transition>
         <!-- <v-card-title primary-title>
           <v-flex xs12>
             <div class="headline port-title">{{title}}</div>
@@ -84,7 +84,7 @@ p {
   align-items: center;
   justify-content: center;
   bottom: 0;
-  opacity: .7;
+  opacity: 0.7;
   position: absolute;
   width: 100%;
 }

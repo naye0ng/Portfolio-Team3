@@ -3,10 +3,10 @@
     <ImgBanner imgSrc="https://source.unsplash.com/random/1600x900">
       <div style="line-height:1.2em; font-size:3.3vw;" slot="text">Portfolio</div>
     </ImgBanner>
-    <v-container>
+    <!-- <v-container> -->
 
       <!-- Portfolio Writer -->
-      <v-flex xs12 text-xs-center>
+      <v-flex xs12 text-xs-center mt-5>
         <v-btn color="info" router :to="{
           name: 'makecontents',
           params: {
@@ -17,12 +17,12 @@
       </v-flex>
 
       <!-- Portfolio List -->
-      <v-layout>
-        <v-flex xs12>
+      <v-layout justify-center>
+        <v-flex xs11>
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>
       </v-layout>
-    </v-container>
+    <!-- </v-container> -->
   </div>
 </template>
 
