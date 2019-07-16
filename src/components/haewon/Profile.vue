@@ -138,7 +138,7 @@ export default {
         this.isemail = this.user.providerData[0].providerId == "password";
       }
     })
-  },
+  }),
   watch: {
     user: function(val) {
       if (this.user) {
