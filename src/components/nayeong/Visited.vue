@@ -77,13 +77,14 @@ export default {
           labels : this.dates,
           datasets : [
             {
-              label: "금주의 방문 👻",
               data: cnt,
             }
           ]
         },
         options : {
-          scaleShowGridLines : false,
+          legend : {
+            display: false
+          }
         }
       });
       this.count = cnt;
