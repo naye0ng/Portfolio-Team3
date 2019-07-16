@@ -94,7 +94,6 @@ export default {
         .ref("user")
         .push(user)
         .then(data => {
-          console.log(data);
           commit("createdUser", user);
         })
         .catch(error => {

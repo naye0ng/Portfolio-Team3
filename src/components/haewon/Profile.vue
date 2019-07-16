@@ -74,7 +74,7 @@ import FirebaseService from "@/services/FirebaseService";
 import firebase from "firebase";
 
 export default {
-  name: "SnsLogin",
+  name: "Profile",
   data() {
     return {
       photoURL: "",
@@ -96,23 +96,28 @@ export default {
       this.telephone=user.telephone;
       this.name=user.name;
       this.findPass=user.findPass;
-      this.answer=this.answer;
-    } 
+      this.answer=user.answer;
+    },
+    async linkwithSNS(num) {
+      var res = await FirebaseService.LinkSNS(num);
+      this.dialog = false;
+    }
   },
   mounted() {
     const user = {
-      email: "",
+      email: "asd",
       telephone: "",
       name: "",
       findPass:"",
       answer:""
     };
     var query=firebase.database().ref("user").orderByKey();
+    
     query.once("value")
       .then((snapshot) => {
+        var self=this.email;
         var curEmail=firebase.auth().currentUser.email;
         snapshot.forEach(function(childSnapshot) { 
-          var key = childSnapshot.key;
           var childData = childSnapshot.val();
           if(curEmail===childData.email){
             user.email=childData.email;
@@ -120,18 +125,18 @@ export default {
             user.name=childData.name;
             user.findPass=childData.findPass;
             user.answer=childData.answer;
-            console.log(user);
+            return true;
           }
+        });
+      this.back(user);
       });
-    this.back(user);
-    });
-    Firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       this.user = user;
       if (user && !user.isAnonymous) {
         this.isemail = this.user.providerData[0].providerId == "password";
       }
-    })
-  }),
+    }) 
+  },
   watch: {
     user: function(val) {
       if (this.user) {
@@ -150,12 +155,6 @@ export default {
         this.email = "unknown@ssafy.com";
         this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
       }
-    }
-  },
-  methods: {
-    async linkwithSNS(num) {
-      var res = await FirebaseService.LinkSNS(num);
-      this.dialog = false;
     }
   }
 };

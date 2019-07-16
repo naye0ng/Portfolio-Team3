@@ -2,7 +2,7 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark v-on="on">비번번호 찾기</v-btn>
+        <span style="color : #FE2E9A"  v-on="on">비번번호 찾기</span>
       </template>
       <v-card>
         <v-card-title>
@@ -40,9 +40,11 @@
 
 <script>
 import firebase from 'firebase' 
-import { Decipher } from 'crypto';
+import { Decipher } from 'crypto'
 import FirebaseService from '../../services/FirebaseService'
 import registerService from '../../services/wook/RegisterService'
+import SendEmailService from '@/services/wook/SendEmailService'
+
 
 export default{
     data (){
@@ -56,7 +58,8 @@ export default{
     },
     components : {
       FirebaseService,
-      registerService
+      registerService,
+      SendEmailService
     },
     methods : {
       Find() {
@@ -77,7 +80,8 @@ export default{
               if(user.email===childData.email && user.findPass===childData.findPass&& user.answer===childData.answer ){
                 before=(childData.password);
                 user.answer=registerService.Decrpyto(user.email, before);
-                alert("당신의 비밀번호는 : "+user.answer+" 입니다.");
+                SendEmailService.ResetEmail(user.email);
+                return true;
               }
           });
         });
