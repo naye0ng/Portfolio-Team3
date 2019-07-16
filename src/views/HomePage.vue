@@ -1,7 +1,8 @@
 <template>
   <div>
-    <DeveloperList imgSrc="https://source.unsplash.com/random/1600x900"/>
-    <v-container>
+    <!-- <DeveloperList imgSrc="https://source.unsplash.com/random/1600x900"/> -->
+    <DeveloperList/>
+    <!-- <v-container> -->
       <!-- About Me -->
       <v-layout my-5>
         <v-flex class="text-xs-center text-md-left" sm12 md8>
@@ -37,7 +38,7 @@
           <RepositoryList></RepositoryList>
         </v-flex>
       </v-layout>
-    </v-container>
+    <!-- </v-container> -->
   </div>
 </template>
 
