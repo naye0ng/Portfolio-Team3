@@ -4,27 +4,18 @@
     <DeveloperList/>
     <!-- <v-container> -->
       <!-- About Me -->
-      <v-layout my-5>
+      <v-layout column my-5>
         <v-flex class="text-xs-center" xs12>
           <h2 class="headline mb-3">About Me</h2>
-          <!--<p class="mr-4"></p>-->
-          <v-img :src="getImgUrl('profile.png')" aspect-ratio="2">
-            <!--
-            <v-layout justify-center style="height:100%;">
-              <v-flex xs6>
-                <p>test</p>
-              </v-flex>
-            </v-layout>
-          -->
+        </v-flex>
+        <v-flex class="text-xs-center" xs12 hidden-sm-and-down>
+          <v-img :src="getImgUrl('profile.png')" aspect-ratio="2" contain height="80vh">
             <AboutUs></AboutUs>
           </v-img>
-
         </v-flex>
-        <!--
-        <v-flex xs4  hidden-sm-and-down>
-
+        <v-flex class="text-xs-center" xs12 hidden-md-and-up>
+          <AboutUs></AboutUs>
         </v-flex>
-      -->
       </v-layout>
 
       <!-- Portfolio -->

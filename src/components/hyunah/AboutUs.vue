@@ -1,11 +1,14 @@
 <template>
-    <v-layout justify-center>
-      <v-flex xs6 @mouseover="hiddenMsg()" @mouseleave="originMsg()" >
-        <p style="margin: auto 0px;" v-html="msg">
+    <v-layout justify-space-between fill-height align-center>
+      <v-flex xs2  @mouseenter="hiddenMsg()" @mouseleave="originMsg()">
+        <div style="color:rgba(255,255,255,0);" >EasterEgg</div>
+      </v-flex>
+      <v-flex mt2 xs8 text-xs-center>
+        <p v-html="msg" class="body-1">
         </p>
       </v-flex>
+      <v-flex xs2></v-flex>
     </v-layout>
-
 </template>
 
 <script>
