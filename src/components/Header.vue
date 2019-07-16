@@ -87,11 +87,7 @@
         </v-list-tile>
       </v-list>
       <v-divider></v-divider>
-      <v-container color="grey lighten-3">
-        <v-layout>
-          <Visited ></Visited>
-        </v-layout>
-      </v-container>
+      <Visited ></Visited>
     </v-navigation-drawer>
   </v-layout>
 </template>
