@@ -159,6 +159,13 @@ export default {
       this.email = "unknown@ssafy.com";
       this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
     }
+    firebase.auth().onAuthStateChanged(user => {
+      this.curU = user;
+      if (user && !user.isAnonymous) {
+        this.isemail = user.providerData[0].providerId == "password";
+        console.log(this.isemail);
+      }
+    });
   }
 };
 </script>
