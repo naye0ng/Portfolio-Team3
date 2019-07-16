@@ -2,7 +2,7 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn round color="#181818" v-on="on" style="width:50%; color:#f7f7f7;">
+        <v-btn color="#181818" v-on="on" style="width:100%; color:#f7f7f7;">
           <v-icon size="25" class="mr-2">fa-user-plus</v-icon>회원가입
         </v-btn>
         <!-- <v-btn color="primary" dark v-on="on">회원가입</v-btn> -->
