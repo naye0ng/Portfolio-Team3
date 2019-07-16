@@ -9,6 +9,8 @@
       <div class="mt-4">
         <h1>{{name}}</h1>
         <span class="grey--text">{{email}}</span>
+        <br>
+        <span class="grey--text">{{telephone}}</span>
         <br />
         <div class="mt-4">
           <h3>즐거운 인생</h3>
@@ -95,7 +97,6 @@ export default {
       name: "",
       findPass: "",
       answer: "",
-      phoneNumber: "",
       isAno: "",
       isemail: false,
       dialog: false,
