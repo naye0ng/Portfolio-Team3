@@ -2,7 +2,7 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <span style="color : #FE2E9A; font-style:italic; font-size:0.9em;"  v-on="on">Forgot password?</span>
+        <span style="color : #FE2E9A; font-style:italic; font-size:0.9em; cursor:pointer" v-on="on">Forgot password?</span>
       </template>
       <v-card>
         <v-card-title>
