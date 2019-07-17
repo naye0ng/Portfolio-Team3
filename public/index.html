@@ -31,6 +31,34 @@
       </script>
       <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script>
+      window.onload = function() {
+        var current = 0
+        $(document).keydown(function(event) {
+          var aboutUs =$('#aboutUs').offset().top
+          var portfolio =$('#portfolio').offset().top
+          var post = $('#post').offset().top
+          var github = $('#github').offset().top
+          var positions = [0, aboutUs, portfolio, post, github ]
+
+          if (event.keyCode == '37') {
+            if (current >= 0){
+              current -= 1
+              $('html, body').animate({scrollTop : positions[current]}, 400)
+            }
+          }
+          else if (event.keyCode == '39') {
+           if (current <= 3){
+            current += 1
+            $('html, body').animate({scrollTop : positions[current]}, 400)
+           }
+          }
+        });
+      
+      
+      }
+    </script>
   </body>
 </html>

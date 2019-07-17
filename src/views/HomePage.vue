@@ -4,7 +4,7 @@
     <DeveloperList/>
     <!-- <v-container> -->
       <!-- About Me -->
-      <v-layout my-5>
+      <v-layout my-5 id="aboutUs" >
         <v-flex class="text-xs-center" xs12>
           <h2 class="headline mb-3">About Me</h2>
           <!--<p class="mr-4"></p>-->
@@ -28,7 +28,7 @@
       </v-layout>
 
       <!-- Portfolio -->
-      <v-layout my-5>
+      <v-layout my-5 id="portfolio">
         <v-flex xs12>
           <h2 class="headline my-5 text-xs-center">Portfolio</h2>
           <PortfolioList></PortfolioList>
@@ -36,7 +36,7 @@
       </v-layout>
 
       <!-- Post -->
-      <v-layout my-5>
+      <v-layout my-5 id="post">
         <v-flex xs12>
           <h2 class="headline my-5 text-xs-center">Post</h2>
           <PostList :column="2"></PostList>
@@ -45,7 +45,7 @@
 
 
       <!-- Github -->
-      <v-layout my-5>
+      <v-layout my-5 id="github">
         <v-flex xs12>
           <h2 class="headline my-5 text-xs-center">Project</h2>
           <RepositoryList></RepositoryList>
