@@ -2,24 +2,10 @@
   <div>
     <v-container>
       <v-layout my-5 wrap>
-        <!-- Title -->
-        <!-- <v-flex xs12>
-                <div class="mb-3">{{title}}</div>
-        </v-flex>-->
-
-        <!-- Image -->
-        <!-- <v-flex xs12>
-                    <v-img :src="imgSrc"></v-img>
-        </v-flex>-->
-
-        <!-- Contentes -->
-        <!-- <v-flex xs12>
-                <br/>
-                    <p v-html="body"></p>
-        </v-flex>-->
         <v-flex xs12 sm8 offset-sm2 mt-5>
-          <v-card elevation-5>
-            <v-img :src="imgSrc"></v-img>
+          <!-- <v-card>
+            <v-img :src="imgSrc" style="margin: 0px 10px 5px; padding-top:10px;"></v-img>
+            <hr style="height: 1.5px; background-color:black;">
             <v-card-title primary-title>
               <div style="width:100%;">
                 <h3 class="headline mb-1">{{title}}</h3>
@@ -27,7 +13,32 @@
                 <div class="mt-2"><p v-html="body"></p></div>
               </div>
             </v-card-title>
-          </v-card>
+          </v-card> -->
+              <v-card>
+                <v-img :src="imgSrc">
+                  <v-container fill-height fluid pa-2>
+                    <v-layout fill-height>
+                      <v-flex xs12 align-end flexbox>
+                        <span class="headline white--text" v-text="title"></span>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-img>
+
+                <v-card-actions>
+                  <div><p v-html="body" style="font-size:1.24rem;"></p></div>
+                  <v-spacer></v-spacer>
+                  <v-btn icon>
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>bookmark</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>share</v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
         </v-flex>
       </v-layout>
       <v-layout>
