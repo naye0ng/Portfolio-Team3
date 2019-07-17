@@ -68,7 +68,7 @@ export default {
           datasets : [
             {
               data: cnt,
-              backgroundColor: 'rgba(30,30,180,0.3)'
+              backgroundColor: "rgb(236, 64, 122, 0.3)"
             }
           ]
         },

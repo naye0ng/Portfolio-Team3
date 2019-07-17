@@ -68,7 +68,7 @@
       <v-list class="pa-1 white">
         <v-list-tile avatar to="/">
           <v-list-tile-avatar>
-            <v-icon color="pink">favorite</v-icon>
+            <v-icon color="primary">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title><!-- insert user name --></v-list-tile-title>
@@ -79,7 +79,7 @@
       <v-list class="pt-0 white" dense>
         <v-list-tile v-for="item in items" :key="item.title" :to="item.to">
           <v-list-tile-action>
-            <v-icon color="pink lighten-4">{{ item.icon }}</v-icon>
+            <v-icon color="secondary">{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
