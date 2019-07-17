@@ -1,6 +1,6 @@
 <template>
   <back-to-top bottom="50px" right="50px">
-    <v-btn fab dark color="pink">
+    <v-btn fab dark color="primary">
       <v-icon dark>keyboard_arrow_up</v-icon>
     </v-btn>
   </back-to-top>

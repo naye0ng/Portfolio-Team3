@@ -4,6 +4,7 @@
     <DeveloperList/>
     <!-- <v-container> -->
       <!-- About Me -->
+      <div class="contents">
       <v-layout column py-5 my-1 id="aboutUs">
         <v-flex xs12 my-3 py-1>
           <h2 class="my-2 text-xs-center homepage-title">ABOUT US</h2>
@@ -19,10 +20,12 @@
           </v-flex>
         </v-container>
       </v-layout>
+    </div>
 
       <!-- Post -->
+      <div class="contents">
       <v-layout py-5 my-1 row wrap class="grey lighten-5" id="post">
-        <v-flex xs12>
+        <v-flex pt-3 xs12>
           <h2 class="mb-5 mt-3 text-xs-center homepage-title">POST</h2>
           <PostList :column="1"></PostList>
         </v-flex>
@@ -32,10 +35,12 @@
           </v-btn>
         </v-flex>
       </v-layout>
+    </div>
 
       <!-- Portfolio -->
-      <v-layout py-5 my-1 row wrap id="portfolio"> 
-        <v-flex xs12>
+      <div class="contents">
+      <v-layout py-5 my-1 row wrap id="portfolio">
+        <v-flex py-3 xs12>
           <h2 class="mt-4 mb-2 text-xs-center homepage-title">PORTFOLIO</h2>
         </v-flex>
         <v-container py-0>
@@ -49,10 +54,12 @@
           </v-flex>
         </v-container>
       </v-layout>
+    </div>
 
       <!-- Github -->
+      <div class="contents">
       <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
-        <v-flex xs12>
+        <v-flex pt-3 xs12>
           <h2 class="my-4 pb-4 text-xs-center homepage-title">PROJECT</h2>
         </v-flex>
         <v-container py-0>
@@ -60,8 +67,8 @@
             <RepositoryList></RepositoryList>
           </v-flex>
         </v-container>
-
       </v-layout>
+    </div>
     <!-- </v-container> -->
   </div>
 </template>
@@ -132,6 +139,9 @@ export default {
   font-family: 'Do Hyeon', sans-serif;
   font-size: 3.5em;
   letter-spacing: 0.1em;
-  text-shadow: 4px 0px #EC407A
+  text-shadow: 0.1em 0px #EC407A
+}
+.contents {
+  min-height: 100vh;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ImgBanner imgSrc="https://source.unsplash.com/random/1600x900">
-      <div style="line-height:1.2em; font-size:3.3vw;" slot="text">Post</div>
+    <ImgBanner>
+      <div slot="text">Post</div>
     </ImgBanner>
     <v-container>
 
