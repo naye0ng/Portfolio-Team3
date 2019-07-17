@@ -22,14 +22,36 @@
       </v-layout>
     </div>
 
+          <!-- Portfolio -->
+          <div class="contents">
+          <v-layout py-5 my-1 row wrap class="grey lighten-5" id="portfolio">
+            <v-flex py-3 xs12>
+              <h2 class="mt-4 mb-2 text-xs-center homepage-title">PORTFOLIO</h2>
+            </v-flex>
+            <v-container py-0>
+              <v-flex xs12>
+                <PortfolioList></PortfolioList>
+                <!-- <PortList2></PortList2> -->
+              </v-flex>
+              <v-flex xs12 text-xs-center my-3>
+                <v-btn color="#EC407A" dark to="/portfolio">
+                  <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
+                </v-btn>
+              </v-flex>
+            </v-container>
+          </v-layout>
+        </div>
+
       <!-- Post -->
       <div class="contents">
-      <v-layout py-5 my-1 row wrap class="grey lighten-5" id="post">
+      <v-layout py-5 mt-1 row wrap id="post">
         <v-flex pt-3 xs12>
           <h2 class="mb-5 mt-3 text-xs-center homepage-title">POST</h2>
+        </v-flex>
+        <v-flex xs12 text-xs-center>
           <PostList :column="1"></PostList>
         </v-flex>
-        <v-flex xs12 text-xs-center mt-5 mb-3>
+        <v-flex xs12 text-xs-center my-3>
           <v-btn color="#EC407A" dark to="/post">
             <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
           </v-btn>
@@ -37,25 +59,6 @@
       </v-layout>
     </div>
 
-      <!-- Portfolio -->
-      <div class="contents">
-      <v-layout py-5 my-1 row wrap id="portfolio">
-        <v-flex py-3 xs12>
-          <h2 class="mt-4 mb-2 text-xs-center homepage-title">PORTFOLIO</h2>
-        </v-flex>
-        <v-container py-0>
-          <v-flex xs12>
-            <PortfolioList></PortfolioList>
-            <!-- <PortList2></PortList2> -->
-          </v-flex>
-          <v-flex xs12 text-xs-center mt-5 mb-3>
-            <v-btn color="#EC407A" dark to="/portfolio">
-              <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
-            </v-btn>
-          </v-flex>
-        </v-container>
-      </v-layout>
-    </div>
 
       <!-- Github -->
       <div class="contents">

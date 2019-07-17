@@ -1,6 +1,6 @@
 <template>
 	<Carousel3d :controls-visible="true" style="height: 320px!important;padding: 20px;">
-		<Slide 
+		<Slide
 			:index='i-1' v-for="i in repositories.length > limits ? limits : repositories.length"
 			class="repo-card">
 			<Repository :repos="repositories[i - 1]"></Repository>
@@ -41,7 +41,7 @@ export default {
 	},
 	components: {
 		Repository,
-		Carousel3d, 
+		Carousel3d,
 		Slide,
 	},
 }
@@ -56,21 +56,7 @@ export default {
     text-decoration: none;
 }
 .carousel-3d-controls span{
-	font-size: 20px;
-	font-weight: 600;
-	position: relative;
-	color:#fff;
-}
-.carousel-3d-controls span:before{
-	content:"";
-	z-index: -10;
-	position:absolute;
-	top: -50%;
-	left:-50%;
-	width: 40px;
-	height: 40px;
-	background-color: rgba(18,18,18,0.7);
-	border-radius: 10px;
+	font-family: 'roboto', sans-serif;
 }
 
 </style>
