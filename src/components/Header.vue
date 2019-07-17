@@ -5,7 +5,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer">
         <v-icon>menu</v-icon>
       </v-toolbar-side-icon>
-      <v-toolbar-title></v-toolbar-title>
+      <router-link to="/" exact style="text-decoration:none;"><v-toolbar-title>&nbsp;Hello Universe;</v-toolbar-title></router-link>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">
         <v-btn flat :to="item.to">{{ item.title }}</v-btn>
