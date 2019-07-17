@@ -26,7 +26,7 @@
           <h2 class="mb-5 mt-3 text-xs-center homepage-title">POST</h2>
           <PostList :column="1"></PostList>
         </v-flex>
-        <v-flex xs12 text-xs-center mt-4>
+        <v-flex xs12 text-xs-center mt-5 mb-3>
           <v-btn color="#EC407A" dark to="/post">
             <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
           </v-btn>
@@ -41,8 +41,9 @@
         <v-container py-0>
           <v-flex xs12>
             <PortfolioList></PortfolioList>
+            <!-- <PortList2></PortList2> -->
           </v-flex>
-          <v-flex xs12 text-xs-center mt-3>
+          <v-flex xs12 text-xs-center mt-5 mb-3>
             <v-btn color="#EC407A" dark to="/portfolio">
               <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
             </v-btn>
