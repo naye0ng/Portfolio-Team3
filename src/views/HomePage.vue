@@ -4,53 +4,68 @@
     <DeveloperList/>
     <!-- <v-container> -->
       <!-- About Me -->
-      <v-layout column my-5>
-        <v-flex class="text-xs-center" xs12>
-          <h2 class="headline mb-3">About Me</h2>
+      <v-layout column py-5 my-1>
+        <v-flex xs12 my-3 py-1>
+          <h2 class="my-2 text-xs-center homepage-title">ABOUT US</h2>
         </v-flex>
-        <v-flex class="text-xs-center" xs12 hidden-sm-and-down>
-          <v-img :src="getImgUrl('profile.png')" aspect-ratio="2" contain height="80vh">
+        <v-container py-0>
+          <v-flex class="text-xs-center" xs12 hidden-sm-and-down>
+            <v-img :src="getImgUrl('profile.png')" aspect-ratio="2">
+              <AboutUs></AboutUs>
+            </v-img>
+          </v-flex>
+          <v-flex class="text-xs-center" xs12 hidden-md-and-up>
             <AboutUs></AboutUs>
-          </v-img>
-        </v-flex>
-        <v-flex class="text-xs-center" xs12 hidden-md-and-up>
-          <AboutUs></AboutUs>
-        </v-flex>
-      </v-layout>
-
-      <!-- Portfolio -->
-      <v-layout my-5 row wrap>
-        <v-flex xs12>
-          <h2 class="headline my-5 text-xs-center">Portfolio</h2>
-          <PortfolioList></PortfolioList>
-        </v-flex>
-        <v-flex xs12 text-xs-center mt-3>
-          <v-btn color="#df4a31" dark to="/portfolio">
-            <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
-          </v-btn>
-        </v-flex>
+          </v-flex>
+        </v-container>
       </v-layout>
 
       <!-- Post -->
-      <v-layout my-5 row wrap>
+      <v-layout py-5 my-1 row wrap class="grey lighten-5">
         <v-flex xs12>
-          <h2 class="headline my-5 text-xs-center">Post</h2>
-          <PostList :column="2"></PostList>
+          <h2 class="my-4 text-xs-center homepage-title">POST</h2>
         </v-flex>
-        <v-flex xs12 text-xs-center mt-3>
-          <v-btn color="primary" dark to="/post">
-            <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
-          </v-btn>
-        </v-flex>
+        <v-container py-0>
+          <v-flex xs12>
+            <PostList :column="2"></PostList>
+          </v-flex>
+          <v-flex xs12 text-xs-center mt-3>
+            <v-btn color="#EC407A" dark to="/post">
+              <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
+            </v-btn>
+          </v-flex>
+        </v-container>
       </v-layout>
 
+      <!-- Portfolio -->
+      <v-layout py-5 my-1 row wrap>
+        <v-flex xs12>
+          <h2 class="my-4 text-xs-center homepage-title">PORTFOLIO</h2>
+        </v-flex>
+        <v-container py-0>
+          <v-flex xs12>
+            <PortfolioList></PortfolioList>
+          </v-flex>
+          <v-flex xs12 text-xs-center mt-3>
+            <v-btn color="#EC407A" dark to="/portfolio">
+              <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
+            </v-btn>
+          </v-flex>
+        </v-container>
+
+      </v-layout>
 
       <!-- Github -->
-      <v-layout my-5>
+      <v-layout py-5 mt-1 row wrap class="grey lighten-5">
         <v-flex xs12>
-          <h2 class="headline my-5 text-xs-center">Project</h2>
-          <RepositoryList></RepositoryList>
+          <h2 class="my-4 text-xs-center homepage-title">PROJECT</h2>
         </v-flex>
+        <v-container py-0>
+          <v-flex xs12>
+            <RepositoryList></RepositoryList>
+          </v-flex>
+        </v-container>
+
       </v-layout>
     <!-- </v-container> -->
   </div>
@@ -114,3 +129,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.homepage-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 3.5em;
+  letter-spacing: 0.1em;
+  text-shadow: 4px 0px #EC407A
+}
+</style>

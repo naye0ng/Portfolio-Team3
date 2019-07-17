@@ -6,10 +6,10 @@
 </style>
 
 <template>
-  <v-footer height="auto">
+  <v-footer height="auto" class="white">
     <v-layout justify-center align-center row wrap>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
-        <div id="google_translate_element" style="position : absoulte"></div>
+        <div id="google_translate_element" style="position : absoulte;"></div>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
         &copy;2019 — <strong>SSSAFY Team3</strong>

@@ -15,7 +15,7 @@
         exact
         light
       >
-        <v-img :src="imgSrc" height="370px"></v-img>
+        <v-img :src="imgSrc" height="40vh"></v-img>
         <v-expand-transition>
           <div
             v-if="hover"

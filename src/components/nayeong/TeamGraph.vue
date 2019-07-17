@@ -1,8 +1,8 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
-      <v-flex xs12>
-        <p class="display-3 my-5 pt-3 text-xs-left text-sm-center">Hi, We are Team3!</p>
+      <v-flex xs12 >
+        <p class="display-3 my-5 pt-3 text-xs-left text-sm-center team-graph-font">Hi, We are Team3!</p>
       </v-flex>
       <v-flex xs12 md6 px-3>
         <p class="my-4" style="font-size:25px;">Team3 Total Commits</p>
@@ -50,7 +50,7 @@ export default {
       let commits = [];
       let k = data.length-1
       while (start <= end) {
-        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일"); 
+        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
         commits.push(0);
         while(k>=0){
           var dt = new Date(data[k].commit.author.date.slice(0, 10))
