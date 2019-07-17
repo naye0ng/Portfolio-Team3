@@ -1,5 +1,5 @@
 <template>
-  <v-layout align-center justify-center row fill-height>
+  <v-layout align-center justify-center row fill-height style="background-color:#fafafa;">
 	  <TeamGraph></TeamGraph>
   </v-layout>
 </template>
