@@ -19,8 +19,8 @@ Vue.config.productionTip = false
 Vue.use(Vuetify, {
 	iconfont: 'fa',
 	theme: {
-		primary: '#3f51b5',
-		secondary: '#b0bec5',
+		primary: '#EC407A',
+		secondary: '#181818',
 		accent: '#8c9eff',
 		error: '#b71c1c'
 	}
