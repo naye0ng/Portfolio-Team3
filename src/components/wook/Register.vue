@@ -8,11 +8,11 @@
         <!-- <v-btn color="primary" dark v-on="on">회원가입</v-btn> -->
       </template>
       <v-card>
-        <v-card-title>
+        <v-card-title class="pb-0">
           <span class="headline">회원가입 작성</span>
         </v-card-title>
-        <v-card-text>
-          <v-container grid-list-md>
+        <v-card-text class="pb-2">
+          <v-container grid-list-md class="pb-0">
             <v-layout wrap>
               <v-flex xs2>
                 <v-icon size="65">mail</v-icon>
