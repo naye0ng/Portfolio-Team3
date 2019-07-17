@@ -33,8 +33,11 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round mb-5>
+          <v-btn color="#DB4437" text-xs-center dark to="/portfolio">
+            <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
+          </v-btn>
           <v-btn color="none" text-xs-center dark to="/">
-            <v-icon size="25" class="mr-2">fa-arrow-left</v-icon>돌아가기
+            <v-icon size="25" class="mr-2">fa-home</v-icon>홈으로
           </v-btn>
         </v-flex>
       </v-layout>
