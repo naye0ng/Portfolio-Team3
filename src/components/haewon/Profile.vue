@@ -154,7 +154,6 @@ export default {
       if (!this.isemail) {
         this.name = this.curU.displayName;
         this.email = this.curU.email;
-        console.log(this.email);
       }
       if (this.curU && this.isAno) {
         this.name = "Unknown";
@@ -166,7 +165,6 @@ export default {
         this.curU = user;
         if (user && !user.isAnonymous) {
           this.isemail = user.providerData[0].providerId == "password";
-          console.log(this.isemail);
         }
       
     });

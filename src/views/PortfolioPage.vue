@@ -6,16 +6,29 @@
     <!-- <v-container> -->
 
       <!-- Portfolio Writer -->
-      <v-flex xs12 text-xs-center mt-5>
-        <v-btn color="info" router :to="{
-          name: 'makecontents',
-          params: {
-            kind: 'portfolio'
-          }}" exact>
-          <v-icon size="25" class="mr-2">border_color</v-icon> 포트폴리오 작성
-        </v-btn>
-      </v-flex>
-
+      <v-layout justify-center>
+        <v-flex xs11>
+          <v-layout wrap align-center justify-end>
+            <v-flex xs2 mt-5>
+              <v-btn color="#0F9D58" router :to="{
+                name: 'makecontents',
+                params: {
+                  kind: 'portfolio'
+                }}" exact dark width="100%" class="hidden-sm-and-down">
+                <v-icon size="25" class="mr-2">border_color</v-icon> 포트폴리오 작성
+              </v-btn>
+              <v-btn color="#0F9D58" router :to="{
+                name: 'makecontents',
+                params: {
+                  kind: 'portfolio'
+                }}" exact dark width="100%" class="hidden-md-and-up">
+                <v-icon size="25" class="mr-2">border_color</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+      
       <!-- Portfolio List -->
       <v-layout justify-center>
         <v-flex xs11>

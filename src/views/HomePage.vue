@@ -23,18 +23,14 @@
       <!-- Post -->
       <v-layout py-5 my-1 row wrap class="grey lighten-5">
         <v-flex xs12>
-          <h2 class="my-4 text-xs-center homepage-title">POST</h2>
+          <h2 class="headline my-5 text-xs-center">Post</h2>
+          <PostList :column="1"></PostList>
         </v-flex>
-        <v-container py-0>
-          <v-flex xs12>
-            <PostList :column="2"></PostList>
-          </v-flex>
-          <v-flex xs12 text-xs-center mt-3>
-            <v-btn color="#EC407A" dark to="/post">
-              <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
-            </v-btn>
-          </v-flex>
-        </v-container>
+        <v-flex xs12 text-xs-center mt-4>
+          <v-btn color="primary" dark to="/post">
+            <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
+          </v-btn>
+        </v-flex>
       </v-layout>
 
       <!-- Portfolio -->
@@ -52,7 +48,6 @@
             </v-btn>
           </v-flex>
         </v-container>
-
       </v-layout>
 
       <!-- Github -->

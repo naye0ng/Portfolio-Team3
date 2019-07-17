@@ -4,7 +4,7 @@
            aspect-ratio="1.6"
            color="rgb(255,255,255,0.5)"> -->
         <v-layout align-center justify-space-around row fill-height text-xs-center>
-          <div v-for="member in members">
+          <div v-for="member in members" style="cursor:pointer;">
             <Developer
               :image="getImgUrl(member.img)"
               :status="member.status"

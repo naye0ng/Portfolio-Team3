@@ -6,15 +6,28 @@
     <v-container>
       
       <!-- Post Writer -->
-      <v-flex xs12 text-xs-center>
-        <v-btn color="info" router :to="{
-          name: 'makecontents',
-          params: {
-            kind: 'post',
-          }}" exact>
-          <v-icon size="25" class="mr-2">border_color</v-icon> 포스트 작성
-        </v-btn>
-      </v-flex>
+      <v-layout justify-center class="mb-2">
+        <v-flex xs11>
+          <v-layout wrap align-center justify-end>
+            <v-flex xs4 mt-5>
+              <v-btn color="#0F9D58" router :to="{
+                name: 'makecontents',
+                params: {
+                  kind: 'post'
+                }}" exact dark width="100%" class="hidden-sm-and-down">
+                <v-icon size="25" class="mr-2">border_color</v-icon> 포스트 작성
+              </v-btn>
+              <v-btn color="#0F9D58" router :to="{
+                name: 'makecontents',
+                params: {
+                  kind: 'post'
+                }}" exact dark width="100%" class="hidden-md-and-up">
+                <v-icon size="25" class="mr-2">border_color</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
 
       <!-- Post List -->
       <v-layout>
