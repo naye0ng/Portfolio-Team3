@@ -55,4 +55,22 @@ export default {
 	box-shadow: 0px 3px 20px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
     text-decoration: none;
 }
+.carousel-3d-controls span{
+	font-size: 20px;
+	font-weight: 600;
+	position: relative;
+	color:#fff;
+}
+.carousel-3d-controls span:before{
+	content:"";
+	z-index: -10;
+	position:absolute;
+	top: -50%;
+	left:-50%;
+	width: 40px;
+	height: 40px;
+	background-color: rgba(18,18,18,0.7);
+	border-radius: 10px;
+}
+
 </style>
