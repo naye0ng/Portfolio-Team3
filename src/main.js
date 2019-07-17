@@ -12,6 +12,8 @@ import store from './store'
 import VeeValidate from 'vee-validate' // add
 import './registerServiceWorker'
 
+import './stylus/main.styl'
+
 Vue.config.productionTip = false
 
 Vue.use(Vuetify, {
@@ -25,7 +27,7 @@ Vue.use(Vuetify, {
 })
 
 Vue.use(VueSimplemde)
-Vue.use(VeeValidate) 
+Vue.use(VeeValidate)
 
 Vue.use(VueSweetalert2)
 
