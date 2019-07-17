@@ -14,34 +14,51 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12>
-                <v-text-field label="이메일(아이디)*" v-model="email" required></v-text-field>
+              <v-flex xs2>
+                <v-icon size="65">mail</v-icon>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs10>
+                <v-text-field label="이메일(아이디)*" v-model="email" required outline :rules="emailRules"></v-text-field>
+              </v-flex>
+              <v-flex xs2>
+                <v-icon size="65">lock</v-icon>
+              </v-flex>
+              <v-flex xs10>
                 <v-text-field
                   label="패스워드*"
                   v-model="password"
                   type="password"
                   required
-                  hint="영문 숫자 특수문자조합 10글자 이상 필수"
+                  hint="특수문자는 필수 포함 10글자 이상"
+                  outline
+                  :rules="passwordRules"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12>
-                <v-text-field label="이름" v-model="name"></v-text-field>
+              <v-flex xs2>
+                  <v-icon size="65">perm_identity</v-icon>
               </v-flex>
-              <br />
-              <v-flex xs12 sm6>
-                <v-select
-                  :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
-                  label="비밀번호 찾기 질문*"
-                  v-model="findPass"
-                ></v-select>
+              <v-flex xs10>
+                <v-text-field label="이름" v-model="name" outline></v-text-field>
               </v-flex>
-              <v-flex sm6 md4>
-                <v-text-field label="답변" v-model="answer" required></v-text-field>
+              <br/>
+                  <v-flex sm2>
+                    <v-icon size="65">question_answer</v-icon>
+                  </v-flex>
+                 <v-flex sm7 d-flex>
+                  <v-select 
+                    :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
+                    label="비밀번호 찾기 질문*" 
+                    v-model="findPass" outline append-icon="expand_more"
+                  ></v-select>
+                  </v-flex>
+              <v-flex sm3>
+                <v-text-field label="답변" v-model="answer" required outline :rules="loginRules"></v-text-field>
               </v-flex>
-              <v-flex xs12>
-                <v-text-field label="핸드폰번호" v-model="telephone" required></v-text-field>
+              <v-flex xs2>
+                <v-icon size="65">phone_in_talk</v-icon>
+              </v-flex>
+              <v-flex xs10>
+                <v-text-field label="핸드폰번호" v-model="telephone" required outline></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -49,8 +66,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="SignUp()">Save</v-btn>
+          <v-btn color="primary" dark @click="SignUp()">Save<v-icon dark right>check_circle</v-icon></v-btn>
+          <v-btn color="red" dark @click="dialog = false">Close<v-icon dark right>block</v-icon></v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -65,6 +82,16 @@ import registerService from "../../services/wook/RegisterService";
 export default {
   data() {
     return {
+      loginRules : [v=> !!v || "이 부분은 필수 입력 사항입니다."],
+      emailRules : [
+        v => !!v || "이 부분은 필수 입력 사항입니다.",
+        v =>  /.+@.+/.test(v) || "유효한 이메일만 가능합니다."
+      ],
+      passwordRules : [
+        v => !!v || "이 부분은 필수 입력 사항입니다.",
+        v => v.length>=10 || "비밀번호는 10자리 이상입니다.",
+        v => v.includes('!') || v.includes('@') || v.includes('#') || v.includes('$') || v.includes('%') || v.includes('^') || v.includes('&') || v.includes('*') || v.includes('(') || v.includes(')') || "특수기호는 필수입니다."
+      ],
       dialog: false,
       email: "",
       password: "",
@@ -77,6 +104,9 @@ export default {
   components: {
     registerService
   },
+  computed : {
+
+  },  
   methods: {
     SignUp() {
       const user = {
