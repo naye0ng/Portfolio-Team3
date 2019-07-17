@@ -7,13 +7,21 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-  apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
+  apiKey: "AIzaSyABGamq__VCiuIy4lAANPeLLEtaOsl8v6k",
+  authDomain: "blogs-a7359.firebaseapp.com",
+  databaseURL: "https://blogs-a7359.firebaseio.com",
+  projectId: "blogs-a7359",
+  storageBucket: "blogs-a7359.appspot.com",
+  messagingSenderId: "749597724898",
+  appId: "1:749597724898:web:dc4033993f01a42c"
+
+  /* apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
   authDomain: "team3-435f1.firebaseapp.com",
   databaseURL: "https://team3-435f1.firebaseio.com",
   projectId: "team3-435f1",
   storageBucket: "team3-435f1.appspot.com",
   messagingSenderId: "804761067334",
-  appId: "1:804761067334:web:de1801641a9f3ddc"
+  appId: "1:804761067334:web:de1801641a9f3ddc" */
 };
 
 
@@ -55,6 +63,32 @@ export default {
       })
   },
   postPortfolio(title, body, img) {
+    
+    //Create reference
+    var ref = firebase.storage().ref();
+    var file = img;
+    var name = new Date() + title;
+
+    //Upload image to firestorage
+    var uploadTask = ref.child(name).putString(file, 'data_url');
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(error) {
+        //catch error
+        switch (error.code) {
+          case 'storage/unauthorized':
+            break;
+          case 'storage/canceled':
+            break;
+
+          case 'storage/unknown':
+            break;
+        }
+      }, function() {
+        //Get stored image url from firestorage
+        img = uploadTask.snapshot.ref.getDownloadURL()
+    });
+
+    //Save Portfolio in firestore database
     return firestore.collection(PORTFOLIOS).add({
       title,
       body,
@@ -179,55 +213,6 @@ export default {
         alert('이미 등록된 SNS 계정입니다')
       }
       console.log(error);
-    });
-  },
-  storagetest(title, pics) {
-    
-    // Points to the root reference
-    var storageRef = firebase.storage().ref();
-
-    var file = pics
-
-    // Create the file metadata
-    var metadata = {
-      contentType: 'image/jpeg'
-    };
-
-    storageRef.putString(file, 'data_url').then(function(snapshot) {
-      console.log('Uploaded a data_url string!');
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-      switch (snapshot.state) {
-        case firebase.storage.TaskState.PAUSED: // or 'paused'
-          console.log('Upload is paused');
-          break;
-        case firebase.storage.TaskState.RUNNING: // or 'running'
-          console.log('Upload is running');
-          break;
-      }
-    },function(error) {
-        
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
-      switch (error.code) {
-        case 'storage/unauthorized':
-          // User doesn't have permission to access the object
-          break;
-
-        case 'storage/canceled':
-          // User canceled the upload
-          break;
-
-        case 'storage/unknown':
-          // Unknown error occurred, inspect error.serverResponse
-          break;
-      }
-    }, function() {
-      // Upload completed successfully, now we can get the download URL
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        console.log('File available at', downloadURL);
-      });
     });
   }
 }
