@@ -7,21 +7,13 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-  apiKey: "AIzaSyABGamq__VCiuIy4lAANPeLLEtaOsl8v6k",
-  authDomain: "blogs-a7359.firebaseapp.com",
-  databaseURL: "https://blogs-a7359.firebaseio.com",
-  projectId: "blogs-a7359",
-  storageBucket: "blogs-a7359.appspot.com",
-  messagingSenderId: "749597724898",
-  appId: "1:749597724898:web:dc4033993f01a42c"
-
-  /* apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
+  piKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
   authDomain: "team3-435f1.firebaseapp.com",
   databaseURL: "https://team3-435f1.firebaseio.com",
   projectId: "team3-435f1",
   storageBucket: "team3-435f1.appspot.com",
   messagingSenderId: "804761067334",
-  appId: "1:804761067334:web:de1801641a9f3ddc" */
+  appId: "1:804761067334:web:de1801641a9f3ddc"
 };
 
 
