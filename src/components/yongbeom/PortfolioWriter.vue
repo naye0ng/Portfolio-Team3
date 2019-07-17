@@ -10,13 +10,13 @@
               <!-- image preview -->
               <v-flex xs12>
                 <img :src="imageUrl" height="150" v-if="imageUrl" />
-                <input type="file" style="display:none" ref="image" accept="image/*" @change="onImagePicked">
+                <input type="file" style="display:none" ref="image" accept="image/*" @change="onLocalImagePicked">
               </v-flex>
               <v-flex xs12>
                 <v-text-field label="Title" v-model="title" required></v-text-field>
               </v-flex>
               <v-flex xs2>
-                <v-btn color="primary" @click="pickFile" v-model="imageName">Use Local Image</v-btn>
+                <v-btn color="primary" @click="useLocalFile" v-model="imageName">Use Local Image</v-btn>
               </v-flex>
 
               <v-flex xs2>
@@ -34,7 +34,7 @@
                           사진 업로드
                         </v-card-title>
                         <v-card-text>
-                          <v-text-field label="Add Img By URL" v-model="selectUrl" required @change="setImg"></v-text-field>
+                          <v-text-field label="Add Img By URL" v-model="selectUrl" required @change="useUrlImg"></v-text-field>
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions>
@@ -49,9 +49,6 @@
 
               <v-flex xs2>
                 <v-btn color="primary" @click="useRandomImg" v-model="imageName">Random Image</v-btn>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn color="primary" @click="useBannerImg" v-model="imageName">Use Banner Image</v-btn>
               </v-flex>
               <v-flex xs2>
                 <v-btn color="error" @click="clearimg" v-model="imageName">Delete Image</v-btn>
@@ -95,17 +92,19 @@ export default {
       imageUrl : '',
       imageFile : '',
       selectUrl : '',
+      storageUrl : '',
       dialog: false
     };
   },
   mounted() {
   },
   methods : {
+    //Save Portfolio
     save : function(event) {
- 
+      //Blank check
       if(this.text == '' || this.title == '' || this.imageUrl == '') {
+        
         var alertMsg = '';
-
         if(this.imageUrl == '') {
           alertMsg = '이미지는 필수항목입니다. 이미지를 선택해주세요.'
         } else if(this.title == '') {
@@ -113,7 +112,7 @@ export default {
         } else if(this.text == '') {
           alertMsg = '내용은 필수항목입니다. 내용을 입력해주세요';
         }
-
+        
         this.$swal({
             type: 'error',
             title: 'Oops...',
@@ -122,14 +121,18 @@ export default {
       }
 
       else {
+        //Call Firebase service
         FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
         this.dialog = false
+
+        //Reinitialize data
         this.imageName = ''
         this.imageUrl = ''
         this.imageFile = ''
         this.text = ''
         this.title = ''
 
+        //Popup
         this.$swal({
           type : 'success',
           title : 'Great!',
@@ -146,6 +149,7 @@ export default {
         })
       }
     },
+
     clear : function(event) {
       this.text = ''
       this.title = ''
@@ -153,47 +157,52 @@ export default {
     clearimg(){
       this.imageUrl = ''
     },
-    setImg(){
+    useUrlImg(){
       this.imageUrl = this.selectUrl
       this.selectUrl = ''
       this.dialog = false;
+      this.onUrlImagePicked(this.imageUrl)
     },
     useRandomImg(){
-      this.imageUrl = ''
-      this.imageUrl = 'https://source.unsplash.com/random/1280x720'
+      this.imageUrl = 'https://source.unsplash.com/random/800x600'
+      this.onUrlImagePicked(this.imageUrl)
     },
-    useBannerImg(){
-      this.imageUrl = 'https://source.unsplash.com/random/1600x900'
-    },
-    pickFile() {
+    useLocalFile() {
       this.$refs.image.click()
     },
-    onImagePicked(e) {
+    onLocalImagePicked(e) {
+      console.log("select section")
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
-        if(this.imageName.lastIndexOf('.') <= 0) {
+      console.log("name : " + this.imageName)
+        /* if(this.imageName.lastIndexOf('.') <= 0) {
           return
-        }
+        } */
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.imageUrl = fr.result
           this.imageFile = files[0]
-        })
+          console.log("url : " + this.imageUrl)
+          console.log("file : " + this.imageFile)
+          console.log(this.imageUrl.name)
+        }) 
       } else {
         this.imageName=''
         this.imageFile=''
         this.imageUrl=''
       }
     },
-    onUrlPicked(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = e =>{
-        this.imageUrl = e.target.result;
-      };
+    onImageUrlPicked(url) {
+      const image2base64 = require('image-to-base64');
+      image2base64(url)
+        .then(
+          (response) => {
+              this.imageUrl = 'data:image/jpeg;base64,' + response
+              console.log("i264 : " +this.imageUrl)
+            }
+        )
     },
     goPortfolio() {
       this.$router.push('/portfolio');

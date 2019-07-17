@@ -7,7 +7,7 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-  apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
+  piKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
   authDomain: "team3-435f1.firebaseapp.com",
   databaseURL: "https://team3-435f1.firebaseio.com",
   projectId: "team3-435f1",
@@ -55,6 +55,32 @@ export default {
       })
   },
   postPortfolio(title, body, img) {
+    
+    //Create reference
+    var ref = firebase.storage().ref();
+    var file = img;
+    var name = new Date() + title;
+
+    //Upload image to firestorage
+    var uploadTask = ref.child(name).putString(file, 'data_url');
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(error) {
+        //catch error
+        switch (error.code) {
+          case 'storage/unauthorized':
+            break;
+          case 'storage/canceled':
+            break;
+
+          case 'storage/unknown':
+            break;
+        }
+      }, function() {
+        //Get stored image url from firestorage
+        img = uploadTask.snapshot.ref.getDownloadURL()
+    });
+
+    //Save Portfolio in firestore database
     return firestore.collection(PORTFOLIOS).add({
       title,
       body,
