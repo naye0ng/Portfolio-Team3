@@ -14,6 +14,7 @@
       }}"
         exact
         light
+        :class="`elevation-${hover ? 24 : 2}`"
       >
         <v-img :src="imgSrc" height="40vh"></v-img>
         <v-expand-transition>
@@ -22,7 +23,7 @@
             class="d-flex transition-ease-in-out black darken-1 v-card--reveal display-3 white--text"
             style="height: 100%; justify-content:center;"
           >
-            <div class="d-flex" style="font-size:0.7em; justify-content:center;">{{title}}</div>
+            <div class="d-flex" style="font-size:0.6em; justify-content:center;">{{title}}</div>
             <!-- <div v-html="body" class="d-flex" style="font-size:0.48em; text-align:center;"></div> -->
           </div>
         </v-expand-transition>

@@ -5,6 +5,7 @@ import VueSimplemde from 'vue-simplemde'
 import 'simplemde/dist/simplemde.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import VueSweetalert2 from 'vue-sweetalert2'
+import Carousel3d from 'vue-carousel-3d'
 
 import App from './App.vue'
 import router from './router'
@@ -30,6 +31,7 @@ Vue.use(VueSimplemde)
 Vue.use(VeeValidate)
 
 Vue.use(VueSweetalert2)
+Vue.use(Carousel3d)
 
 Vue.prototype.$loginBus = new Vue();
 

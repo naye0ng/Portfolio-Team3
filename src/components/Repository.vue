@@ -1,5 +1,30 @@
-<template>
-  <div class="py-3">
+<template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
+    <div
+      class="card-shadow"
+    >
+      <v-card-text class="headline font-weight-bold" style="padding-top:30px;">
+        <canvas :id="repos.username" width="100%" height="50%"></canvas>
+      </v-card-text>
+
+      <v-card-actions style="padding:0px;">
+        <v-list-tile class="grow py-2" :style="{ 'background-color' : repos.color[0]}">
+          <v-list-tile-avatar color="grey darken-3">
+            <v-img
+              class="elevation-6"
+              src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+            ></v-img>
+          </v-list-tile-avatar>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{repos.username}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-card-actions>
+    </div>
+
+
+
+  <!-- <div class="py-3">
     <v-layout>
       <v-flex xs12 sm6>
         <a :href="repos.http_url" class="repo-btn">
@@ -11,7 +36,7 @@
         <canvas :id="repos.username" width="100%" height="50%"></canvas>
       </v-flex>
     </v-layout>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -62,7 +87,6 @@ export default {
           labels: labels,
           datasets: [
             {
-              // label: "# commits",
               data: commits,
               backgroundColor: this.$props.repos.color[0],
               borderColor:this.$props.repos.color[1],
@@ -76,7 +100,7 @@ export default {
           },
           scales:{
             xAxes: [{
-              display: true, //this will remove all the x-axis grid lines
+              display: true,
               gridLines: {
                 display:false
               }
@@ -110,7 +134,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.subheading {
+/* .subheading {
   max-height: 6.4em;
   overflow: hidden;
   display: -webkit-box;
@@ -123,5 +147,13 @@ export default {
 }
 .repo-btn:hover{
   color:rgb(192, 50, 73);
+} */
+.card-shadow{
+  box-shadow:none!important;
+  display: inline-block;
+  border:solid 0px;
+  height:270px;
+  width:363px;
+  background-color: #fff;
 }
 </style>

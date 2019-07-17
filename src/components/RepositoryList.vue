@@ -1,15 +1,21 @@
 <template>
-  <v-layout column px-4>
-    <v-flex v-for="i in repositories.length > limits ? limits : repositories.length">
-      <v-divider v-if="i === 1"></v-divider>
+	<Carousel3d :controls-visible="true" style="height: 320px!important;padding: 20px;">
+		<Slide 
+			:index='i-1' v-for="i in repositories.length > limits ? limits : repositories.length"
+			class="repo-card">
+			<Repository :repos="repositories[i - 1]"></Repository>
+		</Slide>
+	</Carousel3d>
+  <!-- <v-layout column py-4>
+    <v-flex xs12 md6 v-for="i in repositories.length > limits ? limits : repositories.length">
       <Repository :repos="repositories[i - 1]"></Repository>
-      <v-divider></v-divider>
     </v-flex>
-  </v-layout>
+  </v-layout> -->
 </template>
 
 <script>
 import Repository from '@/components/Repository'
+import {Carousel3d, Slide} from 'vue-carousel-3d'
 
 export default {
 	name: 'RepositoryList',
@@ -34,7 +40,37 @@ export default {
     }
 	},
 	components: {
-		Repository
+		Repository,
+		Carousel3d, 
+		Slide,
 	},
 }
 </script>
+<style>
+.repo-card{
+	border-radius: 15px;
+	border-width: 0px!important;
+    border: solid 0px #fff;
+    color: rgba(0,0,0,0.87);
+	box-shadow: 0px 3px 20px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    text-decoration: none;
+}
+.carousel-3d-controls span{
+	font-size: 20px;
+	font-weight: 600;
+	position: relative;
+	color:#fff;
+}
+.carousel-3d-controls span:before{
+	content:"";
+	z-index: -10;
+	position:absolute;
+	top: -50%;
+	left:-50%;
+	width: 40px;
+	height: 40px;
+	background-color: rgba(18,18,18,0.7);
+	border-radius: 10px;
+}
+
+</style>
