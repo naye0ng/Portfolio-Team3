@@ -62,23 +62,34 @@ export default {
           labels: labels,
           datasets: [
             {
-              label: "# commits",
+              // label: "# commits",
               data: commits,
               backgroundColor: this.$props.repos.color[0],
               borderColor:this.$props.repos.color[1],
-              borderWidth: 1
+              borderWidth: 2
             }
           ]
         },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                }
+        options : {
+          legend : {
+            display: false
+          },
+          scales:{
+            xAxes: [{
+              display: true, //this will remove all the x-axis grid lines
+              gridLines: {
+                display:false
               }
-            ]
+            }],
+            yAxes: [{
+              display: false,
+              gridLines: {
+                display:false
+              }
+            }]
+          },
+          layout : {
+            padding: 5
           }
         }
       });

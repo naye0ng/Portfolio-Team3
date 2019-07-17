@@ -101,6 +101,7 @@ export default {
 
 .dev-content {
   font-size:9vw;
+  text-shadow: 4px 0px #EC407A
 }
 
 .dev-frame {

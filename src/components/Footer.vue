@@ -6,13 +6,13 @@
 </style>
 
 <template>
-  <v-footer height="auto" class="white">
+  <v-footer height="auto" class="grey lighten-3">
     <v-layout justify-center align-center row wrap>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
         <div id="google_translate_element" style="position : absoulte;"></div>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center">
-        &copy;2019 — <strong>SSSAFY Team3</strong>
+        &copy;2019 — <strong>SSAFY Team3</strong>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem;">
         <weather/>
