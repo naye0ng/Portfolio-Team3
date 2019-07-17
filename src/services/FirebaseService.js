@@ -7,7 +7,7 @@ const PORTFOLIOS = 'portfolios'
 
 // Setup Firebase
 const config = {
-  piKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
+  apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
   authDomain: "team3-435f1.firebaseapp.com",
   databaseURL: "https://team3-435f1.firebaseio.com",
   projectId: "team3-435f1",
