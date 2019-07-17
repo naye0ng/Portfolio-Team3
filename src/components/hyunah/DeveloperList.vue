@@ -1,5 +1,7 @@
 <template>
   <div id="banner">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
     <!-- <v-img :src="imgSrc"
            aspect-ratio="1.6"
            color="rgb(255,255,255,0.5)"> -->
@@ -157,8 +159,18 @@ export default {
 </script>
 <style>
 #banner{
+  position:relative;
   width:100%;
   height: 100vh;
   background-color: #181818;
 }
+/* .stars{
+  z-index: -1;
+}
+*/
+
+.twinkling{
+  z-index:1;
+  position:absolute;
+} 
 </style>
