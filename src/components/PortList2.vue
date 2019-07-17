@@ -18,8 +18,8 @@
 <script>
 import Portfolio from "@/components/Portfolio";
 import FirebaseService from "@/services/FirebaseService";
-import {VueperSlides, VueperSlide} from 'vueperslides';
-import 'vueperslides/dist/vueperslides.css'
+// import {VueperSlides, VueperSlide} from 'vueperslides';
+// import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "PortList2",
@@ -30,8 +30,8 @@ export default {
   },
   components: {
     Portfolio,
-    VueperSlides, 
-    VueperSlide, 
+    // VueperSlides, 
+    // VueperSlide, 
   },
   mounted() {
     this.getPortfolios();
