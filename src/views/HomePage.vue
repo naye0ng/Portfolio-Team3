@@ -23,7 +23,7 @@
       <!-- Post -->
       <v-layout py-5 my-1 row wrap class="grey lighten-5" id="post">
         <v-flex xs12>
-          <h2 class="my-5 text-xs-center homepage-title">POST</h2>
+          <h2 class="mb-5 mt-3 text-xs-center homepage-title">POST</h2>
           <PostList :column="1"></PostList>
         </v-flex>
         <v-flex xs12 text-xs-center mt-4>
@@ -36,7 +36,7 @@
       <!-- Portfolio -->
       <v-layout py-5 my-1 row wrap id="portfolio"> 
         <v-flex xs12>
-          <h2 class="my-4 text-xs-center homepage-title">PORTFOLIO</h2>
+          <h2 class="mt-4 mb-2 text-xs-center homepage-title">PORTFOLIO</h2>
         </v-flex>
         <v-container py-0>
           <v-flex xs12>
@@ -53,7 +53,7 @@
       <!-- Github -->
       <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
         <v-flex xs12>
-          <h2 class="my-4 text-xs-center homepage-title">PROJECT</h2>
+          <h2 class="my-4 pb-4 text-xs-center homepage-title">PROJECT</h2>
         </v-flex>
         <v-container py-0>
           <v-flex xs12>
@@ -74,6 +74,7 @@ import RepositoryList from '../components/RepositoryList'
 import firebase from 'firebase'
 import DeveloperList from '../components/hyunah/DeveloperList'
 import AboutUs from '../components/hyunah/AboutUs'
+import PortList2 from '../components/PortList2'
 
 export default {
 	name: 'HomePage',
@@ -83,7 +84,8 @@ export default {
 		PostList,
 		RepositoryList,
     DeveloperList,
-    AboutUs
+    AboutUs,
+    PortList2,
 	},
 	methods: {
 		getImgUrl(img) {

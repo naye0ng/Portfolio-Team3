@@ -12,12 +12,12 @@
       </v-flex>
     </v-layout>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="400">
+      <v-dialog v-model="dialog" max-width="450">
         <v-card>
-          <v-card-title primary-title>
+          <v-card-title primary-title class="pb-1 pt-3">
             <h2 class="color-333 headline font-weight-heavy">{{title}}</h2>
             <v-spacer></v-spacer>
-            <div class="caption grey--text pt-2">{{formatedDate}}</div>
+            <div class="caption grey--text pt-3">{{formatedDate}}</div>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
@@ -25,7 +25,7 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions class="pl-0">
-            <v-btn flat color="primary" @click="dialog=false" class="pl-0">close</v-btn>
+            <v-btn flat color="primary" @click="dialog=false" class="pl-0 pr-0 ml-1">close</v-btn>
             <v-spacer></v-spacer>
             <v-btn icon>
               <v-icon>favorite</v-icon>
