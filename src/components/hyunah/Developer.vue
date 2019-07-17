@@ -11,7 +11,7 @@
     </v-hover>
 
     <v-layout row justify-center class="dev-dialog">
-      <v-dialog v-model="dialog" max-width="600">
+      <v-dialog v-model="dialog" width="650">
         <v-card light>
           <v-layout column>
             <v-layout row>

@@ -6,7 +6,7 @@
       <!-- About Me -->
       <div class="contents">
       <v-layout column py-5 my-1 id="aboutUs">
-        <v-flex xs12 my-3 py-1>
+        <v-flex xs12 mt-3 py-1>
           <h2 class="my-2 text-xs-center homepage-title">ABOUT US</h2>
         </v-flex>
         <v-container py-0>
@@ -24,11 +24,11 @@
 
           <!-- Portfolio -->
           <div class="contents">
-          <v-layout py-5 my-1 row wrap class="grey lighten-5" id="portfolio">
+          <v-layout py-5 mt-4 row wrap class="grey lighten-5" id="portfolio">
             <v-flex py-3 xs12>
               <h2 class="mt-4 mb-2 text-xs-center homepage-title">PORTFOLIO</h2>
             </v-flex>
-            <v-container py-0>
+            <v-container>
               <v-flex xs12>
                 <PortfolioList></PortfolioList>
                 <!-- <PortList2></PortList2> -->
@@ -146,6 +146,6 @@ export default {
   text-shadow: 0.1em 0px #EC407A
 }
 .contents {
-  min-height: 100vh;
+  min-height: 100%;
 }
 </style>

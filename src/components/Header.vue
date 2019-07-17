@@ -71,7 +71,7 @@
             <v-icon color="primary">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title><!-- insert user name --></v-list-tile-title>
+            <v-list-tile-title><!-- insert user name -->Universe</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
