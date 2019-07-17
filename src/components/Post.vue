@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-layout py-4 h-100>
-      <v-flex @click="showModal" row>
-        <div class="caption">{{formatedDate}}</div>
-        <h2 class="color-333 headline post-title font-weight-heavy">{{title}}</h2>
-        <p v-html="body" class="mb-1 color-666 font-weight-light post-body subheading"></p>
+    <v-layout pt-3 pb-3 h-100>
+      <v-flex @click="showModal" row style="cursor:pointer; height:80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <div class="color-333 headline post-title font-weight-heavy">{{title}}</div>
+        <div class="caption grey--text mt-1">{{formatedDate}}</div>
+        <span v-html="body" class="mb-2 mt-2 font-weight-light post-body color-666"></span>
       </v-flex>
     </v-layout>
     <v-layout row justify-center>
