@@ -23,7 +23,7 @@
       <!-- Post -->
       <v-layout py-5 my-1 row wrap class="grey lighten-5" id="post">
         <v-flex xs12>
-          <h2 class="headline my-5 text-xs-center">Post</h2>
+          <h2 class="my-5 text-xs-center homepage-title">POST</h2>
           <PostList :column="1"></PostList>
         </v-flex>
         <v-flex xs12 text-xs-center mt-4>
