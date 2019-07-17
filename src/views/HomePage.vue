@@ -56,10 +56,10 @@
         <v-flex xs12>
           <h2 class="my-4 pb-4 text-xs-center homepage-title">PROJECT</h2>
         </v-flex>
-        <v-container py-0>
-          <v-flex xs12>
+        <v-container py-3>
+          <!-- <v-flex xs12> -->
             <RepositoryList></RepositoryList>
-          </v-flex>
+          <!-- </v-flex> -->
         </v-container>
 
       </v-layout>
