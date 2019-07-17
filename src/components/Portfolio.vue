@@ -14,6 +14,7 @@
       }}"
         exact
         light
+        :class="`elevation-${hover ? 24 : 2}`"
       >
         <v-img :src="imgSrc" height="40vh"></v-img>
         <v-expand-transition>
