@@ -165,7 +165,7 @@ export default {
     },
     useRandomImg(){
       this.imageUrl = 'https://source.unsplash.com/random/800x600'
-      this.onUrlImagePicked(this.imageUrl)
+      this.onImageUrlPicked(this.imageUrl)
     },
     useLocalFile() {
       this.$refs.image.click()
