@@ -48,7 +48,7 @@
         <v-flex pt-3 xs12>
           <h2 class="mb-5 mt-3 text-xs-center homepage-title">POST</h2>
         </v-flex>
-        <v-flex xs12 text-xs-center>
+        <v-flex xs12>
           <PostList :column="1"></PostList>
         </v-flex>
         <v-flex xs12 text-xs-center my-3>
