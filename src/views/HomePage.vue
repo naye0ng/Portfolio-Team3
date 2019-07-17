@@ -44,9 +44,9 @@
       <v-layout my-5 row wrap>
         <v-flex xs12>
           <h2 class="headline my-5 text-xs-center">Post</h2>
-          <PostList :column="2"></PostList>
+          <PostList :column="1"></PostList>
         </v-flex>
-        <v-flex xs12 text-xs-center mt-3>
+        <v-flex xs12 text-xs-center mt-4>
           <v-btn color="primary" dark to="/post">
             <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
           </v-btn>

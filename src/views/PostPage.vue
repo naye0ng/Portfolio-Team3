@@ -6,10 +6,10 @@
     <v-container>
       
       <!-- Post Writer -->
-      <v-layout justify-center>
+      <v-layout justify-center class="mb-2">
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
-            <v-flex xs2 mt-5>
+            <v-flex xs4 mt-5>
               <v-btn color="#0F9D58" router :to="{
                 name: 'makecontents',
                 params: {
