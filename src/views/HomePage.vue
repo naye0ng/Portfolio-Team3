@@ -27,7 +27,7 @@
           <PostList :column="1"></PostList>
         </v-flex>
         <v-flex xs12 text-xs-center mt-4>
-          <v-btn color="primary" dark to="/post">
+          <v-btn color="#EC407A" dark to="/post">
             <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
           </v-btn>
         </v-flex>
