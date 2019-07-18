@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container py-0>
       <v-layout column>
         <v-flex xs12>
           <v-card color="secondary" flat>
