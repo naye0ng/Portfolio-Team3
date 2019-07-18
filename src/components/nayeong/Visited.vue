@@ -67,7 +67,8 @@ export default {
           datasets : [
             {
               data: cnt,
-              backgroundColor: "rgb(255, 255, 255, 0.5)"
+              backgroundColor: 'rgb(236, 64, 122, 0.8)',
+              borderColor: 'rgb(255,255,255,0.4)'
             }
           ]
         },
@@ -91,6 +92,11 @@ export default {
           },
           layout : {
             padding: 5
+          },
+          tooltips : {
+            backgroundColor : 'rgb(255,255,255)',
+            titleFontColor: 'rgb(0,0,0)',
+            bodyFontColor: 'rgb(0,0,0)'
           }
         }
       });
