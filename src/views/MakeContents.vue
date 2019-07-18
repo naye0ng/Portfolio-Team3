@@ -6,10 +6,10 @@
     <v-container>
       
       <!-- Portfolio Writer -->
-      <portfolioWriter v-if="kind==='portfolio'"></portfolioWriter>
+      <portfolioWriter v-if="kind==='Portfolio'"></portfolioWriter>
       
       <!-- Post Writer -->
-      <postWriter v-if="kind==='post'"></postWriter>
+      <postWriter v-if="kind==='Post'"></postWriter>
     </v-container>
   </div>
 </template>

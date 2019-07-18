@@ -1,10 +1,16 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{ on }" >
         <v-btn color="#181818" v-on="on" style="width:100%; color:#f7f7f7;">
           <v-icon size="25" class="mr-2">fa-user-plus</v-icon>회원가입
         </v-btn>
+        <!-- <div class="bg-4">
+          <button v-on="on" class="button button--wayra2 button--border-thin button--text-thin button--size-xs" 
+            style="min-width:110px; max-width:110px;padding:0.3em 0.5em;margin:0;">
+              회원가입
+          </button> -->
+        <!-- </div> -->
         <!-- <v-btn color="primary" dark v-on="on">회원가입</v-btn> -->
       </template>
       <v-card>
