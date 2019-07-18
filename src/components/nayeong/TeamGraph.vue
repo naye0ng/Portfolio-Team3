@@ -37,7 +37,7 @@
       <v-flex xs12 md6 px-3 py-3>
         <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
-            <h3 class="headline mb-2" style="width:100%;text-align:center;">How to sign in our site</h3>
+            <h3 class="headline mb-2" style="width:100%;text-align:center;">User Login Statistics</h3>
           </v-card-title>
           <div style="padding: 5px 10px; margin-bottom:20px;">
             <canvas id="socialChart" width="100%" class="mb-1"></canvas>
