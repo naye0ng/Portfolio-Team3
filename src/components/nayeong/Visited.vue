@@ -2,7 +2,7 @@
   <v-container>
     <v-layout column>
       <v-flex xs12>
-        <v-card >
+        <v-card>
           <v-card-title>
             <span>🚀 오늘의 방문자 : <strong>{{ visited }}</strong>명 🚀</span>
           </v-card-title>

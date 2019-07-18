@@ -88,6 +88,15 @@
       </v-list>
       <v-divider></v-divider>
       <Visited ></Visited>
+      <v-container>
+        <v-layout column>
+          <v-flex xs12>
+            <v-card>
+              <WeatherDetail></WeatherDetail>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-navigation-drawer>
   </v-layout>
 </template>
@@ -95,6 +104,7 @@
 <script>
 import FirebaseService from "@/services/FirebaseService";
 import SnsLogin from "@/components/haewon/SnsLogin";
+import WeatherDetail from "@/components/hyunah/WeatherDetail";
 import Visited from './nayeong/Visited.vue'
 import BackToTop from 'vue-backtotop'
 
@@ -117,7 +127,8 @@ export default {
   components: {
     SnsLogin,
     Visited,
-    BackToTop
+    BackToTop,
+    WeatherDetail
   },
   methods: {
     notify: function() {
