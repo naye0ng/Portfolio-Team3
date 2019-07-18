@@ -24,7 +24,7 @@
       </v-layout>
 
       <!-- Post List -->
-      <v-layout>
+      <v-layout class="mt-5">
         <v-flex xs12>
           <PostList :limits="4" :load-more="true"></PostList>
         </v-flex>

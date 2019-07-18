@@ -1,9 +1,7 @@
 <template>
   <v-layout row wrap mw-700>
     <v-flex v-for="i in posts.length > limits ? limits : posts.length" :class="'xs' + 12 / column" px-3>
-      <v-divider></v-divider>
       <Post :date="posts[i - 1].created_at" :title="posts[i - 1].title" :body="posts[i - 1].body"></Post>
-      <v-divider v-if="i>(4-column)"></v-divider>
     </v-flex>
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
       <v-btn color="primary" dark v-on:click="loadMorePosts">
