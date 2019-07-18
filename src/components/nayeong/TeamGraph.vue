@@ -2,12 +2,12 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12>
-        <p class="display-3 my-5 pt-3 text-xs-center team-graph-font">Hi, We are Team3!</p>
+        <h2 class=" my-5 py-5 text-xs-center text-shadow homepage-title" style="color:#fff;">Hi, We are Team3!</h2>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
-            <h3 class="headline mb-2" style="width:100%;text-align:center;">Team3 Total Commits</h3>
+            <h3 class="headline mb-2 " style="width:100%;text-align:center;">Team3 Total Commits</h3>
           </v-card-title>
           <div style="padding: 5px 10px; margin-bottom:20px;">
             <canvas id="teamChart" width="100%" class="mb-1"></canvas>
@@ -15,7 +15,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
             <h3 class="headline mb-2" style="width:100%;text-align:center;">Commit by Members</h3>
           </v-card-title>
@@ -25,7 +25,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
             <h3 class="headline mb-2" style="width:100%;text-align:center;">Our Site Visitors</h3>
           </v-card-title>
@@ -35,9 +35,9 @@
         </v-card>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
-            <h3 class="headline mb-2" style="width:100%;text-align:center;">How to sign in our site</h3>
+            <h3 class="headline mb-2" style="width:100%;text-align:center;">User Login Statistics</h3>
           </v-card-title>
           <div style="padding: 5px 10px; margin-bottom:20px;">
             <canvas id="socialChart" width="100%" class="mb-1"></canvas>
@@ -52,15 +52,15 @@
 import chart from "chart.js";
 import axios from "axios";
 import firebase from "firebase";
+import { constants } from 'crypto';
+import { async } from 'q';
 
 export default {
   name: "TeamGraph",
   methods: {
-    async getCommits() {
-      var response = await axios.get(
-        "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100"
-      );
-      return response.data;
+    async getCommits(API_URL) {
+      var response = await axios.get(API_URL)
+      return response;
     },
     createTeamGraph(data) {
       let end = new Date(data[0].commit.author.date.slice(0, 10));
@@ -247,19 +247,37 @@ export default {
             }
           });
         });
+    },
+    async asyncForEach(nextUrl, data){
+      for (let index = 0; index < nextUrl.length; index++) {
+        await this.getCommits(nextUrl[index].split('>;')[0].slice(1))
+          .then(res2 =>{
+            data = data.concat(res2.data)
+          })
+      }
+      return data
     }
   },
   mounted() {
     // git graph
-    var commits = this.getCommits();
-    commits.then(data => {
-      this.createTeamGraph(data);
-      this.createMemberGraph(data);
-    });
-
+    var response = this.getCommits("https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100");
+    response.then(res => {
+      var nextUrl = res.headers.link.split(", ")
+      var data = res.data
+      this.asyncForEach(nextUrl, data)
+        .then(data =>{
+          this.createTeamGraph(data);
+          this.createMemberGraph(data);
+        })
+    })
     // team3 web site graph
     this.createVisitorChart();
     this.socialLoginChart();
   }
 };
 </script>
+<style>
+.theme--light.v-sheet{
+  background-color: rgba(250,250,250,0.97)!important;
+}
+</style>

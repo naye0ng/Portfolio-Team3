@@ -1,10 +1,14 @@
 <template>
   <v-layout row justify-center>
     <br style="width:2px;color:black;">
-    <v-flex xs10 justify-center text-xs-center>
+    <v-flex xs10 justify-center text-xs-center class="bg-1">
       <v-text-field prepend-icon="person" v-model="email" label="Email" type="text"></v-text-field>
       <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password"></v-text-field>
       <v-btn color="primary" @click="Login()" dark style="width:100%;"><v-icon size="25" class="mr-2">fa-user</v-icon>회원 로그인</v-btn>
+      <!-- <button @click="Login()" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+          style="min-width:300px; max-width:300px;padding:0.3em 0.5em;margin:0;">
+            회원 로그인
+      </button> -->
     </v-flex>
     
     <!-- <v-dialog v-model="dialog2" persistent max-width="600px">
@@ -64,9 +68,10 @@ export default {
         answer: ""
       }
       user.password=registerService.Crypto(user.email,user.password);
-      firebaseService.loginUser(user.email, user.password);
+      const result = await firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
-      // this.$store.state.user=result.user;
+      this.$store.state.user=result.user;
+      this.$store.commit('pushWebLog','email')
       firebaseService.LoginSuccess();
     }
   }

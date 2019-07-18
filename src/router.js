@@ -56,6 +56,9 @@ export default new Router({
 			name: 'portdetail',
 			component: PortDetail,
 			props: true //props access permission
-		}
-	]
+		},
+	],
+	scrollBehavior (to, from, savedPosition) {
+		return { x: 0, y: 0 }
+	}
 })

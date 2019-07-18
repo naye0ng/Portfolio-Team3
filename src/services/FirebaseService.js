@@ -155,7 +155,7 @@ export default {
     });
   },
   loginUser(email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+    return firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
       if (errorCode === 'auth/wrong-password') {
         Swal.fire({
