@@ -52,17 +52,20 @@
 import chart from "chart.js";
 import axios from "axios";
 import firebase from "firebase";
+import { constants } from 'crypto';
+import { async } from 'q';
 
 export default {
   name: "TeamGraph",
   methods: {
-    async getCommits() {
-      var response = await axios.get(
-        "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100"
-      );
-      return response.data;
+    async getCommits(API_URL) {
+      var response = await axios.get(API_URL)
+      return response;
     },
     createTeamGraph(data) {
+      // console.log(data, data.length)
+      // console.log(data[0].commit.author.date.slice(0, 10))
+      // console.log(data[data.length - 1].commit.author.date.slice(0, 10))
       let end = new Date(data[0].commit.author.date.slice(0, 10));
       let start = new Date(
         data[data.length - 1].commit.author.date.slice(0, 10)
@@ -84,6 +87,7 @@ export default {
         }
         start.setDate(start.getDate() + 1);
       }
+      // console.log(labels, commits)
       var ctx = document.getElementById("teamChart");
       var teamChart = new chart.Chart(ctx, {
         type: "line",
@@ -247,16 +251,29 @@ export default {
             }
           });
         });
+    },
+    async asyncForEach(nextUrl, data){
+      for (let index = 0; index < nextUrl.length; index++) {
+        await this.getCommits(nextUrl[index].split('>;')[0].slice(1))
+          .then(res2 =>{
+            data = data.concat(res2.data)
+          })
+      }
+      return data
     }
   },
   mounted() {
     // git graph
-    var commits = this.getCommits();
-    commits.then(data => {
-      this.createTeamGraph(data);
-      this.createMemberGraph(data);
-    });
-
+    var response = this.getCommits("https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100");
+    response.then(res => {
+      var nextUrl = res.headers.link.split(", ")
+      var data = res.data
+      this.asyncForEach(nextUrl, data)
+        .then(data =>{
+          this.createTeamGraph(data);
+          this.createMemberGraph(data);
+        })
+    })
     // team3 web site graph
     this.createVisitorChart();
     this.socialLoginChart();
