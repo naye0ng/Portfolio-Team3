@@ -8,20 +8,20 @@
         <!-- <v-btn color="primary" dark v-on="on">회원가입</v-btn> -->
       </template>
       <v-card>
-        <v-card-title class="pb-0">
-          <span class="headline">회원가입 작성</span>
+        <v-card-title >
+          <span class="headline" style="text-align:center; width:100%">회원가입 작성</span>
         </v-card-title>
-        <v-card-text class="pb-2">
-          <v-container grid-list-md class="pb-0">
-            <v-layout wrap>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap justify-space-between align-center>
               <v-flex xs2>
-                <v-icon size="65">mail</v-icon>
+                <v-icon size="30" color="secondary">mail</v-icon>
               </v-flex>
               <v-flex xs10>
-                <v-text-field label="이메일(아이디)*" v-model="email" required outline :rules="emailRules"></v-text-field>
+                <v-text-field label="이메일(아이디)*" v-model="email" required :rules="emailRules"></v-text-field>
               </v-flex>
               <v-flex xs2>
-                <v-icon size="65">lock</v-icon>
+                <v-icon size="30" color="secondary">lock</v-icon>
               </v-flex>
               <v-flex xs10>
                 <v-text-field
@@ -30,35 +30,34 @@
                   type="password"
                   required
                   hint="특수문자는 필수 포함 10글자 이상"
-                  outline
                   :rules="passwordRules"
                 ></v-text-field>
               </v-flex>
               <v-flex xs2>
-                  <v-icon size="65">perm_identity</v-icon>
+                  <v-icon size="30" color="secondary">perm_identity</v-icon>
               </v-flex>
               <v-flex xs10>
-                <v-text-field label="이름" v-model="name" outline></v-text-field>
+                <v-text-field label="이름" v-model="name"></v-text-field>
               </v-flex>
               <br/>
                   <v-flex sm2>
-                    <v-icon size="65">question_answer</v-icon>
+                    <v-icon size="30" color="secondary">question_answer</v-icon>
                   </v-flex>
                  <v-flex sm7 d-flex>
-                  <v-select 
+                  <v-select
                     :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
-                    label="비밀번호 찾기 질문*" 
-                    v-model="findPass" outline append-icon="expand_more"
+                    label="비밀번호 찾기 질문*"
+                    v-model="findPass" append-icon="expand_more"
                   ></v-select>
                   </v-flex>
               <v-flex sm3>
-                <v-text-field label="답변" v-model="answer" required outline :rules="loginRules"></v-text-field>
+                <v-text-field label="답변" v-model="answer" required :rules="loginRules"></v-text-field>
               </v-flex>
               <v-flex xs2>
-                <v-icon size="65">phone_in_talk</v-icon>
+                <v-icon size="30" color="secondary">phone_in_talk</v-icon>
               </v-flex>
               <v-flex xs10>
-                <v-text-field label="핸드폰번호" v-model="telephone" required outline></v-text-field>
+                <v-text-field label="핸드폰번호" v-model="telephone" required></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -67,7 +66,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" dark @click="SignUp()">Save<v-icon dark right>check_circle</v-icon></v-btn>
-          <v-btn color="red" dark @click="dialog = false">Close<v-icon dark right>block</v-icon></v-btn>
+          <v-btn color="secondary" dark @click="dialog = false">Close<v-icon dark right>block</v-icon></v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -106,7 +105,7 @@ export default {
   },
   computed : {
 
-  },  
+  },
   methods: {
     SignUp() {
       const user = {
