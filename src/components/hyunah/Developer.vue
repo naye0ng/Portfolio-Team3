@@ -1,7 +1,7 @@
 <template>
   <div class="banner-images">
     <v-hover>
-      <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)">
+      <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)" class="interstella">
         <v-img :aspect-ratio="16/9" :src="image">
           <div v-if="hover" class="display-3 dev-frame">
             <span class="dev-content">{{status}}</span>
@@ -117,6 +117,18 @@ export default {
 .banner-images{
   position: relative;
   z-index : 99;
+}
+
+.interstella {
+   animation-duration: 1500s;
+   animation-name: bingle;
+}
+@keyframes bingle {
+   from {
+   }
+   to {
+       transform : rotate(108000deg);
+   }
 }
 
 </style>

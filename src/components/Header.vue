@@ -1,7 +1,7 @@
 
 <template>
   <v-layout>
-    <v-toolbar fixed id="header">
+    <v-toolbar fixed id="header" style="z-index:999;">
       <v-toolbar-side-icon @click.stop="drawer = !drawer">
         <v-icon>menu</v-icon>
       </v-toolbar-side-icon>
@@ -64,7 +64,7 @@
     </v-toolbar>
 
     <!-- navigation area -->
-    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed" class="grey lighten-5">
+    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed; z-index:1000;" class="grey lighten-5">
       <v-list class="pa-1 white">
         <v-list-tile avatar to="/">
           <v-list-tile-avatar>
@@ -148,4 +148,5 @@ export default {
 #header *{
   color: #fff!important;
 }
+
 </style>

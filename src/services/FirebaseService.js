@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import Swal from 'sweetalert2'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
@@ -55,7 +56,7 @@ export default {
       })
   },
   postPortfolio(title, body, img) {
-    
+
     //Create reference
     var ref = firebase.storage().ref();
     var file = img;
@@ -157,9 +158,17 @@ export default {
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
       if (errorCode === 'auth/wrong-password') {
-        alert('비밀번호가 틀렸습니다.');
+        Swal.fire({
+          title:'Error!',
+          text:'비밀번호가 틀렸습니다.',
+          type:'error'
+        })
       } else if (errorCode === 'auth/invalid-email') {
-        alert('해당 이메일로 가입된 사용자가 존재하지 않습니다.');
+        Swal.fire({
+          title:'Error!',
+          text:'해당 이메일로 가입된 사용자가 존재하지 않습니다.',
+          type:'error'
+        })
       }
       console.log(error);
     });
@@ -199,10 +208,16 @@ export default {
     }).catch(function (error) {
       var errorCode = error.code;
       if (errorCode === 'auth/email-already-in-use') {
-        alert('이미 다른 이메일에 연결된 계정입니다');
+        Swal.fire({
+          text:'이미 다른 이메일에 연결된 계정입니다',
+          type:'warning'
+        })
       }
       else if (errorCode === 'auth/credential-already-in-use') {
-        alert('이미 등록된 SNS 계정입니다')
+        Swal.fire({
+          text:'이미 등록된 SNS 계정입니다',
+          type:'warning'
+        })
       }
       console.log(error);
     });
