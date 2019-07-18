@@ -1,6 +1,8 @@
 <template>
   <v-layout align-center justify-center row fill-height style="background-color:#fafafa;">
-	  <TeamGraph></TeamGraph>
+	  	<div class="stars"></div>
+    	<div class="twinkling"></div>
+	  	<TeamGraph style="z-index:99"></TeamGraph>
   </v-layout>
 </template>
 
@@ -14,3 +16,9 @@ export default {
 	}
 }
 </script>
+<style>
+.twinkling{
+  z-index:1;
+  position:absolute;
+} 
+</style>

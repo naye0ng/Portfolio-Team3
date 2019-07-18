@@ -1,12 +1,25 @@
 <template>
   <div class="banner-images">
     <v-hover>
-      <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)" class="interstella">
-        <v-img :aspect-ratio="16/9" :src="image">
+      <!-- <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)" class="interstella flip-card"> -->
+      <v-avatar @click="showModal" size=12vw class="interstella flip-card">
+      <div class="flip-card-inner">  
+        <div class="flip-card-front">
+          <v-img :aspect-ratio="16/9" :src="image">
+            <!-- <div v-if="hover" class="display-3 dev-frame">
+              <span class="dev-content">{{status}}</span>
+            </div> -->
+          </v-img>
+        </div>
+        <div class="flip-card-back" :style="{'background-color':bgcolor}">
+          <span class="dev-content">{{status}}</span>
+        </div>
+      </div>
+        <!-- <v-img :aspect-ratio="16/9" :src="image">
           <div v-if="hover" class="display-3 dev-frame">
             <span class="dev-content">{{status}}</span>
           </div>
-        </v-img>
+        </v-img> -->
       </v-avatar>
     </v-hover>
 
@@ -119,10 +132,10 @@ export default {
   z-index : 99;
 }
 
-.interstella {
-   animation-duration: 1500s;
+/* .interstella {
+   animation-duration: 2000s;
    animation-name: bingle;
-}
+} */
 @keyframes bingle {
    from {
    }
@@ -131,4 +144,50 @@ export default {
    }
 }
 
+
+.flip-card {
+  background-color: transparent;
+  animation-duration: 2000s;
+  animation-name: bingle;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+ 
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.flip-card:hover{
+  animation-duration: 0s;
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+}
+.flip-card-front{
+  background-color: rgba(255,255,255,0.6);
+}
+
+.flip-card-back {
+  color: white;
+  transform: rotateY(180deg);
+  /* line-height: 1rem; */
+  position: relative;
+}
+.flip-card-back span{
+  position: absolute;
+  top:-7%;
+  left:30%;
+}
 </style>

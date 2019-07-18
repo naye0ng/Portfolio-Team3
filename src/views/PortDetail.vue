@@ -37,7 +37,11 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round>
+<<<<<<< HEAD
           <v-btn color="primary" text-xs-center dark to="/portfolio">
+=======
+          <v-btn color="#ec407a" text-xs-center dark to="/portfolio">
+>>>>>>> 7ccdf3f4d15c256dd90f4678a2b8ba312d7f5d37
             <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
           </v-btn>
           <v-btn color="primary" text-xs-center dark to="/">

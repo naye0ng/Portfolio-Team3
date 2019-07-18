@@ -64,9 +64,10 @@ export default {
         answer: ""
       }
       user.password=registerService.Crypto(user.email,user.password);
-      firebaseService.loginUser(user.email, user.password);
+      const result = await firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
-      // this.$store.state.user=result.user;
+      this.$store.state.user=result.user;
+      this.$store.commit('pushWebLog','email')
       firebaseService.LoginSuccess();
     }
   }
