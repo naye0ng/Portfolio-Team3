@@ -67,7 +67,7 @@ export default {
       const result = await firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
       this.$store.state.user=result.user;
-      // console.log(this.$store.state.user);
+      this.$store.commit('pushWebLog','email')
       firebaseService.LoginSuccess();
     }
   }
