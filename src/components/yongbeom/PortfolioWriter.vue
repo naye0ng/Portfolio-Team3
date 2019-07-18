@@ -1,5 +1,5 @@
 <template>
-  <v-layout row justify-center style="background-color:#f7f7f7;">
+  <v-layout row justify-center style="background-color:#f7f7f7;" class="mb-4">
       <v-card>
         <v-card-title>
           <span class="headline">Portfolio Writer</span>
