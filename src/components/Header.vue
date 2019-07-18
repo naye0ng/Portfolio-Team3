@@ -36,13 +36,13 @@
         </v-menu>
 
         <v-dialog v-model="dialog" max-width="400">
-          <v-card style="border-radius:20px;">
-            <v-flex class="text-xs-right">
+          <v-card style="border-radius:20px; border-radius:0px;" >
+            <!-- <v-flex class="text-xs-right">
               <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
                   <v-icon>close</v-icon>
               </v-btn>
-            </v-flex>
-            <v-card-title
+            </v-flex> -->
+            <!-- <v-card-title
               style="padding-top:0px;"
               class="headline justify-center"
               v-if="!$store.state.user"
@@ -51,7 +51,14 @@
               style="padding-top:0px;"
               class="headline justify-center"
               v-if="$store.state.user"
-            >로그아웃</v-card-title>
+            >로그아웃</v-card-title> -->
+            <v-layout style="color:#ffffff; background-color:#ffffff;">
+              <v-flex class="text-xs-right" style="color:#ffffff; background-color:#ffffff;">
+                <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
+                    <v-icon>close</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
             <SnsLogin></SnsLogin>
           </v-card>
         </v-dialog>

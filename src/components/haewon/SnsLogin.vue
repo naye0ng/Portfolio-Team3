@@ -1,10 +1,36 @@
 <template>
-  <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white pa-4>
+  <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white px-4 pb-4>
     <v-flex xs12 text-xs-center v-if="$store.state.user">
       <v-btn round color="#000000" dark v-on:click="logout" style="width:50%;">
         <v-icon size="25" class="mr-2">fa-sign-out</v-icon>로그아웃
       </v-btn>
     </v-flex>
+    <v-layout align-center justify-center row wrap white mb-4>
+      <v-flex xs3 text-xs-center v-if="!$store.state.user" class="mx-1">
+        <!-- <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
+          <v-icon size="25" class="mr-2">fa-google</v-icon>
+        </v-btn> -->
+        <v-avatar size="70" v-on:click="loginWithGoogle" color="#df4a31" style="cursor:pointer;">
+          <v-icon size="25" dark >fa-google</v-icon>
+        </v-avatar>
+      </v-flex>
+      <v-flex xs3 text-xs-center v-if="!$store.state.user" class="mx-1">
+        <!-- <v-btn round color="#3C5A99" dark v-on:click="loginWithFacebook" style="width:50%;">
+          <v-icon size="25" class="mr-2">fa-facebook</v-icon>
+        </v-btn> -->
+        <v-avatar size="70" v-on:click="loginWithFacebook" color="#3C5A99" style="cursor:pointer;">
+          <v-icon size="25" dark >fa-facebook</v-icon>
+        </v-avatar>
+      </v-flex>
+      <v-flex xs3 text-xs-center v-if="!$store.state.user" class="mx-1">
+        <!-- <v-btn round color="#4078c0" dark v-on:click="loginWithGithub" style="width:50%;">
+          <v-icon size="25" class="mr-2">fa-github</v-icon>
+        </v-btn> -->
+        <v-avatar size="70" v-on:click="loginWithGithub" color="#4078c0" style="cursor:pointer;">
+          <v-icon size="25" dark >fa-github</v-icon>
+        </v-avatar>
+      </v-flex>
+    </v-layout>
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
       <UserLogin></UserLogin>
     </v-flex>
@@ -14,46 +40,16 @@
     <v-flex xs12 pt-3 pb-3>
       <hr style="background-color:#181818;">
     </v-flex>
-    <v-flex xs4 text-xs-center v-if="!$store.state.user">
+    <v-flex xs12 text-xs-center v-if="!$store.state.user">
       <Register></Register>
     </v-flex>
-    <v-flex xs4 text-xs-center v-if="!$store.state.user" style="margin-left:-6px; margin-right:2px;">
-      <v-btn color="#df4a31" dark @click="snsdialog = true" style="width:100%;">
-        <v-icon size="25" class="mr-2">fa-google-plus-square</v-icon>SNS 로그인
-      </v-btn>
+    <v-flex xs12 text-xs-center v-if="!$store.state.user">
+      <v-layout row justify-center>
+        <v-btn color="#7A7A7A" dark v-on:click="loginAnno" style="width:90%;">
+          <v-icon size="25">fa-question-circle</v-icon>익명 로그인
+        </v-btn>
+      </v-layout>
     </v-flex>
-    <v-flex xs4 text-xs-center v-if="!$store.state.user">
-      <v-btn color="#7A7A7A" dark v-on:click="loginAnno" style="width:100%;">
-        <v-icon size="25" class="mr-2">fa-question-circle</v-icon>익명 로그인
-      </v-btn>
-    </v-flex>
-    <v-dialog v-model="snsdialog" max-width="400">
-      <v-card style="border-radius:20px;">
-        <v-flex class="text-xs-right">
-          <v-btn small icon @click="snsdialog = false" style="margin-bottom:0px">
-            <v-icon>close</v-icon>
-          </v-btn>
-        </v-flex>
-        <v-card-title style="padding-top:0px;" class="headline justify-center">SNS 로그인</v-card-title>
-        <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white pa-4>
-          <v-flex xs12 text-xs-center v-if="!$store.state.user">
-            <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
-              <v-icon size="25" class="mr-2">fa-google</v-icon>Google 로그인
-            </v-btn>
-          </v-flex>
-          <v-flex xs12 text-xs-center v-if="!$store.state.user">
-            <v-btn round color="#3C5A99" dark v-on:click="loginWithFacebook" style="width:50%;">
-              <v-icon size="25" class="mr-2">fa-facebook</v-icon>Facebook 로그인
-            </v-btn>
-          </v-flex>
-          <v-flex xs12 text-xs-center v-if="!$store.state.user">
-            <v-btn round color="#4078c0" dark v-on:click="loginWithGithub" style="width:50%;">
-              <v-icon size="25" class="mr-2">fa-github</v-icon>Github 로그인
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </v-dialog>
   </v-layout>
 </template>
 
