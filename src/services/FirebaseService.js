@@ -42,7 +42,7 @@ export default {
       })
   },
   postPost(title, body, user) {
-    var likeCount = 0;
+    var likeCount = '0';
 
     return firestore.collection(POSTS).add({
       title,
@@ -51,6 +51,10 @@ export default {
       likeCount,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     })
+  },
+  deletePost(user){
+    //need to receive key
+    firestore.collection(POSTS).remove()
   },
   getPortfolios() {
     const postsCollection = firestore.collection(PORTFOLIOS)
@@ -71,7 +75,7 @@ export default {
     var ref = firebase.storage().ref();
     var file = img;
     var name = new Date() + title;
-    var likeCount = 0;
+    var likeCount = '0';
     //Upload image to firestorage
     var uploadTask = ref.child(name).putString(file, 'data_url');
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'

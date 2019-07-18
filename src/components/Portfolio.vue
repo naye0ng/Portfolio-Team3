@@ -10,7 +10,9 @@
       params: {
         title: title,
         body: body,
-        imgSrc: imgSrc
+        imgSrc: imgSrc,
+        date: date,
+        user: user
       }}"
         exact
         light
@@ -46,7 +48,9 @@ export default {
     date: { type: String },
     title: { type: String },
     body: { type: String },
-    imgSrc: { type: String }
+    imgSrc: { type: String },
+    like : { type: String },
+    user : { type : String},
   },
   data() {
     return {
