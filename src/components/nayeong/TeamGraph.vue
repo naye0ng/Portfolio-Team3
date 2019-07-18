@@ -2,10 +2,10 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12>
-        <p class="display-3 my-5 pt-3 text-xs-center team-graph-font">Hi, We are Team3!</p>
+        <p class="display-3 my-5 pt-3 text-xs-center team-graph-font" style="color:#fff;">Hi, We are Team3!</p>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
             <h3 class="headline mb-2" style="width:100%;text-align:center;">Team3 Total Commits</h3>
           </v-card-title>
@@ -15,7 +15,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
             <h3 class="headline mb-2" style="width:100%;text-align:center;">Commit by Members</h3>
           </v-card-title>
@@ -25,7 +25,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
             <h3 class="headline mb-2" style="width:100%;text-align:center;">Our Site Visitors</h3>
           </v-card-title>
@@ -35,7 +35,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
-        <v-card style="padding:10px;">
+        <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
             <h3 class="headline mb-2" style="width:100%;text-align:center;">How to sign in our site</h3>
           </v-card-title>
@@ -63,9 +63,6 @@ export default {
       return response;
     },
     createTeamGraph(data) {
-      // console.log(data, data.length)
-      // console.log(data[0].commit.author.date.slice(0, 10))
-      // console.log(data[data.length - 1].commit.author.date.slice(0, 10))
       let end = new Date(data[0].commit.author.date.slice(0, 10));
       let start = new Date(
         data[data.length - 1].commit.author.date.slice(0, 10)
@@ -87,7 +84,6 @@ export default {
         }
         start.setDate(start.getDate() + 1);
       }
-      // console.log(labels, commits)
       var ctx = document.getElementById("teamChart");
       var teamChart = new chart.Chart(ctx, {
         type: "line",
@@ -280,3 +276,8 @@ export default {
   }
 };
 </script>
+<style>
+.theme--light.v-sheet{
+  background-color: rgba(250,250,250,0.97)!important;
+}
+</style>

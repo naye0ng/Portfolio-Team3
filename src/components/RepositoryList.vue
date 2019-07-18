@@ -57,6 +57,7 @@ export default {
 }
 .carousel-3d-controls span{
 	font-family: 'roboto', sans-serif;
+	color: #EC407A;
 }
 
 </style>
