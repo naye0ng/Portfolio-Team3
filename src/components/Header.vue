@@ -36,13 +36,13 @@
         </v-menu>
 
         <v-dialog v-model="dialog" max-width="400">
-          <v-card style="border-radius:20px;">
-            <v-flex class="text-xs-right">
+          <v-card style="border-radius:20px; border-radius:0px;" >
+            <!-- <v-flex class="text-xs-right">
               <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
                   <v-icon>close</v-icon>
               </v-btn>
-            </v-flex>
-            <v-card-title
+            </v-flex> -->
+            <!-- <v-card-title
               style="padding-top:0px;"
               class="headline justify-center"
               v-if="!$store.state.user"
@@ -51,7 +51,14 @@
               style="padding-top:0px;"
               class="headline justify-center"
               v-if="$store.state.user"
-            >로그아웃</v-card-title>
+            >로그아웃</v-card-title> -->
+            <v-layout style="color:#ffffff; background-color:#ffffff;">
+              <v-flex class="text-xs-right" style="color:#ffffff; background-color:#ffffff;">
+                <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
+                    <v-icon>close</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
             <SnsLogin></SnsLogin>
           </v-card>
         </v-dialog>
@@ -75,7 +82,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-divider ></v-divider>
+      <v-divider></v-divider>
       <v-list class="pt-0 mb-1" dense>
         <v-list-tile v-for="item in items" :key="item.title" :to="item.to" color="white" active-class="primary" light class="my-1">
           <v-list-tile-action>
@@ -86,10 +93,10 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-divider class="grey darken-2"></v-divider>
+      <v-divider class="grey darken-2 mx-2"></v-divider>
       <Visited ></Visited>
-      <v-divider class="grey darken-2"></v-divider>
-      <v-container pb-0>
+      <v-divider class="grey darken-2 mx-2"></v-divider>
+      <v-container py-0>
         <v-layout column>
           <v-flex xs12>
             <v-card flat>
@@ -163,6 +170,7 @@ export default {
 #navigation-style {
   position:fixed;
   z-index:1000;
+  overflow-y: hidden;
 }
 #navigation-style .theme--light.v-sheet{
   background-color: #181818!important;
