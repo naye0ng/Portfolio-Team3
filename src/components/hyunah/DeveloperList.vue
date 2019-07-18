@@ -68,7 +68,7 @@ export default {
               'https://www.instagram.com/kdong1129'
             ],
           email : 'ehddnr8813@naver.com',
-          color : 'rgb(54, 162, 235, 0.5)',
+          color : 'rgb(54, 162, 235, 1)',
           capa : [
             {title : 'JAVA', prog: '90'},
             {title : 'C++', prog: '65'},
@@ -90,7 +90,7 @@ export default {
               'https://www.instagram.com/nayeong_ee'
             ],
           email : 'nayeong_e@naver.com',
-          color : 'rgb(255, 99, 132, 0.5)',
+          color : 'rgb(255, 99, 132, 1)',
           capa : [
             {title : 'PYTHON & Django', prog: '80'},
             {title : 'Javascript & Jquery', prog: '65'},
@@ -112,7 +112,7 @@ export default {
               'https://www.instagram.com/hanaluana'
             ],
           email : 'hanaluana23@gmail.com',
-          color : 'rgb(255,206,86,0.5)',
+          color : 'rgb(255,206,86,1)',
           capa : [
             {title : 'PYTHON', prog: '85'},
             {title : 'Javascript', prog: '75'},
@@ -134,7 +134,7 @@ export default {
               'https://www.instagram.com/liveindive'
             ],
           email : 'jybtask@gmail.com',
-          color : 'rgb(153,102,255,0.5)',
+          color : 'rgb(153,102,255,1)',
           capa : [
             {title : 'JAVA', prog: '85'},
             {title : 'C++', prog: '55'},
