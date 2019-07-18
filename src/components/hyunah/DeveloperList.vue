@@ -164,11 +164,6 @@ export default {
   height: 100vh;
   background-color: #181818;
 }
-/* .stars{
-  z-index: -1;
-}
-*/
-
 .twinkling{
   z-index:1;
   position:absolute;

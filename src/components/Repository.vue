@@ -12,11 +12,6 @@
         <v-list-tile-content>
           <v-list-tile-title>{{repos.username}}</v-list-tile-title>
         </v-list-tile-content>
-        <!-- <v-layout align-center justify-end>
-          <a :href="repos.http_url" class="repo-btn">
-            <v-icon size="30" color="#4078c0 darken-2" class="mr-1">fa-github</v-icon>
-          </a>
-        </v-layout> -->
       </v-list-tile>
     </v-card-actions>
     </a>
