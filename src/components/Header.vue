@@ -64,25 +64,25 @@
     </v-toolbar>
 
     <!-- navigation area -->
-    <v-navigation-drawer v-model="drawer" absolute temporary fixed style="position:fixed; z-index:1000;" class="grey lighten-5">
-      <v-list class="pa-1 white">
+    <v-navigation-drawer v-model="drawer" absolute temporary fixed class="grey lighten-5" id="navigation-style">
+      <v-list class="pa-1 white navigation-list">
         <v-list-tile avatar to="/">
           <v-list-tile-avatar>
             <v-icon color="primary">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title><!-- insert user name -->Universe</v-list-tile-title>
+            <v-list-tile-title style="color:#181818"><!-- insert user name -->Universe</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
       <v-divider></v-divider>
-      <v-list class="pt-0 white" dense>
+      <v-list class="pt-0 white navigation-list" dense>
         <v-list-tile v-for="item in items" :key="item.title" :to="item.to">
           <v-list-tile-action>
             <v-icon color="secondary">{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title style="color:#181818">{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -148,5 +148,8 @@ export default {
 #header *{
   color: #fff!important;
 }
-
+#navigation-style {
+  position:fixed;
+  z-index:1000;
+}
 </style>

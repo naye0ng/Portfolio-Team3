@@ -30,7 +30,7 @@ export default {
 	name: 'main-footer',
   components : {
     'weather' : Weather,
-    Visited
+    Visited,
   },
 }
 </script>
