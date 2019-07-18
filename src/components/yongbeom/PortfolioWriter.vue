@@ -88,6 +88,7 @@ export default {
     return {
       text : '',
       title : '',
+      username : '',
       imageName : '',
       imageUrl : '',
       imageFile : '',

@@ -60,32 +60,43 @@ export default {
     var ref = firebase.storage().ref();
     var file = img;
     var name = new Date() + title;
-
+    
     //Upload image to firestorage
     var uploadTask = ref.child(name).putString(file, 'data_url');
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-      function(error) {
-        //catch error
-        switch (error.code) {
-          case 'storage/unauthorized':
-            break;
-          case 'storage/canceled':
-            break;
-
-          case 'storage/unknown':
-            break;
-        }
-      }, function() {
-        //Get stored image url from firestorage
-        img = uploadTask.snapshot.ref.getDownloadURL()
-    });
-
-    //Save Portfolio in firestore database
-    return firestore.collection(PORTFOLIOS).add({
-      title,
-      body,
-      img,
-      created_at: firebase.firestore.FieldValue.serverTimestamp()
+    function(snapshot) {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+    }, function(error) {
+    switch (error.code) {
+      case 'storage/unauthorized':        
+        break;
+      case 'storage/canceled':
+        break;
+      case 'storage/unknown':
+        break;
+    }
+  }, function() {
+    console.log("funcgtion called")    
+    //Get stored image url from firestorage
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        img = downloadURL
+        console.log('File available at', img);
+        firestore.collection(PORTFOLIOS).add({
+          title,
+          body,
+          img,
+          created_at: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      });
     })
   },
   loginWithGoogle() {
