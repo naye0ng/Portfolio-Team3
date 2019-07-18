@@ -10,6 +10,15 @@ export default new Vuex.Store({
     user: null,
     key : localStorage.getItem('log_key'),
     date : localStorage.getItem('log_date'),
+    weather : {
+      temp : '',
+      temp : '',
+      tempMin : '',
+      tempMax : '',
+      icon : '',
+      desc : '',
+      hum : ''
+    }
   },
   mutations:{
     pushWebLog(state, social){
