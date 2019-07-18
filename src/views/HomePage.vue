@@ -51,8 +51,8 @@
         <v-flex xs12>
           <PostList :column="1"></PostList>
         </v-flex>
-        <v-flex xs12 text-xs-center my-3>
-          <v-btn color="#EC407A" dark to="/post">
+        <v-flex xs12 text-xs-center my-4>
+          <v-btn color="#EC407A" dark to="/post" class="mt-3">
             <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
           </v-btn>
         </v-flex>

@@ -14,18 +14,18 @@
     <v-layout row justify-center>
       <v-dialog v-model="dialog" max-width="450">
         <v-card>
-          <v-card-title primary-title class="pb-1 pt-3">
-            <h2 class="color-333 headline font-weight-heavy">{{title}}</h2>
+          <v-card-title primary-title class="pb-2 pt-0">
+            <h2 class="color-333 headline font-weight-heavy mt-3 ml-2">{{title}}</h2>
             <v-spacer></v-spacer>
-            <div class="caption grey--text pt-3">{{formatedDate}}</div>
+            <div class="caption grey--text" style="padding-top:30px;">{{formatedDate}}</div>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <p v-html="body" class="color-666 font-weight-light subheading"></p>
+            <p v-html="body" class="color-666 font-weight-light subheading mt-2 ml-2"></p>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions class="pl-0">
-            <v-btn flat color="primary" @click="dialog=false" class="pl-0 pr-0 ml-1">close</v-btn>
+            <v-btn flat color="primary" @click="dialog=false" class="pl-0 pr-0">close</v-btn>
             <v-spacer></v-spacer>
             <v-btn icon>
               <v-icon>favorite</v-icon>

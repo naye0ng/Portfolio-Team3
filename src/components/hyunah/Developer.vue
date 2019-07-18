@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="banner-images">
     <v-hover>
       <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)">
         <v-img :aspect-ratio="16/9" :src="image">
@@ -112,6 +112,11 @@ export default {
 .icon {
   padding-left: 0.5vw;
   padding-right: 0.5vw;
+}
+
+.banner-images{
+  position: relative;
+  z-index : 99;
 }
 
 </style>
