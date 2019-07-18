@@ -25,15 +25,15 @@
           <!-- Portfolio -->
           <div class="contents">
           <v-layout py-5 mt-4 row wrap class="grey lighten-5" id="portfolio">
-            <v-flex py-3 xs12>
-              <h2 class="mt-4 mb-2 text-xs-center homepage-title">PORTFOLIO</h2>
+            <v-flex pt-3 pb-1 xs12>
+              <h2 class="mt-4 pt-3 text-xs-center homepage-title">PORTFOLIO</h2>
             </v-flex>
-            <v-container>
+            <v-container class="pt-0">
               <v-flex xs12>
                 <PortfolioList></PortfolioList>
                 <!-- <PortList2></PortList2> -->
               </v-flex>
-              <v-flex xs12 text-xs-center my-3>
+              <v-flex xs12 text-xs-center mb-3 mt-5>
                 <v-btn color="#EC407A" dark to="/portfolio">
                   <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
                 </v-btn>
