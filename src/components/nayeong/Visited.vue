@@ -1,19 +1,18 @@
 <template>
-  <v-container>
-    <v-layout column>
-      <v-flex xs12>
-        <v-card>
-          <v-card-title>
-            <span>🚀 오늘의 방문자 : <strong>{{ visited }}</strong>명 🚀</span>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <canvas id="visitedChart" width="100%" height="50%"></canvas>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+    <v-container>
+      <v-layout column>
+        <v-flex xs12>
+          <v-card color="secondary" flat>
+            <v-card-title>
+              <span>🚀 오늘의 방문자 : <strong>{{ visited }}</strong>명 🚀</span>
+            </v-card-title>
+            <v-card-text>
+              <canvas id="visitedChart" width="100%" height="50%"></canvas>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -68,7 +67,7 @@ export default {
           datasets : [
             {
               data: cnt,
-              backgroundColor: "rgb(236, 64, 122, 0.3)"
+              backgroundColor: "rgb(255, 255, 255, 0.5)"
             }
           ]
         },

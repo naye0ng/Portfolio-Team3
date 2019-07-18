@@ -19,14 +19,14 @@
          </v-layout>
        </v-flex>
        <v-flex d-flex xs6 sm6>
-         <v-layout column>
-           <v-flex d-flex>
+         <v-layout column align-center justify-center>
+           <v-flex d-flex py-0>
              <span style="font-size:16pt">{{$store.state.weather.temp}}</span>
            </v-flex>
-           <v-flex d-flex>
+           <v-flex d-flex py-0>
              <span>Max : {{$store.state.weather.tempMax}}</span>
            </v-flex>
-           <v-flex d-flex>
+           <v-flex d-flex py-0>
              <span>Min : {{$store.state.weather.tempMin}}</span>
            </v-flex>
          </v-layout>
@@ -39,7 +39,7 @@
 
 export default {
   name : 'weatherdetail',
-  
+
 }
 
 </script>

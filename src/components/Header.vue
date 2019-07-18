@@ -8,7 +8,7 @@
       <router-link to="/" exact style="text-decoration:none;"><v-toolbar-title>&nbsp;Hello Universe;</v-toolbar-title></router-link>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">
-        <v-btn flat :to="item.to">{{ item.title }}</v-btn>
+        <v-btn flat :to="item.to" active-class="primary">{{ item.title }}</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat @click.stop="dialog = true" v-if="!$store.state.user">{{login_title}}</v-btn>
@@ -26,7 +26,7 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-tile @click="dialog = true">
+            <v-list-tile @click="dialog = true" >
               <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile>
             <v-list-tile to="/profile">
@@ -64,34 +64,35 @@
     </v-toolbar>
 
     <!-- navigation area -->
-    <v-navigation-drawer v-model="drawer" absolute temporary fixed class="grey lighten-4" id="navigation-style">
-      <v-list class="pa-1 white">
-        <v-list-tile avatar to="/">
+    <v-navigation-drawer v-model="drawer" absolute temporary fixed class="secondary" id="navigation-style">
+      <v-list class="px-1 pt-2">
+        <v-list-tile avatar >
           <v-list-tile-avatar>
             <v-icon color="primary">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title style="color:#181818"><!-- insert user name -->Universe</v-list-tile-title>
+            <v-list-tile-title style="color:#ffffff"><!-- insert user name -->Universe</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
       <v-divider ></v-divider>
-      <v-list class="pt-0 white" dense>
-        <v-list-tile v-for="item in items" :key="item.title" :to="item.to">
+      <v-list class="pt-0 mb-1" dense>
+        <v-list-tile v-for="item in items" :key="item.title" :to="item.to" color="white" active-class="primary" light class="my-1">
           <v-list-tile-action>
-            <v-icon color="secondary">{{ item.icon }}</v-icon>
+            <v-icon color="white">{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title style="color:#181818">{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-divider></v-divider>
+      <v-divider class="grey darken-2"></v-divider>
       <Visited ></Visited>
-      <v-container>
+      <v-divider class="grey darken-2"></v-divider>
+      <v-container pb-0>
         <v-layout column>
           <v-flex xs12>
-            <v-card>
+            <v-card flat>
               <WeatherDetail></WeatherDetail>
             </v-card>
           </v-flex>
@@ -162,5 +163,9 @@ export default {
 #navigation-style {
   position:fixed;
   z-index:1000;
+}
+#navigation-style .theme--light.v-sheet{
+  background-color: #181818!important;
+  color: white;
 }
 </style>
