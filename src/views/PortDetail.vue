@@ -37,7 +37,7 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round>
-          <v-btn color="#DB4437" text-xs-center dark to="/portfolio">
+          <v-btn color="#ec407a" text-xs-center dark to="/portfolio">
             <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
           </v-btn>
           <v-btn color="none" text-xs-center dark to="/">
