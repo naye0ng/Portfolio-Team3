@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <v-container>
+  <div class="stars portdetail">
+    <!-- <div class="stars"> -->
+      <div class="twinkling">
+      </div>
+    <!-- </div> -->
+    <v-container id="portcard" class="mt-3">
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
           <v-card>
@@ -32,7 +36,7 @@
       </v-layout>
       <v-layout>
         <!-- go back button -->
-        <v-flex xs12 text-xs-center round mb-5>
+        <v-flex xs12 text-xs-center round>
           <v-btn color="#DB4437" text-xs-center dark to="/portfolio">
             <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
           </v-btn>
@@ -66,3 +70,14 @@ export default {
   }
 };
 </script>
+
+<style>
+
+.portdetail.stars{
+  position:relative;
+}
+#portcard{
+  position:relative;
+  z-index:10;
+}
+</style>
