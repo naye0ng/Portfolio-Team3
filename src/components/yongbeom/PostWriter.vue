@@ -43,6 +43,7 @@ data() {
     return {
     text : '',
     title : '',
+    userEmail : this.$store.state.user.email,
     dialog: false
     };
 },
@@ -65,7 +66,7 @@ methods : {
             });
         }
         else {
-            FirebaseService.postPost(this.title, this.text)
+            FirebaseService.postPost(this.title, this.text, this.userEmail)
             this.dialog = false
             this.text = ''
             this.title = ''
