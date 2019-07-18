@@ -9,15 +9,26 @@
       <v-layout justify-center class="mb-2">
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
-            <v-flex xs4 mt-5>
-              <v-btn color="secondary" router :to="{
+            <v-flex xs4 mt-5 mr-4 class="bg-1">
+              <!-- <v-btn color="secondary" router :to="{
                 name: 'makecontents',
                 params: {
                   kind: 'post'
                 }}" exact dark width="100%">
                 <v-icon size="25" class="mr-2">border_color</v-icon>
                 <span class="hidden-sm-and-down">포스트 작성</span>
-              </v-btn>
+              </v-btn> -->
+              <router-link :to="{
+                name: 'makecontents',
+                params: {
+                  kind: 'Post'
+                }}">
+                <button
+                  class="button button--wayra button--border-medium button--text-medium button--size-s"
+                  style="max-width: 150px;padding:0.5em 1em;">
+                  포스트 작성
+                </button>
+              </router-link>
             </v-flex>
           </v-layout>
         </v-flex>

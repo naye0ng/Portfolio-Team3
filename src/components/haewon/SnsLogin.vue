@@ -12,7 +12,7 @@
     <FindLost></FindLost>
     </v-flex>
     <v-flex xs12 pt-3 pb-3>
-      <hr>
+      <hr style="background-color:#181818;">
     </v-flex>
     <v-flex xs4 text-xs-center v-if="!$store.state.user">
       <Register></Register>

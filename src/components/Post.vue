@@ -77,7 +77,7 @@
             <p v-html="body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
           </v-card-text>
           <v-divider></v-divider>
-          <v-card-actions class="pl-0">
+          <v-card-actions class="pl-0 bg-1">
             <div class="ml-2">
               <v-btn icon>
               <v-icon>favorite</v-icon>
@@ -90,7 +90,11 @@
             </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="dialog=false" class="pr-2">close</v-btn>
+            <!-- <v-btn color="primary" @click="dialog=false" class="pr-2">close</v-btn> -->
+            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
+              close
+            </button>
           </v-card-actions>
         </v-card>
       </v-dialog>
