@@ -19,11 +19,11 @@
          </v-layout>
        </v-flex>
        <v-flex d-flex xs6 sm6>
-         <v-layout column align-center justify-center class="p-wrap">
-             <p style="font-size:1.3rem;padding-bottom:3px;">{{$store.state.weather.temp}}</p>
-             <p style="font-size:1rem;">Max : {{$store.state.weather.tempMax}}</p>
-             <p style="font-size:1rem;">Min : {{$store.state.weather.tempMin}}</p>
-         </v-layout>
+          <v-layout column align-center justify-center class="p-wrap">
+            <p style="font-size:1.3rem;padding-bottom:3px;">{{$store.state.weather.temp}}</p>
+            <p style="font-size:1rem;">Max : {{$store.state.weather.tempMax}}</p>
+            <p style="font-size:1rem;">Min : {{$store.state.weather.tempMin}}</p>
+          </v-layout>
        </v-flex>
      </v-layout>
    </v-container>
