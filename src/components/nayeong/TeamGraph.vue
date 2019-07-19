@@ -71,6 +71,9 @@ export default {
       }else{
         this.createTeamGraph(data);
         this.createMemberGraph(data);
+        // team3 web site graph
+        this.createVisitorChart();
+        this.socialLoginChart();
       }
     },
     createTeamGraph(data) {
@@ -277,9 +280,6 @@ export default {
   mounted() {
     // git graph
     this.getCommits("https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",[]);
-    // team3 web site graph
-    this.createVisitorChart();
-    this.socialLoginChart();
   }
 };
 </script>
