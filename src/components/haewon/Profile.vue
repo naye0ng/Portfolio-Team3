@@ -1,20 +1,21 @@
 <template>
   <v-layout row justify-center wrap>
     <v-flex xs12 align-center justify-center layout text-xs-center>
-      <v-avatar size="150">
+      <v-avatar size="150" id="photophoto">
         <v-img :src="photoURL" aspect-ratio="1" width="150px" height="150px"></v-img>
       </v-avatar>
     </v-flex>
-    <v-flex xs12 justify-center text-xs-center>
+    <v-flex xs12 justify-center text-xs-center id="profiledetail">
       <div class="mt-4">
-        <h1>{{name}}</h1>
-        <span class="grey--text">{{email}}</span>
+        <h1 style="color:#f7f7f7; font-size:1.7em;">{{name}}</h1>
+        <span style="color:#f7f7f7; font-size:1.3em;">{{email}}</span>
         <br />
-        <span class="grey--text">{{telephone}}</span>
+        <span style="color:grey; font-size:1.1em;">{{telephone}}</span>
         <br />
-        <div class="mt-4">
-          <h3>즐거운 인생</h3>
-          <h3>어제도 개발 오늘도 개발</h3>
+        <div class="mt-4 mb-4" style="color:#f7f7f7;">
+          <span style="color:#f7f7f7; font-size:1.2em;">즐거운 인생</span>
+          <br>
+          <span style="color:#f7f7f7; font-size:1.2em;">어제도 개발 오늘도 개발</span>
         </div>
         <v-layout align-center justify-center col mt-3 v-if="isemail" wrap>
           <v-flex xs2 text-xs-center ml-1 mr-1>
@@ -59,7 +60,7 @@
           </v-flex>
           <v-flex xs2 text-xs-center ml-1 mr-1>
             <v-btn
-              color="#181818"
+              color="#4078c0"
               outline
               v-on:click="linkwithSNS(3)"
               style="width:96%;"
@@ -166,8 +167,13 @@ export default {
         if (user && !user.isAnonymous) {
           this.isemail = user.providerData[0].providerId == "password";
         }
-      
+
     });
   }
 };
 </script>
+<style>
+#photophoto, #profiledetail{
+  z-index:99;
+}
+</style>

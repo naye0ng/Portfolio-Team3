@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12>
-        <h2 class=" my-5 py-5 text-xs-center text-shadow homepage-title" style="color:#fff;">Hi, We are Team3!</h2>
+        <h2 class=" my-5 py-5 text-xs-center text-shadow homepage-title" style="color:#fff;font-size:4.3vw;">Hi, We are Team3!</h2>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
         <v-card class="graph-card" style="padding:10px;">
@@ -167,7 +167,13 @@ export default {
       });
     },
     createVisitorChart() {
+      var today = new Date();
       var dates = [];
+      for(var i=4; i>=0; i--) {
+        var some_date = new Date();
+        some_date.setDate(today.getDate() - i);
+        dates.push(some_date.toDateString());
+      }
       var visitor = [];
       firebase
         .database()
@@ -175,7 +181,6 @@ export default {
         .child("logs")
         .on("value", snapshot => {
           var logs = snapshot.val();
-          dates = Object.keys(logs);
           dates.forEach(date => {
             visitor.push(Object.keys(logs[date]).length);
           });

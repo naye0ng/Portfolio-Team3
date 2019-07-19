@@ -1,11 +1,11 @@
 <template>
   <v-layout row justify-center style="background-color:#f7f7f7;" class="mb-4">
       <v-card>
-        <v-card-title>
+        <v-card-title style="padding-left:40px;">
           <span class="headline">Portfolio Writer</span>
         </v-card-title>
-        <v-card-text class="pb-0">
-          <v-container grid-list-md>
+        <v-card-text class="pb-0 pt-0">
+          <v-container grid-list-md pt-0>
             <v-layout wrap>
               <!-- image preview -->
               <v-flex xs12>
@@ -15,10 +15,10 @@
               <v-flex xs12>
                 <v-text-field label="Title" v-model="title" required></v-text-field>
               </v-flex>
-              <v-flex xs2 text-xs-center>
+              <v-flex xs2 text-xs-center pl-0>
                 <!-- <v-btn color="primary" @click="useLocalFile" v-model="imageName">Use Local Image</v-btn> -->
-                <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs" 
-                  style="min-width:140px; max-width:140px;padding:0.3em 0.5em;margin:0;">
+                <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs"
+                  style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Use Local Image
                 </button>
               </v-flex>
@@ -29,8 +29,8 @@
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
                         <!-- <v-btn color="primary" dark v-on="on">Use Url Image</v-btn> -->
-                        <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs" 
-                          style="min-width:140px; max-width:140px;padding:0.3em 0.5em;margin:0;">
+                        <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs"
+                          style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                             Use Url Image
                         </button>
                       </template>
@@ -57,15 +57,15 @@
 
               <v-flex xs2 text-xs-center>
                 <!-- <v-btn color="primary" @click="useRandomImg" v-model="imageName">Random Image</v-btn> -->
-                <button @click="useRandomImg" class="button button--wayra button--border-thin button--text-medium button--size-xs" 
-                  style="min-width:140px; max-width:140px;padding:0.3em 0.5em;margin:0;">
+                <button @click="useRandomImg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
+                  style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Random Image
                 </button>
               </v-flex>
               <v-flex xs2 text-xs-center>
                 <!-- <v-btn color="error" @click="clearimg" v-model="imageName">Delete Image</v-btn> -->
-                <button @click="clearimg" class="button button--wayra button--border-thin button--text-medium button--size-xs" 
-                  style="min-width:140px; max-width:140px;padding:0.3em 0.5em;margin:0;">
+                <button @click="clearimg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
+                  style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Delete Image
                 </button>
               </v-flex>
@@ -86,17 +86,17 @@
           <!-- <v-btn color="blue darken-1" flat @click="clear">Clear</v-btn>
           <v-btn color="blue darken-1" flat to="/portfolio">Back</v-btn>
           <v-btn color="blue darken-1" flat @click="save">Save</v-btn> -->
-          <button @click="clear" class="button button--wayra2 button--border-thin button--text-medium button--size-xs" 
+          <button @click="clear" class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
             style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
               Clear
           </button>
           <router-link to="/portfolio">
-            <button class="button button--wayra2 button--border-thin button--text-medium button--size-xs" 
+            <button class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
               style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
                 Back
             </button>
           </router-link>
-          <button @click="save" class="button button--wayra2 button--border-thin button--text-medium button--size-xs" 
+          <button @click="save" class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
             style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
               Save
           </button>
@@ -133,7 +133,7 @@ export default {
     save : function(event) {
       //Blank check
       if(this.text == '' || this.title == '' || this.imageUrl == '') {
-        
+
         var alertMsg = '';
         if(this.imageUrl == '') {
           alertMsg = '이미지는 필수항목입니다. 이미지를 선택해주세요.'
@@ -142,7 +142,7 @@ export default {
         } else if(this.text == '') {
           alertMsg = '내용은 필수항목입니다. 내용을 입력해주세요';
         }
-        
+
         this.$swal({
             type: 'error',
             title: 'Oops...',
@@ -217,7 +217,7 @@ export default {
           console.log("url : " + this.imageUrl)
           console.log("file : " + this.imageFile)
           console.log(this.imageUrl.name)
-        }) 
+        })
       } else {
         this.imageName=''
         this.imageFile=''
