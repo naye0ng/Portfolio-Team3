@@ -1,22 +1,22 @@
 <template>
   <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white px-4 pb-4>
-    <v-flex xs12 text-xs-center v-if="$store.state.user">
-      <v-btn round color="#000000" dark v-on:click="logout" style="width:50%;">
+    <v-flex xs12 text-xs-center v-if="$store.state.user" my-5>
+      <v-btn color="primary" dark v-on:click="logout" style="width:80%;">
         <v-icon size="25" class="mr-2">fa-sign-out</v-icon>로그아웃
       </v-btn>
     </v-flex>
-    <v-layout align-center justify-center row wrap white>
-      <v-flex xs3 text-xs-center v-if="!$store.state.user" class="mx-1">
+    <v-layout align-center justify-center row wrap white v-if="!$store.state.user">
+      <v-flex xs3 text-xs-center class="mx-1">
         <v-avatar size="65" v-on:click="loginWithGoogle" color="#df4a31" style="cursor:pointer;">
           <v-icon size="25" dark >fa-google</v-icon>
         </v-avatar>
       </v-flex>
-      <v-flex xs3 text-xs-center v-if="!$store.state.user" class="mx-1">
+      <v-flex xs3 text-xs-center class="mx-1">
         <v-avatar size="65" v-on:click="loginWithFacebook" color="#3C5A99" style="cursor:pointer;">
           <v-icon size="25" dark >fa-facebook</v-icon>
         </v-avatar>
       </v-flex>
-      <v-flex xs3 text-xs-center v-if="!$store.state.user" class="mx-1">
+      <v-flex xs3 text-xs-center class="mx-1">
         <v-avatar size="65" v-on:click="loginWithGithub" color="#4078c0" style="cursor:pointer;">
           <v-icon size="25" dark >fa-github</v-icon>
         </v-avatar>
@@ -31,7 +31,7 @@
     <v-flex mt-1 xs4 offset-xs7 text-xs-center v-if="!$store.state.user">
     <FindLost></FindLost>
     </v-flex>
-    <v-flex xs12 pt-3 pb-3>
+    <v-flex xs12 pt-3 pb-3 v-if="!$store.state.user">
       <hr style="height:0.8px; border:none; color:#D3D3D3; background-color:#D3D3D3; ">
     </v-flex>
     <v-flex xs12 text-xs-center v-if="!$store.state.user">

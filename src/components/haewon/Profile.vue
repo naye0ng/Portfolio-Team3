@@ -12,9 +12,10 @@
         <br />
         <span style="color:grey; font-size:1.1em;">{{telephone}}</span>
         <br />
-        <div class="mt-4">
-          <h3>즐거운 인생</h3>
-          <h3>어제도 개발 오늘도 개발</h3>
+        <div class="mt-4 mb-4" style="color:#f7f7f7;">
+          <span style="color:#f7f7f7; font-size:1.2em;">즐거운 인생</span>
+          <br>
+          <span style="color:#f7f7f7; font-size:1.2em;">어제도 개발 오늘도 개발</span>
         </div>
         <v-layout align-center justify-center col mt-3 v-if="isemail" wrap>
           <v-flex xs2 text-xs-center ml-1 mr-1>

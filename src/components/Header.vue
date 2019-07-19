@@ -36,7 +36,7 @@
         </v-menu>
 
         <v-dialog v-model="dialog" max-width="400">
-          <v-card style="border-radius:20px; border-radius:0px;" >
+          <v-card style="border-radius:20px; border-radius:0px;">
             <!-- <v-flex class="text-xs-right">
               <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
                   <v-icon>close</v-icon>
