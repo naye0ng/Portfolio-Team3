@@ -187,7 +187,10 @@ export default {
   LoginSuccess() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        alert("로그인에 성공하셨습니다!")
+        Swal.fire({
+          text : "로그인에 성공하셨습니다!",
+          type : 'success'
+        })
         return user;
       } else {
       }
