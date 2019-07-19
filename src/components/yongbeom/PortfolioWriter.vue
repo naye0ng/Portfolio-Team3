@@ -119,7 +119,6 @@ export default {
       text : '',
       title : '',
       imageName : '',
-      userEmail : this.$store.state.user.email,
       imageUrl : '',
       imageFile : '',
       selectUrl : '',
@@ -153,7 +152,7 @@ export default {
 
       else {
         //Call Firebase service
-        FirebaseService.postPortfolio(this.title, this.text, this.imageUrl, this.userEmail)
+        FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
         this.dialog = false
 
         //Reinitialize data
