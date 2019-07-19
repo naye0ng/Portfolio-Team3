@@ -29,7 +29,7 @@
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
                         <!-- <v-btn color="primary" dark v-on="on">Use Url Image</v-btn> -->
-                        <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs"
+                        <button v-on="on" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                           style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                             Use Url Image
                         </button>
@@ -191,7 +191,7 @@ export default {
       this.imageUrl = this.selectUrl
       this.selectUrl = ''
       this.dialog = false;
-      this.onUrlImagePicked(this.imageUrl)
+      this.onImageUrlPicked(this.imageUrl)
     },
     useRandomImg(){
       this.imageUrl = 'https://source.unsplash.com/random/800x600'
