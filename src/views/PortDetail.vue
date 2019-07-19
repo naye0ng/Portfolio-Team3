@@ -78,6 +78,12 @@ export default {
     },
     body() {
       return this.$route.params.body;
+    },
+    date() {
+      return this.$route.params.date;
+    },
+    user() {
+      return this.$route.params.user;
     }
   }
 };

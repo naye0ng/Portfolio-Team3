@@ -3,6 +3,7 @@
     <ImgBanner>
       <div slot="text">Portfolio</div>
     </ImgBanner>
+<<<<<<< HEAD
     <!-- <v-container> -->
 
       <!-- Portfolio Writer -->
@@ -41,6 +42,30 @@
         </v-flex>
       </v-layout>
     <!-- </v-container> -->
+=======
+    <v-layout justify-center>
+      <v-flex xs11>
+        <v-layout wrap align-center justify-end>
+          <!-- Write button -->
+          <v-flex xs2 mt-5>
+            <v-btn color="#0F9D58" @click="checkuesr" dark width="100%" class="hidden-sm-and-down">
+              <v-icon size="25" class="mr-2">border_color</v-icon> 포트폴리오 작성
+            </v-btn>
+            <v-btn color="#0F9D58" @click="checkuesr" dark width="100%" class="hidden-md-and-up">
+              <v-icon size="25" class="mr-2">border_color</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+    
+    <!-- Portfolio List -->
+    <v-layout justify-center>
+      <v-flex xs11>
+        <PortfolioList :limits="4" :load-more="true"></PortfolioList>
+      </v-flex>
+    </v-layout>
+>>>>>>> userinpost
   </div>
 </template>
 
@@ -53,6 +78,20 @@ export default {
 	components: {
 		ImgBanner,
 		PortfolioList,
-	}
+  },
+  methods : {
+    checkuesr(){
+      if(!this.$store.state.user) {
+        this.$swal({
+            type: 'error',
+            title: 'Oops...',
+            text: 'need to login'
+        });
+      }
+      else{
+        this.$router.push({ name: 'makecontents', params: { kind: 'portfolio' }})
+      }
+    }
+  }
 }
 </script>

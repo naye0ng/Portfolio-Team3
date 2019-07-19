@@ -6,6 +6,8 @@
               :title="portfolios[i - 1].title"
               :body="portfolios[i - 1].body"
               :imgSrc="portfolios[i - 1].img"
+              :like="portfolios[i - 1].likeCount"
+              :user="portfolios[i - 1].user"
       ></Portfolio>
     </v-flex>
 
@@ -43,7 +45,7 @@ export default {
   },
 	methods: {
 		async getPortfolios() {
-			this.portfolios = await FirebaseService.getPortfolios()
+      this.portfolios = await FirebaseService.getPortfolios()
 		},
 		loadMorePortfolios() {
       this.loadMore = true;

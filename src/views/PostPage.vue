@@ -9,6 +9,7 @@
       <v-layout justify-center class="mb-2">
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
+<<<<<<< HEAD
             <v-flex xs4 mt-5 mr-4 class="bg-1">
               <!-- <v-btn color="secondary" router :to="{
                 name: 'makecontents',
@@ -29,6 +30,16 @@
                   포스트 작성
                 </button>
               </router-link>
+=======
+            <!-- Write button -->
+            <v-flex xs4 mt-5>
+              <v-btn color="#0F9D58" @click="checkuesr" dark width="100%" class="hidden-sm-and-down">
+                <v-icon size="25" class="mr-2">border_color</v-icon> 포스트 작성
+              </v-btn>
+              <v-btn color="#0F9D58" @click="checkuesr" dark width="100%" class="hidden-md-and-up">
+                <v-icon size="25" class="mr-2">border_color</v-icon>
+              </v-btn>
+>>>>>>> userinpost
             </v-flex>
           </v-layout>
         </v-flex>
@@ -54,6 +65,20 @@ export default {
 	components: {
 		ImgBanner,
 		PostList,
+  },
+  methods : {
+    checkuesr(){
+      if(!this.$store.state.user) {
+        this.$swal({
+            type: 'error',
+            title: 'Oops...',
+            text: 'need to login'
+        });
+      }
+      else{
+        this.$router.push({ name: 'makecontents', params: { kind: 'post' }})
+      }
+    }
   }
 }
 </script>
