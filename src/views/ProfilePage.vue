@@ -1,9 +1,13 @@
 <template>
-  <v-layout justify-center row fill-height>
-    <v-flex xs10 text-xs-center style="padding-top:30vh">
-      <Profile></Profile>
-    </v-flex>
-  </v-layout>
+  <div class="stars portdetail">
+    <!-- <div class="stars"> -->
+    <div class="twinkling"></div>
+    <v-layout justify-center row fill-height>
+      <v-flex xs10 text-xs-center style="padding-top:30vh">
+        <Profile></Profile>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script>
@@ -26,9 +30,9 @@ export default {
     });
   },
   watch: {
-	  user: function(val) {
+    user: function(val) {
       if (!this.user) {
-        this.$router.push('/')
+        this.$router.push("/");
       }
     }
   }
