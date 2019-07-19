@@ -273,6 +273,7 @@ export default {
         .then(data =>{
           this.createTeamGraph(data);
           this.createMemberGraph(data);
+
         })
     })
     // team3 web site graph
