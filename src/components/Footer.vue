@@ -22,7 +22,7 @@
         <div id="google_translate_element"></div>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center" style="color:#fff;">
-        &copy;2019 — <strong>SSAFY Team3</strong>
+        &copy;2019 — <strong><a href="https://lab.ssafy.com/naye0ng/webmobile-sub2">SSAFY Team3</a></strong>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem; color:#fff;">
         <weather/>
