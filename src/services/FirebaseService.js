@@ -41,7 +41,17 @@ export default {
         })
       })
   },
-  postPost(title, body, user) {
+  pretitle(title){
+    return title
+  },
+  postPost(title) {
+    var likeCount = '0';
+    return firestore.collection(POSTS).doc(title).set({
+      title : this.pretitle,
+      created_at: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  },
+  /* postPost(title, body, user) {
     var likeCount = '0';
 
     return firestore.collection(POSTS).add({
@@ -51,7 +61,7 @@ export default {
       likeCount,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     })
-  },
+  }, */
   deletePost(user){
     //need to receive key
     firestore.collection(POSTS).remove()
@@ -60,6 +70,7 @@ export default {
     const postsCollection = firestore.collection(PORTFOLIOS)
     return postsCollection
       .orderBy('created_at', 'desc')
+      .getId()
       .get()
       .then((docSnapshots) => {
         return docSnapshots.docs.map((doc) => {
