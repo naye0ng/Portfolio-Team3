@@ -9,7 +9,7 @@
       <v-layout justify-center class="mb-2">
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
-            <v-flex xs4 mt-5 mr-4 class="bg-1">
+            <v-flex xs4 mt-4 mr-4 class="bg-1">
               <!-- <v-btn color="secondary" router :to="{
                 name: 'makecontents',
                 params: {
@@ -35,7 +35,7 @@
       </v-layout>
 
       <!-- Post List -->
-      <v-layout class="mt-5">
+      <v-layout class="mt-4">
         <v-flex xs12>
           <PostList :limits="4" :load-more="true"></PostList>
         </v-flex>

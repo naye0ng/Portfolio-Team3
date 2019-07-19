@@ -58,16 +58,17 @@
             </div>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
               <span class="card-media-body-supporting-bottom-text subtle">#Hello #Universe</span>
-              <span @click="showModal" class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
+              
+              <span @click="showModal" class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">detail</span>
             </div>
           </div>
         </div>
       </v-flex>
     </v-layout>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="450">
+      <v-dialog v-model="dialog" max-width="470">
         <v-card>
-          <v-card-title primary-title class="pb-2 pt-0">
+          <v-card-title primary-title class="pb-2 pt-4">
             <h2 class="color-333 headline font-weight-heavy mt-3 ml-1">{{title}}</h2>
             <v-spacer></v-spacer>
             <div class="caption grey--text" style="padding-top:30px;">{{formatedDate}}</div>
