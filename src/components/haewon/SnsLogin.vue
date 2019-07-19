@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center row wrap elevation-5 style="height:100%;" white px-4 pb-4>
     <v-flex xs12 text-xs-center v-if="$store.state.user" my-3>
-      <div class="headline" style="margin-bottom:5vh;">정말 로그아웃 하시겠어요?</div>
+      <div class="headline" style="margin-bottom:5vh;">😟 정말 로그아웃 하시겠어요? 😟</div>
       <v-btn color="primary" dark v-on:click="logout" style="width:80%;">
         <v-icon size="25" class="mr-2">fa-sign-out</v-icon>로그아웃
       </v-btn>
