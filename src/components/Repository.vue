@@ -1,19 +1,19 @@
 <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
   <div class="card-shadow">
-    <a :href="repos.http_url" class="repo-btn">
     <v-card-text class="headline font-weight-bold" style="padding-top:30px;">
       <canvas :id="repos.username" width="100%" height="50%"></canvas>
     </v-card-text>
-    <v-card-actions style="padding:0px;">
-      <v-list-tile class="grow py-2" :style="{ 'background-color' : repos.color[0]}">
-        <v-list-tile-avatar color="grey darken-3">
-          <v-img class="elevation-6" :src="getImgUrl(repos.image)"></v-img>
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title>{{repos.username}}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-card-actions>
+    <a :href="repos.http_url" class="repo-btn">
+      <v-card-actions style="padding:0px;">
+        <v-list-tile class="grow py-2" :style="{ 'background-color' : repos.color[0]}">
+          <v-list-tile-avatar color="grey darken-3">
+            <v-img class="elevation-6" :src="getImgUrl(repos.image)"></v-img>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{repos.username}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-card-actions>
     </a>
   </div>
 </template>
