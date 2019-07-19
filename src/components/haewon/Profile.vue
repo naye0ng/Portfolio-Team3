@@ -166,7 +166,7 @@ export default {
         if (user && !user.isAnonymous) {
           this.isemail = user.providerData[0].providerId == "password";
         }
-      
+
     });
   }
 };

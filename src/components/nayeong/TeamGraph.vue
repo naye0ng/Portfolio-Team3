@@ -167,7 +167,13 @@ export default {
       });
     },
     createVisitorChart() {
+      var today = new Date();
       var dates = [];
+      for(var i=4; i>=0; i--) {
+        var some_date = new Date();
+        some_date.setDate(today.getDate() - i);
+        dates.push(some_date.toDateString());
+      }
       var visitor = [];
       firebase
         .database()
@@ -175,7 +181,6 @@ export default {
         .child("logs")
         .on("value", snapshot => {
           var logs = snapshot.val();
-          dates = Object.keys(logs);
           dates.forEach(date => {
             visitor.push(Object.keys(logs[date]).length);
           });
