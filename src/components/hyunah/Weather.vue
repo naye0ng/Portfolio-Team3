@@ -1,12 +1,12 @@
 <template>
   <div id="open-modal">
     <v-layout row wrap justify-center align-center style="text-align: center;">
-      <v-flax class="pink lighten-5" style="display:inline-block;border-radius:50%;width:32px;">
+      <div class="pink lighten-5" style="display:inline-block;border-radius:50%;width:32px;">
           <v-img :src="$store.state.weather.icon"/>
-      </v-flax>
-      <v-flax >
+      </div>
+      <div>
         &nbsp;{{$store.state.weather.temp}}
-      </v-flax> 
+      </div>
     </v-layout>
     <WeatherDetail id="wether-modal"></WeatherDetail>
   </div>
@@ -43,7 +43,8 @@
   bottom: 100px;
   right: 30px;
   z-index: 999;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(255,255,255,0.9);
+  color:black
 }
 </style>
 <script>
