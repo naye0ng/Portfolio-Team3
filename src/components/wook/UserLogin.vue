@@ -63,7 +63,7 @@ export default {
         findPass: "",
         answer: ""
       }
-      user.password=registerService.Crypto(user.email,user.password);
+      // user.password=registerService.Crypto(user.email,user.password);
       const result = await firebaseService.loginUser(user.email, user.password);
       this.dialog2=false;
       this.$store.state.user=result.user;

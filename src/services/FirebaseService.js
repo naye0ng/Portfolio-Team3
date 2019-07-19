@@ -187,7 +187,7 @@ export default {
   LoginSuccess() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        alert(user.email)
+        alert("로그인에 성공하셨습니다!")
         return user;
       } else {
       }

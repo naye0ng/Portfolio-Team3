@@ -3,7 +3,7 @@
     <ImgBanner imgSrc="https://source.unsplash.com/random/1600x900">
       <div style="line-height:1.2em;" slot="text">{{kind}} Writer</div>
     </ImgBanner>
-    <v-container>
+    <v-container ref="destination">
       
       <!-- Portfolio Writer -->
       <portfolioWriter v-if="kind==='Portfolio'"></portfolioWriter>
@@ -30,6 +30,20 @@ export default {
     kind(){
       return this.$route.params.kind
     }
+  },
+  methods:{
+    goto(refName) {
+        var element = this.$refs[refName];
+        // console.log(element);
+        var top = element.offsetTop;
+        window.scrollTo(0, top);
+    }
+  },
+  mounted(){
+    setTimeout(() => {
+      this.goto("destination")
+    })
+    
   }
 }
 </script>
