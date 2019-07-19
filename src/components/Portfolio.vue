@@ -4,19 +4,6 @@
       <v-card
         slot-scope="{ hover }"
         color="white lighten-4"
-<<<<<<< HEAD
-=======
-        router
-        :to="{
-      name: 'portdetail',
-      params: {
-        title: title,
-        body: body,
-        imgSrc: imgSrc,
-        date: date,
-        user: user
-      }}"
->>>>>>> userinpost
         exact
         light
         :class="`elevation-${hover ? 24 : 2}`"
@@ -62,9 +49,7 @@ export default {
     date: { type: String },
     title: { type: String },
     body: { type: String },
-    imgSrc: { type: String },
-    like : { type: String },
-    user : { type : String},
+    imgSrc: { type: String }
   },
   data() {
     return {

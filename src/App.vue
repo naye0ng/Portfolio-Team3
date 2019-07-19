@@ -23,7 +23,7 @@ export default {
     'go-to-top' : GoToTop,
 
   },
-	store, //Vuex store injection to into all child components
+	store,
 	data() {
 		return {
 			//

@@ -17,6 +17,7 @@ const config = {
   appId: "1:804761067334:web:de1801641a9f3ddc"
 };
 
+
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 
@@ -34,26 +35,17 @@ export default {
         })
       })
   },
-  postPost(title, body, user) {
-    var likeCount = '0';
-
+  postPost(title, body) {
     return firestore.collection(POSTS).add({
       title,
       body,
-      user,
-      likeCount,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     })
   },
-  /* deletePost(user){
-    //need to receive key
-    firestore.collection(POSTS).remove()
-  }, */
   getPortfolios() {
     const postsCollection = firestore.collection(PORTFOLIOS)
     return postsCollection
       .orderBy('created_at', 'desc')
-      .getId()
       .get()
       .then((docSnapshots) => {
         return docSnapshots.docs.map((doc) => {
@@ -63,56 +55,38 @@ export default {
         })
       })
   },
-<<<<<<< HEAD
   postPortfolio(title, body, img) {
 
-=======
-  postPortfolio(title, body, img, user) {
-    
->>>>>>> userinpost
     //Create reference
     var ref = firebase.storage().ref();
     var file = img;
     var name = new Date() + title;
-    var likeCount = '0';
+
     //Upload image to firestorage
     var uploadTask = ref.child(name).putString(file, 'data_url');
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-    function(snapshot) {
-      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-      switch (snapshot.state) {
-        case firebase.storage.TaskState.PAUSED: // or 'paused'
-          console.log('Upload is paused');
-          break;
-        case firebase.storage.TaskState.RUNNING: // or 'running'
-          console.log('Upload is running');
-          break;
-      }
-    }, function(error) {
-    switch (error.code) {
-      case 'storage/unauthorized':        
-        break;
-      case 'storage/canceled':
-        break;
-      case 'storage/unknown':
-        break;
-    }
-  }, function() {
-    console.log("funcgtion called")    
-    //Get stored image url from firestorage
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        img = downloadURL
-        console.log('File available at', img);
-        firestore.collection(PORTFOLIOS).add({
-          title,
-          body,
-          img,
-          user,
-          likeCount,
-          created_at: firebase.firestore.FieldValue.serverTimestamp()
-        });
-      });
+      function(error) {
+        //catch error
+        switch (error.code) {
+          case 'storage/unauthorized':
+            break;
+          case 'storage/canceled':
+            break;
+
+          case 'storage/unknown':
+            break;
+        }
+      }, function() {
+        //Get stored image url from firestorage
+        img = uploadTask.snapshot.ref.getDownloadURL()
+    });
+
+    //Save Portfolio in firestore database
+    return firestore.collection(PORTFOLIOS).add({
+      title,
+      body,
+      img,
+      created_at: firebase.firestore.FieldValue.serverTimestamp()
     })
   },
   loginWithGoogle() {
