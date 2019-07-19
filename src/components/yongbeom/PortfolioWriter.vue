@@ -23,16 +23,17 @@
                 </button>
               </v-flex>
 
-              <v-flex xs2 text-xs-center>
+
+              <v-flex xs2>
                 <template>
-                  <!-- <div class="text-xs-center"> -->
+                  <div class="text-xs-center">
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
                         <!-- <v-btn color="primary" dark v-on="on">Use Url Image</v-btn> -->
                         <button v-on="on" class="button button--wayra button--border-thin button--text-medium button--size-xs"
-                          style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
-                            Use Url Image
-                        </button>
+                  style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
+                    Use Url Image
+                </button>
                       </template>
                       <v-card>
                         <v-card-title
@@ -51,9 +52,10 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                  <!-- </div> -->
+                  </div>
                 </template>
               </v-flex>
+
 
               <v-flex xs2 text-xs-center>
                 <!-- <v-btn color="primary" @click="useRandomImg" v-model="imageName">Random Image</v-btn> -->
@@ -195,7 +197,7 @@ export default {
     },
     useRandomImg(){
       this.imageUrl = 'https://source.unsplash.com/random/800x600'
-      this.onImageUrlPicked(this.imageUrl)
+      this.onUrlImagePicked(this.imageUrl)
     },
     useLocalFile() {
       this.$refs.image.click()
@@ -224,7 +226,7 @@ export default {
         this.imageUrl=''
       }
     },
-    onImageUrlPicked(url) {
+    onUrlImagePicked(url) {
       const image2base64 = require('image-to-base64');
       image2base64(url)
         .then(
