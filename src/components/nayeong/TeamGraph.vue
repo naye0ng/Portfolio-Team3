@@ -58,9 +58,20 @@ import { async } from 'q';
 export default {
   name: "TeamGraph",
   methods: {
-    async getCommits(API_URL) {
-      var response = await axios.get(API_URL)
-      return response;
+    async getCommits(API_URL,data) {
+      var response = await axios.get(API_URL);
+      data = data.concat(response.data)
+      var header = response.headers.link.split(", ")[0]
+      header = header.split("; ")
+      var nextUrl = header[0].slice(1,-1)
+      var isNext = header[1] === 'rel="next"' ? true : false;
+
+      if(isNext){
+        this.getCommits(nextUrl,data)
+      }else{
+        this.createTeamGraph(data);
+        this.createMemberGraph(data);
+      }
     },
     createTeamGraph(data) {
       let end = new Date(data[0].commit.author.date.slice(0, 10));
@@ -265,16 +276,7 @@ export default {
   },
   mounted() {
     // git graph
-    var response = this.getCommits("https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100");
-    response.then(res => {
-      var nextUrl = res.headers.link.split(", ")
-      var data = res.data
-      this.asyncForEach(nextUrl, data)
-        .then(data =>{
-          this.createTeamGraph(data);
-          this.createMemberGraph(data);
-        })
-    })
+    this.getCommits("https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",[]);
     // team3 web site graph
     this.createVisitorChart();
     this.socialLoginChart();
