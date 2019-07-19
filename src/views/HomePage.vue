@@ -155,35 +155,35 @@ export default {
       //   // 스토리지 초기화 테스트 코드
       //   localStorage.setItem('log_date',"DELELTE DATE")
       // }
+    },
+    keyboardFunc() {
+      var current = 0;
+      $(document).keydown(function(event) {
+        var aboutUs = $("#aboutUs").offset().top;
+        var post = $("#post").offset().top;
+        var portfolio = $("#portfolio").offset().top;
+        var github = $("#github").offset().top;
+        var positions = [0, aboutUs, portfolio, post, github];
+
+        if (event.keyCode == "38") {
+          if (current >= 0) {
+            current -= 1;
+            $("html, body").animate({ scrollTop: positions[current] }, 400);
+          }
+        } else if (event.keyCode == "40") {
+          if (current <= 3) {
+            current += 1;
+            $("html, body").animate({ scrollTop: positions[current] }, 400);
+          }
+        }
+      });
     }
   },
   mounted() {
     this.checkChrome();
     this.pushWebLog();
+    this.keyboardFunc();
   }
-};
-
-window.onload = function() {
-  var current = 0;
-  $(document).keydown(function(event) {
-    var aboutUs = $("#aboutUs").offset().top;
-    var post = $("#post").offset().top;
-    var portfolio = $("#portfolio").offset().top;
-    var github = $("#github").offset().top;
-    var positions = [0, aboutUs, portfolio, post, github];
-
-    if (event.keyCode == "38") {
-      if (current >= 0) {
-        current -= 1;
-        $("html, body").animate({ scrollTop: positions[current] }, 400);
-      }
-    } else if (event.keyCode == "40") {
-      if (current <= 3) {
-        current += 1;
-        $("html, body").animate({ scrollTop: positions[current] }, 400);
-      }
-    }
-  });
 };
 </script>
 
