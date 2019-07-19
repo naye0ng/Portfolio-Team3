@@ -159,10 +159,21 @@ export default {
     keyboardFunc() {
       var current = 0;
       $(document).keydown(function(event) {
-        var aboutUs = $("#aboutUs").offset().top;
-        var post = $("#post").offset().top;
-        var portfolio = $("#portfolio").offset().top;
-        var github = $("#github").offset().top;
+        var aboutUs, post, portfolio, github;
+        
+        if($("#aboutUs").length) {
+          aboutUs = $("#aboutUs").offset().top;
+        }
+        if($("#post").length) {
+          post = $("#post").offset().top;
+        }
+        if($("#portfolio").length) {
+          portfolio = $("#portfolio").offset().top;
+        }
+        if($("#github").length) {
+          github = $("#github").offset().top;
+        }
+
         var positions = [0, aboutUs, portfolio, post, github];
 
         if (event.keyCode == "38") {
