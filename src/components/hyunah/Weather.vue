@@ -1,4 +1,18 @@
 <template>
+  <div id="open-modal">
+    <v-layout row wrap justify-center align-center style="text-align: center;">
+      <v-flax class="pink lighten-5" style="display:inline-block;border-radius:50%;width:32px;">
+          <v-img :src="$store.state.weather.icon"/>
+      </v-flax>
+      <v-flax >
+        &nbsp;{{$store.state.weather.temp}}
+      </v-flax> 
+    </v-layout>
+    <WeatherDetail id="wether-modal"></WeatherDetail>
+  </div>
+</template>
+
+<!-- <template>
   <div>
     <v-tooltip top>
       <template v-slot:activator = "{on}">
@@ -13,8 +27,25 @@
       <WeatherDetail></WeatherDetail>
     </v-tooltip>
   </div>
-</template>
-
+</template> -->
+<style>
+#open-modal{
+  overflow: hidden;
+}
+#open-modal:hover #wether-modal{
+  display: block;
+}
+#wether-modal{
+  display: none;
+  position: fixed;
+  width: 250px;
+  height: 200px;
+  bottom: 100px;
+  right: 30px;
+  z-index: 999;
+  background-color: rgba(0,0,0,0.6);
+}
+</style>
 <script>
 import axios from 'axios'
 import WeatherDetail from '@/components/hyunah/WeatherDetail'
