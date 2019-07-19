@@ -8,7 +8,7 @@
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
           <v-card>
-            <v-img :src="imgSrc">
+            <v-img :src="imgSrc" style="max-height:440px;">
               <v-container fill-height fluid pa-2>
                 <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
