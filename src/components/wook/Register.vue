@@ -134,6 +134,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
+        user.password = registerService.Decrpyto(user.email, user.password);
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;

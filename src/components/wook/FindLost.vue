@@ -67,7 +67,7 @@ export default{
         const user = {
           email : this.email,
           findPass : this.findPass,
-          answer : this.answer
+          answer : this.answer,
         }
         this.dialog=false;
         var query=firebase.database().ref("user").orderByKey();
@@ -78,12 +78,12 @@ export default{
               var childData = childSnapshot.val();
               var before;
               if(user.email===childData.email && user.findPass===childData.findPass&& user.answer===childData.answer ){
-                before=(childData.password);
-                user.answer=registerService.Decrpyto(user.email, before);
+              console.log(childData);
                 SendEmailService.ResetEmail(user.email);
                 return true;
               }
-          });
+          },
+          );
         });
       }
     }
