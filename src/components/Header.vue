@@ -75,10 +75,12 @@
       <v-list class="px-1 pt-2">
         <v-list-tile avatar >
           <v-list-tile-avatar>
-            <v-icon color="primary">favorite</v-icon>
+            <v-icon :color="getListTitleColor">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title style="color:#ffffff"><!-- insert user name -->Universe</v-list-tile-title>
+            <v-list-tile-title style="color:#ffffff">
+              {{getListTitleName}}
+            </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -150,6 +152,24 @@ export default {
   computed:{
     userState(){
       return this.$store.state.user;
+    },
+    getListTitleColor() {
+      if(this.$store.state.user == null) {
+        return 'white'
+      } else {
+        return 'primary'
+      }
+    },
+    getListTitleName() {
+      var headerName = ''
+      if(this.$store.state.user==null || this.$store.state.user.isAnonymous) { // 익명로그인일 경우
+        headerName = 'Universe'
+      } else if(this.$store.state.user.displayName == null) {
+        headerName = this.$store.state.user.email.split('@')[0]
+      } else {
+        headerName = this.$store.state.user.displayName
+      }
+      return headerName;
     }
   },
   watch:{

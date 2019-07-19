@@ -35,7 +35,6 @@ export default {
   mounted() {
     if(this.$store.state.weather.icon == '') {
       this.geolocation()
-      console.log('dddd')
     }
   },
   methods : {
