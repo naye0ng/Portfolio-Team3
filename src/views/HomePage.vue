@@ -156,11 +156,7 @@ export default {
       //   localStorage.setItem('log_date',"DELELTE DATE")
       // }
     },
-<<<<<<< HEAD
-    keyboardFunc() {
-=======
     Scrolling() {
->>>>>>> vlogin
       var current = 0;
       $(document).keydown(function(event) {
         var aboutUs = $("#aboutUs").offset().top;
@@ -186,11 +182,7 @@ export default {
   mounted() {
     this.checkChrome();
     this.pushWebLog();
-<<<<<<< HEAD
-    this.keyboardFunc();
-=======
     this.Scrolling();
->>>>>>> vlogin
   }
 };
 </script>
