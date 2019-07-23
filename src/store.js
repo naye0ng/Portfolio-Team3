@@ -20,6 +20,25 @@ export default new Vuex.Store({
       hum : ''
     }
   },
+  getters:{
+    // 유저 반환
+    getUser: function(state){
+      return state.user;
+    }
+  },
+  actions:{
+    // User 상태 계속 확인해서, 유저 업데이트 해주기
+    checkUserStatus({commit,state}){
+      return new Promise((resolve, reject) => {
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            commit('SET_USER', user);
+            resolve(user);
+          }
+        });
+      });
+    },
+  },
   mutations:{
     pushWebLog(state, social){
       var ref = firebase.database().ref()
@@ -29,6 +48,22 @@ export default new Vuex.Store({
         socialCount =  snapshot.val() || 0
       });
       ref.child("social").child(social).set(socialCount+1)
-    }
+    },
+    // User 바꿔주기
+    SET_USER(state,user){
+      state.user = user;
+      if (state.user){
+        if (state.user.isAnonymous){
+          state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+        }
+        else if (!state.user.photoURL){
+          state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+        }
+      }
+    },
+    // 로그아웃
+    LOGOUT(state) {
+      state.user = null;
+    },
   }
 })

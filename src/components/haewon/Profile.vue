@@ -125,15 +125,12 @@ export default {
       // 유저가 SNS로 로그인 했을 때
       else if (this.curU){
         this.isAno = this.curU.isAnonymous;
-        
         if (!this.isAno) {
           this.photoURL = this.curU.photoURL;
-        }
-        if (!this.isemail) {
           this.name = this.curU.displayName;
           this.email = this.curU.email;
         }
-        if (this.isAno) {
+        else {
           this.name = "Guest";
           this.email = "guest@ssafy.com";
           this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";

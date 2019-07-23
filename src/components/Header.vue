@@ -14,17 +14,17 @@
       <v-toolbar-items class="hidden-sm-and-down">
 
         <!-- Login button -->
-        <v-btn flat @click.stop="dialog = true" v-if="!$store.state.user">LOGIN</v-btn>
+        <v-btn flat @click.stop="dialog = true" v-if="!user">LOGIN</v-btn>
         
         <!-- User image on Header -->
-        <v-menu v-if="$store.state.user" offset-y>
+        <v-menu v-if="user" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-img
                 contain
                 max-width="40px"
                 max-height="40px"
-                :src="$store.state.user.photoURL"
+                :src="user.photoURL"
                 style="border-radius:100%;"
                 aspect-ratio="1"
               ></v-img>
@@ -142,11 +142,8 @@ export default {
     }
   },
   computed:{
-    userState(){
-      return this.$store.state.user;
-    },
     getListTitleColor() {
-      if(this.$store.state.user == null) {
+      if(this.$store.getters.getUser == null) {
         return 'white'
       } else {
         return 'primary'
@@ -154,18 +151,21 @@ export default {
     },
     getListTitleName() {
       var headerName = ''
-      if(this.$store.state.user==null || this.$store.state.user.isAnonymous) { // 익명로그인일 경우
+      if(this.$store.getters.getUser==null || this.$store.getters.getUser.isAnonymous) { // 익명로그인일 경우
         headerName = 'Universe'
-      } else if(this.$store.state.user.displayName == null) {
-        headerName = this.$store.state.user.email.split('@')[0]
+      } else if(this.$store.getters.getUser.displayName == null) {
+        headerName = this.$store.getters.getUser.email.split('@')[0]
       } else {
-        headerName = this.$store.state.user.displayName
+        headerName = this.$store.getters.getUser.displayName
       }
       return headerName;
+    },
+    user(){
+      return this.$store.getters.getUser;
     }
   },
   watch:{
-    userState(){
+    user(){
       this.dialog=false;
     }
   }
