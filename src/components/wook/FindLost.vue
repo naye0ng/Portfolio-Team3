@@ -42,10 +42,7 @@
 <script>
 import firebase from 'firebase' 
 import { Decipher } from 'crypto'
-import FirebaseService from '../../services/FirebaseService'
-import registerService from '../../services/wook/RegisterService'
 import SendEmailService from '@/services/wook/SendEmailService'
-
 
 export default{
     data (){
@@ -61,11 +58,6 @@ export default{
         v =>  /.+@.+/.test(v) || "유효한 이메일만 가능합니다."
       ],
       }
-    },
-    components : {
-      FirebaseService,
-      registerService,
-      SendEmailService
     },
     methods : {
       Find() {
