@@ -49,6 +49,7 @@ export default {
       .then((docSnapshots) => {
         return docSnapshots.docs.map((doc) => {
           let data = doc.data()
+          data.id = doc.id;
           data.created_at = new Date(data.created_at.toDate())
           return data
         })
@@ -58,35 +59,74 @@ export default {
 
     //Create reference
     var ref = firebase.storage().ref();
-    var file = img;
-    var name = new Date() + title;
+    
+    //Create simple date
+    function getFormatDate(date){ var year = date.getFullYear();
+      var year = date.getFullYear();
+      var month = (1 + date.getMonth());
+      var month = month >= 10 ? month : '0' + month;
+      var day = date.getDate();
+      day = day >= 10 ? day : '0' + day;
+      return year + '' + month + '' + day;
+    }
+
+    //Image name setting
+    var name = getFormatDate(new Date()) + '_' + title;
 
     //Upload image to firestorage
-    var uploadTask = ref.child(name).putString(file, 'data_url');
+    var uploadTask = ref.child('images/' + name).putString(img, 'data_url');
+    
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-      function(error) {
-        //catch error
-        switch (error.code) {
-          case 'storage/unauthorized':
-            break;
-          case 'storage/canceled':
-            break;
+    function(snapshot) {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+    }, function(error) {
+      switch (error.code) {
+        case 'storage/unauthorized':
+          break;
+        case 'storage/canceled':
+          break;
+        case 'storage/unknown':
+          break;
+      }
+    }, function() {
+      //Get stored image url from firestorage
+      uploadTask.snapshot.ref.getDownloadURL().then(function(img) {
+        console.log('File url is : ', img);
+        
+        //Upload portfolio to firestore
+        firestore.collection(PORTFOLIOS).add({
+          title,
+          body,
+          img,
+          created_at: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        console.log("Upload portfolio succeed")
+      });
+    });
+  },
+  deletePortfolio(id, imgSrc){
 
-          case 'storage/unknown':
-            break;
-        }
-      }, function() {
-        //Get stored image url from firestorage
-        img = uploadTask.snapshot.ref.getDownloadURL()
+    var desertRef = firebase.storage().refFromURL(imgSrc);
+    desertRef.delete().then(function() {
+      console.log("Delete image succeed(firestorage)")
+    }).catch(function(error) {
+      console.error("Delete image error(firestorage)")
     });
 
-    //Save Portfolio in firestore database
-    return firestore.collection(PORTFOLIOS).add({
-      title,
-      body,
-      img,
-      created_at: firebase.firestore.FieldValue.serverTimestamp()
-    })
+    firestore.collection(PORTFOLIOS).doc(id).delete().then(function() {
+      console.log("Delete portfolio succeed(firestore)")
+    }).catch(function() {
+      console.error("Delete portfolio error(firestore)")
+    });
   },
   curUser() {
     var user = firebase.auth().currentUser;

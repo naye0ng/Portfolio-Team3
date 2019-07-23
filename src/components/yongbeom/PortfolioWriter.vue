@@ -16,7 +16,6 @@
                 <v-text-field label="Title" v-model="title" required></v-text-field>
               </v-flex>
               <v-flex xs2 text-xs-center pl-0>
-                <!-- <v-btn color="primary" @click="useLocalFile" v-model="imageName">Use Local Image</v-btn> -->
                 <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Use Local Image
@@ -25,10 +24,8 @@
 
               <v-flex xs2 text-xs-center>
                 <template>
-                  <!-- <div class="text-xs-center"> -->
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
-                        <!-- <v-btn color="primary" dark v-on="on">Use Url Image</v-btn> -->
                         <button v-on="on" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                           style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                             Use Url Image
@@ -51,19 +48,16 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                  <!-- </div> -->
                 </template>
               </v-flex>
 
               <v-flex xs2 text-xs-center>
-                <!-- <v-btn color="primary" @click="useRandomImg" v-model="imageName">Random Image</v-btn> -->
                 <button @click="useRandomImg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Random Image
                 </button>
               </v-flex>
               <v-flex xs2 text-xs-center>
-                <!-- <v-btn color="error" @click="clearimg" v-model="imageName">Delete Image</v-btn> -->
                 <button @click="clearimg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Delete Image
@@ -83,9 +77,6 @@
         </v-card-text>
         <v-card-actions class="bg-1">
           <v-spacer></v-spacer>
-          <!-- <v-btn color="blue darken-1" flat @click="clear">Clear</v-btn>
-          <v-btn color="blue darken-1" flat to="/portfolio">Back</v-btn>
-          <v-btn color="blue darken-1" flat @click="save">Save</v-btn> -->
           <button @click="clear" class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
             style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
               Clear
@@ -205,10 +196,7 @@ export default {
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
-      console.log("name : " + this.imageName)
-        /* if(this.imageName.lastIndexOf('.') <= 0) {
-          return
-        } */
+        console.log("name : " + this.imageName)
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
