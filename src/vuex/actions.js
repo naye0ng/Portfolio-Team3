@@ -1,4 +1,6 @@
 import axios from 'axios'
+import firebase from "firebase";
+
 
 export default {
   initWeather({commit}, payload) {
@@ -30,5 +32,16 @@ export default {
           console.log(error);
         });
     });
-  }
+  },
+  checkUserStatus({commit,state}){
+    // User 상태 계속 확인해서, 유저 업데이트 해주기
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          commit('SET_USER', user);
+          resolve(user);
+        }
+      });
+    });
+  },
 }

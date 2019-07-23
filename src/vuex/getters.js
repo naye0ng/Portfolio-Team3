@@ -4,7 +4,8 @@ export default {
   accessToken(state) {
     return state.accessToken
   },
-  user(state) {
+  getUser(state) {
+    // 유저 반환
     return state.user
   },
   key(state) {
@@ -15,5 +16,5 @@ export default {
   },
   weather(state) {
     return state.weather
-  }
+  },
 }
