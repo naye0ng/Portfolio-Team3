@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import store from './store'
+import store from './vuex/store'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import GoToTop from './components/GoToTop.vue'
@@ -21,7 +21,6 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
-
   },
 	store,
 	data() {
@@ -29,5 +28,11 @@ export default {
 			//
 		}
 	},
+  created() {
+    // App이 생성될 때, init에 필요한 부분.
+
+    // 날씨 정보를 받아와 vuex에 저장.
+    this.$store.dispatch('initWeather');
+  }
 }
 </script>
