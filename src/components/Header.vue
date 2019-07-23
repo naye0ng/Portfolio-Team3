@@ -43,7 +43,7 @@
         </v-menu>
 
         <!-- Login or Logout modal -->
-        <v-dialog v-model="dialog" max-width="400">
+        <v-dialog v-model="dialog" persistent max-width="400">
           <v-card style="border-radius:20px; border-radius:0px;">
             <v-layout style="color:#ffffff; background-color:#ffffff;">
               <v-flex class="text-xs-right" style="color:#ffffff; background-color:#ffffff;">

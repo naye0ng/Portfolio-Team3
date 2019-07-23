@@ -83,6 +83,9 @@ export default {
     },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
+      console.log(res);
+      // this.$store.commit('SET_USER', res);
+      this.$store.dispatch("checkUserStatus");
       this.dialog = false;
     }
   },
@@ -133,6 +136,9 @@ export default {
         else {
           this.name = "Guest";
           this.email = "guest@ssafy.com";
+          this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+        }
+        if (!this.photoURL){
           this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }
       }

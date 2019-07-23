@@ -33,17 +33,14 @@ export default {
   methods: {
     async loginWithGoogle() {
       const result = await SnsService.loginWithGoogle();
-      this.$store.commit('SET_USER', result.user);
       this.$store.commit("pushWebLog", "google");
     },
     async loginWithFacebook() {
       const result = await SnsService.loginWithFacebook();
-      this.$store.commit('SET_USER', result.user);
       this.$store.commit("pushWebLog", "facebook");
     },
     async loginWithGithub() {
       const result = await SnsService.loginWithGithub();
-      this.$store.commit('SET_USER', result.user);
       this.$store.commit("pushWebLog", "github");
     }
   }
