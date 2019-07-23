@@ -24,62 +24,26 @@
         <!-- Sns 계정 연동하기-->
         <v-layout align-center justify-center col mt-3 v-if="isemail" wrap>
           <v-flex xs2 text-xs-center ml-1 mr-1>
-            <v-btn
-              color="#df4a31"
-              outline
-              v-on:click="linkwithSNS(1)"
-              style="width:96%;"
-              class="hidden-sm-and-down"
-            >
+            <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:96%;" class="hidden-sm-and-down">
               <v-icon size="25" class="mr-2">fa-google</v-icon>Google 연동
             </v-btn>
-            <v-btn
-              color="#df4a31"
-              outline
-              v-on:click="linkwithSNS(1)"
-              style="width:100%;"
-              class="hidden-md-and-up"
-            >
+            <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:100%;" class="hidden-md-and-up">
               <v-icon size="25">fa-google</v-icon>
             </v-btn>
           </v-flex>
           <v-flex xs2 text-xs-center ml-1 mr-1>
-            <v-btn
-              color="#3C5A99"
-              outline
-              v-on:click="linkwithSNS(2)"
-              style="width:96%;"
-              class="hidden-sm-and-down"
-            >
+            <v-btn color="#3C5A99" outline v-on:click="linkwithSNS(2)" style="width:96%;" class="hidden-sm-and-down">
               <v-icon size="25" class="mr-2">fa-facebook</v-icon>Facebook 연동
             </v-btn>
-            <v-btn
-              color="#3C5A99"
-              outline
-              v-on:click="linkwithSNS(2)"
-              style="width:100%;"
-              class="hidden-md-and-up"
-            >
+            <v-btn color="#3C5A99" outline v-on:click="linkwithSNS(2)" style="width:100%;" class="hidden-md-and-up">
               <v-icon size="25">fa-facebook</v-icon>
             </v-btn>
           </v-flex>
           <v-flex xs2 text-xs-center ml-1 mr-1>
-            <v-btn
-              color="#4078c0"
-              outline
-              v-on:click="linkwithSNS(3)"
-              style="width:96%;"
-              class="hidden-sm-and-down"
-            >
+            <v-btn color="#4078c0" outline v-on:click="linkwithSNS(3)" style="width:96%;" class="hidden-sm-and-down">
               <v-icon size="25" class="mr-2">fa-github</v-icon>Github 연동
             </v-btn>
-            <v-btn
-              color="#181818"
-              outline
-              v-on:click="linkwithSNS(3)"
-              style="width:100%;"
-              class="hidden-md-and-up"
-            >
+            <v-btn color="#181818" outline v-on:click="linkwithSNS(3)" style="width:100%;" class="hidden-md-and-up">
               <v-icon size="25">fa-github</v-icon>
             </v-btn>
           </v-flex>
@@ -170,8 +134,8 @@ export default {
           this.email = this.curU.email;
         }
         if (this.isAno) {
-          this.name = "Unknown";
-          this.email = "unknown@ssafy.com";
+          this.name = "Guest";
+          this.email = "guest@ssafy.com";
           this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }
       }

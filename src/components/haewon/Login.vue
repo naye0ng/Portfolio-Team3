@@ -31,7 +31,7 @@
     <v-flex xs12 text-xs-center v-if="!$store.state.user">
       <v-layout row justify-center>
         <v-btn color="#7A7A7A" dark v-on:click="loginAnno" style="width:80%;">
-          <v-icon size="25" class="mr-2">fa-question-circle</v-icon>익명 로그인
+          <v-icon size="25" class="mr-2">fa-question-circle</v-icon>비회원 로그인
         </v-btn>
       </v-layout>
     </v-flex>

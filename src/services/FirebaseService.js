@@ -1,7 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
-import Swal from 'sweetalert2'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
