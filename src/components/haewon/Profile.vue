@@ -1,10 +1,13 @@
 <template>
   <v-layout row justify-center wrap>
     <v-flex xs12 align-center justify-center layout text-xs-center>
+      <!-- User photo -->
       <v-avatar size="150" id="photophoto">
         <v-img :src="photoURL" aspect-ratio="1" width="150px" height="150px"></v-img>
       </v-avatar>
     </v-flex>
+
+    <!-- User Info -->
     <v-flex xs12 justify-center text-xs-center id="profiledetail">
       <div class="mt-4">
         <h1 style="color:#f7f7f7; font-size:1.7em;">{{name}}</h1>
@@ -14,9 +17,11 @@
         <br />
         <div class="mt-4 mb-4" style="color:#f7f7f7;">
           <span style="color:#f7f7f7; font-size:1.2em;">즐거운 인생</span>
-          <br>
+          <br />
           <span style="color:#f7f7f7; font-size:1.2em;">어제도 개발 오늘도 개발</span>
         </div>
+
+        <!-- Sns 계정 연동하기-->
         <v-layout align-center justify-center col mt-3 v-if="isemail" wrap>
           <v-flex xs2 text-xs-center ml-1 mr-1>
             <v-btn
@@ -85,7 +90,7 @@
 </template>
 
 <script>
-import FirebaseService from "@/services/FirebaseService";
+import SnsService from "@/services/haewon/SnsService";
 import firebase from "firebase";
 
 export default {
@@ -113,67 +118,70 @@ export default {
       this.answer = user.answer;
     },
     async linkwithSNS(num) {
-      var res = await FirebaseService.LinkSNS(num);
+      var res = await SnsService.LinkSNS(num);
       this.dialog = false;
     }
   },
   mounted() {
-    const user = {
-      email: "",
-      telephone: "",
-      name: "",
-      findPass: "",
-      answer: ""
-    };
-    var query = firebase
-      .database()
-      .ref("user")
-      .orderByKey();
-    query.once("value").then(snapshot => {
-      var curEmail = firebase.auth().currentUser.email;
-      snapshot.forEach(function(childSnapshot) {
-        var key = childSnapshot.key;
-        var childData = childSnapshot.val();
-        if (curEmail === childData.email) {
-          user.email = childData.email;
-          user.telephone = childData.telephone;
-          user.name = childData.name;
-          user.findPass = childData.findPass;
-          user.answer = childData.answer;
-        }
-      });
-      this.back(user);
-      if (this.curU) {
-        this.isAno = this.curU.isAnonymous;
+    firebase.auth().onAuthStateChanged(user => {
+      this.curU = user;
+      if (user && !user.isAnonymous) {
+        this.isemail = user.providerData[0].providerId == "password";
       }
-      if (this.curU && !this.isAno) {
-        this.photoURL = this.curU.photoURL;
-        if (!this.photoURL) {
+      // User가 이메일로 로그인 했을 때
+      if (this.isemail && this.curU){
+        const user = {
+          email: "",
+          telephone: "",
+          name: "",
+          findPass: "",
+          answer: ""
+        };
+        var query = firebase
+          .database()
+          .ref("user")
+          .orderByKey();
+        query.once("value").then(snapshot => {
+          var curEmail = firebase.auth().currentUser.email;
+          snapshot.forEach(function(childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (curEmail === childData.email) {
+              user.email = childData.email;
+              user.telephone = childData.telephone;
+              user.name = childData.name;
+              user.findPass = childData.findPass;
+              user.answer = childData.answer;
+            }
+          });
+        this.back(user);
+        this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
+        });
+      }
+      // 유저가 SNS로 로그인 했을 때
+      else if (this.curU){
+        this.isAno = this.curU.isAnonymous;
+        
+        if (!this.isAno) {
+          this.photoURL = this.curU.photoURL;
+        }
+        if (!this.isemail) {
+          this.name = this.curU.displayName;
+          this.email = this.curU.email;
+        }
+        if (this.isAno) {
+          this.name = "Unknown";
+          this.email = "unknown@ssafy.com";
           this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
         }
       }
-      if (!this.isemail) {
-        this.name = this.curU.displayName;
-        this.email = this.curU.email;
-      }
-      if (this.curU && this.isAno) {
-        this.name = "Unknown";
-        this.email = "unknown@ssafy.com";
-        this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-      }
-    });
-      firebase.auth().onAuthStateChanged(user => {
-        this.curU = user;
-        if (user && !user.isAnonymous) {
-          this.isemail = user.providerData[0].providerId == "password";
-        }
-
     });
   }
 };
 </script>
 <style>
-#photophoto, #profiledetail{
-  z-index:99;
+#photophoto,
+#profiledetail {
+  z-index: 99;
 }
 </style>
