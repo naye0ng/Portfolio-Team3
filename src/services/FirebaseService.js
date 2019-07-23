@@ -1,7 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
-import Swal from 'sweetalert2'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
@@ -89,140 +88,8 @@ export default {
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     })
   },
-  loginWithGoogle() {
-    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(function () {
-        let provider = new firebase.auth.GoogleAuthProvider()
-        return firebase.auth().signInWithPopup(provider)
-          .catch(function (error) {
-            console.error(error)
-          })
-      })
-  },
-  loginWithFacebook() {
-    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(function () {
-        let provider = new firebase.auth.FacebookAuthProvider()
-        return firebase.auth().signInWithPopup(provider)
-          .catch(function (error) {
-            console.error(error)
-          })
-      })
-  },
-  loginWithGithub() {
-    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(function () {
-        let provider = new firebase.auth.GithubAuthProvider()
-        return firebase.auth().signInWithPopup(provider)
-          .catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
-            if (errorCode === 'auth/account-exists-with-different-credential') {
-              var pendingCred = error.credential;
-              var email = error.email;
-              firebase.auth().fetchSignInMethodsForEmail(email).then(function (methods) {
-                if (methods[0] === 'password') {
-                  var password = promptUserForPassword();
-                  return firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-                    return user.linkWithCredential(pendingCred);
-                  }).then(function () {
-                    return result
-                  });
-                }
-                return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-                  .then(function () {
-                    let provider = new firebase.auth.GoogleAuthProvider()
-                    return firebase.auth().signInWithPopup(provider).then(function (result) {
-                      return result.user.linkAndRetrieveDataWithCredential(pendingCred)
-                    })
-                      .catch(function (error) {
-                        console.error(error)
-                      })
-                  })
-              })
-            }
-            else {
-              console.error(error);
-            }
-          })
-      })
-  },
-  loginAnno() {
-    return firebase.auth().signInAnonymously().catch(function (error) {
-      console.error(error);
-    });
-  },
-  loginUser(email, password) {
-    return firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-      var errorCode = error.code;
-      if (errorCode === 'auth/wrong-password') {
-        Swal.fire({
-          title:'Error!',
-          text:'비밀번호가 틀렸습니다.',
-          type:'error'
-        })
-      } else if (errorCode === 'auth/invalid-email') {
-        Swal.fire({
-          title:'Error!',
-          text:'해당 이메일로 가입된 사용자가 존재하지 않습니다.',
-          type:'error'
-        })
-      }
-      console.log(error);
-    });
-  }
-  ,
-  logout() {
-    return firebase.auth().signOut().then(function () {
-    }).catch(function (error) {
-      console.error(error);
-    });
-  },
   curUser() {
     var user = firebase.auth().currentUser;
     return user;
   },
-  LoginSuccess() {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        Swal.fire({
-          text : "로그인에 성공하셨습니다!",
-          type : 'success'
-        })
-        return user;
-      } else {
-      }
-    });
-  },
-  LinkSNS(num) {
-    if (num == 1) {
-      var provider = new firebase.auth.GoogleAuthProvider();
-    } else if (num == 2) {
-      var provider = new firebase.auth.FacebookAuthProvider();
-    } else {
-      var provider = new firebase.auth.GithubAuthProvider();
-    }
-    return firebase.auth().currentUser.linkWithPopup(provider).then(function (result) {
-      var credential = result.credential;
-      var user = result.user;
-      return user
-    }).catch(function (error) {
-      var errorCode = error.code;
-      if (errorCode === 'auth/email-already-in-use') {
-        Swal.fire({
-          text:'이미 다른 이메일에 연결된 계정입니다',
-          type:'warning'
-        })
-      }
-      else if (errorCode === 'auth/credential-already-in-use') {
-        Swal.fire({
-          text:'이미 등록된 SNS 계정입니다',
-          type:'warning'
-        })
-      }
-      console.log(error);
-    });
-  }
 }
