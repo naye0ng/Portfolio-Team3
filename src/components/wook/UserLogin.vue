@@ -20,8 +20,8 @@
 
 <script>
 import firebase from "firebase";
-import LoginService from "../../services/wook/LoginService";
-import registerService from "../../services/wook/RegisterService";
+import LoginService from "@/services/wook/LoginService";
+import registerService from "@/services/wook/RegisterService";
 
 export default {
   data() {

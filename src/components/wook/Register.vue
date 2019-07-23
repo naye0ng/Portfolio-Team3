@@ -82,7 +82,7 @@
 <script>
 import firebase from "firebase";
 import { Decipher } from "crypto";
-import registerService from "../../services/wook/RegisterService";
+import registerService from "@/services/wook/RegisterService";
 import Swal from "sweetalert2";
 
 export default {
