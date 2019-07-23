@@ -22,21 +22,13 @@
                 <router-link :to="{name: 'portdetail',params: {title: title, body: body, imgSrc: imgSrc}}">
                 <button
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 150px;padding:0.5em 1em; opacity: 0.95;"
+                  style="max-width: 150px;padding:0.5em 1em; opacity: 0.98;"
                 >더 보기</button>
                </router-link>
             </v-flex>
           </v-layout>
           </div>
         </v-expand-transition>
-        <!-- <v-card-title primary-title>
-          <v-flex xs12>
-            <div class="headline port-title">{{title}}</div>
-          </v-flex>
-          <v-flex xs12>
-            <div v-html="body" class="grey--text port-body"></div>
-          </v-flex>
-        </v-card-title>-->
       </v-card>
     </v-hover>
   </div>
@@ -87,7 +79,7 @@ p {
   align-items: center;
   justify-content: center;
   bottom: 0;
-  opacity: 0.7;
+  opacity: 0.78;
   position: absolute;
   width: 100%;
 }
