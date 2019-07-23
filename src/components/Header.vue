@@ -1,4 +1,3 @@
-
 <template>
   <v-layout>
     <v-toolbar fixed id="header" style="z-index:999;">
@@ -10,21 +9,29 @@
       <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">
         <v-btn flat :to="item.to" active-class="primary">{{ item.title }}</v-btn>
       </v-toolbar-items>
+
+      <!-- Login area -->
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat @click.stop="dialog = true" v-if="!$store.state.user">{{login_title}}</v-btn>
-        <v-menu v-if="$store.state.user" offset-y>
+
+        <!-- Login button -->
+        <v-btn flat @click.stop="dialog = true" v-if="!user">LOGIN</v-btn>
+        
+        <!-- User image on Header -->
+        <v-menu v-if="user" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-img
                 contain
                 max-width="40px"
                 max-height="40px"
-                :src="$store.state.user.photoURL"
+                :src="user.photoURL"
                 style="border-radius:100%;"
                 aspect-ratio="1"
               ></v-img>
             </v-btn>
           </template>
+
+          <!-- Logout menu -->
           <v-list>
             <v-list-tile @click="dialog = true" >
               <v-list-tile-title>Logout</v-list-tile-title>
@@ -35,33 +42,20 @@
           </v-list>
         </v-menu>
 
+        <!-- Login or Logout modal -->
         <v-dialog v-model="dialog" max-width="400">
           <v-card style="border-radius:20px; border-radius:0px;">
-            <!-- <v-flex class="text-xs-right">
-              <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
-                  <v-icon>close</v-icon>
-              </v-btn>
-            </v-flex> -->
-            <!-- <v-card-title
-              style="padding-top:0px;"
-              class="headline justify-center"
-              v-if="!$store.state.user"
-            >로그인</v-card-title>
-            <v-card-title
-              style="padding-top:0px;"
-              class="headline justify-center"
-              v-if="$store.state.user"
-            >로그아웃</v-card-title> -->
             <v-layout style="color:#ffffff; background-color:#ffffff;">
               <v-flex class="text-xs-right" style="color:#ffffff; background-color:#ffffff;">
                 <v-btn small icon @click="dialog = false" style="margin-bottom:0px">
-                    <v-icon>close</v-icon>
+                  <v-icon>close</v-icon>
                 </v-btn>
               </v-flex>
             </v-layout>
-            <SnsLogin></SnsLogin>
+            <Login></Login>
           </v-card>
         </v-dialog>
+
       </v-toolbar-items>
       <v-toolbar-items>
         <v-btn icon @click="notify()">
@@ -112,8 +106,7 @@
 </template>
 
 <script>
-import FirebaseService from "@/services/FirebaseService";
-import SnsLogin from "@/components/haewon/SnsLogin";
+import Login from "@/components/haewon/Login";
 import WeatherDetail from "@/components/hyunah/WeatherDetail";
 import Visited from './nayeong/Visited.vue'
 import BackToTop from 'vue-backtotop'
@@ -130,12 +123,11 @@ export default {
         { title: "POST", icon: "web", to: "/post" },
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
         { title: "TEAM3", icon: "group", to: "/team3" },
-        // { title : 'LOGIN', icon : 'mood', to : 'login' }
       ]
     };
   },
   components: {
-    SnsLogin,
+    Login,
     Visited,
     BackToTop,
     WeatherDetail
@@ -150,11 +142,8 @@ export default {
     }
   },
   computed:{
-    userState(){
-      return this.$store.state.user;
-    },
     getListTitleColor() {
-      if(this.$store.state.user == null) {
+      if(this.$store.getters.getUser == null) {
         return 'white'
       } else {
         return 'primary'
@@ -162,18 +151,21 @@ export default {
     },
     getListTitleName() {
       var headerName = ''
-      if(this.$store.state.user==null || this.$store.state.user.isAnonymous) { // 익명로그인일 경우
+      if(this.$store.getters.getUser==null || this.$store.getters.getUser.isAnonymous) { // 익명로그인일 경우
         headerName = 'Universe'
-      } else if(this.$store.state.user.displayName == null) {
-        headerName = this.$store.state.user.email.split('@')[0]
+      } else if(this.$store.getters.getUser.displayName == null) {
+        headerName = this.$store.getters.getUser.email.split('@')[0]
       } else {
-        headerName = this.$store.state.user.displayName
+        headerName = this.$store.getters.getUser.displayName
       }
       return headerName;
+    },
+    user(){
+      return this.$store.getters.getUser;
     }
   },
   watch:{
-    userState(){
+    user(){
       this.dialog=false;
     }
   }
