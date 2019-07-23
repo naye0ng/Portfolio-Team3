@@ -22,7 +22,7 @@
         </div>
 
         <!-- Sns 계정 연동하기-->
-        <v-layout align-center justify-center col mt-3 v-if="isemail" wrap>
+        <v-layout align-center justify-center col mt-3 v-if="!linked" wrap>
           <v-flex xs2 text-xs-center ml-1 mr-1>
             <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:96%;" class="hidden-sm-and-down">
               <v-icon size="25" class="mr-2">fa-google</v-icon>Google 연동
@@ -70,7 +70,8 @@ export default {
       isAno: "",
       isemail: false,
       dialog: false,
-      curU: ""
+      curU: "",
+      linked : false,
     };
   },
   methods: {
@@ -83,17 +84,30 @@ export default {
     },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
-      console.log(res);
-      // this.$store.commit('SET_USER', res);
       this.$store.dispatch("checkUserStatus");
       this.dialog = false;
+      if (res){
+        this.isemail = false;
+      }
     }
   },
   mounted() {
     firebase.auth().onAuthStateChanged(user => {
       this.curU = user;
       if (user && !user.isAnonymous) {
-        this.isemail = user.providerData[0].providerId == "password";
+        if (user.providerData.length>1){
+          this.linked = user.providerData[1].providerId == "password";
+          this.isemail = user.providerData[1].providerId == "password";
+        }
+        else{
+          if (user.providerData[0].providerId == "password"){
+            this.isemail = true;
+            this.linked = false;
+          }
+          else{
+            this.linked = true;
+          }
+        }
       }
       // User가 이메일로 로그인 했을 때
       if (this.isemail && this.curU){
