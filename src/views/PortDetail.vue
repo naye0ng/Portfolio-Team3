@@ -45,6 +45,20 @@
               홈으로
             </button>
           </router-link>
+          <router-link :to="{
+            name: 'makecontents',
+            params: {
+            kind: 'Portfolio',
+            title: title,
+            id: id,
+            body: body,
+            imgSrc: imgSrc
+          }}">
+            <button class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+                수정하기
+            </button>
+          </router-link>
           <router-link to="/portfolio">
             <button class="button button--wayra button--border-medium button--text-medium button--size-s"
             style="max-width: 150px;padding:0.5em 1em; margin:0.5em;" v-on:click="deletePortfolio">

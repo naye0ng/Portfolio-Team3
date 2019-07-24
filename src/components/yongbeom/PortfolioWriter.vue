@@ -114,10 +114,18 @@ export default {
       imageFile : '',
       selectUrl : '',
       storageUrl : '',
+      id : '',
       dialog: false
+
     };
   },
   mounted() {
+    console.log("this.$route.params.id : " + this.$route.params.id)
+    this.id = this.$route.params.id
+    this.title = this.$route.params.title
+    this.imageUrl = this.$route.params.imgSrc
+    this.text = this.$route.params.body
+
   },
   methods : {
     //Save Portfolio
@@ -143,7 +151,8 @@ export default {
 
       else {
         //Call Firebase service
-        FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
+        console.log(this.title)
+        FirebaseService.postPortfolio(this.title, this.text, this.imageUrl, this.id)
         this.dialog = false
 
         //Reinitialize data
