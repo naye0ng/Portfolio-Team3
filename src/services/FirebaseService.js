@@ -56,7 +56,7 @@ export default {
         })
       })
   },
-  postPortfolio(title, body, img, id) {
+  postPortfolio(user, title, body, img, id) {
     console.log("uploadId : " + id)
     if(img.substr(0,4) === 'data'){
       //Create reference
@@ -108,6 +108,7 @@ export default {
     }
     if(id != null) {
       firestore.collection(PORTFOLIOS).doc(id).set({
+        user,
         title,
         body,
         img,
@@ -120,6 +121,7 @@ export default {
     }
     else{
       firestore.collection(PORTFOLIOS).add({
+        user,
         title,
         body,
         img,
@@ -130,18 +132,6 @@ export default {
         console.error("Post portfolio failed")
       });
     }
-  },
-  editPortfolio(id){
-    const postsCollection = firestore.collection(PORTFOLIOS).doc(id)
-    console.log(postsCollection)
-    return postsCollection
-      .get()
-      .then((docSnapshots) => {
-        return docSnapshots.docs.map((doc) => {
-          let data = doc.data()
-          return data
-        })
-      })
   },
   deletePortfolio(id, imgSrc){
 

@@ -11,11 +11,12 @@
               <router-link :to="{
                 name: 'makecontents',
                 params: {
-                  kind: 'Portfolio'
+                  kind: 'Portfolio' // MakeContents.vue will call PortfolioWriter.vue
                 }}">
+                <!-- v-if : Check login status -->
                 <button
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 160px;padding:0.5em 1em;">
+                  style="max-width: 160px;padding:0.5em 1em;" v-if="user != null">
                   포트폴리오 작성
                 </button>
               </router-link>
@@ -42,6 +43,11 @@ export default {
 	components: {
 		ImgBanner,
 		PortfolioList,
-	}
+  },
+  computed: {
+    user(){ // Get user infomation from vuex
+      return this.$store.getters.getUser;
+    }
+  }
 }
 </script>

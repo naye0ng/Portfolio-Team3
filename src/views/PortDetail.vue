@@ -9,7 +9,7 @@
               <v-container fill-height fluid pa-2>
                 <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
-                    <span class="headline white--text ml-2" v-text="date"></span>
+                    <span class="headline white--text ml-2" v-text="title"></span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -45,23 +45,25 @@
               홈으로
             </button>
           </router-link>
+          <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
+          <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
           <router-link :to="{
             name: 'makecontents',
             params: {
-            kind: 'Portfolio',
+            kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
             title: title,
             id: id,
             body: body,
             imgSrc: imgSrc
           }}">
             <button class="button button--wayra button--border-medium button--text-medium button--size-s"
-              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;" v-if="portEmail == userEmail">
                 수정하기
             </button>
           </router-link>
           <router-link to="/portfolio">
             <button class="button button--wayra button--border-medium button--text-medium button--size-s"
-            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;" v-on:click="deletePortfolio">
+            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;" v-if="portEmail == userEmail" v-on:click="deletePortfolio">
               삭제하기
             </button>
           </router-link>
@@ -81,20 +83,29 @@ export default {
     PortfolioList
   },
   computed: {
-    title() {
-      return this.$route.params.title;
-    },
-    imgSrc() {
-      return this.$route.params.imgSrc;
-    },
-    body() {
-      return this.$route.params.body;
+    // Get Portfolio infomation from router
+    portEmail() {
+      return this.$route.params.email;
     },
     id() {
       return this.$route.params.id;
     },
+    title() {
+      return this.$route.params.title;
+    },
+    body() {
+      return this.$route.params.body;
+    },
+    imgSrc() {
+      return this.$route.params.imgSrc;
+    },
     date() {
       return this.$route.params.date;
+    },
+
+    // Get User infomation from vuex
+    userEmail(){
+      return this.$store.getters.getUser.email
     }
   },
   methods: {

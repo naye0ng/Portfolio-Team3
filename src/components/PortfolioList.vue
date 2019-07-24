@@ -1,7 +1,9 @@
 <template>
   <v-layout mt-5 wrap>
     <v-flex style="z-index:99;" v-for="i in portfolios.length > limits ? limits : portfolios.length" xs12 sm6 lg3>
+      <!-- Give portfolio infomation to each portfolio.vue -->
       <Portfolio class="ma-3"
+              :email="portfolios[i - 1].user"
               :date="portfolios[i - 1].created_at.toString()"
               :title="portfolios[i - 1].title"
               :body="portfolios[i - 1].body"
@@ -38,6 +40,7 @@ export default {
     this.getPortfolios()
   },
 	methods: {
+    // Get All Portfolios infomation from firestore database
 		async getPortfolios() {
 			this.portfolios = await FirebaseService.getPortfolios()
 		},
