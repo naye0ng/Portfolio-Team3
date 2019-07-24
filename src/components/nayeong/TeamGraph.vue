@@ -189,14 +189,10 @@ export default {
         dates.push(some_date.toDateString());
       }
       var visitor = [];
-      firebase
-        .database()
-        .ref()
-        .child("logs")
-        .on("value", snapshot => {
-          var logs = snapshot.val();
+      firebase.database().ref().child("logs").on("value", snapshot => {
+          var logs = snapshot.val()
           dates.forEach(date => {
-            visitor.push(Object.keys(logs[date]).length);
+            visitor.push(logs.hasOwnProperty(date) ? Object.keys(logs[date]).length : 0);
           });
           var ctx = document.getElementById("todayChart");
           var teamChart = new chart.Chart(ctx, {
@@ -227,11 +223,7 @@ export default {
     socialLoginChart() {
       var socialName = [];
       var socialLogin = [];
-      firebase
-        .database()
-        .ref()
-        .child("social")
-        .on("value", snapshot => {
+      firebase.database().ref().child("social").on("value", snapshot => {
           var social = snapshot.val();
           socialName = Object.keys(social);
           socialName.forEach(name => {

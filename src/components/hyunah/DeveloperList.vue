@@ -1,10 +1,8 @@
+<!-- Developer를 보여주는 컴포넌트 -->
 <template>
   <div id="banner">
     <div class="stars"></div>
     <div class="twinkling"></div>
-    <!-- <v-img :src="imgSrc"
-           aspect-ratio="1.6"
-           color="rgb(255,255,255,0.5)"> -->
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members" style="cursor:pointer;">
             <Developer
@@ -18,10 +16,8 @@
               :capa="member.capa"/>
           </div>
         </v-layout>
-    <!-- </v-img> -->
   </div>
 </template>
-
 
 <script>
 import Developer from '@/components/hyunah/Developer'
@@ -167,5 +163,5 @@ export default {
 .twinkling{
   z-index:1;
   position:absolute;
-} 
+}
 </style>

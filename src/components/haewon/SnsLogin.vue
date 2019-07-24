@@ -1,15 +1,19 @@
 <template>
+
   <v-layout align-center justify-center row wrap white>
+    <!-- google 로그인 -->
     <v-flex xs3 text-xs-center class="mx-1">
       <v-avatar size="65" v-on:click="loginWithGoogle" color="#df4a31" style="cursor:pointer;">
         <v-icon size="25" dark>fa-google</v-icon>
       </v-avatar>
     </v-flex>
+    <!-- facebook 로그인 -->
     <v-flex xs3 text-xs-center class="mx-1">
       <v-avatar size="65" v-on:click="loginWithFacebook" color="#3C5A99" style="cursor:pointer;">
         <v-icon size="25" dark>fa-facebook</v-icon>
       </v-avatar>
     </v-flex>
+    <!-- github 로그인 -->
     <v-flex xs3 text-xs-center class="mx-1">
       <v-avatar size="65" v-on:click="loginWithGithub" color="#4078c0" style="cursor:pointer;">
         <v-icon size="25" dark>fa-github</v-icon>
@@ -33,18 +37,21 @@ export default {
   methods: {
     async loginWithGoogle() {
       const result = await SnsService.loginWithGoogle();
-      this.$store.state.user = result.user;
-      this.$store.commit("pushWebLog", "google");
+      if (result){
+        this.$store.commit("pushWebLog", "google");
+      }
     },
     async loginWithFacebook() {
       const result = await SnsService.loginWithFacebook();
-      this.$store.state.user = result.user;
-      this.$store.commit("pushWebLog", "facebook");
+      if (result){
+        this.$store.commit("pushWebLog", "facebook");
+      }
     },
     async loginWithGithub() {
       const result = await SnsService.loginWithGithub();
-      this.$store.state.user = result.user;
-      this.$store.commit("pushWebLog", "github");
+      if (result){
+        this.$store.commit("pushWebLog", "github");
+      }
     }
   }
 };

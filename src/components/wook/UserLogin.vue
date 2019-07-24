@@ -46,7 +46,8 @@ export default {
       const result = await LoginService.loginUser(user.email, user.password);
       this.dialog2 = false;
       if (result) {
-        this.$store.state.user = result.user;
+        // this.$store.state.user = result.user;
+        this.$store.commit('SET_USER',result.user);
         this.$store.commit("pushWebLog", "email");
         LoginService.LoginSuccess();
       }

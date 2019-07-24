@@ -8,10 +8,18 @@ export default {
         let provider = new firebase.auth.GoogleAuthProvider()
         return firebase.auth().signInWithPopup(provider)
           .catch(function (error) {
-            Swal.fire({
-              text: error.message,
-              type: 'warning'
-            })
+            if (error.code === 'auth/account-exists-with-different-credential') {
+              Swal.fire({
+                text: "이미 해당 이메일과 연동된 계정이 있습니다.",
+                type: 'warning'
+              })
+            }
+            else{
+              Swal.fire({
+                text: error.message,
+                type: 'warning'
+              })
+            }
           })
       })
   },
@@ -21,10 +29,18 @@ export default {
         let provider = new firebase.auth.FacebookAuthProvider()
         return firebase.auth().signInWithPopup(provider)
           .catch(function (error) {
-            Swal.fire({
-              text: error.message,
-              type: 'warning'
-            })
+            if (error.code === 'auth/account-exists-with-different-credential') {
+              Swal.fire({
+                text: "이미 해당 이메일과 연동된 계정이 있습니다.",
+                type: 'warning'
+              })
+            }
+            else{
+              Swal.fire({
+                text: error.message,
+                type: 'warning'
+              })
+            }
           })
       })
   },
@@ -34,38 +50,13 @@ export default {
         let provider = new firebase.auth.GithubAuthProvider()
         return firebase.auth().signInWithPopup(provider)
           .catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
-            if (errorCode === 'auth/account-exists-with-different-credential') {
-              var pendingCred = error.credential;
-              var email = error.email;
-              firebase.auth().fetchSignInMethodsForEmail(email).then(function (methods) {
-                if (methods[0] === 'password') {
-                  var password = promptUserForPassword();
-                  return firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-                    return user.linkWithCredential(pendingCred);
-                  }).then(function () {
-                    return result
-                  });
-                }
-                return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-                  .then(function () {
-                    let provider = new firebase.auth.GoogleAuthProvider()
-                    return firebase.auth().signInWithPopup(provider).then(function (result) {
-                      return result.user.linkAndRetrieveDataWithCredential(pendingCred)
-                    })
-                      .catch(function (error) {
-                        Swal.fire({
-                          text: error.message,
-                          type: 'warning'
-                        })
-                      })
-                  })
+            if (error.code === 'auth/account-exists-with-different-credential') {
+              Swal.fire({
+                text: "이미 해당 이메일과 연동된 계정이 있습니다.",
+                type: 'warning'
               })
             }
-            else {
+            else{
               Swal.fire({
                 text: error.message,
                 type: 'warning'
