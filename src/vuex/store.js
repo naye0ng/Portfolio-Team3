@@ -35,14 +35,6 @@ export default new Vuex.Store({
     SET_USER(state,user){
       // User 바꿔주기
       state.user = user;
-      if (state.user){
-        if (state.user.isAnonymous){
-          state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-        }
-        else if (!state.user.photoURL){
-          state.user.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-        }
-      }
     },
     LOGOUT(state) {
       // 로그아웃
