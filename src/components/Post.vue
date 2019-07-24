@@ -46,7 +46,7 @@
             </div>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
               <span class="card-media-body-supporting-bottom-text subtle">#Hello #Universe</span>
-              <span @click="showModal" class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">detail</span>
+              <span @click="showModal" class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
             </div>
           </div>
         </div>
@@ -56,7 +56,7 @@
       <v-dialog v-model="dialog" max-width="470">
         <v-card>
           <v-card-title primary-title class="pb-2 pt-2">
-            <h2 class="color-333 headline font-weight-heavy mt-3 ml-1">{{title}}</h2>
+            <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{title}}</h2>
             <v-spacer></v-spacer>
             <div class="caption grey--text" style="padding-top:30px;">{{formatedDate}}</div>
           </v-card-title>
@@ -78,7 +78,7 @@
             </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s mr-2" 
             style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
               close
             </button>
