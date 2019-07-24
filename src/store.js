@@ -33,6 +33,7 @@ export default new Vuex.Store({
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             commit('SET_USER', user);
+            // console.log(state.user);
             resolve(user);
           }
         });

@@ -87,14 +87,14 @@ export default {
       this.$store.dispatch("checkUserStatus");
       this.dialog = false;
       if (res){
-        this.isemail = false;
+        this.linked = true;
       }
     }
   },
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => { // 유저 확인하고
       this.curU = user;
-      if (user && !user.isAnonymous) {
+      if (user && !user.isAnonymous) { 
         if (user.providerData.length>1){
           this.linked = user.providerData[1].providerId == "password";
           this.isemail = user.providerData[1].providerId == "password";
@@ -105,9 +105,14 @@ export default {
             this.linked = false;
           }
           else{
+            this.isemail = false;
             this.linked = true;
           }
         }
+      }
+      if (user && user.isAnonymous){
+        this.isemail = false;
+        this.linked = true;
       }
       // User가 이메일로 로그인 했을 때
       if (this.isemail && this.curU){
