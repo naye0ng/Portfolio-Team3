@@ -103,9 +103,11 @@ export default {
         //Get stored image url from firestorage
         uploadTask.snapshot.ref.getDownloadURL().then(function(fireImg) {
           img = fireImg
+          console.log("fireimg : " + fireImg)
         });
       });
     }
+
     if(id != null) {
       firestore.collection(PORTFOLIOS).doc(id).set({
         user,
@@ -114,9 +116,9 @@ export default {
         img,
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       }).then(function(){
-        console.log("Post portfolio succeed")
+        console.log("Modify portfolio succeed")
       }).catch(function() {
-        console.error("Post portfolio failed")
+        console.error("Modify portfolio failed")
       });
     }
     else{
@@ -127,6 +129,7 @@ export default {
         img,
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       }).then(function(){
+        console.log("img : " + img)
         console.log("Post portfolio succeed")
       }).catch(function() {
         console.error("Post portfolio failed")

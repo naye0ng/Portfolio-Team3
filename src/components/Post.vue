@@ -38,9 +38,6 @@
                 <li>
                   <img src="@/assets/won.png" class style="width:30px; height:30px;" />
                 </li>
-                <!-- <li class="card-media-object-social-list-item-additional">
-                  <span>+2</span>
-                </li> -->
               </ul> 
               <span class="card-media-body-supporting-bottom-text subtle u-float-right mb-1 mr-1">Team3</span>
             </div>
@@ -78,6 +75,15 @@
             </v-btn>
             </div>
             <v-spacer></v-spacer>
+            <!-- v-on:click="deletePortfolio" -->
+            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
+              Remove
+            </button>
+            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
+              Edit
+            </button>
             <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
             style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
               close
@@ -90,16 +96,21 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import FirebaseService from '@/services/FirebaseService'
+
 export default {
   name: "Post",
-  props: {
+  props: { // props data from PostList.vue
+    email: {type: String},
     date: { type: Date },
     title: { type: String },
-    body: { type: String }
+    body: { type: String },
+    id: {type: String}
   },
   data() {
     return {
-      dialog: false
+      dialog: false // Modal Condition
     };
   },
   computed: {
@@ -110,6 +121,9 @@ export default {
   methods: {
     showModal() {
       this.dialog = true;
+    },
+    deletePost() {
+      FirebaseService.deletePost(this.id)
     }
   }
 };
