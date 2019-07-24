@@ -3,7 +3,7 @@ import RegisterService from '@/services/wook/RegisterService'
 
 export default{
     Update (email) {
-        var query=firebase.database().ref("user").orderByKey;
+        var query=firebase.database().ref("user").orderByKey();
         query.once("value")
         .then(function(snapshot){
             snapshot.forEach(function(childSnapshot){
@@ -11,15 +11,13 @@ export default{
                 var childData = childSnapshot.val();
                 var cripted=RegisterService.Crypto(childData.email,childData.password);
                 if(email===childData.email){
-                    firebase.database().ref.child('/user/'+key).
-                    update({
-                        password: cripted
+                    firebase.database().ref().child('/user/' + key)
+                    .update({ 
+                        password:cripted,
                     });
                     return true;
                 }
             })
-
         })
-
     }
 }

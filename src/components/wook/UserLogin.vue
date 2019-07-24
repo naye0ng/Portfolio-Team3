@@ -22,6 +22,7 @@
 import firebase from "firebase";
 import LoginService from "@/services/wook/LoginService";
 import registerService from "@/services/wook/RegisterService";
+import UpdatePassword from "@/services/wook/UpdatePasswordService"
 
 export default {
   data() {
@@ -46,7 +47,7 @@ export default {
       const result = await LoginService.loginUser(user.email, user.password);
       this.dialog2 = false;
       if (result) {
-        // this.$store.state.user = result.user;
+       UpdatePassword.Update(user.email);
         this.$store.commit('SET_USER',result.user);
         this.$store.commit("pushWebLog", "email");
         LoginService.LoginSuccess();

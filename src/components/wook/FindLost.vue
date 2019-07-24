@@ -61,7 +61,7 @@ export default{
       }
     },
     methods : {
-      Find() {
+    Find() {
         var found;
         const user = {
           email : this.email,
@@ -75,14 +75,11 @@ export default{
             snapshot.forEach(function(childSnapshot) {   
               var key = childSnapshot.key;
               var childData = childSnapshot.val();
-              var before;
               if(user.email===childData.email && user.findPass===childData.findPass&& user.answer===childData.answer ){
-
-                SendEmailService.ResetEmail(user.email);
-                UpdatePasswordService.Update(user.email);
+                SendEmailService.ResetEmail(user.email)
                 return true;
               }
-          },
+            },
           );
         });
       }
