@@ -1,61 +1,54 @@
+<!-- 개발자의 개인적인 정보를 담은 컴포넌트 -->
+
 <template>
   <div class="banner-images">
-    <v-hover>
-      <!-- <v-avatar @click="showModal" size=12vw slot-scope="{ hover }" color="rgb(255,255,255,0.6)" class="interstella flip-card"> -->
-      <v-avatar @click="showModal" size=12vw class="interstella flip-card">
-      <div class="flip-card-inner">  
+    <!-- 기본적으로 보여지는 부분 -->
+    <v-avatar @click="showModal" size=12vw class="interstella flip-card">
+      <div class="flip-card-inner">
         <div class="flip-card-front">
           <v-img :aspect-ratio="16/9" :src="image">
-            <!-- <div v-if="hover" class="display-3 dev-frame">
-              <span class="dev-content">{{status}}</span>
-            </div> -->
           </v-img>
         </div>
         <div class="flip-card-back" :style="{'background-color':bgcolor}">
           <span class="dev-content">{{status}}</span>
         </div>
       </div>
-        <!-- <v-img :aspect-ratio="16/9" :src="image">
-          <div v-if="hover" class="display-3 dev-frame">
-            <span class="dev-content">{{status}}</span>
-          </div>
-        </v-img> -->
-      </v-avatar>
-    </v-hover>
+    </v-avatar>
 
+    <!-- 클릭 시 다이아로그 창 -->
     <v-layout row justify-center class="dev-dialog">
-      <v-dialog v-model="dialog" width="650">
+      <v-dialog v-model="dialog" max-width="700px">
         <v-card light>
           <v-layout column>
             <v-layout row>
               <v-flex xs5>
-                <v-img :src="image" height="300px" width="auto"></v-img>
+                <v-img  :src="image" width="100%" height="40vh"></v-img>
               </v-flex>
-              <v-layout column>
+              <v-layout column px-3>
                 <v-card-title primary-title>
-                  <div class="headline">
+                  <div style="font-size:2vw;" >
                     <i class="fa fa-angle-double-right fa-1x">&nbsp;</i>
                     <strong>{{name}}</strong>
                   </div>
                 </v-card-title>
-                <v-layout row align-center>
+                <v-layout row align-center justify-center>
                   <div class="icon">
-                    <i class="fa fa-quote-left fa-2x"></i>
+                    <i class="fa fa-quote-left" style="font-size:2vw;" ></i>
                   </div>
-                  <v-card-text>
+                  <v-card-text class="text-xs-center" style="font-size:0.95vw;" px-0>
                     <span v-for="i in intro">
                       {{i}}<br>
                     </span>
                   </v-card-text>
                   <div class="icon">
-                    <i class="fa fa-quote-right fa-2x"></i>
+                    <i class="fa fa-quote-right" style="font-size:2vw;"></i>
                   </div>
                 </v-layout>
                 <v-layout row justify-space-around align-start style="padding-top:3vh;">
-                  <i class="fa fa-github fa-3x" @click="openWindow(repo[0])"></i>
-                  <i class="fa fa-at fa-3x" @click="openWindow(repo[1])"></i>
-                  <i class="fa fa-instagram fa-3x" @click="openWindow(repo[2])"></i>
-                  <i class="fa fa-envelope fa-3x" @click="show = !show"></i>
+                  <i class="fa fa-github" style="font-size:3vw;" @click="openWindow(repo[0])"></i>
+                  <i class="fa fa-at" style="font-size:3vw;" @click="openWindow(repo[1])"></i>
+                  <i class="fa fa-instagram" style="font-size:3vw;"  @click="openWindow(repo[2])"></i>
+                  <i class="fa fa-envelope" style="font-size:3vw;" @click="show = !show"></i>
                 </v-layout>
                 <v-card-text>
                   <v-slide-y-transition>
@@ -114,7 +107,7 @@ export default {
 
 .dev-content {
   font-size:9vw;
-  text-shadow: 4px 0px #EC407A
+  text-shadow: 0.05em 0px #EC407A;
 }
 
 .dev-frame {
@@ -132,10 +125,6 @@ export default {
   z-index : 99;
 }
 
-/* .interstella {
-   animation-duration: 2000s;
-   animation-name: bingle;
-} */
 @keyframes bingle {
    from {
    }
@@ -157,7 +146,7 @@ export default {
   height: 100%;
   text-align: center;
   transition: transform 0.6s;
- 
+
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }

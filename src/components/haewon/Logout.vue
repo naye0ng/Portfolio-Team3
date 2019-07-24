@@ -16,7 +16,8 @@ export default {
   methods: {
     async logout() {
       const result = await LoginService.logout();
-      this.$store.state.user = null;
+      // this.$store.state.user = null;
+      this.$store.commit('LOGOUT');
     }
   }
 };
