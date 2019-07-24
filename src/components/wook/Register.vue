@@ -1,13 +1,8 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
-<<<<<<< HEAD
-      <template v-slot:activator="{ on }" >
-        <v-btn color="#181818" v-on="on" style="width:100%; color:#f7f7f7;">
-=======
       <template v-slot:activator="{ on }">
         <v-btn color="#181818" v-on="on" style="width:80%; color:#f7f7f7;">
->>>>>>> 89c84ec6626a256f1b77f944ee1db58656b364a7
           <v-icon size="25" class="mr-2">fa-user-plus</v-icon>회원가입
         </v-btn>
       </template>
@@ -29,8 +24,7 @@
               </v-flex>
               <v-flex xs10>
                 <v-text-field
-                  label="패스워드*"
-                  v-model="password"
+                  label="비밀번호*"
                   type="password"
                   required
                   hint="특수문자는 필수 포함 10글자 이상"
@@ -44,18 +38,18 @@
                 <v-text-field label="이름" v-model="name"></v-text-field>
               </v-flex>
               <br />
-              <v-flex sm2>
+              <v-flex xs2>
                 <v-icon size="30" color="secondary">question_answer</v-icon>
               </v-flex>
-              <v-flex sm7 d-flex>
+              <v-flex xs6 d-flex>
                 <v-select
                   :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
-                  label="비밀번호 찾기 질문*"
+                  label="비밀번호 찾기 질문*" 
                   v-model="findPass"
                   append-icon="expand_more"
                 ></v-select>
               </v-flex>
-              <v-flex sm3>
+              <v-flex xs4>
                 <v-text-field label="답변" v-model="answer" required :rules="loginRules"></v-text-field>
               </v-flex>
               <v-flex xs2>
@@ -93,7 +87,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      loginRules: [v => !!v || "이 부분은 필수 입력 사항입니다."],
+      loginRules: [v => !!v || "이 부분은 필수 입력 사항입니다."],    //v-text-field의 :rules 매칭, 비밀번호, email, 기본 필수사항 입력 조건 체크
       emailRules: [
         v => !!v || "이 부분은 필수 입력 사항입니다.",
         v => /.+@.+/.test(v) || "유효한 이메일만 가능합니다."
@@ -136,17 +130,16 @@ export default {
       
       user.password = registerService.Crypto(user.email, user.password);
       firebase
-        .database()
+        .database()     //
         .ref("user")
         .push(user)
         .then(data => {
-          // commit("createdUser", user);
-          // console.log(data)
+
         })
         .catch(error => {
           console.log(error);
         });
-      user.password = registerService.Decrpyto(user.email, user.password);
+      // user.password = registerService.Decrpyto(user.email, user.password);
       firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password)

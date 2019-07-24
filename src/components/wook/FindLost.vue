@@ -23,7 +23,7 @@
                 ></v-select>
               </v-flex>
               <v-flex sm6 md4>
-                <v-text-field label="답변" v-model="answer" required :rules="loginRules"></v-text-field>
+                <v-text-field label="답변" v-model="answer" required :rules="findRules"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -43,16 +43,17 @@
 import firebase from 'firebase' 
 import { Decipher } from 'crypto'
 import SendEmailService from '@/services/wook/SendEmailService'
+import UpdatePasswordService from '@/services/wook/UpdatePasswordService'
 
 export default{
-    data (){
+    data (){      //v-text-field의 :rules 매칭, 비밀번호 찾기 시 입력 조건 체크
       return{
         dialog : false,
         password : '',
         email : '',
         findPass : '',
         answer : '',
-      loginRules : [v=> !!v || "이 부분은 필수 입력 사항입니다."],
+      findRules : [v=> !!v || "이 부분은 필수 입력 사항입니다."],
       emailRules : [
         v => !!v || "이 부분은 필수 입력 사항입니다.",
         v =>  /.+@.+/.test(v) || "유효한 이메일만 가능합니다."
@@ -68,16 +69,17 @@ export default{
           answer : this.answer,
         }
         this.dialog=false;
-        var query=firebase.database().ref("user").orderByKey();
-        query.once("value")
-          .then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) { 
+        var query=firebase.database().ref("user").orderByKey(); // Realtime-Database에서 user db를 추출해서
+        query.once("value")                                     // 입력란과 user의 정보들이 모두 일치할 경우
+          .then(function(snapshot) {                            // 해당 사용자 이메일로 비밀번호 재설정 링크를 보내줍니다.
+            snapshot.forEach(function(childSnapshot) {   
               var key = childSnapshot.key;
               var childData = childSnapshot.val();
               var before;
               if(user.email===childData.email && user.findPass===childData.findPass&& user.answer===childData.answer ){
 
                 SendEmailService.ResetEmail(user.email);
+                UpdatePasswordService.Update(user.email);
                 return true;
               }
           },
