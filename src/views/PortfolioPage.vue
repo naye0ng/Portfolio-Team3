@@ -3,10 +3,6 @@
     <ImgBanner>
       <div slot="text">Portfolio</div>
     </ImgBanner>
-<<<<<<< HEAD
-
-=======
->>>>>>> 2b7cb45418341daad0357e5a6f749984d717c7d6
       <!-- Portfolio Writer -->
       <v-layout justify-center>
         <v-flex xs11>
