@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import RegisterService from '@/services/wook/RegisterService'
+import RegisterService from '@/services/login/RegisterService'
 
 export default{
     Update (email) {
@@ -12,7 +12,7 @@ export default{
                 var cripted=RegisterService.Crypto(childData.email,childData.password);
                 if(email===childData.email){
                     firebase.database().ref().child('/user/' + key)
-                    .update({ 
+                    .update({
                         password:cripted,
                     });
                     return true;
