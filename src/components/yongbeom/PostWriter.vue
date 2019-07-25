@@ -89,7 +89,7 @@ export default {
         });
       } else {
         // Call Firebase service
-        PostService.postPost(this.userEmail, this.title, this.text, this.portfolioId)
+        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId)
         this.dialog = false
         
         // Reinitialize data

@@ -3,7 +3,7 @@
     <v-flex v-for="i in posts.length > limits ? limits : posts.length" :class="'xs' + 12 / column" px-3>
       <!-- Give post infomation to each Post.vue -->
       <Post
-        :email="posts[i - 1].email"
+        :email="posts[i - 1].user"
         :date="posts[i - 1].created_at"
         :title="posts[i - 1].title"
         :body="posts[i - 1].body"
@@ -41,7 +41,7 @@ export default {
     this.getPosts();
   },
   methods: {
-    // Get All Portfolios infomation from firestore database
+    // Get All Posts infomation from firestore database
     async getPosts() {
       this.posts = await FirebaseService.getPosts();
     },

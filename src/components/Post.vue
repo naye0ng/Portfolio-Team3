@@ -76,16 +76,25 @@
             </div>
             <v-spacer></v-spacer>
             <!-- v-on:click="deletePortfolio" -->
-            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+            <button v-if="email == userEmail" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
             style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
               Remove
             </button>
+            <router-link :to="{
+              name: 'makecontents',
+              params: {
+                kind: 'Post', // MakeContents.vue will call PortfolioWriter.vue
+                title: title,
+                id: id,
+                body: body
+              }}">
+              <button v-if="email == userEmail" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+              style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
+                Edit
+              </button>
+            </router-link>
             <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
-            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
-              Edit
-            </button>
-            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
-            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
+            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;" >
               close
             </button>
           </v-card-actions>
@@ -115,17 +124,21 @@ export default {
   },
   computed: {
     formatedDate() {
-      return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`;
+      return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`
+    },
+    userEmail(){
+      return this.$store.getters.getUser.email
     }
   },
   methods: {
     showModal() {
-      this.dialog = true;
+      this.dialog = true
     },
     deletePost() {
       FirebaseService.deletePost(this.id)
+      this.dialog = false
     }
-  }
+  },
 };
 </script>
 <style>
