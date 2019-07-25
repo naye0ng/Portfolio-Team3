@@ -3,6 +3,7 @@
     <ImgBanner>
       <div slot="text">Portfolio</div>
     </ImgBanner>
+    <v-container>
       <!-- Portfolio Writer -->
       <v-layout justify-center>
         <v-flex xs11>
@@ -32,6 +33,7 @@
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>
       </v-layout>
+    </v-container>
   </div>
 </template>
 
