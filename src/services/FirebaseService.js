@@ -223,7 +223,8 @@ export default {
     return port.get()
       .then(doc => {
         var data = doc.data();
-        data.created_at = new Date(data.created_at.toDate())
+        data.created_at = new Date(data.created_at.toDate());
+        data.id = id;
         return data;
       });
   },
@@ -232,7 +233,8 @@ export default {
     return post.get()
       .then(doc => {
         var data = doc.data();
-        data.created_at = new Date(data.created_at.toDate())
+        data.created_at = new Date(data.created_at.toDate());
+        data.id = id;
         return data;
       })
   },

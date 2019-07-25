@@ -56,7 +56,7 @@
               params: {
                 kind: 'Post', // MakeContents.vue will call PostWriter.vue
                 title: post.title,
-                id: id,
+                id: post.id,
                 body: post.body
               }}">
               <button v-if="post.user == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s" 
@@ -93,13 +93,11 @@ export default {
       post.body (내용)
       post.user (해당 post의 작성자 email)
       post.created_at (게시물 생성 날짜)
+      post.id (게시물 id)
       */
     }
   },
   computed: {
-    id() { // 현재 post 의 id
-      return this.$route.params.id;
-    },
     userEmail(){   // 현재 로그인한 user의 이메일값
       var user = this.$store.getters.getUser;
       if (!user) return null;

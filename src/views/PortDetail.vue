@@ -56,7 +56,7 @@
             params: {
               kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
               title: port.title,
-              id: id,
+              id: port.id,
               body: port.body,
               imgSrc: port.img,
             }}">
@@ -95,13 +95,11 @@ export default {
       port.body (내용)
       port.user (해당 portfolio의 작성자 email)
       port.created_at (게시물 생성 날짜)
+      port.id (게시물 id)
       */
     }
   },
   computed: {
-    id() {   // 현재 portfolio 의 id
-      return this.$route.params.id;
-    },
     userEmail(){   // 현재 로그인한 user의 이메일값
       var user = this.$store.getters.getUser;
       if (!user) return null;
@@ -116,7 +114,7 @@ export default {
       this.port = await FirebaseService.getPortfolio(this.$route.params.id);
     },
     deletePortfolio(){
-      FirebaseService.deletePortfolio(this.id, this.port.img);
+      FirebaseService.deletePortfolio(this.port.id, this.port.img);
     }
   }
 };
