@@ -1,9 +1,7 @@
 <template>
-  <div class="stars postdetail">
-    <!-- <div class="stars"> -->
-      <div class="twinkling">
-      </div>
-    <!-- </div> -->
+  <v-layout align-center justify-center row fill-height style="background-color:#000000;">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
     <v-container id="postcard" class="mt-3">
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
@@ -73,7 +71,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </div>
+  </v-layout>
 </template>
 
 <script>
@@ -124,12 +122,46 @@ export default {
 </script>
 
 <style>
+.stars, .twinkling, .clouds {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.stars {
+  background:#000 url(../../public/images/stars.png) repeat top center;
+  z-index:0;
+}
 
-.postdetail.stars{
-  position:relative;
+.twinkling{
+  background:transparent url(../../public/images/twinkling.png) repeat top center;
+  z-index:1;
+
+  -moz-animation:move-twink-back 200s linear infinite;
+  -ms-animation:move-twink-back 200s linear infinite;
+  -o-animation:move-twink-back 200s linear infinite;
+  -webkit-animation:move-twink-back 200s linear infinite;
+  animation:move-twink-back 200s linear infinite;
+}
+.clouds{
+    background:transparent url(../../public/images/clouds.png) repeat top center;
+    z-index:3;
+
+  -moz-animation:move-clouds-back 200s linear infinite;
+  -ms-animation:move-clouds-back 200s linear infinite;
+  -o-animation:move-clouds-back 200s linear infinite;
+  -webkit-animation:move-clouds-back 200s linear infinite;
+  animation:move-clouds-back 200s linear infinite;
 }
 #postcard{
-  position:relative;
-  z-index:10;
+  z-index:99;
+}
+.twinkling{
+  z-index:1;
+  position:absolute;
 }
 </style>
