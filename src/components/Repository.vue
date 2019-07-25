@@ -52,6 +52,7 @@ export default {
       let labels = [];
       let commits = [];
       let k = data.length - 1;
+      // 첫날과 마지막 날을 기준으로 data에서 commit을 추출한다.
       while (start <= end) {
         labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
         commits.push(0);
@@ -66,6 +67,7 @@ export default {
         }
         start.setDate(start.getDate() + 1);
       }
+      // Chart.js
       var ctx = document.getElementById(this.$props.repos.username);
       var teamChart = new chart.Chart(ctx, {
         type: "line",
@@ -124,8 +126,10 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.repo-btn:link,.repo-btn:visited,.repo-btn:active{
-  color:#181818;
+.repo-btn:link,
+.repo-btn:visited,
+.repo-btn:active {
+  color: #181818;
   text-decoration: none;
 }
 .card-shadow {

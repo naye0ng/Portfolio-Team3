@@ -2,12 +2,15 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12>
-        <h2 class=" my-5 py-5 text-xs-center text-shadow homepage-title" style="color:#fff;font-size:4.3vw;">Hi, We are Team3!</h2>
+        <h2
+          class="my-5 py-5 text-xs-center text-shadow homepage-title"
+          style="color:#fff;font-size:4.3vw;"
+        >Hi, We are Team3!</h2>
       </v-flex>
       <v-flex xs12 md6 px-3 py-3>
         <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
-            <h3 class="headline mb-2 " style="width:100%;text-align:center;">Team3 Total Commits</h3>
+            <h3 class="headline mb-2" style="width:100%;text-align:center;">Team3 Total Commits</h3>
           </v-card-title>
           <div style="padding: 5px 10px; margin-bottom:20px;">
             <canvas id="teamChart" width="100%" class="mb-1"></canvas>
@@ -52,23 +55,23 @@
 import chart from "chart.js";
 import axios from "axios";
 import firebase from "firebase";
-import { constants } from 'crypto';
-import { async } from 'q';
 
 export default {
   name: "TeamGraph",
   methods: {
-    async getCommits(API_URL,data) {
+    // 한번 호출할 때마다 최대 100개의 commit을 받아온다.
+    async getCommits(API_URL, data) {
       var response = await axios.get(API_URL);
-      data = data.concat(response.data)
-      var header = response.headers.link.split(", ")[0]
-      header = header.split("; ")
-      var nextUrl = header[0].slice(1,-1)
+      data = data.concat(response.data);
+      var header = response.headers.link.split(", ")[0];
+      header = header.split("; ");
+      var nextUrl = header[0].slice(1, -1);
       var isNext = header[1] === 'rel="next"' ? true : false;
 
-      if(isNext){
-        this.getCommits(nextUrl,data)
-      }else{
+      if (isNext) {
+        // 다음 호출이 필요한 경우(isNext === true) 재귀적으로 getCommits함수를 호출한다.
+        this.getCommits(nextUrl, data);
+      } else {
         this.createTeamGraph(data);
         this.createMemberGraph(data);
         // team3 web site graph
@@ -84,6 +87,7 @@ export default {
       let labels = [];
       let commits = [];
       let k = data.length - 1;
+      // 첫날과 마지막 날을 기준으로 data에서 commit을 추출한다.
       while (start <= end) {
         labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
         commits.push(0);
@@ -98,6 +102,7 @@ export default {
         }
         start.setDate(start.getDate() + 1);
       }
+      // Chart.js
       var ctx = document.getElementById("teamChart");
       var teamChart = new chart.Chart(ctx, {
         type: "line",
@@ -129,6 +134,7 @@ export default {
       var m_ah = 0;
       var m_tong = 0;
       var m_jo = 0;
+      // data에서 멤버별 커밋 수를 카운트한다.
       for (let i = data.length - 1; i >= 0; i--) {
         let author = data[i].commit.author.name;
         if (author == "naye0ng") {
@@ -143,6 +149,7 @@ export default {
           m_ah += 1;
         }
       }
+      // Chart.js
       var ctx = document.getElementById("memberChart");
       var memberChart = new chart.Chart(ctx, {
         type: "bar",
@@ -183,17 +190,25 @@ export default {
     createVisitorChart() {
       var today = new Date();
       var dates = [];
-      for(var i=4; i>=0; i--) {
+      for (var i = 4; i >= 0; i--) {
         var some_date = new Date();
         some_date.setDate(today.getDate() - i);
         dates.push(some_date.toDateString());
       }
       var visitor = [];
-      firebase.database().ref().child("logs").on("value", snapshot => {
-          var logs = snapshot.val()
+      firebase
+        .database()
+        .ref()
+        .child("logs")
+        .on("value", snapshot => {
+          var logs = snapshot.val();
           dates.forEach(date => {
-            visitor.push(logs.hasOwnProperty(date) ? Object.keys(logs[date]).length : 0);
+            // 방문자가 존재하지 않는 날은 0으로 처리
+            visitor.push(
+              logs.hasOwnProperty(date) ? Object.keys(logs[date]).length : 0
+            );
           });
+          // Chart.js
           var ctx = document.getElementById("todayChart");
           var teamChart = new chart.Chart(ctx, {
             type: "line",
@@ -221,14 +236,19 @@ export default {
         });
     },
     socialLoginChart() {
-      var socialName = [];
-      var socialLogin = [];
-      firebase.database().ref().child("social").on("value", snapshot => {
+      var socialName = []; // 사용자들이 로그인한 소셜
+      var socialLogin = []; // 소셜별 로그인 횟수
+      firebase
+        .database()
+        .ref()
+        .child("social")
+        .on("value", snapshot => {
           var social = snapshot.val();
           socialName = Object.keys(social);
           socialName.forEach(name => {
             socialLogin.push(social[name]);
           });
+          // Chart.js
           var ctx = document.getElementById("socialChart");
           var memberChart = new chart.Chart(ctx, {
             type: "pie",
@@ -259,24 +279,28 @@ export default {
           });
         });
     },
-    async asyncForEach(nextUrl, data){
+    async asyncForEach(nextUrl, data) {
       for (let index = 0; index < nextUrl.length; index++) {
-        await this.getCommits(nextUrl[index].split('>;')[0].slice(1))
-          .then(res2 =>{
-            data = data.concat(res2.data)
-          })
+        await this.getCommits(nextUrl[index].split(">;")[0].slice(1)).then(
+          res2 => {
+            data = data.concat(res2.data);
+          }
+        );
       }
-      return data
+      return data;
     }
   },
   mounted() {
-    // git graph
-    this.getCommits("https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",[]);
+    // Draw git graph
+    this.getCommits(
+      "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
+      []
+    );
   }
 };
 </script>
 <style>
-.theme--light.v-sheet{
-  background-color: rgba(250,250,250,0.97)!important;
+.theme--light.v-sheet {
+  background-color: rgba(250, 250, 250, 0.97) !important;
 }
 </style>
