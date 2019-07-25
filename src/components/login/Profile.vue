@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import SnsService from "@/services/haewon/SnsService";
+import SnsService from "@/services/login/SnsService";
 import firebase from "firebase";
 
 export default {
@@ -94,7 +94,7 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged(user => { // 유저 확인하고
       this.curU = user;
-      if (user && !user.isAnonymous) { 
+      if (user && !user.isAnonymous) {
         if (user.providerData.length>1){
           this.linked = user.providerData[1].providerId == "password";
           this.isemail = user.providerData[1].providerId == "password";

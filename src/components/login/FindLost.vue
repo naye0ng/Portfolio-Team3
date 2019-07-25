@@ -15,7 +15,7 @@
                 <v-text-field label="이메일(아이디)*" v-model="email" :rules="emailRules"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
-                <v-select 
+                <v-select
                   :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
                   label="비밀번호 찾기 질문*"
                   v-model="findPass"
@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import firebase from 'firebase' 
+import firebase from 'firebase'
 import { Decipher } from 'crypto'
-import SendEmailService from '@/services/wook/SendEmailService'
-import UpdatePasswordService from '@/services/wook/UpdatePasswordService'
+import SendEmailService from '@/services/login/SendEmailService'
+import UpdatePasswordService from '@/services/login/UpdatePasswordService'
 import Swal from "sweetalert2";
 
 export default{
@@ -72,7 +72,7 @@ export default{
         var query=firebase.database().ref("user").orderByKey(); // Realtime-Database에서 user db를 추출해서
         query.once("value")                                     // 입력란과 user의 정보들이 모두 일치할 경우
           .then((snapshot)=> {                            // 해당 사용자 이메일로 비밀번호 재설정 링크를 보내줍니다.
-            snapshot.forEach((childSnapshot)=> {   
+            snapshot.forEach((childSnapshot)=> {
               var key = childSnapshot.key;
               var childData = childSnapshot.val();
               if (user.email === childData.email){

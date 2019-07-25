@@ -22,9 +22,6 @@
       </v-card-text>
       <v-card-actions class="bg-1">
         <v-spacer></v-spacer>
-        <!-- <v-btn color="blue darken-1" flat @click="clear">Clear</v-btn>
-        <v-btn color="blue darken-1" flat to="/post">Back</v-btn>
-        <v-btn color="blue darken-1" flat @click="save">Save</v-btn> -->
         <button @click="clear" class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
             style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
               Clear

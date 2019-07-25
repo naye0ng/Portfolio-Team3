@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LoginService from "@/services/wook/LoginService";
+import LoginService from "@/services/login/LoginService";
 import Firebase from "firebase";
 
 export default {

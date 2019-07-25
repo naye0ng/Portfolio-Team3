@@ -20,9 +20,9 @@
 
 <script>
 import firebase from "firebase";
-import LoginService from "@/services/wook/LoginService";
-import registerService from "@/services/wook/RegisterService";
-import UpdatePassword from "@/services/wook/UpdatePasswordService"
+import LoginService from "@/services/login/LoginService";
+import registerService from "@/services/login/RegisterService";
+import UpdatePassword from "@/services/login/UpdatePasswordService"
 
 export default {
   data() {

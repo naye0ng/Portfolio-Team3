@@ -27,7 +27,7 @@
 
 <script>
 import Firebase from "firebase";
-import SnsService from "@/services/haewon/SnsService";
+import SnsService from "@/services/login/SnsService";
 
 export default {
   name: "SnsLogin",

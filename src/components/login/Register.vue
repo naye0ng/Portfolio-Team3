@@ -45,7 +45,7 @@
               <v-flex xs6 d-flex>
                 <v-select
                   :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
-                  label="비밀번호 찾기 질문*" 
+                  label="비밀번호 찾기 질문*"
                   v-model="findPass"
                   append-icon="expand_more"
                 ></v-select>
@@ -82,7 +82,7 @@
 <script>
 import firebase from "firebase";
 import { Decipher } from "crypto";
-import registerService from "@/services/wook/RegisterService";
+import registerService from "@/services/login/RegisterService";
 import Swal from "sweetalert2";
 
 export default {
@@ -128,7 +128,7 @@ export default {
         answer: this.answer,
         telephone: this.telephone
       };
-      
+
       user.password = registerService.Crypto(user.email, user.password);
       firebase
         .database()     //

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import LoginService from "@/services/wook/LoginService";
+import LoginService from "@/services/login/LoginService";
 import firebase from "firebase";
 import UserLogin from "@/components/login/UserLogin";
 import Register from "@/components/login/Register";
