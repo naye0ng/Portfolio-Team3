@@ -15,8 +15,9 @@
                 }}">
                 <!-- v-if : Check login status -->
                 <button
+                  v-if="user != null"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 160px;padding:0.5em 1em;" v-if="user != null">
+                  style="max-width: 160px;padding:0.5em 1em;">
                   포트폴리오 작성
                 </button>
               </router-link>

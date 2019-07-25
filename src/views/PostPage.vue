@@ -16,6 +16,7 @@
                   kind: 'Post'
                 }}">
                 <button
+                  v-if="user != null"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 150px;padding:0.5em 1em;">
                   포스트 작성
@@ -46,6 +47,11 @@ export default {
 	components: {
 		ImgBanner,
 		PostList,
+  },
+  computed: {
+    user(){ // Get user infomation from vuex
+      return this.$store.getters.getUser;
+    }
   }
 }
 </script>
