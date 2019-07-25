@@ -128,8 +128,8 @@ export default {
     };
   },
   mounted() {
-    console.log("this.$route.params.id : " + this.$route.params.id)
-    console.log(this.$store.getters.getUser.email)
+    // console.log("this.$route.params.id : " + this.$route.params.id)
+    // console.log(this.$store.getters.getUser.email)
 
     //If modify portfolio, PortfolioWriter.vue can get data from Portdetail.vue
     this.portfolioId = this.$route.params.id

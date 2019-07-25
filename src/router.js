@@ -8,6 +8,7 @@ import MakeContents from './views/MakeContents'
 import TeamGitGraph from './views/TeamGitGraph.vue'
 import ProfilePage from './views/ProfilePage.vue'
 import PortDetail from './views/PortDetail.vue'
+import PostDetail from './views/PostDetail.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -56,6 +57,12 @@ export default new Router({
 			name: 'portdetail',
 			component: PortDetail,
 			props: true //props access permission
+		},
+		{
+			path: '/postdetail/:id',
+			name: 'postdetail',
+			component: PostDetail,
+			props: true
 		},
 	],
 	scrollBehavior (to, from, savedPosition) {

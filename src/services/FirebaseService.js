@@ -227,6 +227,15 @@ export default {
         return data;
       });
   },
+  getPost(id){
+    let post = firestore.collection(POSTS).doc(id)
+    return post.get()
+      .then(doc => {
+        var data = doc.data();
+        data.created_at = new Date(data.created_at.toDate())
+        return data;
+      })
+  },
   curUser() {
     var user = firebase.auth().currentUser;
     return user;
