@@ -218,6 +218,13 @@ export default {
       console.error("Delete portfolio error(firestore)")
     });
   },
+  getPortfolio(id){
+    let port =  firestore.collection(PORTFOLIOS).doc(id)
+    return port.get()
+      .then(doc => {
+        return doc.data();
+      });
+  },
   curUser() {
     var user = firebase.auth().currentUser;
     return user;

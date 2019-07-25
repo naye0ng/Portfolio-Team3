@@ -8,18 +8,18 @@
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
           <v-card>
-            <v-img :src="imgSrc">
+            <v-img :src="port.img">
               <v-container fill-height fluid pa-2>
                 <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
-                    <span class="headline white--text ml-2" v-text="title"></span>
+                    <span class="headline white--text ml-2" v-text="port.title"></span>
                   </v-flex>
                 </v-layout>
               </v-container>
             </v-img>
 
             <v-card-actions class="mt-2 ml-2">
-              <div v-html="body" style="font-size:1.24rem; margin-bottom:0;"></div>
+              <div v-html="port.body" style="font-size:1.24rem; margin-bottom:0;"></div>
               <v-spacer></v-spacer>
               <v-btn icon>
                 <v-icon>favorite</v-icon>
@@ -51,21 +51,29 @@
 
 <script>
 import PortfolioList from "../components/portfolio/PortfolioList";
+import FirebaseService from "@/services/FirebaseService";
 
 export default {
   name: "PortDetail",
   components: {
     PortfolioList
   },
+  data(){
+    return {
+      port : "",
+    }
+  },
   computed: {
-    title() {
-      return this.$route.params.title;
+    id() {
+      return this.$route.params.id;
     },
-    imgSrc() {
-      return this.$route.params.imgSrc;
-    },
-    body() {
-      return this.$route.params.body;
+  },
+  mounted(){
+    this.getPort();
+  },
+  methods:{
+    async getPort(){
+      this.port = await FirebaseService.getPortfolio(this.$route.params.id);
     }
   }
 };

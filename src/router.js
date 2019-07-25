@@ -52,7 +52,7 @@ export default new Router({
 			component: ProfilePage
 		},
 		{
-			path: '/portdetail/:title',
+			path: '/portdetail/:id',
 			name: 'portdetail',
 			component: PortDetail,
 			props: true //props access permission

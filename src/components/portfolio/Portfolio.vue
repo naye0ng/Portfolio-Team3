@@ -20,14 +20,7 @@
               <!-- Press 'Show More button' will pass data to PortDetail.vue -->
               <v-flex xs12 text-xs-center round my-5 class="bg-3">
                 <router-link :to="{name: 'portdetail',
-                  params: {
-                    email: email,
-                    date: date,
-                    title: title,
-                    body: body,
-                    imgSrc: imgSrc,
-                    id: id
-                    }}">
+                  params: {id: id}}">
                 <button
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 150px;padding:0.5em 1em; opacity: 0.98;"
