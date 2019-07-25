@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap mw-700>
-    <v-flex v-for="i in posts.length > limits ? limits : posts.length" :class="'xs' + 12 / column" px-3>
+    <v-flex v-for="i in posts.length > pageLimit ? pageLimit : posts.length" :class="'xs' + 12 / column" px-3>
       <Post :date="posts[i - 1].created_at" :title="posts[i - 1].title" :body="posts[i - 1].body"></Post>
     </v-flex>
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore" class="bg-1">
@@ -23,7 +23,8 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      pageLimit : this.limits,
     };
   },
   components: {
@@ -38,7 +39,7 @@ export default {
     },
     loadMorePosts() {
       this.loadMore = true;
-      this.limits += 4;
+      this.pageLimit += 4;
     }
   }
 };
