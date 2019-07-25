@@ -9,10 +9,6 @@
       ></Portfolio>
     </v-flex>
 
-    <!-- <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
-      <v-btn color="primary" dark v-on:click="loadMorePortfolios"><v-icon size="25" class="mr-2">fa-plus</v-icon> 더 보기</v-btn>
-    </v-flex> -->
-    
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore" class="bg-1">
       <button v-on:click="loadMorePortfolios" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
         더 보기
@@ -21,7 +17,7 @@
   </v-layout>
 </template>
 <script>
-import Portfolio from '@/components/Portfolio'
+import Portfolio from '@/components/portfolio/Portfolio'
 import FirebaseService from '@/services/FirebaseService'
 
 export default {

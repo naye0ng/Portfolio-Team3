@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Profile from "../components/haewon/Profile";
+import Profile from "../components/login/Profile";
 import Firebase from "firebase";
 
 export default {

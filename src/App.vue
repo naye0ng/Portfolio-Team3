@@ -11,9 +11,9 @@
 
 <script>
 import store from './vuex/store'
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
-import GoToTop from './components/GoToTop.vue'
+import Header from './components/template/Header.vue'
+import Footer from './components/template/Footer.vue'
+import GoToTop from './components/template/GoToTop.vue'
 
 export default {
 	name: 'App',

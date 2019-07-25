@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Developer from '@/components/hyunah/Developer'
+import Developer from '@/components/template/Developer'
 
 export default {
 	name: 'DeveloperList',

@@ -23,9 +23,9 @@
 
 <script>
 import FirebaseService from '@/services/FirebaseService'
-import Register from '../components/wook/Register'
-import FindLost from '../components/wook/FindLost'
-import SnsLogin from '../components/haewon/SnsLogin'
+import Register from '../components/login/Register'
+import FindLost from '../components/login/FindLost'
+import SnsLogin from '../components/login/SnsLogin'
 
 
 export default {

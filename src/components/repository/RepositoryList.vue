@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Repository from '@/components/Repository'
+import Repository from '@/components/repository/Repository'
 import {Carousel3d, Slide} from 'vue-carousel-3d'
 
 export default {

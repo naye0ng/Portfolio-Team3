@@ -11,7 +11,7 @@
   </v-layout>
 </template>
 <script>
-import Post from "@/components/Post";
+import Post from "@/components/post/Post";
 import FirebaseService from "@/services/FirebaseService";
 
 export default {

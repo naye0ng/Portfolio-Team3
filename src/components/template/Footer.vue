@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import Weather from './hyunah/Weather.vue'
-import Visited from './nayeong/Visited.vue'
+import Weather from '@/components/template/Weather'
+import Visited from '@/components/repository/Visited'
 import firebase from 'firebase'
 
 export default {

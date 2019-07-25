@@ -41,11 +41,11 @@
 <script>
 import LoginService from "@/services/wook/LoginService";
 import firebase from "firebase";
-import UserLogin from "@/components/wook/UserLogin";
-import Register from "@/components/wook/Register";
-import FindLost from "@/components/wook/FindLost";
-import Logout from "@/components/haewon/Logout";
-import SnsLogin from "@/components/haewon/SnsLogin";
+import UserLogin from "@/components/login/UserLogin";
+import Register from "@/components/login/Register";
+import FindLost from "@/components/login/FindLost";
+import Logout from "@/components/login/Logout";
+import SnsLogin from "@/components/login/SnsLogin";
 
 export default {
   name: "Login",

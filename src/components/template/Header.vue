@@ -119,10 +119,9 @@
 </template>
 
 <script>
-import Login from "@/components/haewon/Login";
-import WeatherDetail from "@/components/hyunah/WeatherDetail";
-import Visited from "./nayeong/Visited.vue";
-import BackToTop from "vue-backtotop";
+import Login from "@/components/login/Login";
+import WeatherDetail from "@/components/template/WeatherDetail";
+import Visited from "@/components/repository/Visited";
 
 export default {
   name: "main-header",
@@ -143,7 +142,6 @@ export default {
   components: {
     Login,
     Visited,
-    BackToTop,
     WeatherDetail
   },
   methods: {

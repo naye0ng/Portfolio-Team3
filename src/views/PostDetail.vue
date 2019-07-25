@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import PostList from '../components/PostList'
+import PostList from '../components/post/PostList'
 
 export default {
     name: 'PostList',
@@ -40,6 +40,6 @@ export default {
             return this.$route.params.body
         }
     }
-    
+
 }
 </script>

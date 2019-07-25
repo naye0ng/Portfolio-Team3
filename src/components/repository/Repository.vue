@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getImgUrl(img) {
-      return require("../assets/" + img);
+      return require("@/assets/" + img);
     },
     async getCommits() {
       var response = await axios.get(

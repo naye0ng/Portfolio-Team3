@@ -33,7 +33,7 @@
 }
 </style>
 <script>
-import WeatherDetail from '@/components/hyunah/WeatherDetail'
+import WeatherDetail from '@/components/template/WeatherDetail'
 
 export default {
 	name: 'weather',

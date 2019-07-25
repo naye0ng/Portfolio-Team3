@@ -3,21 +3,12 @@
     <ImgBanner>
       <div slot="text">Portfolio</div>
     </ImgBanner>
-    <!-- <v-container> -->
 
       <!-- Portfolio Writer -->
       <v-layout justify-center>
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
             <v-flex xs2 mt-5 pl-4 class="bg-1">
-              <!-- <v-btn color="secondary" router :to="{
-                name: 'makecontents',
-                params: {
-                  kind: 'portfolio'
-                }}" exact dark width="100%">
-                <v-icon size="25" class="mr-2">border_color</v-icon>
-                <span class="hidden-sm-and-down">포트폴리오 작성</span>
-              </v-btn> -->
               <router-link :to="{
                 name: 'makecontents',
                 params: {
@@ -40,13 +31,12 @@
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>
       </v-layout>
-    <!-- </v-container> -->
   </div>
 </template>
 
 <script>
-import ImgBanner from '../components/ImgBanner'
-import PortfolioList from '../components/PortfolioList'
+import ImgBanner from '../components/template/ImgBanner'
+import PortfolioList from '../components/portfolio/PortfolioList'
 
 export default {
 	name: 'PortfolioPage',

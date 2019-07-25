@@ -42,12 +42,6 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round class="bg-3">
-          <!-- <v-btn color="#ec407a" text-xs-center dark to="/portfolio">
-            <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
-          </v-btn>
-          <v-btn color="primary" text-xs-center dark to="/">
-            <v-icon size="25" class="mr-2">fa-home</v-icon>홈으로
-          </v-btn>-->
           <router-link to="/portfolio">
             <button
               class="button button--wayra button--border-medium button--text-medium button--size-s"
@@ -67,7 +61,7 @@
 </template>
 
 <script>
-import PortfolioList from "../components/PortfolioList";
+import PortfolioList from "../components/portfolio/PortfolioList";
 
 export default {
   name: "PortDetail",

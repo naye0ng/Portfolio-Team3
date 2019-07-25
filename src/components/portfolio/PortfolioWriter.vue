@@ -65,7 +65,6 @@
                 </button>
               </v-flex>
               <v-flex xs2 text-xs-center>
-                <!-- <v-btn color="error" @click="clearimg" v-model="imageName">Delete Image</v-btn> -->
                 <button @click="clearimg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Delete Image
@@ -85,9 +84,6 @@
         </v-card-text>
         <v-card-actions class="bg-1">
           <v-spacer></v-spacer>
-          <!-- <v-btn color="blue darken-1" flat @click="clear">Clear</v-btn>
-          <v-btn color="blue darken-1" flat to="/portfolio">Back</v-btn>
-          <v-btn color="blue darken-1" flat @click="save">Save</v-btn> -->
           <button @click="clear" class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
             style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
               Clear

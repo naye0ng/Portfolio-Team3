@@ -4,10 +4,10 @@
       <div style="line-height:1.2em;" slot="text">{{kind}} Writer</div>
     </ImgBanner>
     <v-container ref="destination">
-      
+
       <!-- Portfolio Writer -->
       <portfolioWriter v-if="kind==='Portfolio'"></portfolioWriter>
-      
+
       <!-- Post Writer -->
       <postWriter v-if="kind==='Post'"></postWriter>
     </v-container>
@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import ImgBanner from '../components/ImgBanner'
-import PortfolioWriter from '../components/yongbeom/PortfolioWriter'
-import PostWriter from '../components/yongbeom/PostWriter'
+import ImgBanner from '../components/template/ImgBanner'
+import PortfolioWriter from '../components/portfolio/PortfolioWriter'
+import PostWriter from '../components/post/PostWriter'
 
 export default {
 	name: 'Makeportfolio',
@@ -43,7 +43,7 @@ export default {
     setTimeout(() => {
       this.goto("destination")
     })
-    
+
   }
 }
 </script>

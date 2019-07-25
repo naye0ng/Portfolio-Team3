@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import TeamGraph from '../components/nayeong/TeamGraph'
+import TeamGraph from '../components/repository/TeamGraph'
 
 export default {
 	name: 'TeamGitGraph',
@@ -20,5 +20,5 @@ export default {
 .twinkling{
   z-index:1;
   position:absolute;
-} 
+}
 </style>

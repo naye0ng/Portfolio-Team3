@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- <DeveloperList imgSrc="https://source.unsplash.com/random/1600x900"/> -->
     <DeveloperList />
-    <!-- <v-container> -->
-    <!-- About Me -->
     <div class="contents">
       <v-layout column py-5 my-1 id="aboutUs">
         <v-flex xs12 mt-3 py-1>
@@ -33,12 +30,8 @@
         <v-container class="pt-0">
           <v-flex xs12>
             <PortfolioList></PortfolioList>
-            <!-- <PortList2></PortList2> -->
           </v-flex>
           <v-flex class="bg-3" style="z-index:99;position:relative;" xs12 text-xs-center mb-3 mt-5>
-            <!-- <v-btn color="#EC407A" dark to="/portfolio">
-              <v-icon size="25" class="mr-2">fa-plus</v-icon>Portfolio 더보기
-            </v-btn>-->
             <div>
               <router-link to="/portfolio">
                 <button
@@ -61,9 +54,6 @@
           <PostList :column="1"></PostList>
         </v-flex>
         <v-flex xs12 text-xs-center my-4 class="bg-1">
-          <!-- <v-btn color="#EC407A" dark to="/post" class="mt-3">
-            <v-icon size="25" class="mr-2">fa-plus</v-icon>Post 더보기
-          </v-btn>-->
           <div>
             <router-link to="/post">
               <button
@@ -83,26 +73,22 @@
         <v-flex pt-3 xs12 style="z-index:99">
           <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
         </v-flex>
-        <!-- <v-container py-3> -->
         <v-flex xs12 class="cal-padding">
           <RepositoryList style="z-index:99"></RepositoryList>
         </v-flex>
-        <!-- </v-container> -->
       </v-layout>
     </div>
-    <!-- </v-container> -->
   </div>
 </template>
 
 <script>
-import ImgBanner from "../components/ImgBanner";
-import PortfolioList from "../components/PortfolioList";
-import PostList from "../components/PostList";
-import RepositoryList from "../components/RepositoryList";
+import ImgBanner from "../components/template/ImgBanner";
+import PortfolioList from "../components/portfolio/PortfolioList";
+import PostList from "../components/post/PostList";
+import RepositoryList from "../components/repository/RepositoryList";
 import firebase from "firebase";
-import DeveloperList from "../components/hyunah/DeveloperList";
-import AboutUs from "../components/hyunah/AboutUs";
-import PortList2 from "../components/PortList2";
+import DeveloperList from "../components/template/DeveloperList";
+import AboutUs from "../components/template/AboutUs";
 
 export default {
   name: "HomePage",
@@ -113,7 +99,6 @@ export default {
     RepositoryList,
     DeveloperList,
     AboutUs,
-    PortList2
   },
   methods: {
     getImgUrl(img) {
@@ -160,7 +145,7 @@ export default {
       var current = 0;
       $(document).keydown(function(event) {
         var aboutUs, post, portfolio, github;
-        
+
         if($("#aboutUs").length) {
           aboutUs = $("#aboutUs").offset().top;
         }
