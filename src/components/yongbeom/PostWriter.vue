@@ -7,9 +7,11 @@
       <v-card-text class="pb-0 pt-0">
         <v-container grid-list-md pt-0>
           <v-layout wrap>
+            <!-- title -->
             <v-flex xs12>
               <v-text-field label="Title" v-model="title" required></v-text-field>
             </v-flex>
+            <!-- Markdown editor -->
             <v-flex xs12>
               <template>
                 <div id="app">
@@ -22,9 +24,6 @@
       </v-card-text>
       <v-card-actions class="bg-1">
         <v-spacer></v-spacer>
-        <!-- <v-btn color="blue darken-1" flat @click="clear">Clear</v-btn>
-        <v-btn color="blue darken-1" flat to="/post">Back</v-btn>
-        <v-btn color="blue darken-1" flat @click="save">Save</v-btn> -->
         <button @click="clear" class="button button--wayra2 button--border-thin button--text-medium button--size-xs"
             style="min-width:120px; max-width:120px;padding:0.3em 0.5em;margin:0.2em;">
               Clear
@@ -55,20 +54,32 @@ export default {
   },
   data() {
     return {
-      text: "",
+      text: "", // Bind with markdown editor
       title: "",
+      postId: "",
+      userEmail : '',
       dialog: false
     };
   },
-  mounted() {},
+  mounted() {
+    // If modify post, PostWriter.vue can get data from Post modal
+    this.postId = this.$route.params.id
+    this.title = this.$route.params.title
+    this.text = this.$route.params.body
+
+    //Get userinfo from vuex
+    this.userEmail = this.$store.getters.getUser.email    
+  },
   methods: {
+    // Save post
     save: function(event) {
+      // Blank check
       if (this.text == "" || this.title == "") {
         var alertMsg = "";
         if (this.title == "") {
-          alertMsg = "제목은 필수항목입니다. 제목을 입력해주세요.";
+          alertMsg = "제목은 필수항목입니다. 제목을 입력해주세요."
         } else if (this.text == "") {
-          alertMsg = "내용은 필수항목입니다. 내용을 입력해주세요";
+          alertMsg = "내용은 필수항목입니다. 내용을 입력해주세요"
         }
 
         this.$swal({
@@ -77,11 +88,15 @@ export default {
           text: alertMsg
         });
       } else {
-        FirebaseService.postPost(this.title, this.text);
-        this.dialog = false;
-        this.text = "";
-        this.title = "";
+        // Call Firebase service
+        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId)
+        this.dialog = false
+        
+        // Reinitialize data
+        this.text = ''
+        this.title = ''
 
+        // Success popup
         this.$swal({
           type: "success",
           title: "Great!",
@@ -97,7 +112,7 @@ export default {
         });
       }
     },
-    clear: function(event) {
+    clear: function(event) { // ClearBtn
       this.text = "";
       this.title = "";
     },

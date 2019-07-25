@@ -1,8 +1,12 @@
 <template>
   <div class="stars portdetail">
+<<<<<<< HEAD
     <!-- <div class="stars"> -->
     <div class="twinkling"></div>
     <!-- </div> -->
+=======
+      <div class="twinkling"></div>
+>>>>>>> deleteContents
     <v-container id="portcard" class="mt-3">
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
@@ -40,14 +44,7 @@
         </v-flex>
       </v-layout>
       <v-layout>
-        <!-- go back button -->
         <v-flex xs12 text-xs-center round class="bg-3">
-          <!-- <v-btn color="#ec407a" text-xs-center dark to="/portfolio">
-            <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
-          </v-btn>
-          <v-btn color="primary" text-xs-center dark to="/">
-            <v-icon size="25" class="mr-2">fa-home</v-icon>홈으로
-          </v-btn>-->
           <router-link to="/portfolio">
             <button
               class="button button--wayra button--border-medium button--text-medium button--size-s"
@@ -60,6 +57,28 @@
               style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
             >홈으로</button>
           </router-link>
+          <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
+          <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
+          <router-link :to="{
+            name: 'makecontents',
+            params: {
+              kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
+              title: title,
+              id: id,
+              body: body,
+              imgSrc: imgSrc
+            }}">
+            <button v-if="portEmail == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+                수정하기
+            </button>
+          </router-link>
+          <router-link to="/portfolio">
+            <button v-if="portEmail == userEmail" v-on:click="deletePortfolio" class="button button--wayra button--border-medium button--text-medium button--size-s"
+            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+              삭제하기
+            </button>
+          </router-link>
         </v-flex>
       </v-layout>
     </v-container>
@@ -68,6 +87,7 @@
 
 <script>
 import PortfolioList from "../components/PortfolioList";
+import FirebaseService from '@/services/FirebaseService'
 
 export default {
   name: "PortDetail",
@@ -75,14 +95,34 @@ export default {
     PortfolioList
   },
   computed: {
+    // Get Portfolio infomation from router
+    portEmail() {
+      return this.$route.params.email;
+    },
+    id() {
+      return this.$route.params.id;
+    },
     title() {
       return this.$route.params.title;
+    },
+    body() {
+      return this.$route.params.body;
     },
     imgSrc() {
       return this.$route.params.imgSrc;
     },
-    body() {
-      return this.$route.params.body;
+    date() {
+      return this.$route.params.date;
+    },
+
+    // Get User infomation from vuex
+    userEmail(){
+      return this.$store.getters.getUser.email
+    }
+  },
+  methods: {
+    deletePortfolio(){
+      FirebaseService.deletePortfolio(this.id, this.imgSrc);
     }
   }
 };

@@ -5,7 +5,7 @@
     </ImgBanner>
     <v-container ref="destination">
       
-      <!-- Portfolio Writer -->
+      <!-- Portfolio Writer(check kind status) -->
       <portfolioWriter v-if="kind==='Portfolio'"></portfolioWriter>
       
       <!-- Post Writer -->
@@ -27,7 +27,7 @@ export default {
     PostWriter
   },
   computed: {
-    kind(){
+    kind(){ // Get Contents type from router
       return this.$route.params.kind
     }
   },

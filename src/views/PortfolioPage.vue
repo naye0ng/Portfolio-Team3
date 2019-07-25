@@ -3,29 +3,20 @@
     <ImgBanner>
       <div slot="text">Portfolio</div>
     </ImgBanner>
-    <!-- <v-container> -->
-
       <!-- Portfolio Writer -->
       <v-layout justify-center>
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
             <v-flex xs2 mt-5 pl-4 class="bg-1">
-              <!-- <v-btn color="secondary" router :to="{
-                name: 'makecontents',
-                params: {
-                  kind: 'portfolio'
-                }}" exact dark width="100%">
-                <v-icon size="25" class="mr-2">border_color</v-icon>
-                <span class="hidden-sm-and-down">포트폴리오 작성</span>
-              </v-btn> -->
               <router-link :to="{
                 name: 'makecontents',
                 params: {
-                  kind: 'Portfolio'
+                  kind: 'Portfolio' // MakeContents.vue will call PortfolioWriter.vue
                 }}">
+                <!-- v-if : Check login status -->
                 <button
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 160px;padding:0.5em 1em;">
+                  style="max-width: 160px;padding:0.5em 1em;" v-if="user != null">
                   포트폴리오 작성
                 </button>
               </router-link>
@@ -40,7 +31,6 @@
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>
       </v-layout>
-    <!-- </v-container> -->
   </div>
 </template>
 
@@ -53,6 +43,11 @@ export default {
 	components: {
 		ImgBanner,
 		PortfolioList,
-	}
+  },
+  computed: {
+    user(){ // Get user infomation from vuex
+      return this.$store.getters.getUser;
+    }
+  }
 }
 </script>

@@ -17,9 +17,17 @@
           >
           <v-layout justify-center align-center row wrap>
             <v-flex xs12 text-xs-center style="font-size:0.6em; justify-content:center; margin-top:40px;">{{title}}</v-flex>
-            <!-- <div v-html="body" class="d-flex" style="font-size:0.48em; text-align:center;"></div> -->
+              <!-- Press 'Show More button' will pass data to PortDetail.vue -->
               <v-flex xs12 text-xs-center round my-5 class="bg-3">
-                <router-link :to="{name: 'portdetail',params: {title: title, body: body, imgSrc: imgSrc}}">
+                <router-link :to="{name: 'portdetail',
+                  params: {
+                    email: email,
+                    date: date,
+                    title: title,
+                    body: body,
+                    imgSrc: imgSrc,
+                    id: id
+                    }}">
                 <button
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 150px;padding:0.5em 1em; opacity: 0.98;"
@@ -37,15 +45,17 @@
 <script>
 export default {
   name: "Portfolio",
-  props: {
+  props: { // props data from PortfolioList.vue
+    email: { type:String },
     date: { type: String },
     title: { type: String },
     body: { type: String },
-    imgSrc: { type: String }
+    imgSrc: { type: String },
+    id: { type: String }
   },
   data() {
     return {
-      dialog: false
+      dialog: false // Modal Condition
     };
   }
 };
