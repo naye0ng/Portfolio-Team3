@@ -24,7 +24,7 @@
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 150px;padding:0.5em 1em; opacity: 0.98;"
                 >더 보기</button>
-              </router-link>
+               </router-link>
             </v-flex>
           </v-layout>
           </div>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style>
-.port-title {
+.port-title { 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
