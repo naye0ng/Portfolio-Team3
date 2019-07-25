@@ -23,16 +23,11 @@
                     Use Local Image
                 </button>
               </v-flex>
-<<<<<<< HEAD
 
 
               <v-flex xs2>
                 <template>
                   <div class="text-xs-center">
-=======
-              <v-flex xs2 text-xs-center>
-                <template>
->>>>>>> deleteContents
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
                         <button v-on="on" class="button button--wayra button--border-thin button--text-medium button--size-xs"
@@ -57,16 +52,11 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-<<<<<<< HEAD
                   </div>
                 </template>
               </v-flex>
 
 
-=======
-                </template>
-              </v-flex>
->>>>>>> deleteContents
               <v-flex xs2 text-xs-center>
                 <button @click="useRandomImg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
