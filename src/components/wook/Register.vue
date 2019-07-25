@@ -29,6 +29,7 @@
                   required
                   hint="특수문자는 필수 포함 10글자 이상"
                   :rules="passwordRules"
+                  v-model="password"
                 ></v-text-field>
               </v-flex>
               <v-flex xs2>
@@ -139,7 +140,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
-      // user.password = registerService.Decrpyto(user.email, user.password);
+      user.password = registerService.Decrpyto(user.email, user.password);
       firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password)

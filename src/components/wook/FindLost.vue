@@ -44,6 +44,7 @@ import firebase from 'firebase'
 import { Decipher } from 'crypto'
 import SendEmailService from '@/services/wook/SendEmailService'
 import UpdatePasswordService from '@/services/wook/UpdatePasswordService'
+import Swal from "sweetalert2";
 
 export default{
     data (){      //v-text-field의 :rules 매칭, 비밀번호 찾기 시 입력 조건 체크
@@ -68,15 +69,23 @@ export default{
           findPass : this.findPass,
           answer : this.answer,
         }
-        this.dialog=false;
         var query=firebase.database().ref("user").orderByKey(); // Realtime-Database에서 user db를 추출해서
         query.once("value")                                     // 입력란과 user의 정보들이 모두 일치할 경우
-          .then(function(snapshot) {                            // 해당 사용자 이메일로 비밀번호 재설정 링크를 보내줍니다.
-            snapshot.forEach(function(childSnapshot) {   
+          .then((snapshot)=> {                            // 해당 사용자 이메일로 비밀번호 재설정 링크를 보내줍니다.
+            snapshot.forEach((childSnapshot)=> {   
               var key = childSnapshot.key;
               var childData = childSnapshot.val();
-              if(user.email===childData.email && user.findPass===childData.findPass&& user.answer===childData.answer ){
-                SendEmailService.ResetEmail(user.email)
+              if (user.email === childData.email){
+                if (user.findPass === childData.findPass & user.answer === childData.answer){
+                  SendEmailService.ResetEmail(user.email)
+                  this.dialog=false;
+                }
+                else{
+                  Swal.fire({
+                    text: "비밀번호 정보 확인에 실패하였습니다",
+                    type: "warning"
+                  });
+                }
                 return true;
               }
             },
