@@ -65,6 +65,7 @@
           style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
             삭제하기
           </button>
+        </router-link>
       </v-layout>
     </v-container>
   </div>
