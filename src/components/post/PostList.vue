@@ -1,7 +1,15 @@
 <template>
   <v-layout row wrap mw-700>
-    <v-flex v-for="i in posts.length > limits ? limits : posts.length" :class="'xs' + 12 / column" px-3>
-      <Post :date="posts[i - 1].created_at" :title="posts[i - 1].title" :body="posts[i - 1].body"></Post>
+    <v-flex v-for="i in posts.length > pageLimit ? pageLimit : posts.length" :class="'xs' + 12 / column" px-3>
+      <!-- Give post infomation to each Post.vue -->
+      <Post
+        :email="posts[i - 1].user"
+        :date="posts[i - 1].created_at"
+        :title="posts[i - 1].title"
+        :body="posts[i - 1].body"
+        :id="posts[i - 1].id"
+        >
+      </Post>
     </v-flex>
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore" class="bg-1">
       <button v-on:click="loadMorePosts" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
@@ -23,7 +31,8 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      pageLimit : this.limits,
     };
   },
   components: {
@@ -33,12 +42,13 @@ export default {
     this.getPosts();
   },
   methods: {
+    // Get All Posts infomation from firestore database
     async getPosts() {
       this.posts = await FirebaseService.getPosts();
     },
     loadMorePosts() {
       this.loadMore = true;
-      this.limits += 4;
+      this.pageLimit += 4;
     }
   }
 };

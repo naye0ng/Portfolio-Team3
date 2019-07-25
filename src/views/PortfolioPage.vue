@@ -3,7 +3,10 @@
     <ImgBanner>
       <div slot="text">Portfolio</div>
     </ImgBanner>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b7cb45418341daad0357e5a6f749984d717c7d6
       <!-- Portfolio Writer -->
       <v-layout justify-center>
         <v-flex xs11>
@@ -12,9 +15,11 @@
               <router-link :to="{
                 name: 'makecontents',
                 params: {
-                  kind: 'Portfolio'
+                  kind: 'Portfolio' // MakeContents.vue will call PortfolioWriter.vue
                 }}">
+                <!-- v-if : Check login status -->
                 <button
+                  v-if="user != null"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 160px;padding:0.5em 1em;">
                   포트폴리오 작성
@@ -43,6 +48,11 @@ export default {
 	components: {
 		ImgBanner,
 		PortfolioList,
-	}
+  },
+  computed: {
+    user(){ // Get user infomation from vuex
+      return this.$store.getters.getUser;
+    }
+  }
 }
 </script>

@@ -12,11 +12,12 @@
                 <img :src="imageUrl" height="150" v-if="imageUrl" />
                 <input type="file" style="display:none" ref="image" accept="image/*" @change="onLocalImagePicked">
               </v-flex>
+              <!-- title -->
               <v-flex xs12>
                 <v-text-field label="Title" v-model="title" required></v-text-field>
               </v-flex>
+              <!-- ImgBtn start -->
               <v-flex xs2 text-xs-center pl-0>
-                <!-- <v-btn color="primary" @click="useLocalFile" v-model="imageName">Use Local Image</v-btn> -->
                 <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Use Local Image
@@ -29,7 +30,6 @@
                   <div class="text-xs-center">
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
-                        <!-- <v-btn color="primary" dark v-on="on">Use Url Image</v-btn> -->
                         <button v-on="on" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                           style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                             Use Url Image
@@ -58,7 +58,6 @@
 
 
               <v-flex xs2 text-xs-center>
-                <!-- <v-btn color="primary" @click="useRandomImg" v-model="imageName">Random Image</v-btn> -->
                 <button @click="useRandomImg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Random Image
@@ -70,8 +69,10 @@
                     Delete Image
                 </button>
               </v-flex>
+              <!-- ImageBtn end -->
               <v-flex xs2>
               </v-flex>
+              <!-- Markdown editor -->
               <v-flex xs12 class="mt-3">
                 <template>
                   <div id="app">
@@ -114,17 +115,30 @@ export default {
   },
   data() {
     return {
-      text : '',
+      text : '',  //bind with markdown editor
       title : '',
       imageName : '',
       imageUrl : '',
       imageFile : '',
       selectUrl : '',
       storageUrl : '',
+      portfolioId : '',
+      userEmail : '',
       dialog: false
     };
   },
   mounted() {
+    console.log("this.$route.params.id : " + this.$route.params.id)
+    console.log(this.$store.getters.getUser.email)
+
+    //If modify portfolio, PortfolioWriter.vue can get data from Portdetail.vue
+    this.portfolioId = this.$route.params.id
+    this.title = this.$route.params.title
+    this.imageUrl = this.$route.params.imgSrc
+    this.text = this.$route.params.body
+    
+    //Get userinfo from vuex
+    this.userEmail = this.$store.getters.getUser.email    
   },
   methods : {
     //Save Portfolio
@@ -150,7 +164,8 @@ export default {
 
       else {
         //Call Firebase service
-        FirebaseService.postPortfolio(this.title, this.text, this.imageUrl)
+        console.log(this.title)
+        FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.imageUrl, this.portfolioId)
         this.dialog = false
 
         //Reinitialize data
@@ -177,36 +192,32 @@ export default {
         })
       }
     },
-
-    clear : function(event) {
+    clear : function(event) { // ClearBtn
       this.text = ''
       this.title = ''
     },
-    clearimg(){
+    clearimg(){ // DeleteImageBtn
       this.imageUrl = ''
     },
-    useUrlImg(){
+    useUrlImg(){ // UseUrlImageBtn
       this.imageUrl = this.selectUrl
       this.selectUrl = ''
       this.dialog = false;
-      this.onImageUrlPicked(this.imageUrl)
+      this.onUrlImagePicked(this.imageUrl)
     },
-    useRandomImg(){
+    useRandomImg(){ // RandomImgBtn
       this.imageUrl = 'https://source.unsplash.com/random/800x600'
       this.onUrlImagePicked(this.imageUrl)
     },
-    useLocalFile() {
+    useLocalFile() { // UseLocalImageBtn
       this.$refs.image.click()
     },
-    onLocalImagePicked(e) {
+    onLocalImagePicked(e) { // Transform Local Image to base64 type data url
       console.log("select section")
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
-      console.log("name : " + this.imageName)
-        /* if(this.imageName.lastIndexOf('.') <= 0) {
-          return
-        } */
+        console.log("name : " + this.imageName)
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
@@ -222,7 +233,7 @@ export default {
         this.imageUrl=''
       }
     },
-    onUrlImagePicked(url) {
+    onUrlImagePicked(url) { // Transform Url Image to base64 type data url
       const image2base64 = require('image-to-base64');
       image2base64(url)
         .then(

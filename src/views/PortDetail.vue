@@ -1,59 +1,48 @@
 <template>
   <div class="stars portdetail">
     <!-- <div class="stars"> -->
-    <div class="twinkling"></div>
+      <div class="twinkling">
+      </div>
     <!-- </div> -->
     <v-container id="portcard" class="mt-3">
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
           <v-card>
-            <v-img
-              :src="imgSrc"
-              contain
-              style="max-height:70vh; max-width:70vw; background-color:#000000;"
-            >
-              <v-container fluid pa-2>
-                <v-layout>
+            <v-img :src="imgSrc">
+              <v-container fill-height fluid pa-2>
+                <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
                     <span class="headline white--text ml-2" v-text="title"></span>
                   </v-flex>
                 </v-layout>
               </v-container>
             </v-img>
-            <div style="background-color:#ffffff;">
-              <v-card-text class="pb-0 pl-4">
-                <div v-html="body" style="font-size:1.24rem;"></div>
-              </v-card-text>
-              <v-card-actions class="pl-3 pt-0">
-                <v-btn icon>
-                  <v-icon>favorite</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon>bookmark</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon>share</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </div>
+
+            <v-card-actions class="mt-2 ml-2">
+              <div v-html="body" style="font-size:1.24rem; margin-bottom:0;"></div>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+                <v-icon>favorite</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>bookmark</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>share</v-icon>
+              </v-btn>
+            </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>
       <v-layout>
         <!-- go back button -->
-        <v-flex xs12 text-xs-center round class="bg-3">
-          <router-link to="/portfolio">
-            <button
-              class="button button--wayra button--border-medium button--text-medium button--size-s"
-              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
-            >리스트로</button>
-          </router-link>
-          <router-link to="/">
-            <button
-              class="button button--wayra button--border-medium button--text-medium button--size-s"
-              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
-            >홈으로</button>
-          </router-link>
+        <v-flex xs12 text-xs-center round>
+          <v-btn color="primary" text-xs-center dark to="/portfolio">
+            <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
+          </v-btn>
+          <v-btn color="primary" text-xs-center dark to="/">
+            <v-icon size="25" class="mr-2">fa-home</v-icon>홈으로
+          </v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -83,11 +72,12 @@ export default {
 </script>
 
 <style>
-.portdetail.stars {
-  position: relative;
+
+.portdetail.stars{
+  position:relative;
 }
-#portcard {
-  position: relative;
-  z-index: 10;
+#portcard{
+  position:relative;
+  z-index:10;
 }
 </style>
