@@ -127,6 +127,8 @@ export default {
       return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`
     },
     userEmail(){
+      var user = this.$store.getters.getUser;
+      if (!user) return null;
       return this.$store.getters.getUser.email
     }
   },

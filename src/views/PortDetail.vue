@@ -36,36 +36,42 @@
       </v-layout>
       <v-layout>
         <!-- go back button -->
-        <v-flex xs12 text-xs-center round>
-          <v-btn color="primary" text-xs-center dark to="/portfolio">
-            <v-icon size="25" class="mr-2">fa-file-text-o</v-icon>리스트로
-          </v-btn>
-          <v-btn color="primary" text-xs-center dark to="/">
-            <v-icon size="25" class="mr-2">fa-home</v-icon>홈으로
-          </v-btn>
-        </v-flex>
-        <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
-        <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
-        <router-link :to="{
-          name: 'makecontents',
-          params: {
-            kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
-            title: title,
-            id: id,
-            body: body,
-            imgSrc: imgSrc
-          }}">
-          <button v-if="portEmail == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s"
+        <v-flex xs12 text-xs-center round class="bg-3">
+          <router-link to="/portfolio">
+            <button class="button button--wayra button--border-medium button--text-medium button--size-s"
             style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
-              수정하기
-          </button>
-        </router-link>
-        <router-link to="/portfolio">
-          <button v-if="portEmail == userEmail" v-on:click="deletePortfolio" class="button button--wayra button--border-medium button--text-medium button--size-s"
-          style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
-            삭제하기
-          </button>
-        </router-link>
+              리스트로
+            </button>
+          </router-link>
+          <router-link to="/">
+            <button class="button button--wayra button--border-medium button--text-medium button--size-s"
+            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+              홈으로
+            </button>
+          </router-link>
+          <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
+          <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
+          <router-link :to="{
+            name: 'makecontents',
+            params: {
+              kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
+              title: port.title,
+              id: port.id,
+              body: port.body,
+              imgSrc: port.img,
+            }}">
+            <button v-if="port.user == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+                수정하기
+            </button>
+          </router-link>
+          <router-link to="/portfolio">
+            <button v-if="port.user == userEmail" v-on:click="deletePortfolio" class="button button--wayra button--border-medium button--text-medium button--size-s"
+            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+              삭제하기
+            </button>
+          </router-link>
+        </v-flex>
       </v-layout>
     </v-container>
   </div>
@@ -82,13 +88,25 @@ export default {
   },
   data(){
     return {
-      port : "",
+      port : "", 
+      /* 설명******************************
+      port.img(해당 portfolio 의 이미지 url)
+      port.title (제목)
+      port.body (내용)
+      port.user (해당 portfolio의 작성자 email)
+      port.created_at (게시물 생성 날짜)
+      */
     }
   },
   computed: {
     id() {
       return this.$route.params.id;
     },
+    userEmail(){   // 현재 로그인한 user의 이메일값
+      var user = this.$store.getters.getUser;
+      if (!user) return null;
+      return this.$store.getters.getUser.email
+    }
   },
   mounted(){
     this.getPort();
