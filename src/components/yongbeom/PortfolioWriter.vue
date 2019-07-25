@@ -203,7 +203,7 @@ export default {
       this.imageUrl = this.selectUrl
       this.selectUrl = ''
       this.dialog = false;
-      this.onImageUrlPicked(this.imageUrl)
+      this.onUrlImagePicked(this.imageUrl)
     },
     useRandomImg(){ // RandomImgBtn
       this.imageUrl = 'https://source.unsplash.com/random/800x600'
@@ -233,7 +233,7 @@ export default {
         this.imageUrl=''
       }
     },
-    onImageUrlPicked(url) { // Transform Url Image to base64 type data url
+    onUrlImagePicked(url) { // Transform Url Image to base64 type data url
       const image2base64 = require('image-to-base64');
       image2base64(url)
         .then(

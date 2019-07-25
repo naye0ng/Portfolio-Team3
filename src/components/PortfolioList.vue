@@ -1,7 +1,6 @@
 <template>
   <v-layout mt-5 wrap>
-    <v-flex style="z-index:99;" v-for="i in portfolios.length > limits ? limits : portfolios.length" xs12 sm6 lg3>
-      <!-- Give portfolio infomation to each portfolio.vue -->
+    <v-flex style="z-index:99;" v-for="i in portfolios.length > pageLimit ? pageLimit : portfolios.length" xs12 sm6 lg3>
       <Portfolio class="ma-3"
               :email="portfolios[i - 1].user"
               :date="portfolios[i - 1].created_at.toString()"
@@ -30,7 +29,8 @@ export default {
 	},
 	data() {
 		return {
-			portfolios: []
+      portfolios: [],
+      pageLimit : this.limits
 		}
 	},
 	components: {
@@ -46,7 +46,7 @@ export default {
 		},
 		loadMorePortfolios() {
       this.loadMore = true;
-      this.limits += 4;
+      this.pageLimit += 4;
     }
 	},
 }

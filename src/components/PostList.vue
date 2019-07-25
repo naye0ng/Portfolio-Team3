@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap mw-700>
-    <v-flex v-for="i in posts.length > limits ? limits : posts.length" :class="'xs' + 12 / column" px-3>
+    <v-flex v-for="i in posts.length > pageLimit ? pageLimit : posts.length" :class="'xs' + 12 / column" px-3>
       <!-- Give post infomation to each Post.vue -->
       <Post
         :email="posts[i - 1].user"
@@ -31,7 +31,8 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      pageLimit : this.limits,
     };
   },
   components: {
@@ -47,7 +48,7 @@ export default {
     },
     loadMorePosts() {
       this.loadMore = true;
-      this.limits += 4;
+      this.pageLimit += 4;
     }
   }
 };
