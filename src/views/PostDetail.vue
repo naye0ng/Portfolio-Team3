@@ -9,7 +9,7 @@
           <v-card-title primary-title class="pb-2 pt-2">
             <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
             <v-spacer></v-spacer>
-            <div class="caption grey--text" style="padding-top:30px;">{{formatedDate}}</div>
+            <div class="caption grey--text pt-4">{{post.user}}</div>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
@@ -28,6 +28,8 @@
               <v-icon>share</v-icon>
             </v-btn>
             </div>
+            <v-spacer></v-spacer>
+            <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
           </v-card-actions>
         </v-card>
         </v-flex>
