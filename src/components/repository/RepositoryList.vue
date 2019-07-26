@@ -48,7 +48,7 @@ export default {
 </script>
 <style>
 .repo-card{
-	border-radius: 15px;
+	border-radius: 15px!important;
 	border-width: 0px!important;
     border: solid 0px #fff;
     color: rgba(0,0,0,0.87);
