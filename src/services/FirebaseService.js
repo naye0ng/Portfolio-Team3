@@ -37,11 +37,33 @@ export default {
         })
       })
   },
-  postPost(user, title, body, id, tag) {
+  async postPost(user, title, body, id, tag) {
     /* Check id
           if id != null : it is exist POST
           if id == null : it is new POST */ 
     if(id != null) {
+
+      //이전 태그를 아니깐, 지우는거 처리
+      var beforepost = firestore.collection(POSTS).doc(id)
+      const beforedoc = await beforepost.get()
+      var data = beforedoc.data();
+      var beforetag = data.tag
+      beforetag.forEach(async tagg => {
+        let tag2 = firestore.collection(TAGS).doc(tagg)
+        const doc = await tag2.get()
+        var data = doc.data();
+        var index = data.postlist.indexOf(id);
+        data.postlist.splice(index, 1);
+        if (data.postlist.length>0){
+          firestore.collection(TAGS).doc(tagg).set({
+            postlist : data.postlist
+          })
+        }
+        else{
+          firestore.collection(TAGS).doc(tagg).delete();
+        }
+      })
+
       firestore.collection(POSTS).doc(id).set({
         user,
         title,
@@ -50,8 +72,6 @@ export default {
         tag
       }).then(function(){
         console.log("Modify post succeed")
-        var i;
-        var id = id
         tag.forEach(async tagg => {
           let curtag = firestore.collection(TAGS).doc(tagg)
           var temp = tagg
@@ -82,7 +102,6 @@ export default {
         tag
       }).then(ref=>{
         console.log("Post post succeed")
-        var i;
         var id = ref.id
         tag.forEach(async tagg => {
           let curtag = firestore.collection(TAGS).doc(tagg)
