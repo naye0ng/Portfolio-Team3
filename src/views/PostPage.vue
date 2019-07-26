@@ -6,10 +6,18 @@
     <v-container>
 
       <!-- Post Writer -->
-      <v-layout justify-center class="mb-2">
+      <v-layout justify-center class="mb-2" style="fixed:true;">
         <v-flex xs11>
-          <v-layout wrap align-center justify-end>
-            <v-flex xs4 mt-4 mr-4 class="bg-1">
+          <v-layout wrap align-center justify-space-around>
+            <v-flex xs2></v-flex>
+            <v-flex xs4 mt-4 mr-4>
+              <v-btn icon class="ma-0">
+                <i class="fa fa-search"></i>
+              </v-btn>
+              <input v-model="tag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색...">
+            </v-flex>
+            <v-flex xs1></v-flex>
+            <v-flex xs2 mt-4 mr-4 class="bg-1">
               <router-link :to="{
                 name: 'makecontents',
                 params: {
@@ -25,12 +33,13 @@
             </v-flex>
           </v-layout>
         </v-flex>
+        <v-flex xs2></v-flex>
       </v-layout>
 
       <!-- Post List -->
-      <v-layout class="mt-4">
+      <v-layout class="mt-4" style="min-height:50vh;">
         <v-flex xs12>
-          <PostList :limits="4" :load-more="true"></PostList>
+          <PostList :limits="4" :load-more="true" v-bind:search="tag"></PostList>
         </v-flex>
       </v-layout>
 
@@ -48,10 +57,64 @@ export default {
 		ImgBanner,
 		PostList,
   },
+  data(){
+    return {
+      tag:''
+    }
+  },
   computed: {
     user(){ // Get user infomation from vuex
       return this.$store.getters.getUser;
     }
+  },
+  methods:{
+    // Search: function(){
+    //   this.tag = this.keyword;
+    // }
   }
 }
 </script>
+<style>
+
+.searchbar {
+    /* float: right; */
+    background-color: white;
+    color: black;
+    padding: 6px 10px;
+    width: 135px;
+    border: none;
+    margin-top: 1px;
+    margin-right: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    border-bottom: black solid 2px;
+    transition: 0.3s;
+}
+
+.searchbar::placeholder {
+    color: black;
+    font-size: 1em;
+    font-weight: bold;
+    /* transition: 0.2s; */
+}
+
+.searchbar:focus {
+    width: 200px;
+    font-size: 1em;
+    font-weight: bold;
+    transition: 0.3s;
+    /* Stops the input box from inheriting the styling from the inputs on the request form */
+    border-bottom: black solid 2px;
+    outline: none;
+}
+
+.btn-search {
+    cursor: pointer;
+    color: black;
+    text-decoration: none !important;
+    font-size: 1.5em;
+    padding-top: 5px;
+    margin-right: 40px;
+}
+</style>
+

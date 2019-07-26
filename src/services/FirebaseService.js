@@ -299,6 +299,19 @@ export default {
         return data;
       })
   },
+  getTag(id){
+    let tag = firestore.collection(TAGS).doc(id)
+    return tag.get()
+      .then(doc => {
+        if (doc.exists){
+          var data = doc.data();
+          return data;
+        }
+        else{
+          return null;
+        }
+      })
+  },
   curUser() {
     var user = firebase.auth().currentUser;
     return user;

@@ -3,8 +3,8 @@
     <div class="stars"></div>
     <div class="twinkling"></div>
     <v-container id="postcard" class="mt-3">
-      <v-layout my-5 wrap>
-        <v-flex xs12 sm8 offset-sm2 mt-5>
+      <v-layout my-5 wrap justify-center row>
+        <v-flex xs5 mt-5>
           <v-card>
             <v-card-title primary-title class="pb-2 pt-2">
               <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
@@ -12,8 +12,11 @@
               <div class="caption grey--text pt-4">{{post.user}}</div>
             </v-card-title>
             <v-divider></v-divider>
-            <v-card-text>
+            <v-card-text style="min-height:30vh;">
               <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
+            </v-card-text>
+            <v-card-text class="pb-1 pl-3">
+              <span style="font-size:0.89rem;" class="card-media-body-supporting-bottom-text subtle" v-for="i in post.tag.length">#{{post.tag[i-1]}}&nbsp;</span>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="pl-0 bg-1">

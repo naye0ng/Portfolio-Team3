@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap mw-700>
-    <v-flex v-for="i in posts.length > pageLimit ? pageLimit : posts.length" :class="'xs' + 12 / column" px-3>
+    <v-flex v-for="i in posts.length > pageLimit ? pageLimit : posts.length" :class="'xs' + 12 / column" px-3 v-if="!message">
       <!-- Give post infomation to each Post.vue -->
       <Post
         :email="posts[i - 1].user"
@@ -11,6 +11,9 @@
         :tag="posts[i-1].tag"
         >
       </Post>
+    </v-flex>
+    <v-flex xs12 v-if="message" class="mt-4">
+      <div><h1 style="text-align:center;">검색 결과 없음...</h1></div>
     </v-flex>
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore" class="bg-1">
       <button v-on:click="loadMorePosts" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
@@ -28,12 +31,14 @@ export default {
   props: {
     column: { type: Number, default: 1 },
     limits: { type: Number, default: 4 },
-    loadMore: { type: Boolean, default: false }
+    loadMore: { type: Boolean, default: false },
+    search: {type:String, default:''},
   },
   data() {
     return {
       posts: [],
       pageLimit : this.limits,
+      message: false
     };
   },
   components: {
@@ -51,7 +56,33 @@ export default {
       this.loadMore = true;
       this.pageLimit += 4;
     }
+  },
+  watch: {
+    search : async function(newVal,oldVal){
+      if (!newVal){
+        this.posts = await FirebaseService.getPosts()
+        this.message = false;
+      }
+      else{
+        FirebaseService.getTag(newVal).then(curTag=>{
+          if (curTag){
+            var postlist = curTag.postlist;
+            var templist = []
+            postlist.forEach(async post => {
+              templist.push(await FirebaseService.getPost(post));
+            })
+            this.message=false;
+            this.posts = templist;
+          }
+          else{
+            this.message = true;
+            this.posts = [];
+          }
+        });
+      }
+    }
   }
+  
 };
 </script>
 <style>
