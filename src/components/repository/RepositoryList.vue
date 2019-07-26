@@ -2,7 +2,7 @@
 	<Carousel3d :controls-visible="true" style="height: 320px!important;padding: 20px;">
 		<Slide
 			:index='i-1' v-for="i in repositories.length > limits ? limits : repositories.length"
-			class="repo-card">
+			class="repo-card" :key="i">
 			<Repository :repos="repositories[i - 1]"></Repository>
 		</Slide>
 	</Carousel3d>
