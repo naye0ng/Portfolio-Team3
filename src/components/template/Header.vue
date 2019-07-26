@@ -211,4 +211,17 @@ export default {
   background-color: #181818 !important;
   color: white;
 }
+
+.v-btn--icon:before {
+    background-color : transparent!important;
+}
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: transparent!important;
+}
+#header .text-fff{
+  color: #fff !important;
+}
+#header .v-btn:before {
+    background-color: transparent!important;
+}
 </style>
