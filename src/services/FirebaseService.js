@@ -4,6 +4,7 @@ import 'firebase/auth'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
+const TAGS = 'tags'
 
 // Setup Firebase
 const config = {
@@ -36,18 +37,58 @@ export default {
         })
       })
   },
-  postPost(user, title, body, id) {
+  async postPost(user, title, body, id, tag) {
     /* Check id
           if id != null : it is exist POST
           if id == null : it is new POST */ 
     if(id != null) {
+
+      //이전 태그를 아니깐, 지우는거 처리
+      var beforepost = firestore.collection(POSTS).doc(id)
+      const beforedoc = await beforepost.get()
+      var data = beforedoc.data();
+      var beforetag = data.tag
+      beforetag.forEach(async tagg => {
+        let tag2 = firestore.collection(TAGS).doc(tagg)
+        const doc = await tag2.get()
+        var data = doc.data();
+        var index = data.postlist.indexOf(id);
+        data.postlist.splice(index, 1);
+        if (data.postlist.length>0){
+          firestore.collection(TAGS).doc(tagg).set({
+            postlist : data.postlist
+          })
+        }
+        else{
+          firestore.collection(TAGS).doc(tagg).delete();
+        }
+      })
+
       firestore.collection(POSTS).doc(id).set({
         user,
         title,
         body,
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        tag
       }).then(function(){
         console.log("Modify post succeed")
+        tag.forEach(async tagg => {
+          let curtag = firestore.collection(TAGS).doc(tagg)
+          var temp = tagg
+          const doc = await curtag.get()
+          if (doc.exists){
+            var data = doc.data();
+            data.postlist = data.postlist.concat([id]);
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : data.postlist
+            })
+          }
+          else{
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : [id]
+            })
+          }
+        })
       }).catch(function() {
         console.error("Modify post failed")
       });
@@ -57,13 +98,33 @@ export default {
         user,
         title,
         body,
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(function(){
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        tag
+      }).then(ref=>{
         console.log("Post post succeed")
+        var id = ref.id
+        tag.forEach(async tagg => {
+          let curtag = firestore.collection(TAGS).doc(tagg)
+          var temp = tagg
+          const doc = await curtag.get()
+          if (doc.exists){
+            var data = doc.data();
+            data.postlist = data.postlist.concat([id]);
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : data.postlist
+            })
+          }
+          else{
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : [id]
+            })
+          }
+        })
       }).catch(function() {
         console.error("Post post failed")
       });
     }
+
   },
   deletePost(id){
     firestore.collection(POSTS).doc(id).delete().then(function() {
@@ -236,6 +297,19 @@ export default {
         data.created_at = new Date(data.created_at.toDate());
         data.id = id;
         return data;
+      })
+  },
+  getTag(id){
+    let tag = firestore.collection(TAGS).doc(id)
+    return tag.get()
+      .then(doc => {
+        if (doc.exists){
+          var data = doc.data();
+          return data;
+        }
+        else{
+          return null;
+        }
       })
   },
   curUser() {

@@ -20,33 +20,35 @@
               </div>
             </div>
             <span class="card-media-body-heading">{{title}}</span>
-            <div class="card-media-body-supporting-bottom">
-              <ul class="card-media-object-social-list">
-                
-                <li>
-                  <img src="@/assets/ha.png" class style="width:30px; height:30px;" />
-                </li>
-                <li>
-                  <img src="@/assets/jo.png" class style="width:30px; height:30px;" />
-                </li>
-                <li>
-                  <img src="@/assets/na.png" class style="width:30px; height:30px;" />
-                </li>
-                <li>
-                  <img src="@/assets/dong.png" class style="width:30px; height:30px;" />
-                </li>
-                <li>
-                  <img src="@/assets/won.png" class style="width:30px; height:30px;" />
-                </li>
-              </ul> 
-              <span class="card-media-body-supporting-bottom-text subtle u-float-right mb-1 mr-1">Team3</span>
-            </div>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
-              <span class="card-media-body-supporting-bottom-text subtle">#Hello #Universe</span>
+              <span class="card-media-body-supporting-bottom-text subtle" v-for="i in tag.length">#{{tag[i-1]}}&nbsp;</span>
               <router-link :to="{name: 'postdetail',
                   params: {id: id}}">
                 <span class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
-               </router-link>
+              </router-link>
+            </div>
+            <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom">
+              <span class="card-media-body-supporting-bottom-text subtle pt-3" v-for="i in tag.length">#{{tag[i-1]}}&nbsp;</span>
+              <!-- <span class="card-media-body-supporting-bottom-text subtle u-float-right mb-1 mr-1">Team3</span> -->
+               <span class="card-media-body-supporting-bottom-text subtle u-float-right">
+                <ul class="card-media-object-social-list">
+                  <li>
+                    <img src="@/assets/ha.png" class style="width:30px; height:30px;" />
+                  </li>
+                  <li>
+                    <img src="@/assets/jo.png" class style="width:30px; height:30px;" />
+                  </li>
+                  <li>
+                    <img src="@/assets/na.png" class style="width:30px; height:30px;" />
+                  </li>
+                  <li>
+                    <img src="@/assets/dong.png" class style="width:30px; height:30px;" />
+                  </li>
+                  <li>
+                    <img src="@/assets/won.png" class style="width:30px; height:30px;" />
+                  </li>
+                </ul> 
+               </span>
             </div>
           </div>
         </div>
@@ -66,7 +68,8 @@ export default {
     date: { type: Date },
     title: { type: String },
     body: { type: String },
-    id: {type: String}
+    id: {type: String},
+    tag: {type:Array},
   },
   computed : {
     formatedDate() {
@@ -215,8 +218,8 @@ html {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  position: absolute;
-  z-index: 2;
+  /* position: absolute; */
+  z-index: -100;
 }
 
 .card-media-object-social-list li {
@@ -318,11 +321,13 @@ html {
   opacity: 0;
   transform: translateY(8px);
   transition: all 300ms ease-out;
+  z-index:100;
 }
 
 .card-media:hover .card-media-body-supporting-bottom-reveal {
   opacity: 1;
   transform: translateY(0);
+  z-index:100;
 }
 
 .card-media-link {
