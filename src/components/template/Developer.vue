@@ -59,7 +59,7 @@
             </v-layout>
             <v-container fluid grid-list-lg>
               <v-layout row wrap>
-                <v-flex v-for="c in capa" xs6>
+                <v-flex v-for="c in capa" :key="c.title" xs6>
                   <span><strong>{{c.title}}</strong></span>
                   <v-progress-linear :value="`${c.prog}`" :color="bgcolor"></v-progress-linear>
                 </v-flex>
