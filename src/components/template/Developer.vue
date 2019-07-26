@@ -178,7 +178,7 @@ export default {
 }
 .flip-card-back span {
   position: absolute;
-  top: -7%;
+  top: 14%;
   left: 30%;
 }
 </style>

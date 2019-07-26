@@ -1,5 +1,9 @@
+const webpack = require('webpack')
 module.exports = {
 	configureWebpack: {
-		devtool: 'source-map'
+		devtool: 'source-map',
+		plugins: [
+			new webpack.IgnorePlugin(/\/iconv-loader$/),
+		],
 	}
 }

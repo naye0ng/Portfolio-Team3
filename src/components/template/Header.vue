@@ -18,7 +18,7 @@
         <v-btn flat @click.stop="dialog = true" v-if="!user">LOGIN</v-btn>
 
         <!-- User image on Header -->
-        <v-menu v-if="user" offset-y>
+        <v-menu v-if="user" offset-y style="z-index:999;">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-img
@@ -210,5 +210,21 @@ export default {
 #navigation-style .theme--light.v-sheet {
   background-color: #181818 !important;
   color: white;
+}
+
+.v-btn--icon:before {
+    background-color : transparent!important;
+}
+.v-btn:hover, .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover {
+    background-color: rgba(1,1,1,0.5)!important;
+}
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: transparent!important;
+}
+#header .text-fff{
+  color: #fff !important;
+}
+#header .v-btn:before {
+    background-color: transparent!important;
 }
 </style>
