@@ -4,7 +4,7 @@
         <v-flex xs12>
           <v-card color="secondary" flat>
             <v-card-title>
-              <span>🚀 오늘의 방문자 : <strong>{{ visited }}</strong>명 🚀</span>
+              <span style="font-size: 1.1rem;">🚀 오늘의 방문자 : <strong>{{ visited }}</strong>명 🚀</span>
             </v-card-title>
             <v-card-text>
               <canvas id="visitedChart" width="100%" height="50%"></canvas>

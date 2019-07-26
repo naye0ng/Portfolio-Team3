@@ -2,7 +2,7 @@
 	<Carousel3d :controls-visible="true" style="height: 320px!important;padding: 20px;">
 		<Slide
 			:index='i-1' v-for="i in repositories.length > limits ? limits : repositories.length"
-			class="repo-card">
+			class="repo-card" :key="i">
 			<Repository :repos="repositories[i - 1]"></Repository>
 		</Slide>
 	</Carousel3d>
@@ -48,7 +48,7 @@ export default {
 </script>
 <style>
 .repo-card{
-	border-radius: 15px;
+	border-radius: 15px!important;
 	border-width: 0px!important;
     border: solid 0px #fff;
     color: rgba(0,0,0,0.87);
