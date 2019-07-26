@@ -8,6 +8,7 @@
         :title="posts[i - 1].title"
         :body="posts[i - 1].body"
         :id="posts[i - 1].id"
+        :tag="posts[i-1].tag"
         >
       </Post>
     </v-flex>

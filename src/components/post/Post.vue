@@ -42,7 +42,7 @@
               <span class="card-media-body-supporting-bottom-text subtle u-float-right mb-1 mr-1">Team3</span>
             </div>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
-              <span class="card-media-body-supporting-bottom-text subtle">#Hello #Universe</span>
+              <span class="card-media-body-supporting-bottom-text subtle" v-for="i in tag.length">#{{tag[i-1]}}&nbsp;</span>
               <router-link :to="{name: 'postdetail',
                   params: {id: id}}">
                 <span class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
@@ -66,7 +66,8 @@ export default {
     date: { type: Date },
     title: { type: String },
     body: { type: String },
-    id: {type: String}
+    id: {type: String},
+    tag: {type:Array},
   },
   computed : {
     formatedDate() {

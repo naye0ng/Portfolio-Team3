@@ -4,6 +4,7 @@ import 'firebase/auth'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
+const TAGS = 'tags'
 
 // Setup Firebase
 const config = {
@@ -36,7 +37,7 @@ export default {
         })
       })
   },
-  postPost(user, title, body, id) {
+  postPost(user, title, body, id, tag) {
     /* Check id
           if id != null : it is exist POST
           if id == null : it is new POST */ 
@@ -45,9 +46,29 @@ export default {
         user,
         title,
         body,
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        tag
       }).then(function(){
         console.log("Modify post succeed")
+        var i;
+        var id = id
+        tag.forEach(async tagg => {
+          let curtag = firestore.collection(TAGS).doc(tagg)
+          var temp = tagg
+          const doc = await curtag.get()
+          if (doc.exists){
+            var data = doc.data();
+            data.postlist = data.postlist.concat([id]);
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : data.postlist
+            })
+          }
+          else{
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : [id]
+            })
+          }
+        })
       }).catch(function() {
         console.error("Modify post failed")
       });
@@ -57,13 +78,34 @@ export default {
         user,
         title,
         body,
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(function(){
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        tag
+      }).then(ref=>{
         console.log("Post post succeed")
+        var i;
+        var id = ref.id
+        tag.forEach(async tagg => {
+          let curtag = firestore.collection(TAGS).doc(tagg)
+          var temp = tagg
+          const doc = await curtag.get()
+          if (doc.exists){
+            var data = doc.data();
+            data.postlist = data.postlist.concat([id]);
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : data.postlist
+            })
+          }
+          else{
+            firestore.collection(TAGS).doc(temp).set({
+              postlist : [id]
+            })
+          }
+        })
       }).catch(function() {
         console.error("Post post failed")
       });
     }
+
   },
   deletePost(id){
     firestore.collection(POSTS).doc(id).delete().then(function() {

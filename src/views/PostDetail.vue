@@ -57,7 +57,8 @@
                 kind: 'Post', // MakeContents.vue will call PostWriter.vue
                 title: post.title,
                 id: post.id,
-                body: post.body
+                body: post.body,
+                tag : post.tag
               }}">
               <button v-if="post.user == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s" 
               style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
