@@ -43,63 +43,14 @@
             </div>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
               <span class="card-media-body-supporting-bottom-text subtle">#Hello #Universe</span>
-              <span @click="showModal" class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
+              <router-link :to="{name: 'postdetail',
+                  params: {id: id}}">
+                <span class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
+               </router-link>
             </div>
           </div>
         </div>
       </v-flex>
-    </v-layout>
-    <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="470">
-        <v-card>
-          <v-card-title primary-title class="pb-2 pt-2">
-            <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{title}}</h2>
-            <v-spacer></v-spacer>
-            <div class="caption grey--text" style="padding-top:30px;">{{formatedDate}}</div>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <p v-html="body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions class="pl-0 bg-1">
-            <div class="ml-2">
-              <v-btn icon>
-              <v-icon>favorite</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>bookmark</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>share</v-icon>
-            </v-btn>
-            </div>
-            <v-spacer></v-spacer>
-            <!-- v-on:click="deletePortfolio" -->
-            <button v-if="email == userEmail" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
-            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
-              Remove
-            </button>
-            <router-link :to="{
-              name: 'makecontents',
-              params: {
-                kind: 'Post', // MakeContents.vue will call PortfolioWriter.vue
-                title: title,
-                id: id,
-                body: body
-              }}">
-              <button v-if="email == userEmail" class="button button--wayra button--border-thin button--text-medium button--size-s" 
-              style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;">
-                Edit
-              </button>
-            </router-link>
-            <button v-on:click="dialog=false" class="button button--wayra button--border-thin button--text-medium button--size-s" 
-            style="min-width:50px; max-width: 80px;padding:0.15em 0.3em;" >
-              close
-            </button>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </v-layout>
   </div>
 </template>
@@ -117,30 +68,13 @@ export default {
     body: { type: String },
     id: {type: String}
   },
-  data() {
-    return {
-      dialog: false // Modal Condition
-    };
-  },
-  computed: {
+  computed : {
     formatedDate() {
-      return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`
+      if (this.date){
+        return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`
+      }
     },
-    userEmail(){
-      var user = this.$store.getters.getUser;
-      if (!user) return null;
-      return this.$store.getters.getUser.email
-    }
-  },
-  methods: {
-    showModal() {
-      this.dialog = true
-    },
-    deletePost() {
-      FirebaseService.deletePost(this.id)
-      this.dialog = false
-    }
-  },
+  }
 };
 </script>
 <style>

@@ -3,7 +3,7 @@
 	  	<div class="stars"></div>
     	<div class="twinkling"></div>
 	  	<TeamGraph style="z-index:99"></TeamGraph>
-  </v-layout>
+  </v-layout> 
 </template>
 
 <script>

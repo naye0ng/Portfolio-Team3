@@ -21,8 +21,11 @@
       <v-flex xs4 py-3 class="footer-el text-xs-center">
         <div id="google_translate_element"></div>
       </v-flex>
-      <v-flex xs4 py-3 class="footer-el text-xs-center" style="color:#fff;">
-        &copy;2019 — <strong><a href="https://lab.ssafy.com/naye0ng/webmobile-sub2">SSAFY Team3</a></strong>
+      <v-flex xs4 py-3 class="footer-el text-xs-center " style="color:#fff;" align-self-center>
+        <div style="display:inline-block;">&copy;2019 — </div><!--<a href="https://lab.ssafy.com/naye0ng/webmobile-sub2">SSAFY Team3</a>-->
+        <img
+        @click="openWindow('https://lab.ssafy.com/naye0ng/webmobile-sub2')"
+        src="../../assets/logodark.png" style="height:2.5rem; display:inline-block"><img>
       </v-flex>
       <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem; color:#fff;">
         <weather/>
@@ -42,5 +45,10 @@ export default {
     'weather' : Weather,
     Visited
   },
+  methods : {
+    openWindow(url) {
+      window.open(url);
+    }
+  }
 }
 </script>
