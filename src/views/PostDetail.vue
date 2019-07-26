@@ -6,32 +6,32 @@
       <v-layout my-5 wrap>
         <v-flex xs12 sm8 offset-sm2 mt-5>
           <v-card>
-          <v-card-title primary-title class="pb-2 pt-2">
-            <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
-            <v-spacer></v-spacer>
-            <div class="caption grey--text pt-4">{{post.user}}</div>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions class="pl-0 bg-1">
-            <div class="ml-2">
+            <v-card-title primary-title class="pb-2 pt-2">
+              <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
+              <v-spacer></v-spacer>
+              <div class="caption grey--text pt-4">{{post.user}}</div>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions class="pl-0 bg-1">
+              <div class="ml-2">
+                <v-btn icon>
+                <v-icon>favorite</v-icon>
+              </v-btn>
               <v-btn icon>
-              <v-icon>favorite</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>bookmark</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>share</v-icon>
-            </v-btn>
-            </div>
-            <v-spacer></v-spacer>
-            <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
-          </v-card-actions>
-        </v-card>
+                <v-icon>bookmark</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>share</v-icon>
+              </v-btn>
+              </div>
+              <v-spacer></v-spacer>
+              <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
+            </v-card-actions>
+          </v-card>
         </v-flex>
       </v-layout>
       <v-layout>

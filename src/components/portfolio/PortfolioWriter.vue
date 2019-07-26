@@ -17,17 +17,16 @@
                 <v-text-field label="Title" v-model="title" required></v-text-field>
               </v-flex>
               <!-- ImgBtn start -->
-              <v-flex xs2 text-xs-center pl-0>
+              <v-flex xs2 text-xs-center pl-0 class="bg-1">
                 <button @click="useLocalFile" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Use Local Image
                 </button>
               </v-flex>
 
-
               <v-flex xs2>
                 <template>
-                  <div class="text-xs-center">
+                  <div class="text-xs-center bg-1">
                     <v-dialog v-model="dialog" width="500">
                       <template v-slot:activator="{ on }">
                         <button v-on="on" class="button button--wayra button--border-thin button--text-medium button--size-xs"
@@ -57,13 +56,13 @@
               </v-flex>
 
 
-              <v-flex xs2 text-xs-center>
+              <v-flex xs2 text-xs-center class="bg-1">
                 <button @click="useRandomImg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Random Image
                 </button>
               </v-flex>
-              <v-flex xs2 text-xs-center>
+              <v-flex xs2 text-xs-center class="bg-1">
                 <button @click="clearimg" class="button button--wayra button--border-thin button--text-medium button--size-xs"
                   style="min-width:90%; max-width:90%;padding:0.3em 0.5em;margin:0;">
                     Delete Image
