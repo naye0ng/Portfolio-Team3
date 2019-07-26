@@ -28,13 +28,13 @@
       </v-flex>
 
       <!-- 익명로그인 -->
-      <v-flex xs12 text-xs-center v-if="!user">
+      <!-- <v-flex xs12 text-xs-center v-if="!user">
         <v-layout row justify-center>
           <v-btn color="#7A7A7A" dark v-on:click="loginAnno" style="width:80%;">
             <v-icon size="25" class="mr-2">fa-question-circle</v-icon>비회원 로그인
           </v-btn>
         </v-layout>
-      </v-flex>
+      </v-flex> -->
     </v-layout>
   </v-container>
 </template>
