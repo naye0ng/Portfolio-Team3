@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style>
-.port-title { 
+.port-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

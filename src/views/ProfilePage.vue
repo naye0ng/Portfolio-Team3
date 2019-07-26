@@ -3,8 +3,8 @@
     <!-- <div class="stars"> -->
     <div class="twinkling"></div>
     <v-layout justify-center row fill-height>
-      <v-flex xs10 text-xs-center style="padding-top:30vh">
-        <Profile></Profile>
+      <v-flex xs10 text-xs-center style="margin:auto 0px">
+        <Profile ></Profile>
       </v-flex>
     </v-layout>
   </div>
