@@ -220,7 +220,7 @@ export default {
   },
   getPortfolio(id){
     let port =  firestore.collection(PORTFOLIOS).doc(id)
-    return port.get()
+    return port.get(d)
       .then(doc => {
         var data = doc.data();
         data.created_at = new Date(data.created_at.toDate());
