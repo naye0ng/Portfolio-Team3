@@ -18,7 +18,7 @@
         <v-btn flat @click.stop="dialog = true" v-if="!user">LOGIN</v-btn>
 
         <!-- User image on Header -->
-        <v-menu v-if="user" offset-y>
+        <v-menu v-if="user" offset-y style="z-index:999;">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-img
