@@ -21,7 +21,7 @@
       <v-flex xs4 py-3 class="footer-el text-xs-center">
         <div id="google_translate_element"></div>
       </v-flex>
-      <v-flex xs4 py-3 class="footer-el text-xs-center " style="color:#fff;" align-self-center>
+      <v-flex xs4 py-3 class="footer-el text-xs-center " style="color:#fff; cursor:pointer;" align-self-center>
         <div style="display:inline-block;">&copy;2019 — </div><!--<a href="https://lab.ssafy.com/naye0ng/webmobile-sub2">SSAFY Team3</a>-->
         <img
         @click="openWindow('https://lab.ssafy.com/naye0ng/webmobile-sub2')"

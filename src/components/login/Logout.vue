@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div class="title" style="margin-bottom:5vh;">😟 정말 로그아웃 하시겠어요? 😟</div>
+  <v-container>
+    <div class="body-1" style="margin-bottom:5vh;">😟 정말 로그아웃 하시겠어요? 😟</div>
     <v-btn color="primary" dark v-on:click="logout" style="width:80%;">
       <v-icon size="25" class="mr-2">fa-sign-out</v-icon>로그아웃
     </v-btn>
-  </div>
+  </v-container>
 </template>
 
 <script>
