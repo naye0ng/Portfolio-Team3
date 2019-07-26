@@ -9,6 +9,8 @@ import TeamGitGraph from './views/TeamGitGraph.vue'
 import ProfilePage from './views/ProfilePage.vue'
 import PortDetail from './views/PortDetail.vue'
 import PostDetail from './views/PostDetail.vue'
+import Admin from './views/Admin.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +65,11 @@ export default new Router({
 			name: 'postdetail',
 			component: PostDetail,
 			props: true
+		},
+		{
+			path: '/admin',
+			name: 'admin',
+			component: Admin,
 		},
 	],
 	scrollBehavior (to, from, savedPosition) {
