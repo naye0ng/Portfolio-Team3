@@ -65,13 +65,13 @@
                 body: post.body,
                 tag : post.tag
               }}">
-              <button v-if="post.user == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s" 
+              <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" class="button button--wayra button--border-medium button--text-medium button--size-s" 
               style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
                 수정하기
               </button>
             </router-link>
             <router-link to="/post">
-              <button v-if="post.user == userEmail" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+              <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
               style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
                 삭제하기
               </button>

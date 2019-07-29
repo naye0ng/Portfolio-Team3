@@ -26,7 +26,7 @@
                   kind: 'Post'
                 }}">
                <button
-                  v-if="user != null"
+                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 150px;padding:0.5em 1em; margin:0;">
                   포스트 작성
