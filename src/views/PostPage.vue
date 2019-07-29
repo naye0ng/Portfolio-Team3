@@ -8,7 +8,7 @@
       <!-- Post Writer -->
       <v-layout justify-center class="mb-2" style="fixed:true;">
           <v-layout wrap align-center justify-center>
-            <v-flex xs7 mt-4 mr-4>
+            <v-flex xs8 mt-4>
               <div style="text-align:center;">
                 <v-btn icon class="ma-0">
                   <i class="fa fa-search"></i>
@@ -19,7 +19,7 @@
                 </v-btn>
               </div>
             </v-flex>
-            <v-flex xs-5 mt-4 mr-4 class="bg-1">
+            <v-flex xs-4 mt-4 class="bg-1">
               <router-link :to="{
                 name: 'makecontents',
                 params: {
@@ -28,7 +28,7 @@
                <button
                   v-if="user != null"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 150px;padding:0.5em 1em;">
+                  style="max-width: 150px;padding:0.5em 1em; margin:0;">
                   포스트 작성
                 </button>
               </router-link>
