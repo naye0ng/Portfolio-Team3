@@ -28,7 +28,11 @@
                 <v-text-field label="Biography" v-model="databio" :placeholder="biography"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Biography*" required></v-text-field>
+                <v-card-actions>
+                  <span class="body-1">당신은 <strong>{{showLevel}}</strong> 입니다.</span>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" flat v-if="accessLevel == 0" @click="upgradeAL">upgrade!</v-btn>
+                </v-card-actions>
               </v-flex>
             </v-layout>
           </v-container>
@@ -36,8 +40,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+          <v-btn color="primary" flat text @click="dialog = false">Close</v-btn>
+          <v-btn color="primary" flat text @click="save">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -46,6 +50,7 @@
 
 <script>
 import firebase from "firebase"
+import Swal from 'sweetalert2'
 
 export default {
   name : "modifyProfile",
@@ -55,7 +60,7 @@ export default {
     email : { type : String },
     telephone : { type : String },
     biography : { type : String },
-    accessLevel : { type : Number }
+    accessLevel : { type : String }
   },
   data: () => ({
       dialog: false,
@@ -79,6 +84,28 @@ export default {
         })
       }
     },
+    upgradeAL() {
+      var upgradeL = this.accessLevel == "0" ? "1" : "2"
+      firebase
+        .database()
+        .ref("upgrade")
+        .child(this.emailKey)
+        .child("accessLevel")
+        .set(upgradeL)
+        .then(data => {
+          console.log("등업요청 완료")
+          Swal.fire({
+            text: "등업 요청을 완료하였습니다. 곧 처리해드리겠습니다.",
+            title: "Success!",
+            type: 'success'
+          })
+        })
+    }
+  },
+  computed : {
+    showLevel() {
+      return this.accessLevel == "0" ? '방문자' : this.accessLevel == "1" ? '팀원' : '어드민';
+    }
   },
   mounted() {
     this.databio = this.$store.getters.dbuser.biography;

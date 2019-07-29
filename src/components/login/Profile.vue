@@ -82,7 +82,6 @@ export default {
   methods: {
     async back(user) {
       this.$store.commit("setDBUser", user);
-      console.log(this.$store.getters.dbuser)
     },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
@@ -103,8 +102,6 @@ export default {
           this.photoURL = user.photoURL
         }
         this.emailKey = user.email.split('@')[0];
-
-        console.log(this.emailKey)
 
         // user정보 저장.
         firebase
