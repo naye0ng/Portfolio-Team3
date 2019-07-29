@@ -19,5 +19,8 @@ export default {
   },
   getSearchtag(state){
     return state.searchtag;
+  },
+  dbuser(state) {
+    return state.dbuser
   }
 }

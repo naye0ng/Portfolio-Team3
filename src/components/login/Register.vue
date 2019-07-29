@@ -119,6 +119,10 @@ export default {
     };
   },
   methods: {
+    emailSplit(email) {
+      // key값 생성
+      return email.split('@')[0];
+    },
     SignUp() {
       const user = {
         email: this.email,
@@ -126,16 +130,19 @@ export default {
         findPass: this.findPass,
         name: this.name,
         answer: this.answer,
-        telephone: this.telephone
+        telephone: this.telephone,
+        accessLevel : 0, // 권한 부여 - 방문자
+        biography : '즐거운 인생, 오늘도 개발 내일도 개발🎉'
       };
 
       user.password = registerService.Crypto(user.email, user.password);
       firebase
         .database()     //
         .ref("user")
-        .push(user)
+        .child(this.emailSplit(this.email)) // key값 부여 - email의 앞부분
+        .set(user)
         .then(data => {
-
+          console.log("회원가입완료--db")
         })
         .catch(error => {
           console.log(error);

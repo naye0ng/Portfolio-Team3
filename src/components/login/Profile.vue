@@ -10,15 +10,13 @@
     <!-- User Info -->
     <v-flex xs12 justify-center text-xs-center id="profiledetail">
       <div class="mt-4">
-        <h1 style="color:#f7f7f7; font-size:1.7em;">{{name}}</h1>
-        <span style="color:#f7f7f7; font-size:1.3em;">{{email}}</span>
+        <h1 style="color:#f7f7f7; font-size:1.7em;">{{$store.getters.dbuser.name}}</h1>
+        <span style="color:#f7f7f7; font-size:1.3em;">{{$store.getters.dbuser.email}}</span>
         <br />
-        <span style="color:grey; font-size:1.1em;">{{telephone}}</span>
+        <span style="color:grey; font-size:1.1em;">{{$store.getters.dbuser.telephone}}</span>
         <br />
         <div class="mt-4 mb-4" style="color:#f7f7f7;">
-          <span style="color:#f7f7f7; font-size:1.2em;">즐거운 인생</span>
-          <br />
-          <span style="color:#f7f7f7; font-size:1.2em;">어제도 개발 오늘도 개발</span>
+          <span style="color:#f7f7f7; font-size:1.2em;">{{$store.getters.dbuser.biography}}</span>
         </div>
 
         <!-- Sns 계정 연동하기-->
@@ -48,6 +46,16 @@
             </v-btn>
           </v-flex>
         </v-layout>
+
+        <modifyProfile
+          :emailKey="this.emailKey"
+          :name="$store.getters.dbuser.name"
+          :email="$store.getters.dbuser.email"
+          :telephone="$store.getters.dbuser.telephone"
+          :biography="$store.getters.dbuser.biography"
+          :accessLevel="$store.getters.dbuser.accessLevel"
+        ></modifyProfile>
+
       </div>
     </v-flex>
   </v-layout>
@@ -55,32 +63,25 @@
 
 <script>
 import SnsService from "@/services/login/SnsService";
+import modifyProfile from "@/components/login/ModifyProfile"
 import firebase from "firebase";
 
 export default {
   name: "Profile",
+  components : {
+    modifyProfile
+  },
   data() {
     return {
-      photoURL: "",
-      email: "",
-      telephone: "",
-      name: "",
-      findPass: "",
-      answer: "",
-      isAno: "",
-      isemail: false,
+      photoURL: "https://i.stack.imgur.com/34AD2.jpg",
       dialog: false,
-      curU: "",
       linked : false,
+      emailKey : "",
     };
   },
   methods: {
-    back(user) {
-      this.email = user.email;
-      this.telephone = user.telephone;
-      this.name = user.name;
-      this.findPass = user.findPass;
-      this.answer = user.answer;
+    async back(user) {
+      this.$store.commit("setDBUser", user);
     },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
@@ -89,79 +90,34 @@ export default {
       if (res){
         this.linked = true;
       }
+    },
+    async setProfile() {
+      var userFromDatabase = {}
+
+      await firebase.auth().onAuthStateChanged(user => {
+        // 현재 계정이 연결되어 있는지 확인 for 링크 버튼
+        if(user && ((user.providerData.length > 1 && user.providerData[1].providerId == "password") ||
+        (user.providerData.length == 1 && user.providerData[0].providerId != "password"))) {
+          this.linked = true;
+          this.photoURL = user.photoURL
+        }
+        this.emailKey = user.email.split('@')[0];
+
+        // user정보 저장.
+        firebase
+        .database()
+        .ref("user")
+        .child(this.emailKey)
+        .once("value")
+        .then(snapshot => {
+          userFromDatabase = snapshot.val();
+          this.back(userFromDatabase);
+        })
+      });
     }
   },
-  mounted() {
-    firebase.auth().onAuthStateChanged(user => { // 유저 확인하고
-      this.curU = user;
-      if (user && !user.isAnonymous) {
-        if (user.providerData.length>1){
-          this.linked = user.providerData[1].providerId == "password";
-          this.isemail = user.providerData[1].providerId == "password";
-        }
-        else{
-          if (user.providerData[0].providerId == "password"){
-            this.isemail = true;
-            this.linked = false;
-          }
-          else{
-            this.isemail = false;
-            this.linked = true;
-          }
-        }
-      }
-      if (user && user.isAnonymous){
-        this.isemail = false;
-        this.linked = true;
-      }
-      // User가 이메일로 로그인 했을 때
-      if (this.isemail && this.curU){
-        const user = {
-          email: "",
-          telephone: "",
-          name: "",
-          findPass: "",
-          answer: ""
-        };
-        var query = firebase
-          .database()
-          .ref("user")
-          .orderByKey();
-        query.once("value").then(snapshot => {
-          var curEmail = firebase.auth().currentUser.email;
-          snapshot.forEach(function(childSnapshot) {
-            var key = childSnapshot.key;
-            var childData = childSnapshot.val();
-            if (curEmail === childData.email) {
-              user.email = childData.email;
-              user.telephone = childData.telephone;
-              user.name = childData.name;
-              user.findPass = childData.findPass;
-              user.answer = childData.answer;
-            }
-          });
-        this.back(user);
-        this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-        });
-      }
-      // 유저가 SNS로 로그인 했을 때
-      else if (this.curU){
-        this.isAno = this.curU.isAnonymous;
-        if (!this.isAno) {
-          this.photoURL = this.curU.photoURL;
-          this.name = this.curU.displayName;
-          this.email = this.curU.email;
-        }
-        else {
-          this.name = "Guest";
-          this.email = "guest@ssafy.com";
-          this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-        }
-        if (!this.photoURL){
-          this.photoURL = "https://i.stack.imgur.com/34AD2.jpg";
-        }
-      }
-    });
+  created() {
+    this.setProfile();
   }
 };
 </script>
