@@ -42,7 +42,6 @@ export default {
           if id != null : it is exist POST
           if id == null : it is new POST */ 
     if(id != null) {
-
       //이전 태그를 아니깐, 지우는거 처리
       var tmp = await this.deleteTag(id);
       firestore.collection(POSTS).doc(id).set({
@@ -127,7 +126,7 @@ export default {
       var data = doc.data();
       var index = data.postlist.indexOf(id);
       data.postlist.splice(index, 1);
-      // console.log(data.postlist);
+      console.log(data.postlist);
       if (data.postlist.length>0){
         await firestore.collection(TAGS).doc(tagg).set({
           postlist : data.postlist

@@ -66,7 +66,7 @@ export default {
     return {
       text: "", // Bind with markdown editor
       title: "",
-      postId: "",
+      postId: null,
       userEmail : '',
       tag:[],
       tag1:"",
@@ -77,16 +77,18 @@ export default {
   },
   mounted() {
     // If modify post, PostWriter.vue can get data from Post modal
-    this.postId = this.$route.params.id
-    this.title = this.$route.params.title
-    this.text = this.$route.params.body
-    this.tag = this.$route.params.tag
-    if (this.tag){
-      this.tag1 = this.tag[0];
-      if (this.tag.length>1){
-        this.tag2 = this.tag[1];
-        if (this.tag.length>2){
-          this.tag3 = this.tag[2];
+    if (this.$route.params.id){
+      this.postId = this.$route.params.id
+      this.title = this.$route.params.title
+      this.text = this.$route.params.body
+      this.tag = this.$route.params.tag
+      if (this.tag){
+        this.tag1 = this.tag[0];
+        if (this.tag.length>1){
+          this.tag2 = this.tag[1];
+          if (this.tag.length>2){
+            this.tag3 = this.tag[2];
+          }
         }
       }
     }
@@ -97,7 +99,7 @@ export default {
     // Save post
     save: function(event) {
       // Blank check
-      if (this.text === "" || this.title == "") {
+      if (this.text === "" || this.title === "") {
         var alertMsg = "";
         if (this.title == "") {
           alertMsg = "제목은 필수항목입니다. 제목을 입력해주세요."
