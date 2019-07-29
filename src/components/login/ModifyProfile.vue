@@ -80,17 +80,17 @@ export default {
 
       console.log(this.datatel + " " + this.databio + " " + this.datanick)
 
-      if(this.datatel != "" || this.datatel != this.$store.getters.dbuser.telephone) {
+      if(this.datatel != "" && this.datatel != this.$store.getters.dbuser.telephone) {
         ref.child('telephone').set(this.datatel).then(data => {
           this.$store.commit("setDBUserTel", this.datatel);
         })
       }
-      if(this.databio != "" || this.databio != this.$store.getters.dbuser.biography) {
+      if(this.databio != "" && this.databio != this.$store.getters.dbuser.biography) {
         ref.child('biography').set(this.databio).then(data => {
           this.$store.commit("setDBUserBio", this.databio);
         })
       }
-      if(this.datanick != "" || this.datanick != this.$store.getters.dbuser.nickname) {
+      if(this.datanick != "" && this.datanick != this.$store.getters.dbuser.nickname) {
         ref.child('nickname').set(this.datanick).then(data => {
           this.$store.commit("setDBUserNick", this.datanick);
         })
