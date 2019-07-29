@@ -10,7 +10,7 @@
     <!-- User Info -->
     <v-flex xs12 justify-center text-xs-center id="profiledetail">
       <div class="mt-4">
-        <h1 style="color:#f7f7f7; font-size:1.7em;">{{$store.getters.dbuser.name}}</h1>
+        <h1 style="color:#f7f7f7; font-size:1.7em;">{{$store.getters.dbuser.nickname}}</h1>
         <span style="color:#f7f7f7; font-size:1.3em;">{{$store.getters.dbuser.email}}</span>
         <br />
         <span style="color:grey; font-size:1.1em;">{{$store.getters.dbuser.telephone}}</span>
@@ -50,6 +50,7 @@
         <modifyProfile
           :emailKey="this.emailKey"
           :name="$store.getters.dbuser.name"
+          :nickname="$store.getters.dbuser.nickname"
           :email="$store.getters.dbuser.email"
           :telephone="$store.getters.dbuser.telephone"
           :biography="$store.getters.dbuser.biography"

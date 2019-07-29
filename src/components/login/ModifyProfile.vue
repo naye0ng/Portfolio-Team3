@@ -19,6 +19,9 @@
                 <v-text-field label="Name" v-model="name" readonly></v-text-field>
               </v-flex>
               <v-flex xs12>
+                <v-text-field label="NickName" v-model="datanick" :placeholder="nickname"></v-text-field>
+              </v-flex>
+              <v-flex xs12>
                 <v-text-field label="Email" v-model="email" readonly></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -60,12 +63,14 @@ export default {
     email : { type : String },
     telephone : { type : String },
     biography : { type : String },
-    accessLevel : { type : String }
+    accessLevel : { type : String },
+    nickname : { type : String }
   },
   data: () => ({
       dialog: false,
       databio : "",
       datatel : "",
+      datanick : "",
   }),
   methods : {
     save() {
@@ -73,14 +78,21 @@ export default {
 
       var ref = firebase.database().ref("user").child(this.emailKey);
 
-      if(this.datatel != "") {
+      console.log(this.datatel + " " + this.databio + " " + this.datanick)
+
+      if(this.datatel != "" || this.datatel != this.$store.getters.dbuser.telephone) {
         ref.child('telephone').set(this.datatel).then(data => {
           this.$store.commit("setDBUserTel", this.datatel);
         })
       }
-      if(this.databio != "") {
+      if(this.databio != "" || this.databio != this.$store.getters.dbuser.biography) {
         ref.child('biography').set(this.databio).then(data => {
           this.$store.commit("setDBUserBio", this.databio);
+        })
+      }
+      if(this.datanick != "" || this.datanick != this.$store.getters.dbuser.nickname) {
+        ref.child('nickname').set(this.datanick).then(data => {
+          this.$store.commit("setDBUserNick", this.datanick);
         })
       }
     },
@@ -108,8 +120,7 @@ export default {
     }
   },
   mounted() {
-    this.databio = this.$store.getters.dbuser.biography;
-    this.datatel = this.$store.getters.dbuser.telephone;
+
   }
 }
 </script>
