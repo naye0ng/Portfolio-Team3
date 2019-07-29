@@ -127,6 +127,7 @@ import Login from "@/components/login/Login";
 import WeatherDetail from "@/components/template/WeatherDetail";
 import Visited from "@/components/repository/Visited";
 import { access } from 'fs';
+import { isAbsolute } from 'path';
 
 export default {
   name: "main-header",
@@ -192,6 +193,8 @@ export default {
         }
         // 로그인 완료시 관리자 체크
         this.getUsers()
+        // this.isAdmin = this.$store.getters.dbuser.accessLevel == 2 ? true : false;
+        
       }
       this.dialog = false;
     }
