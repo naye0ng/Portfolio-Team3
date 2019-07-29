@@ -132,7 +132,7 @@ export default {
       var data = doc.data();
       var index = data.postlist.indexOf(id);
       data.postlist.splice(index, 1);
-      console.log(data.postlist);
+      // console.log(data.postlist);
       if (data.postlist.length>0){
         await firestore.collection(TAGS).doc(tagg).set({
           postlist : data.postlist
