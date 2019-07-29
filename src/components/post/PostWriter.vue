@@ -110,15 +110,18 @@ export default {
           text: alertMsg
         });
       } else {
-        this.tag = ['','',''];
+        this.tag = [];
         if(this.tag1){
-          this.tag[0] = (this.tag1);
+          this.tag.push(this.tag1);
+          // this.tag[0] = (this.tag1);
         }
         if (this.tag2){
-          this.tag[1] = this.tag2;
+          this.tag.push(this.tag2);
+          // this.tag[1] = this.tag2;
         }
         if (this.tag3){
-          this.tag[2] = this.tag3;
+          this.tag.push(this.tag3);
+          // this.tag[2] = this.tag3;
         }
         // Call Firebase service
         FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag)

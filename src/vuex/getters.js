@@ -17,4 +17,7 @@ export default {
   weather(state) {
     return state.weather
   },
+  getSearchtag(state){
+    return state.searchtag;
+  }
 }
