@@ -76,10 +76,11 @@ export default {
       curU: "",
       linked : false,
       biography : "",
+      emailKey : ""
     };
   },
   methods: {
-    back(user) {
+    async back(user) {
       this.email = user.email;
       this.telephone = user.telephone;
       this.name = user.name;
@@ -95,32 +96,36 @@ export default {
         this.linked = true;
       }
     },
-    setProfile() {
-      firebase.auth().onAuthStateChanged(user => {
+    async setProfile() {
+      var userFromDatabase = {}
+
+      await firebase.auth().onAuthStateChanged(user => {
         // 현재 계정이 연결되어 있는지 확인 for 링크 버튼
         if(user && ((user.providerData.length > 1 && user.providerData[1].providerId == "password") ||
-              (user.providerData.length == 1 && user.providerData[0].providerId != "password"))) {
-            this.linked = true;
-            this.photoURL = user.photoURL
+        (user.providerData.length == 1 && user.providerData[0].providerId != "password"))) {
+          this.linked = true;
+          this.photoURL = user.photoURL
         }
-
-        var emailKey = user.email.split('@')[0];
-        var userFromDatabase = {};
+        this.emailKey = user.email.split('@')[0];
 
         // user정보 저장.
         firebase
-          .database()     //
-          .ref("user")
-          .child(emailKey)
-          .on("value", function(snapshot) {
-            userFromDatabase = snapshot.val();
-          })
-        this.back(userFromDatabase);
+        .database()
+        .ref("user")
+        .child(this.emailKey)
+        .once("value")
+        .then(snapshot => {
+          userFromDatabase = snapshot.val();
+          this.back(userFromDatabase);
+          console.log("3")
+        })
       });
     }
   },
   mounted() {
+    console.log("mounted")
     this.setProfile();
+    console.log("after")
   }
 };
 </script>
