@@ -10,13 +10,13 @@
     <!-- User Info -->
     <v-flex xs12 justify-center text-xs-center id="profiledetail">
       <div class="mt-4">
-        <h1 style="color:#f7f7f7; font-size:1.7em;">{{name}}</h1>
-        <span style="color:#f7f7f7; font-size:1.3em;">{{email}}</span>
+        <h1 style="color:#f7f7f7; font-size:1.7em;">{{$store.getters.dbuser.name}}</h1>
+        <span style="color:#f7f7f7; font-size:1.3em;">{{$store.getters.dbuser.email}}</span>
         <br />
-        <span style="color:grey; font-size:1.1em;">{{telephone}}</span>
+        <span style="color:grey; font-size:1.1em;">{{$store.getters.dbuser.telephone}}</span>
         <br />
         <div class="mt-4 mb-4" style="color:#f7f7f7;">
-          <span style="color:#f7f7f7; font-size:1.2em;">{{biography}}</span>
+          <span style="color:#f7f7f7; font-size:1.2em;">{{$store.getters.dbuser.biography}}</span>
         </div>
 
         <!-- Sns 계정 연동하기-->
@@ -47,10 +47,15 @@
           </v-flex>
         </v-layout>
 
-        <button
-          class="button button--wayra button--border-medium button--text-medium button--size-s"
-          style="color:#fff"
-        >프로필 수정</button>
+        <modifyProfile
+          :emailKey="this.emailKey"
+          :name="$store.getters.dbuser.name"
+          :email="$store.getters.dbuser.email"
+          :telephone="$store.getters.dbuser.telephone"
+          :biography="$store.getters.dbuser.biography"
+          :accessLevel="$store.getters.dbuser.accessLevel"
+        ></modifyProfile>
+
       </div>
     </v-flex>
   </v-layout>
@@ -58,35 +63,26 @@
 
 <script>
 import SnsService from "@/services/login/SnsService";
+import modifyProfile from "@/components/login/ModifyProfile"
 import firebase from "firebase";
 
 export default {
   name: "Profile",
+  components : {
+    modifyProfile
+  },
   data() {
     return {
       photoURL: "https://i.stack.imgur.com/34AD2.jpg",
-      email: "",
-      telephone: "",
-      name: "",
-      findPass: "",
-      answer: "",
-      isAno: "",
-      isemail: false,
       dialog: false,
-      curU: "",
       linked : false,
-      biography : "",
-      emailKey : ""
+      emailKey : "",
     };
   },
   methods: {
     async back(user) {
-      this.email = user.email;
-      this.telephone = user.telephone;
-      this.name = user.name;
-      this.findPass = user.findPass;
-      this.answer = user.answer;
-      this.biography = user.biography;
+      this.$store.commit("setDBUser", user);
+      console.log(this.$store.getters.dbuser)
     },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
@@ -108,6 +104,8 @@ export default {
         }
         this.emailKey = user.email.split('@')[0];
 
+        console.log(this.emailKey)
+
         // user정보 저장.
         firebase
         .database()
@@ -117,15 +115,12 @@ export default {
         .then(snapshot => {
           userFromDatabase = snapshot.val();
           this.back(userFromDatabase);
-          console.log("3")
         })
       });
     }
   },
-  mounted() {
-    console.log("mounted")
+  created() {
     this.setProfile();
-    console.log("after")
   }
 };
 </script>

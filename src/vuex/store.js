@@ -11,7 +11,8 @@ const state = {
   user: null,
   key : localStorage.getItem('log_key'),
   date : localStorage.getItem('log_date'),
-  weather : {}
+  weather : {},
+  dbuser : {},
 }
 
 export default new Vuex.Store({
@@ -19,6 +20,15 @@ export default new Vuex.Store({
   getters,
   actions,
   mutations:{
+    setDBUser(state, payload) {
+      state.dbuser = payload
+    },
+    setDBUserTel(state, payload) {
+      state.dbuser.telephone = payload
+    },
+    setDBUserBio(state, payload) {
+      state.dbuser.biography = payload
+    },
     pushWebLog(state, social){
       var ref = firebase.database().ref()
       ref.child("logs").child(state.date).child(state.key).child('user').set(state.user.email);
