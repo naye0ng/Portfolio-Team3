@@ -17,7 +17,7 @@
           <h2
             class="mt-3 py-5 text-xs-center text-shadow homepage-title"
             style="color:#181818;font-size:4.3vw;"
-            >사용자 권한 관리</h2>
+            >권한 관리</h2>
         <!-- <h3 class="headline mb-2" style="width:100%;text-align:center;">사용자 권한 관리</h3> -->
         </v-flex>
         <v-flex xs12 my-3>
