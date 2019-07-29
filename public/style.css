@@ -105,3 +105,46 @@ header a, a:visited {
   -webkit-animation:move-clouds-back 200s linear infinite;
   animation:move-clouds-back 200s linear infinite;
 }
+
+#admin .search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+#admin .search:focus-within .searchTerm{
+  color: #181818;
+  border-color:#ec407a;
+} 
+#admin .search:focus-within .searchButton{  
+  background: #ec407a;
+  border-color:#ec407a;
+}
+#admin .searchTerm {
+  width: 100%;
+  border: 3px solid #dee2e6;
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #181818;
+}
+#admin .searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #dee2e6;
+  background: #dee2e6;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#admin .search-wrap{
+    width: 30%;
+    margin-bottom: 10px;
+    float: right;
+}
+

@@ -40,6 +40,9 @@
             <v-list-tile to="/profile">
               <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile to="/admin" v-if="isAdmin">
+              <v-list-tile-title style="color:black;">Admin</v-list-tile-title>
+            </v-list-tile>
           </v-list>
         </v-menu>
 
@@ -119,9 +122,11 @@
 </template>
 
 <script>
+import firebase from "firebase";
 import Login from "@/components/login/Login";
 import WeatherDetail from "@/components/template/WeatherDetail";
 import Visited from "@/components/repository/Visited";
+import { access } from 'fs';
 
 export default {
   name: "main-header",
@@ -136,7 +141,8 @@ export default {
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
         { title: "TEAM3", icon: "group", to: "/team3" }
       ],
-      profile_image: ""
+      profile_image: "",
+      isAdmin : false,
     };
   },
   components: {
@@ -151,7 +157,15 @@ export default {
         title: "Notification",
         text: "우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!"
       });
-    }
+    },
+    getUsers() {
+      // console.log(this.user.email.split('@')[0])
+      var userKey = this.user.email.split('@')[0]
+      firebase.database().ref().child("user").child(userKey).child("accessLevel").on("value", snapshot => {
+        this.isAdmin = snapshot.val() == 2 ? true : false;
+      })
+      return false
+    },
   },
   computed: {
     getListTitleColor() {
@@ -162,19 +176,7 @@ export default {
       }
     },
     getListTitleName() {
-      var headerName = "";
-      if (
-        this.$store.getters.getUser == null ||
-        this.$store.getters.getUser.isAnonymous
-      ) {
-        // 익명로그인일 경우
-        headerName = "Universe";
-      } else if (this.$store.getters.getUser.displayName == null) {
-        headerName = this.$store.getters.getUser.email.split("@")[0];
-      } else {
-        headerName = this.$store.getters.getUser.displayName;
-      }
-      return headerName;
+      return this.$store.getters.dbuser.nickname;
     },
     user() {
       return this.$store.getters.getUser;
@@ -188,10 +190,12 @@ export default {
         } else {
           this.profile_image = this.$store.getters.getUser.photoURL;
         }
+        // 로그인 완료시 관리자 체크
+        this.getUsers()
       }
       this.dialog = false;
     }
-  }
+  },
 };
 </script>
 <style>
