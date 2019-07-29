@@ -93,7 +93,11 @@ export default {
       }
     }
     //Get userinfo from vuex
-    this.userEmail = this.$store.getters.getUser.email    
+    this.$store.dispatch("checkUserStatus")
+    .then(()=>{
+      this.userEmail = this.$store.getters.getUser.email;
+    });
+    // this.userEmail = this.$store.getters.getUser.email    
   },
   methods: {
     // Save post
