@@ -1,4 +1,5 @@
 <template>
+<v-container>
   <v-layout row wrap mb-5>
     <v-flex xs12>
       <div class="search-wrap">
@@ -23,7 +24,10 @@
         </thead>
         <tbody>
           <tr v-for="user in searchUser">
-            <td class="table-content">{{ user.name }}</td>
+            <td class="table-content alert-wrap">
+              <div v-if="user.email.split('@')[0] in alerts" class='alert-el'></div>
+              {{ user.name }}
+            </td>
             <td class="table-content">{{ user.email }}</td>
             <td class="table-content" v-if="user.accessLevel == 0">Guest</td>
             <td class="table-content" v-if="user.accessLevel == 1">Member</td>
@@ -41,12 +45,14 @@
             </td>
             <td class="table-content">        
               <button v-on:click="changeAccessLevel(user.email.split('@')[0], user.accessLevel)" class='lavel-btn'>변경</button>
+              <button v-on:click="deleteAlert(user.email.split('@')[0])" class='lavel-btn' style="margin-left:10px;">거절</button>
             </td>
           </tr>
         </tbody>
       </table>
     </v-flex>
   </v-layout>
+</v-container>
 </template>
 <script>
 import firebase from "firebase";
@@ -57,6 +63,7 @@ export default {
     return {
       searchString : '',
       users: [],
+      alerts : {},
     }
   },
   computed :{
@@ -74,13 +81,26 @@ export default {
       firebase.database().ref().child("user").on("value", snapshot => {
         var user = snapshot.val();
         this.users = Object.values(user)
+        this.getAlerts()
       })
+    },
+    getAlerts() {
+      firebase.database().ref().child("upgrade").on("value", snapshot => {
+        this.alerts = Object.assign({},snapshot.val())
+      })
+    },
+    deleteAlert(target){
+      firebase.database().ref().child("upgrade").child(target).remove()
+      this.getAlerts()
     },
     changeAccessLevel(target, before){
       var el = document.getElementsByName(target)
       for(var i=0; i<el.length;i++){
         if(i != before && el[i].checked == true){
+          // 권한 등록
           firebase.database().ref().child("user").child(target).child("accessLevel").set(el[i].value)
+          // 알람 삭제
+          this.deleteAlert(target)
           Swal.fire({
             type: 'success',
             title: '성공적으로 변경되었습니다.',
@@ -89,7 +109,6 @@ export default {
           });
         }
       }
-
     }
   },
   mounted() {
@@ -130,29 +149,20 @@ td.table-content{
   background-color: #ec407a;
   color: #fff;
 }
-/* select tr */
-@-webkit-keyframes change-color {
-  0%   { background-color: #cbd1d8; }
-  100% { background-color: green; }
+.alert-wrap{
+  position: relative;
+  padding-left: 15px;
 }
-@-moz-keyframes change-color {
-  0%   { background-color: #cbd1d8; }
-  100% { background-color: green; }
-}
-@-o-keyframes change-color {
-  0%   { background-color: #cbd1d8; }
-  100% { background-color: green; }
-}
-@keyframes change-color {
-  0%   { background-color: #cbd1d8; }
-  100% { background-color: green; }
-}
-
-.tr-animated {
-  -webkit-animation: change-color 2s ease-in-out; /* Safari 4+ */
-  -moz-animation:    change-color 2s ease-in-out; /* Fx 5+ */
-  -o-animation:      change-color 2s ease-in-out; /* Opera 12+ */
-  animation:         change-color 2s ease-in-out; /* IE 10+ */
+.alert-el{
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  width: 10px;
+  height: 10px;
+  left:0px;
+  top:18px;
+  background-color: #ec407a;
+  border-radius: 50%;
 }
 
 /* radio css */

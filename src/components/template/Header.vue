@@ -176,19 +176,7 @@ export default {
       }
     },
     getListTitleName() {
-      var headerName = "";
-      if (
-        this.$store.getters.getUser == null ||
-        this.$store.getters.getUser.isAnonymous
-      ) {
-        // 익명로그인일 경우
-        headerName = "Universe";
-      } else if (this.$store.getters.getUser.displayName == null) {
-        headerName = this.$store.getters.getUser.email.split("@")[0];
-      } else {
-        headerName = this.$store.getters.getUser.displayName;
-      }
-      return headerName;
+      return this.$store.getters.dbuser.nickname;
     },
     user() {
       return this.$store.getters.getUser;
