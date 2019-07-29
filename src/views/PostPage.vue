@@ -37,7 +37,7 @@
       </v-layout>
 
       <!-- Post List -->
-      <v-layout class="mt-4" style="min-height:50vh;">
+      <v-layout class="mt-5" style="min-height:50vh;">
         <v-flex xs12>
           <PostList :limits="4" :load-more="true" v-bind:search="tag"></PostList>
         </v-flex>

@@ -44,26 +44,7 @@ export default {
     if(id != null) {
 
       //이전 태그를 아니깐, 지우는거 처리
-      var beforepost = firestore.collection(POSTS).doc(id)
-      const beforedoc = await beforepost.get()
-      var data = beforedoc.data();
-      var beforetag = data.tag
-      beforetag.forEach(async tagg => {
-        let tag2 = firestore.collection(TAGS).doc(tagg)
-        const doc = await tag2.get()
-        var data = doc.data();
-        var index = data.postlist.indexOf(id);
-        data.postlist.splice(index, 1);
-        if (data.postlist.length>0){
-          firestore.collection(TAGS).doc(tagg).set({
-            postlist : data.postlist
-          })
-        }
-        else{
-          firestore.collection(TAGS).doc(tagg).delete();
-        }
-      })
-
+      var tmp = await this.deleteTag(id);
       firestore.collection(POSTS).doc(id).set({
         user,
         title,
@@ -124,14 +105,38 @@ export default {
         console.error("Post post failed")
       });
     }
-
   },
-  deletePost(id){
+
+  async deletePost(id){
+    var cons = await this.deleteTag(id);
     firestore.collection(POSTS).doc(id).delete().then(function() {
       console.log("Delete post succeed(firestore)")
     }).catch(function() {
       console.error("Delete post error(firestore)")
     });
+  },
+
+  async deleteTag(id){
+    var beforepost = firestore.collection(POSTS).doc(id)
+    const beforedoc = await beforepost.get()
+    var data = beforedoc.data();
+    var beforetag = data.tag
+    beforetag.forEach(async tagg => {
+      let tag2 = firestore.collection(TAGS).doc(tagg)
+      const doc = await tag2.get()
+      var data = doc.data();
+      var index = data.postlist.indexOf(id);
+      data.postlist.splice(index, 1);
+      // console.log(data.postlist);
+      if (data.postlist.length>0){
+        await firestore.collection(TAGS).doc(tagg).set({
+          postlist : data.postlist
+        })
+      }
+      else{
+        await firestore.collection(TAGS).doc(tagg).delete();
+      }
+    })
   },
   getPortfolios() {
     const postsCollection = firestore.collection(PORTFOLIOS)

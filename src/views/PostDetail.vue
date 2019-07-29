@@ -15,8 +15,10 @@
             <v-card-text style="min-height:30vh;">
               <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
             </v-card-text>
-            <v-card-text class="pb-1 pl-3">
-              <span style="font-size:0.89rem;" class="card-media-body-supporting-bottom-text subtle" v-for="i in post.tag.length">#{{post.tag[i-1]}}&nbsp;</span>
+            <v-card-text class="pb-1 pl-3" v-if="post">
+              <span style="font-size:0.89rem;" class="card-media-body-supporting-bottom-text subtle" v-for="i in post.tag.length" >
+                #{{post.tag[i-1]}}&nbsp;
+              </span>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="pl-0 bg-1">
@@ -91,13 +93,14 @@ export default {
   },
   data(){
     return {
-      post : "", 
+      post : "",
       /* 설명******************************
       post.title (제목)
       post.body (내용)
       post.user (해당 post의 작성자 email)
       post.created_at (게시물 생성 날짜)
       post.id (게시물 id)
+      post.tag (게시물 tag)
       */
     }
   },
@@ -122,6 +125,10 @@ export default {
     },
     deletePost() {
       FirebaseService.deletePost(this.$route.params.id)
+    },
+    filter(keyword){
+      this.$store.commit('SET_searchtag',keyword);
+      this.$router.push("/post");
     }
   }
 };

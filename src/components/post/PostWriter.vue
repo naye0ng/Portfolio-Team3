@@ -55,6 +55,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import FirebaseService from "@/services/FirebaseService";
+import Swal from 'sweetalert2'
 
 export default {
   name: "PostWriter",
@@ -96,15 +97,14 @@ export default {
     // Save post
     save: function(event) {
       // Blank check
-      if (this.text == "" || this.title == "") {
+      if (this.text === "" || this.title == "") {
         var alertMsg = "";
         if (this.title == "") {
           alertMsg = "제목은 필수항목입니다. 제목을 입력해주세요."
         } else if (this.text == "") {
           alertMsg = "내용은 필수항목입니다. 내용을 입력해주세요"
         }
-
-        this.$swal({
+        Swal.fire({
           type: "error",
           title: "Oops...",
           text: alertMsg
@@ -133,7 +133,7 @@ export default {
         this.tag=[]
 
         // Success popup
-        this.$swal({
+        Swal.fire({
           type: "success",
           title: "Great!",
           html: "저장되었습니다!</br>더 작성하시겠습니까?",
