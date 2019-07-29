@@ -11,7 +11,8 @@ const state = {
   user: null,
   key : localStorage.getItem('log_key'),
   date : localStorage.getItem('log_date'),
-  weather : {}
+  weather : {},
+  searchtag:"",
 }
 
 export default new Vuex.Store({
@@ -40,5 +41,8 @@ export default new Vuex.Store({
       // 로그아웃
       state.user = null;
     },
+    SET_searchtag(state,tag){
+      state.searchtag = tag;
+    }
   }
 })

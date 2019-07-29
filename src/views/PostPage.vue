@@ -7,37 +7,37 @@
 
       <!-- Post Writer -->
       <v-layout justify-center class="mb-2" style="fixed:true;">
-        <v-flex xs11>
-          <v-layout wrap align-center justify-space-around>
-            <v-flex xs2></v-flex>
-            <v-flex xs4 mt-4 mr-4>
-              <v-btn icon class="ma-0">
-                <i class="fa fa-search"></i>
-              </v-btn>
-              <input v-model="tag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색...">
+          <v-layout wrap align-center justify-center>
+            <v-flex xs8 mt-4>
+              <div style="text-align:center;">
+                <v-btn icon class="ma-0">
+                  <i class="fa fa-search"></i>
+                </v-btn>
+                <input :value="tag" @input="updateTag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색...">
+                <v-btn small icon @click="clear" style="margin-bottom:0px">
+                  <v-icon>close</v-icon>
+                </v-btn>
+              </div>
             </v-flex>
-            <v-flex xs1></v-flex>
-            <v-flex xs2 mt-4 mr-4 class="bg-1">
+            <v-flex xs-4 mt-4 class="bg-1">
               <router-link :to="{
                 name: 'makecontents',
                 params: {
                   kind: 'Post'
                 }}">
-                <button
+               <button
                   v-if="user != null"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 150px;padding:0.5em 1em;">
+                  style="max-width: 150px;padding:0.5em 1em; margin:0;">
                   포스트 작성
                 </button>
               </router-link>
             </v-flex>
           </v-layout>
-        </v-flex>
-        <v-flex xs2></v-flex>
       </v-layout>
 
       <!-- Post List -->
-      <v-layout class="mt-4" style="min-height:50vh;">
+      <v-layout class="mt-5" style="min-height:50vh;">
         <v-flex xs12>
           <PostList :limits="4" :load-more="true" v-bind:search="tag"></PostList>
         </v-flex>
@@ -57,20 +57,21 @@ export default {
 		ImgBanner,
 		PostList,
   },
-  data(){
-    return {
-      tag:''
-    }
-  },
   computed: {
     user(){ // Get user infomation from vuex
       return this.$store.getters.getUser;
+    },
+    tag(){
+      return this.$store.getters.getSearchtag;
     }
   },
-  methods:{
-    // Search: function(){
-    //   this.tag = this.keyword;
-    // }
+  methods: {
+    updateTag(e){
+      this.$store.commit('SET_searchtag',e.target.value);
+    },
+    clear(){
+      this.$store.commit('SET_searchtag',"");
+    }
   }
 }
 </script>
@@ -81,7 +82,7 @@ export default {
     background-color: white;
     color: black;
     padding: 6px 10px;
-    width: 135px;
+    width: 160px;
     border: none;
     margin-top: 1px;
     margin-right: 8px;

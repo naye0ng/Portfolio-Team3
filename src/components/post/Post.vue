@@ -21,7 +21,9 @@
             </div>
             <span class="card-media-body-heading">{{title}}</span>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
-              <span class="card-media-body-supporting-bottom-text subtle" v-for="i in tag.length">#{{tag[i-1]}}&nbsp;</span>
+              <span class="card-media-body-supporting-bottom-text subtle" v-for="i in tag.length" @click="filter(tag[i-1])" style="cursor:pointer;">
+                #{{tag[i-1]}}&nbsp;
+              </span>
               <router-link :to="{name: 'postdetail',
                   params: {id: id}}">
                 <span class="card-media-body-supporting-bottom-text card-media-link u-float-right" style="cursor:pointer; color:#ec407a;">Detail</span>
@@ -77,6 +79,11 @@ export default {
         return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`
       }
     },
+  },
+  methods:{
+    filter(keyword){
+      this.$store.commit('SET_searchtag',keyword);
+    }
   }
 };
 </script>
