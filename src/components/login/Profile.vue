@@ -104,7 +104,9 @@ export default {
             this.photoURL = user.photoURL
           }
         }
-        this.emailKey = user.email.split('@')[0];
+        if (user){
+          this.emailKey = user.email.split('@')[0];
+        }
 
         // user정보 저장.
         firebase
