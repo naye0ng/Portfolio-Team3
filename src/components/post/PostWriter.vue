@@ -125,6 +125,9 @@ export default {
           this.tag.push(this.tag3);
           // this.tag[2] = this.tag3;
         }
+        if (this.tag){
+          this.tag = [...new Set(this.tag)]
+        }
         // Call Firebase service
         FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag)
         this.dialog = false

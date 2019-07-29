@@ -115,12 +115,18 @@ export default {
     });
   },
 
+  async asyncForEach(array, callback){
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  },
   async deleteTag(id){
     var beforepost = firestore.collection(POSTS).doc(id)
     const beforedoc = await beforepost.get()
     var data = beforedoc.data();
     var beforetag = data.tag
-    beforetag.forEach(async tagg => {
+
+    await this.asyncForEach(beforetag, async (tagg) => {
       let tag2 = firestore.collection(TAGS).doc(tagg)
       const doc = await tag2.get()
       var data = doc.data();
@@ -135,7 +141,7 @@ export default {
       else{
         await firestore.collection(TAGS).doc(tagg).delete();
       }
-    })
+    });
   },
   getPortfolios() {
     const postsCollection = firestore.collection(PORTFOLIOS)
