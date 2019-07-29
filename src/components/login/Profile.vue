@@ -100,7 +100,9 @@ export default {
         if(user && ((user.providerData.length > 1 && user.providerData[1].providerId == "password") ||
         (user.providerData.length == 1 && user.providerData[0].providerId != "password"))) {
           this.linked = true;
-          this.photoURL = user.photoURL
+          if(user.photoURL != null) {
+            this.photoURL = user.photoURL
+          }
         }
         this.emailKey = user.email.split('@')[0];
 
