@@ -81,9 +81,6 @@ export default {
     };
   },
   methods: {
-    async back(user) {
-      this.$store.commit("setDBUser", user);
-    },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
       this.$store.dispatch("checkUserStatus");
