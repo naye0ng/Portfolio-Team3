@@ -28,6 +28,11 @@
 
 <script>
 import singleComment from './SingleComment'
+import FirebaseService from "@/services/FirebaseService";
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+
+const firestore = firebase.firestore()
     export default {
         name: 'comments',
         components: {
@@ -36,7 +41,7 @@ import singleComment from './SingleComment'
         data() {
             return {
                 dialog : false,
-                reply: ''
+                reply: '',
             }
         },
         methods: {
@@ -44,10 +49,10 @@ import singleComment from './SingleComment'
                 if(this.reply != '') {
                     this.$emit('submit-comment', this.reply);
                     this.reply = '';
-                }
+              }
             }
         },
-        props: ['comments', 'current_user', 'comments_wrapper_classes']
+        props: ['port','comments', 'current_user', 'comments_wrapper_classes']
     }
 </script>
 

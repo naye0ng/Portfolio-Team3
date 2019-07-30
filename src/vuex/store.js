@@ -11,7 +11,7 @@ const state = {
   user: null,
   key : localStorage.getItem('log_key'),
   date : localStorage.getItem('log_date'),
-  weather : {}
+  weather : {},
 }
 
 export default new Vuex.Store({
