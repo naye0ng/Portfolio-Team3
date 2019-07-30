@@ -81,28 +81,6 @@
             >삭제하기</button>
           </router-link>
         </v-flex>
-        <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
-        <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
-        <router-link :to="{
-          name: 'makecontents',
-          params: {
-            kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
-            title: title,
-            id: id,
-            body: body,
-            imgSrc: imgSrc
-          }}">
-          <button v-if="portEmail == userEmail" class="button button--wayra button--border-medium button--text-medium button--size-s"
-            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
-              수정하기
-          </button>
-        </router-link>
-        <router-link to="/portfolio">
-          <button v-if="portEmail == userEmail" v-on:click="deletePortfolio" class="button button--wayra button--border-medium button--text-medium button--size-s"
-          style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
-            삭제하기
-          </button>
-        </router-link>
       </v-layout>
     </v-container>
   </v-layout>
