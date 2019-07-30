@@ -150,7 +150,7 @@ export default {
         name: this.name,
         answer: this.answer,
         telephone: this.telephone,
-        accessLevel : "0", // 권한 부여 - 방문자
+        accessLevel : "0", // 권한 부여 x- 방문자
         biography : '즐거운 인생, 오늘도 개발 내일도 개발🎉',
         nickname : this.name,
         photoURL : this.photoURL

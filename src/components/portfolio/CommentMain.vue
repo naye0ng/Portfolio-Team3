@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-dialog v-model="dialog" max-width="600px">
             <template v-slot:activator="{ on }">
                 <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
                     <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
@@ -18,7 +18,7 @@
                         <img :src="creator.avatar" alt="">  <!-- -->
                         </div>
                         <div class="username">
-                        <a href="#">@{{ creator.user }}</a>
+                        <a href="#">@{{ current_user.user }}</a>
                         </div>
                     </div>
                 </div>
@@ -31,10 +31,6 @@
                 ></comments>
                 </div>
             </div>
-            <v-btn color="secondary" dark @click="dialog = false">
-                Close
-                <v-icon dark right>block</v-icon>
-            </v-btn>
         </v-dialog> 
     </v-layout>
 </template>
@@ -80,7 +76,7 @@ export default {
         this.current_user.user=user.name;
         this.comments.push({
           id: user.email,
-          user: user.name,
+          user: user.nickname,
           avatar: user.photoURL,
           text: reply
         });
@@ -88,7 +84,7 @@ export default {
         firestore.collection('portfolios').doc(this.port.id).collection('commentList')
         .add({
           id : user.email,
-          name : user.name,
+          name : user.nickname,
           text : reply, 
           time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
           avatar : user.photoURL
