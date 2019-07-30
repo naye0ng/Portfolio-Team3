@@ -81,9 +81,6 @@ export default {
     };
   },
   methods: {
-    async back(user) {
-      this.$store.commit("setDBUser", user);
-    },
     async linkwithSNS(num) {
       var res = await SnsService.LinkSNS(num);
       this.$store.dispatch("checkUserStatus");
@@ -107,17 +104,6 @@ export default {
         if (user){
           this.emailKey = user.email.split('@')[0];
         }
-
-        // user정보 저장.
-        firebase
-        .database()
-        .ref("user")
-        .child(this.emailKey)
-        .once("value")
-        .then(snapshot => {
-          userFromDatabase = snapshot.val();
-          this.back(userFromDatabase);
-        })
 
       });
     }
