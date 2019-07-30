@@ -8,7 +8,7 @@
         <v-toolbar-title>&nbsp;Hello Universe;</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">
+      <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">  <!-- key 넣기 -->
         <v-btn flat :to="item.to" active-class="primary">{{ item.title }}</v-btn>
       </v-toolbar-items>
 

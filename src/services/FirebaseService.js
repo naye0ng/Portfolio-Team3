@@ -180,6 +180,7 @@ export default {
         return docSnapshots.docs.map((doc) => {
           let data = doc.data()
           // Get firestore documentID
+
           data.id = doc.id;
           data.created_at = new Date(data.created_at.toDate())
           return data
@@ -229,7 +230,7 @@ export default {
       .then(doc => {
         var data = doc.data();
         data.created_at = new Date(data.created_at.toDate());
-        data.id = id;
+        data.id = doc.id;
         return data;
       });
   },

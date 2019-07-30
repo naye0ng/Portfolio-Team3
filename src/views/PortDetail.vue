@@ -39,6 +39,7 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round class="bg-3">
+           <CommentMain :port="this.port"/>          <!-- 댓글보기 --> 
           <router-link to="/portfolio">
             <button
               class="button button--wayra button--border-medium button--text-medium button--size-s"
@@ -88,11 +89,14 @@
 <script>
 import PortfolioList from "../components/portfolio/PortfolioList";
 import FirebaseService from "@/services/FirebaseService";
+import CommentMain from "@/components/portfolio/CommentMain";
+import { firestore } from 'firebase';
 
 export default {
   name: "PortDetail",
   components: {
-    PortfolioList
+    PortfolioList,
+    CommentMain
   },
   data() {
     return {
@@ -129,7 +133,7 @@ export default {
     },
     deletePortfolio() {
       FirebaseService.deletePortfolio(this.port.id, this.port.img);
-    }
+    },
   }
 };
 </script>
