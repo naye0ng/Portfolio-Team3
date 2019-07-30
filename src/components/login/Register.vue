@@ -144,6 +144,7 @@ export default {
         .set(user)
         .then(data => {
           console.log("회원가입완료--db")
+          this.$store.commit("setDBUser", user);
         })
         .catch(error => {
           console.log(error);

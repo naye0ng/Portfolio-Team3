@@ -78,8 +78,6 @@ export default {
 
       var ref = firebase.database().ref("user").child(this.emailKey);
 
-      console.log(this.datatel + " " + this.databio + " " + this.datanick)
-
       if(this.datatel != "" && this.datatel != this.$store.getters.dbuser.telephone) {
         ref.child('telephone').set(this.datatel).then(data => {
           this.$store.commit("setDBUserTel", this.datatel);
@@ -105,7 +103,6 @@ export default {
         .child("accessLevel")
         .set(upgradeL)
         .then(data => {
-          console.log("등업요청 완료")
           Swal.fire({
             text: "등업 요청을 완료하였습니다. 곧 처리해드리겠습니다.",
             title: "Success!",

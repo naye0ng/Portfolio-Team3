@@ -47,10 +47,16 @@ export default {
       const result = await LoginService.loginUser(user.email, user.password);
       this.dialog2 = false;
       if (result) {
-       UpdatePassword.Update(user.email);
+        UpdatePassword.Update(user.email);
         this.$store.commit('SET_USER',result.user);
         this.$store.commit("pushWebLog", "email");
         LoginService.LoginSuccess();
+
+        // 로그인 성공 시, vuex 저장
+        var ref = firebase.database().ref("user").child(user.email.split('@')[0]);
+        ref.once("value").then(snapshot => {
+          this.$store.commit('setDBUser',snapshot.val());
+        })
       }
     }
   }
