@@ -45,70 +45,72 @@ export default {
       return response.data;
     },
     createMemberGraph(data) {
-      let end = new Date(data[0].commit.author.date.slice(0, 10));
-      let start = new Date(
-        data[data.length - 1].commit.author.date.slice(0, 10)
-      );
-      let labels = [];
-      let commits = [];
-      let k = data.length - 1;
-      // 첫날과 마지막 날을 기준으로 data에서 commit을 추출한다.
-      while (start <= end) {
-        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
-        commits.push(0);
-        while (k >= 0) {
-          var dt = new Date(data[k].commit.author.date.slice(0, 10));
-          if (dt - start == 0) {
-            commits[commits.length - 1] += 1;
-            k -= 1;
-          } else {
-            break;
-          }
-        }
-        start.setDate(start.getDate() + 1);
-      }
-      // Chart.js
-      var ctx = document.getElementById(this.$props.repos.username);
-      var teamChart = new chart.Chart(ctx, {
-        type: "line",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: commits,
-              backgroundColor: this.$props.repos.color[0],
-              borderColor: this.$props.repos.color[1],
-              borderWidth: 2
+      if (data){
+        let end = new Date(data[0].commit.author.date.slice(0, 10));
+        let start = new Date(
+          data[data.length - 1].commit.author.date.slice(0, 10)
+        );
+        let labels = [];
+        let commits = [];
+        let k = data.length - 1;
+        // 첫날과 마지막 날을 기준으로 data에서 commit을 추출한다.
+        while (start <= end) {
+          labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
+          commits.push(0);
+          while (k >= 0) {
+            var dt = new Date(data[k].commit.author.date.slice(0, 10));
+            if (dt - start == 0) {
+              commits[commits.length - 1] += 1;
+              k -= 1;
+            } else {
+              break;
             }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-          scales: {
-            xAxes: [
+          }
+          start.setDate(start.getDate() + 1);
+        }
+        // Chart.js
+        var ctx = document.getElementById(this.$props.repos.username);
+        var teamChart = new chart.Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
               {
-                display: true,
-                gridLines: {
-                  display: false
-                }
-              }
-            ],
-            yAxes: [
-              {
-                display: false,
-                gridLines: {
-                  display: false
-                }
+                data: commits,
+                backgroundColor: this.$props.repos.color[0],
+                borderColor: this.$props.repos.color[1],
+                borderWidth: 2
               }
             ]
           },
-          layout: {
-            padding: 5
+          options: {
+            legend: {
+              display: false
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: true,
+                  gridLines: {
+                    display: false
+                  }
+                }
+              ],
+              yAxes: [
+                {
+                  display: false,
+                  gridLines: {
+                    display: false
+                  }
+                }
+              ]
+            },
+            layout: {
+              padding: 5
+            }
           }
-        }
-      });
+        });
+      }
     }
   },
   mounted() {
