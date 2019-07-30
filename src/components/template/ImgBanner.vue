@@ -42,12 +42,6 @@ export default {
     position: relative;
     width:100%;
     height: 100vh;
-    /*
-    border-bottom:3vh solid #EC407A;
-    -moz-box-shadow: 2vh 2vh #181818;
-    -webkit-box-shadow: 2vh 2vh #181818;
-    box-shadow: 2vh 2vh #181818;
-    */
   }
   .twinkling{
     z-index:1;
