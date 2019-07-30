@@ -1,8 +1,3 @@
-<style>
-
-</style>
-
-
 <template>
   <v-layout align-center justify-center row fill-height>
     <v-flex xs5 text-xs-center>

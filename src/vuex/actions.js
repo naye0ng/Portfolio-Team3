@@ -40,6 +40,11 @@ export default {
         if (user) {
           commit('SET_USER', user);
           resolve(user);
+
+          firebase.database().ref("user").child(user.email.split('@')[0]).once("value")
+            .then(snapshot => {
+              commit('setDBUser', snapshot.val())
+          })
         }
       });
     });

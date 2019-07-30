@@ -12,6 +12,9 @@ const state = {
   key : localStorage.getItem('log_key'),
   date : localStorage.getItem('log_date'),
   weather : {},
+  searchtag:"",
+  dbuser : '',
+  isAdmin : false,
 }
 
 export default new Vuex.Store({
@@ -19,6 +22,19 @@ export default new Vuex.Store({
   getters,
   actions,
   mutations:{
+    setDBUser(state, payload) {
+      state.dbuser = payload
+      state.isAdmin = payload.accessLevel == 2 ? true : false
+    },
+    setDBUserTel(state, payload) {
+      state.dbuser.telephone = payload
+    },
+    setDBUserBio(state, payload) {
+      state.dbuser.biography = payload
+    },
+    setDBUserNick(state, payload) {
+      state.dbuser.nickname = payload
+    },
     pushWebLog(state, social){
       var ref = firebase.database().ref()
       ref.child("logs").child(state.date).child(state.key).child('user').set(state.user.email);
@@ -40,5 +56,8 @@ export default new Vuex.Store({
       // 로그아웃
       state.user = null;
     },
+    SET_searchtag(state,tag){
+      state.searchtag = tag;
+    }
   }
 })

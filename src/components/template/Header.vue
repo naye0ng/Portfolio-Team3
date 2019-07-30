@@ -40,6 +40,9 @@
             <v-list-tile to="/profile">
               <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile to="/admin" v-if="isAdmin">
+              <v-list-tile-title style="color:black;">Admin</v-list-tile-title>
+            </v-list-tile>
           </v-list>
         </v-menu>
 
@@ -119,9 +122,13 @@
 </template>
 
 <script>
+import firebase from "firebase";
 import Login from "@/components/login/Login";
 import WeatherDetail from "@/components/template/WeatherDetail";
 import Visited from "@/components/repository/Visited";
+import { access } from 'fs';
+import { isAbsolute } from 'path';
+import { isArray } from 'util';
 
 export default {
   name: "main-header",
@@ -136,7 +143,7 @@ export default {
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
         { title: "TEAM3", icon: "group", to: "/team3" }
       ],
-      profile_image: ""
+      profile_image: "",
     };
   },
   components: {
@@ -151,7 +158,7 @@ export default {
         title: "Notification",
         text: "우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!"
       });
-    }
+    },
   },
   computed: {
     getListTitleColor() {
@@ -162,22 +169,20 @@ export default {
       }
     },
     getListTitleName() {
-      var headerName = "";
-      if (
-        this.$store.getters.getUser == null ||
-        this.$store.getters.getUser.isAnonymous
-      ) {
-        // 익명로그인일 경우
-        headerName = "Universe";
-      } else if (this.$store.getters.getUser.displayName == null) {
-        headerName = this.$store.getters.getUser.email.split("@")[0];
-      } else {
-        headerName = this.$store.getters.getUser.displayName;
-      }
-      return headerName;
+      return this.$store.getters.dbuser.nickname;
     },
     user() {
       return this.$store.getters.getUser;
+    },
+    isAdmin(){
+      var typeIsAdmin = typeof(this.$store.getters.dbuser)
+      var check = false
+      if(typeIsAdmin === 'object'){
+        firebase.database().ref('user').child(this.$store.getters.dbuser.email.split('@')[0]).on("value", snapshot => {
+          check =  snapshot.val().accessLevel === '2' ? true : false
+        })
+      }
+      return check
     }
   },
   watch: {
@@ -191,7 +196,7 @@ export default {
       }
       this.dialog = false;
     }
-  }
+  },
 };
 </script>
 <style>

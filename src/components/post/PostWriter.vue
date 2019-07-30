@@ -19,6 +19,15 @@
                 </div>
               </template>
             </v-flex>
+            <v-flex xs4>
+              <v-text-field label="tag 1" v-model="tag1"></v-text-field>
+            </v-flex>
+            <v-flex xs4>
+              <v-text-field label="tag 2" v-model="tag2"></v-text-field>
+            </v-flex>
+            <v-flex xs4>
+              <v-text-field label="tag 3" v-model="tag3"></v-text-field>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
@@ -46,6 +55,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import FirebaseService from "@/services/FirebaseService";
+import Swal from 'sweetalert2'
 
 export default {
   name: "PostWriter",
@@ -56,48 +66,83 @@ export default {
     return {
       text: "", // Bind with markdown editor
       title: "",
-      postId: "",
+      postId: null,
       userEmail : '',
+      tag:[],
+      tag1:"",
+      tag2:"",
+      tag3:"",
       dialog: false
     };
   },
   mounted() {
     // If modify post, PostWriter.vue can get data from Post modal
-    this.postId = this.$route.params.id
-    this.title = this.$route.params.title
-    this.text = this.$route.params.body
-
+    if (this.$route.params.id){
+      this.postId = this.$route.params.id
+      this.title = this.$route.params.title
+      this.text = this.$route.params.body
+      this.tag = this.$route.params.tag
+      if (this.tag){
+        this.tag1 = this.tag[0];
+        if (this.tag.length>1){
+          this.tag2 = this.tag[1];
+          if (this.tag.length>2){
+            this.tag3 = this.tag[2];
+          }
+        }
+      }
+    }
     //Get userinfo from vuex
-    this.userEmail = this.$store.getters.getUser.email    
+    this.$store.dispatch("checkUserStatus")
+    .then(()=>{
+      this.userEmail = this.$store.getters.getUser.email;
+    });
+    // this.userEmail = this.$store.getters.getUser.email    
   },
   methods: {
     // Save post
     save: function(event) {
       // Blank check
-      if (this.text == "" || this.title == "") {
+      if (this.text === "" || this.title === "") {
         var alertMsg = "";
         if (this.title == "") {
           alertMsg = "제목은 필수항목입니다. 제목을 입력해주세요."
         } else if (this.text == "") {
           alertMsg = "내용은 필수항목입니다. 내용을 입력해주세요"
         }
-
-        this.$swal({
+        Swal.fire({
           type: "error",
           title: "Oops...",
           text: alertMsg
         });
       } else {
+        this.tag = [];
+        if(this.tag1){
+          this.tag.push(this.tag1);
+          // this.tag[0] = (this.tag1);
+        }
+        if (this.tag2){
+          this.tag.push(this.tag2);
+          // this.tag[1] = this.tag2;
+        }
+        if (this.tag3){
+          this.tag.push(this.tag3);
+          // this.tag[2] = this.tag3;
+        }
+        if (this.tag){
+          this.tag = [...new Set(this.tag)]
+        }
         // Call Firebase service
-        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId)
+        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag)
         this.dialog = false
         
         // Reinitialize data
         this.text = ''
         this.title = ''
+        this.tag=[]
 
         // Success popup
-        this.$swal({
+        Swal.fire({
           type: "success",
           title: "Great!",
           html: "저장되었습니다!</br>더 작성하시겠습니까?",
@@ -115,6 +160,7 @@ export default {
     clear: function(event) { // ClearBtn
       this.text = "";
       this.title = "";
+      this.tag = []
     },
     goPost() {
       this.$router.push("/post");

@@ -17,4 +17,13 @@ export default {
   weather(state) {
     return state.weather
   },
+  getSearchtag(state){
+    return state.searchtag;
+  },
+  dbuser(state) {
+    return state.dbuser
+  },
+  isAdmin(state) {
+    return state.isAdmin
+  }
 }
