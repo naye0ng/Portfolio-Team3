@@ -13,7 +13,8 @@ const state = {
   date : localStorage.getItem('log_date'),
   weather : {},
   searchtag:"",
-  dbuser : {},
+  dbuser : '',
+  isAdmin : false,
 }
 
 export default new Vuex.Store({
@@ -23,6 +24,7 @@ export default new Vuex.Store({
   mutations:{
     setDBUser(state, payload) {
       state.dbuser = payload
+      state.isAdmin = payload.accessLevel == 2 ? true : false
     },
     setDBUserTel(state, payload) {
       state.dbuser.telephone = payload

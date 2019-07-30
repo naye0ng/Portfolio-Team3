@@ -128,6 +128,7 @@ import WeatherDetail from "@/components/template/WeatherDetail";
 import Visited from "@/components/repository/Visited";
 import { access } from 'fs';
 import { isAbsolute } from 'path';
+import { isArray } from 'util';
 
 export default {
   name: "main-header",
@@ -143,7 +144,6 @@ export default {
         { title: "TEAM3", icon: "group", to: "/team3" }
       ],
       profile_image: "",
-      isAdmin : false,
     };
   },
   components: {
@@ -159,14 +159,6 @@ export default {
         text: "우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!"
       });
     },
-    getUsers() {
-      // console.log(this.user.email.split('@')[0])
-      var userKey = this.user.email.split('@')[0]
-      firebase.database().ref().child("user").child(userKey).child("accessLevel").on("value", snapshot => {
-        this.isAdmin = snapshot.val() == 2 ? true : false;
-      })
-      return false
-    },
   },
   computed: {
     getListTitleColor() {
@@ -181,6 +173,16 @@ export default {
     },
     user() {
       return this.$store.getters.getUser;
+    },
+    isAdmin(){
+      var typeIsAdmin = typeof(this.$store.getters.dbuser)
+      var check = false
+      if(typeIsAdmin === 'object'){
+        firebase.database().ref('user').child(this.$store.getters.dbuser.email.split('@')[0]).on("value", snapshot => {
+          check =  snapshot.val().accessLevel === '2' ? true : false
+        })
+      }
+      return check
     }
   },
   watch: {
@@ -191,10 +193,6 @@ export default {
         } else {
           this.profile_image = this.$store.getters.getUser.photoURL;
         }
-        // 로그인 완료시 관리자 체크
-        this.getUsers()
-        // this.isAdmin = this.$store.getters.dbuser.accessLevel == 2 ? true : false;
-        
       }
       this.dialog = false;
     }
