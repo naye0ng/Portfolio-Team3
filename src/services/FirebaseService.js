@@ -256,6 +256,19 @@ export default {
         }
       })
   },
+  getTags() {
+    const tagsCollection = firestore.collection(TAGS)
+    return tagsCollection
+      .get()
+      .then((docSnapshots) => {
+        return docSnapshots.docs.map((doc) => {
+          let data = doc.data()
+          // Get firestore documentID
+          data.id = doc.id;
+          return data
+        })
+      })
+  },
   curUser() {
     var user = firebase.auth().currentUser;
     return user;

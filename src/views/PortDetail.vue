@@ -62,17 +62,18 @@
               id: port.id,
               body: port.body,
               imgSrc: port.img,
+              user: port.user
             }}"
           >
             <button
-              v-if="port.user == userEmail"
+              v-if="port.user == userEmail || $store.getters.dbuser.accessLevel>=2"
               class="button button--wayra button--border-medium button--text-medium button--size-s"
               style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
             >수정하기</button>
           </router-link>
           <router-link to="/portfolio">
             <button
-              v-if="port.user == userEmail"
+              v-if="port.user == userEmail || $store.getters.dbuser.accessLevel>=2"
               v-on:click="deletePortfolio"
               class="button button--wayra button--border-medium button--text-medium button--size-s"
               style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"

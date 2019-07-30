@@ -82,6 +82,7 @@ export default {
       this.title = this.$route.params.title
       this.text = this.$route.params.body
       this.tag = this.$route.params.tag
+      this.userEmail = this.$route.params.user
       if (this.tag){
         this.tag1 = this.tag[0];
         if (this.tag.length>1){
@@ -93,11 +94,13 @@ export default {
       }
     }
     //Get userinfo from vuex
-    this.$store.dispatch("checkUserStatus")
-    .then(()=>{
-      this.userEmail = this.$store.getters.getUser.email;
-    });
-    // this.userEmail = this.$store.getters.getUser.email    
+    else{
+        this.$store.dispatch("checkUserStatus")
+      .then(()=>{
+        this.userEmail = this.$store.getters.getUser.email;
+      });
+    }
+     
   },
   methods: {
     // Save post
