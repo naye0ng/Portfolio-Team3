@@ -39,7 +39,10 @@ export default {
 	methods: {
 
 	},
-	mounted() {
+	created() {
+    if(this.$store.getters.dbuser.accessLevel != 2){
+      window.location.href = '/'
+    }
 	}
 }
 </script>
