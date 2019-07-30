@@ -15,7 +15,7 @@
                     </div>
                     <div class="post-owner">
                         <div class="avatar">
-                        <img :src="creator.avatar" alt="">
+                        <img :src="creator.avatar" alt="">  <!-- -->
                         </div>
                         <div class="username">
                         <a href="#">@{{ creator.user }}</a>
@@ -31,10 +31,6 @@
                 ></comments>
                 </div>
             </div>
-            <v-btn color="primary" dark @click="SignUp()">
-                Save
-                <v-icon dark right>check_circle</v-icon>
-            </v-btn>
             <v-btn color="secondary" dark @click="dialog = false">
                 Close
                 <v-icon dark right>block</v-icon>
@@ -62,28 +58,11 @@ export default {
         user: 'exampleCreator'
       },
       current_user: {
-        avatar: 'http://via.placeholder.com/100x100/a74848',
-        user: 'exampler'
+        avatar: '',
+        user: ''
       },
       comments: [
-        // {
-        //   id: 1,
-        //   user: 'example',
-        //   avatar: 'http://via.placeholder.com/100x100/a74848',
-        //   text: 'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor ',
-        // },
-        // {
-        //   id: 2,                            
-        //   user: 'example1',
-        //   avatar: 'http://via.placeholder.com/100x100/2d58a7',
-        //   text: 'lorem ipsum dolor',
-        // },
-        // {
-        //   id: 3,                            
-        //   user: 'example2',
-        //   avatar: 'http://via.placeholder.com/100x100/36846e',
-        //   text: 'lorem ipsum dolor again',
-        // },
+
       ],
       dialog:false
     }
@@ -94,22 +73,25 @@ export default {
       this.getCommentList();
     },
     submitComment: function(reply) {
-      const user=this.$store.getters.getUser;
-      console.log(user);
+      const user=this.$store.getters.dbuser;
+      console.log(user);  
       if(user !=null){      
+        this.current_user.avatar=user.photoURL;
+        this.current_user.user=user.name;
         this.comments.push({
-          id: this.comments.length + 1,
-          user: this.current_user.user,
-          avatar: this.current_user.avatar,
+          id: user.email,
+          user: user.name,
+          avatar: user.photoURL,
           text: reply
         });
 
         firestore.collection('portfolios').doc(this.port.id).collection('commentList')
         .add({
-          id : user.id,
+          id : user.email,
           name : user.name,
           text : reply, 
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
+          avatar : user.photoURL
         })
       }
 
@@ -117,14 +99,13 @@ export default {
     },
     getCommentList(){
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
-      console.log(commentList)
       commentList
-        .orderBy('time_stamp', 'desc')
+        .orderBy('time_stamp', 'asc')
         .get()
         .then((docSnapshots) => {
             docSnapshots.docs.map((doc) => {
-            let data = doc.data()
-            console.log(data.id); 
+            let data = doc.data() 
+            console.log(data);
             this.comments.push({
               id : data.id,
               avatar : data.avatar,
