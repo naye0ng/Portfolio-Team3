@@ -35,6 +35,9 @@ export default new Vuex.Store({
     setDBUserNick(state, payload) {
       state.dbuser.nickname = payload
     },
+    setDBUserAL(state, payload) {
+      state.dbuser.accessLevel = payload
+    },
     pushWebLog(state, social){
       var ref = firebase.database().ref()
       ref.child("logs").child(state.date).child(state.key).child('user').set(state.user.email);
