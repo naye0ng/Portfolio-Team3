@@ -1,11 +1,12 @@
 <template>
   <div>
     <v-layout pt-1 pl-3 h-100 justify-center>
-      <v-flex xs11>
+      <v-flex xs12>
         <div class="card-media">
           <div class="card-media-body">
             <div class="card-media-body-top">
               <span class="subtle">{{formatedDate}}</span>
+              
               <div class="card-media-body-top-icons u-float-right" style="margin-top:2.5px;">
                 <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 0h24v24H0z" fill="none" />
@@ -35,19 +36,19 @@
                <span class="card-media-body-supporting-bottom-text subtle u-float-right">
                 <ul class="card-media-object-social-list">
                   <li>
-                    <img src="@/assets/ha.png" class style="width:30px; height:30px;" />
+                    <img src="@/assets/ha.png" class style="width:25px; height:30px;" />
                   </li>
                   <li>
-                    <img src="@/assets/jo.png" class style="width:30px; height:30px;" />
+                    <img src="@/assets/jo.png" class style="width:25px; height:30px;" />
                   </li>
                   <li>
-                    <img src="@/assets/na.png" class style="width:30px; height:30px;" />
+                    <img src="@/assets/na.png" class style="width:25px; height:30px;" />
                   </li>
                   <li>
-                    <img src="@/assets/dong.png" class style="width:30px; height:30px;" />
+                    <img src="@/assets/dong.png" class style="width:25px; height:30px;" />
                   </li>
                   <li>
-                    <img src="@/assets/won.png" class style="width:30px; height:30px;" />
+                    <img src="@/assets/won.png" class style="width:25px; height:30px;" />
                   </li>
                 </ul> 
                </span>
@@ -76,7 +77,7 @@ export default {
   computed : {
     formatedDate() {
       if (this.date){
-        return `${this.date.getFullYear()}년 ${this.date.getMonth()}월 ${this.date.getDate()}일`
+        return `${this.date.getFullYear()}년 ${this.date.getMonth()+1}월 ${this.date.getDate()}일`
       }
     },
   },
@@ -229,16 +230,20 @@ html {
   z-index: -100;
 }
 
+.card-media-body-top-email{
+  z-index: -100;
+}
+
 .card-media-object-social-list li {
   border-radius: 50%;
   display: inline-block;
-  height: 30px;
-  margin-right: 6px;
+  height: 25px;
+  margin-right: 2px;
   opacity: 1;
   overflow: hidden;
   transform: translateY(5px);
   transition: all 300ms ease-out;
-  width: 30px;
+  width: 25px;
 }
 
 /* .card-media:hover .card-media-object-social-list li {

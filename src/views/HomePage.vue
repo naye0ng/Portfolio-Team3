@@ -290,7 +290,7 @@ export default {
   font-weight: 550;
 }
 .button--size-xs {
-  font-size: 14px;
+  font-size: 13px;
 }
 .button--size-s {
   font-size: 16px;

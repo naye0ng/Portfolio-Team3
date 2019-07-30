@@ -19,17 +19,23 @@
                 </v-btn>
               </div>
             </v-flex>
-            <v-flex xs-4 mt-4 class="bg-1">
+            <v-flex xs4 mt-4 class="bg-1">
               <router-link :to="{
                 name: 'makecontents',
                 params: {
                   kind: 'Post'
                 }}">
                <button
-                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
-                  class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 150px;padding:0.5em 1em; margin:0;">
+                  v-if="user != null && $store.getters.dbuser.accessLevel>=1" 
+                  class="button button--wayra button--border-medium button--text-medium button--size-s sm-button"
+                  style="min-width:150px; max-width: 150px; padding:0.5em 1em; margin:0;">
                   포스트 작성
+                </button>
+                <button
+                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
+                  class="button button--wayra button--border-thin button--text-medium button--size-xs xs-button"
+                  style="min-width:100px; max-width: 100px; padding:0.5em 1em; margin:0;">
+                  작성하기
                 </button>
               </router-link>
             </v-flex>
@@ -100,7 +106,7 @@ export default {
 }
 
 .searchbar:focus {
-    width: 200px;
+    width: 180px;
     font-size: 1em;
     font-weight: bold;
     transition: 0.3s;
@@ -117,5 +123,25 @@ export default {
     padding-top: 5px;
     margin-right: 40px;
 }
+
+@media(max-width:500px){
+  .sm-button{
+    display:none !important;
+  }
+  .searchbar{
+    width:100px !important;
+  }
+  .searchbar:focus{
+    width: 120px !important;
+  }
+}
+
+@media(min-width:501px){
+  .xs-button{
+    display:none !important;
+  }
+}
+
+
 </style>
 
