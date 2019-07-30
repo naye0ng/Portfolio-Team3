@@ -2,6 +2,9 @@
   <v-layout align-center justify-center row fill-height style="background-color:#000000;">
     <div class="stars"></div>
     <div class="twinkling"></div>
+    <div class="p p-1"></div>
+    <div class="p2 p-2"></div>
+    <div class="p3 p-3"></div>
     <!-- </div> -->
     <v-container id="portcard" class="mt-3">
       <v-layout my-5 wrap>

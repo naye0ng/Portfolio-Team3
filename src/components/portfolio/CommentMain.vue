@@ -104,13 +104,15 @@ export default {
         .get()
         .then((docSnapshots) => {
             docSnapshots.docs.map((doc) => {
-            let data = doc.data() 
+            let data = doc.data()
+            data.key = doc.id
             console.log(data);
             this.comments.push({
+              key : data.key,
               id : data.id,
               avatar : data.avatar,
               user : data.name,
-              text : data.text
+              text : data.text,
             })
             })
         })  

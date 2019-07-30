@@ -1,6 +1,6 @@
 <!-- Developer를 보여주는 컴포넌트 -->
 <template>
-  <div id="banner">
+  <div id="banner" style="overflow: hidden;">
     <div class="stars"></div>
     <div class="twinkling"></div>
     <div class="p p-1"></div>
@@ -201,10 +201,9 @@ export default {
     }
 }
 .p{
-  position:fixed;
+  position:absolute;
   z-index:90;
   border-right:50%;
-  position:fixed;
   animation-name:particleAnimation;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -227,10 +226,9 @@ export default {
   transform: rotate(30deg); 
 }
 .p2{
-  position:fixed;
+  position:absolute;
   z-index:90;
   border-right:50%;
-  position:fixed;
   animation-name:particleAnimation2;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -253,10 +251,9 @@ export default {
   transform: rotate(40deg); 
 }
 .p3{
-  position:fixed;
+  position:absolute;
   z-index:90;
   border-right:50%;
-  position:fixed;
   animation-name:particleAnimation3;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
