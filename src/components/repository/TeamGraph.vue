@@ -80,53 +80,57 @@ export default {
       }
     },
     createTeamGraph(data) {
-      let end = new Date(data[0].commit.author.date.slice(0, 10));
-      let start = new Date(
-        data[data.length - 1].commit.author.date.slice(0, 10)
-      );
-      let labels = [];
-      let commits = [];
-      let k = data.length - 1;
-      // 첫날과 마지막 날을 기준으로 data에서 commit을 추출한다.
-      while (start <= end) {
-        labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
-        commits.push(0);
-        while (k >= 0) {
-          var dt = new Date(data[k].commit.author.date.slice(0, 10));
-          if (dt - start == 0) {
-            commits[commits.length - 1] += 1;
-            k -= 1;
-          } else {
-            break;
-          }
-        }
-        start.setDate(start.getDate() + 1);
-      }
-      // Chart.js
-      var ctx = document.getElementById("teamChart");
-      var teamChart = new chart.Chart(ctx, {
-        type: "line",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: "# commits",
-              data: commits,
-              backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-              borderColor: ["rgba(153, 102, 255, 1)"],
-              borderWidth: 1
+      if (data){
+        let end = new Date(data[0].commit.author.date.slice(0, 10));
+        let start = new Date(
+          data[data.length - 1].commit.author.date.slice(0, 10)
+        );
+        let labels = [];
+        let commits = [];
+        let k = data.length - 1;
+        // 첫날과 마지막 날을 기준으로 data에서 commit을 추출한다.
+        while (start <= end) {
+          labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
+          commits.push(0);
+          while (k >= 0) {
+            var dt = new Date(data[k].commit.author.date.slice(0, 10));
+            if (dt - start == 0) {
+              commits[commits.length - 1] += 1;
+              k -= 1;
+            } else {
+              break;
             }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-          layout: {
-            padding: 5
           }
+          start.setDate(start.getDate() + 1);
         }
-      });
+        // Chart.js
+        var ctx = document.getElementById("teamChart");
+        if (commits){
+          var teamChart = new chart.Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "# commits",
+                  data: commits,
+                  backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+                  borderColor: ["rgba(153, 102, 255, 1)"],
+                  borderWidth: 1
+                }
+              ]
+            },
+            options: {
+              legend: {
+                display: false
+              },
+              layout: {
+                padding: 5
+              }
+            }
+          });
+        }
+      }
     },
     createMemberGraph(data) {
       var m_na = 0;
@@ -135,57 +139,60 @@ export default {
       var m_tong = 0;
       var m_jo = 0;
       // data에서 멤버별 커밋 수를 카운트한다.
-      for (let i = data.length - 1; i >= 0; i--) {
-        let author = data[i].commit.author.name;
-        if (author == "naye0ng") {
-          m_na += 1;
-        } else if (author == "Park Haewon") {
-          m_won += 1;
-        } else if (author == "Yongbeom Jo") {
-          m_jo += 1;
-        } else if (author == "KimTongWook") {
-          m_tong += 1;
-        } else {
-          m_ah += 1;
-        }
-      }
-      // Chart.js
-      var ctx = document.getElementById("memberChart");
-      var memberChart = new chart.Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["김나영", "김동욱", "박해원", "임현아", "조용범"],
-          datasets: [
-            {
-              label: "# commit",
-              data: [m_na, m_tong, m_won, m_ah, m_jo],
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)"
-              ],
-              borderColor: [
-                "rgba(255,99,132,1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)"
-              ],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-          layout: {
-            padding: 5
+      if (data){
+        for (let i = data.length - 1; i >= 0; i--) {
+          let author = data[i].commit.author.name;
+          if (author == "naye0ng") {
+            m_na += 1;
+          } else if (author == "Park Haewon") {
+            m_won += 1;
+          } else if (author == "Yongbeom Jo") {
+            m_jo += 1;
+          } else if (author == "KimTongWook") {
+            m_tong += 1;
+          } else {
+            m_ah += 1;
           }
         }
-      });
+        // Chart.js
+        var ctx = document.getElementById("memberChart");
+        var memberChart = new chart.Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["김나영", "김동욱", "박해원", "임현아", "조용범"],
+            datasets: [
+              {
+                label: "# commit",
+                data: [m_na, m_tong, m_won, m_ah, m_jo],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)"
+                ],
+                borderColor: [
+                  "rgba(255,99,132,1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)"
+                ],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            layout: {
+              padding: 5
+            }
+          }
+        });
+      }
+      
     },
     createVisitorChart() {
       var today = new Date();
@@ -250,33 +257,36 @@ export default {
           });
           // Chart.js
           var ctx = document.getElementById("socialChart");
-          var memberChart = new chart.Chart(ctx, {
-            type: "pie",
-            data: {
-              labels: socialName,
-              datasets: [
-                {
-                  label: "# social",
-                  data: socialLogin,
-                  backgroundColor: [
-                    "rgba(255, 99, 132, 0.2)",
-                    "rgba(54, 162, 235, 0.2)",
-                    "rgba(255, 206, 86, 0.2)",
-                    "rgba(75, 192, 192, 0.2)",
-                    "rgba(153, 102, 255, 0.2)"
-                  ],
-                  borderColor: [
-                    "rgba(255,99,132,1)",
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(153, 102, 255, 1)"
-                  ],
-                  borderWidth: 1
-                }
-              ]
-            }
+          if (socialLogin){
+            var memberChart = new chart.Chart(ctx, {
+              type: "pie",
+              data: {
+                labels: socialName,
+                datasets: [
+                  {
+                    label: "# social",
+                    data: socialLogin,
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)"
+                    ],
+                    borderColor: [
+                      "rgba(255,99,132,1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)"
+                    ],
+                    borderWidth: 1
+                  }
+                ]
+              }
           });
+          }
+          
         });
     },
     async asyncForEach(nextUrl, data) {

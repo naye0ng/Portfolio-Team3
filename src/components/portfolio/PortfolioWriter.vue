@@ -137,7 +137,16 @@ export default {
     this.text = this.$route.params.body
     
     //Get userinfo from vuex
-    this.userEmail = this.$store.getters.getUser.email    
+    if (this.$route.params.user){
+      this.userEmail = this.$route.params.user
+    }
+    else{
+      this.$store.dispatch("checkUserStatus")
+      .then(()=>{
+        this.userEmail = this.$store.getters.getUser.email;
+      });
+    }
+    
   },
   methods : {
     //Save Portfolio

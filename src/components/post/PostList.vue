@@ -37,6 +37,8 @@ export default {
   data() {
     return {
       posts: [],
+      allposts:[],
+      tags:[],
       pageLimit : this.limits,
       message: false
     };
@@ -46,39 +48,55 @@ export default {
   },
   mounted() {
     this.getPosts();
+    this.getTags();
   },
   methods: {
     // Get All Posts infomation from firestore database
     async getPosts() {
-      this.posts = await FirebaseService.getPosts();
+      this.allposts= await FirebaseService.getPosts();
+      this.posts = this.allposts;
+    },
+    async getTags(){
+      this.tags = await FirebaseService.getTags();
     },
     loadMorePosts() {
       this.loadMore = true;
       this.pageLimit += 4;
+    },
+    async asyncForEach(array, callback){
+      for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+      }
     }
   },
   watch: {
     search : async function(newVal,oldVal){
       if (!newVal){
-        this.posts = await FirebaseService.getPosts()
+        // this.posts = await FirebaseService.getPosts()
+        this.posts = this.allposts;
         this.message = false;
       }
       else{
-        FirebaseService.getTag(newVal).then(curTag=>{
-          if (curTag){
-            var postlist = curTag.postlist;
-            var templist = []
-            postlist.forEach(async post => {
-              templist.push(await FirebaseService.getPost(post));
-            })
-            this.message=false;
-            this.posts = templist;
-          }
-          else{
-            this.message = true;
-            this.posts = [];
-          }
-        });
+        var FilterTag = await this.tags.filter(tag=>{
+          return tag.id.includes(newVal)
+        })
+        if (FilterTag){
+          var temppost = [];
+          await this.asyncForEach(FilterTag, async (tagg) => {
+            temppost = temppost.concat(tagg.postlist);
+          });
+          temppost = [...new Set(temppost)];
+          var templist = []
+          await this.asyncForEach(temppost, async (post) => {
+            templist.push(await FirebaseService.getPost(post));
+          })
+          this.message = false;
+          this.posts = templist;
+        }
+        else{
+          this.message = true;
+          this.posts = [];
+        }
       }
     }
   }

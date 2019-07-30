@@ -44,19 +44,20 @@ export default {
         this.dates.push(start.toDateString())
         start.setDate(start.getDate() + 1);
       }
-      firebase.database().ref().child("logs").on('value', (snapshot)=>{
-        var todayV = snapshot.val()
-        this.visited = Object.keys(todayV[this.dates[4]]).length
-        this.visitedWeek = {}
+      if(this.dates){
+        firebase.database().ref().child("logs").on('value', (snapshot)=>{
+          var todayV = snapshot.val()
+          this.visited = Object.keys(todayV[this.dates[4]]).length
+          this.visitedWeek = {}
 
-        var cnt = [];
-        this.dates.forEach((date, index)=>{
-          this.visitedWeek[date] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
-          cnt[index] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
-        })
-        this.setCount(cnt)
-      });
-
+          var cnt = [];
+          this.dates.forEach((date, index)=>{
+            this.visitedWeek[date] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
+            cnt[index] = todayV.hasOwnProperty(date) ? Object.keys(todayV[date]).length : 0
+          })
+          this.setCount(cnt)
+        });
+      }
     },
     setCount(cnt) {
       var ctx = document.getElementById("visitedChart");
