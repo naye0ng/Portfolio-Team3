@@ -1,6 +1,6 @@
 <template>
   <v-container id="admin">
-    <v-layout row wrap>
+    <v-layout row wrap v-if="$store.getters.dbuser.accessLevel==2">
       <v-flex xs12 mt-5>
         <h2
             class="mt-3 py-5 text-xs-center text-shadow homepage-title"
@@ -12,7 +12,7 @@
       </v-flex>
     </v-layout>
     <v-divider></v-divider>
-    <v-layout row wrap>
+    <v-layout row wrap v-if="$store.getters.dbuser.accessLevel==2">
         <v-flex xs12>
           <h2
             class="mt-3 py-5 text-xs-center text-shadow homepage-title"
@@ -23,6 +23,17 @@
         <v-flex xs12 my-3>
             <AdminTable></AdminTable>
         </v-flex>
+    </v-layout>
+    <v-layout row wrap align-center v-if="$store.getters.dbuser.accessLevel!=2" style="min-height:81.5vh;">
+      <v-flex xs12 mt-5>
+        <h2 
+          class="mt-3 py-5 text-xs-center text-shadow homepage-title"
+          style="color:#181818;font-size:4.3vw;"
+        >
+          당신은 관리자가 아니잖아!
+        </h2>
+      </v-flex>
+
     </v-layout>
   </v-container>
 </template>
@@ -35,11 +46,16 @@ export default {
 	components: {
         AdminCount,
         AdminTable,
-	},
+  },
+  data(){
+    return {
+    }
+  },
 	methods: {
 
 	},
 	mounted() {
+    this.$store.dispatch("checkUserStatus")
 	}
 }
 </script>

@@ -70,46 +70,48 @@ export default {
         }
         // Chart.js
         var ctx = document.getElementById(this.$props.repos.username);
-        var teamChart = new chart.Chart(ctx, {
-          type: "line",
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                data: commits,
-                backgroundColor: this.$props.repos.color[0],
-                borderColor: this.$props.repos.color[1],
-                borderWidth: 2
-              }
-            ]
-          },
-          options: {
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [
+        if (labels){
+          var teamChart = new chart.Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
                 {
-                  display: true,
-                  gridLines: {
-                    display: false
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  display: false,
-                  gridLines: {
-                    display: false
-                  }
+                  data: commits,
+                  backgroundColor: this.$props.repos.color[0],
+                  borderColor: this.$props.repos.color[1],
+                  borderWidth: 2
                 }
               ]
             },
-            layout: {
-              padding: 5
+            options: {
+              legend: {
+                display: false
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                    gridLines: {
+                      display: false
+                    }
+                  }
+                ],
+                yAxes: [
+                  {
+                    display: false,
+                    gridLines: {
+                      display: false
+                    }
+                  }
+                ]
+              },
+              layout: {
+                padding: 5
+              }
             }
-          }
-        });
+          });
+        }
       }
     }
   },
