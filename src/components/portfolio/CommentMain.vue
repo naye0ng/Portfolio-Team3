@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-dialog v-model="dialog" max-width="600px">
             <template v-slot:activator="{ on }">
                 <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
                     <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
