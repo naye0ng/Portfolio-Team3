@@ -3,6 +3,9 @@
   <div id="banner">
     <div class="stars"></div>
     <div class="twinkling"></div>
+    <div class="p p-1"></div>
+    <div class="p2 p-2"></div>
+    <div class="p3 p-3"></div>
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members" style="cursor:pointer;">
             <Developer
@@ -163,5 +166,125 @@ export default {
 .twinkling{
   z-index:1;
   position:absolute;
+}
+@keyframes particleAnimation
+{
+    from {
+        left: -100px;
+        top: -100px;
+    }
+    to {
+        left: calc( 100% + 100px );
+        top : calc(100% + 100px );
+    }
+}
+@keyframes particleAnimation2
+{
+    from {
+        left: -100px;
+        top: 0%;
+    }
+    to {
+        left: 80%;
+        top : calc(100% + 100px );
+    }
+}
+@keyframes particleAnimation3
+{
+    from {
+        left: -300px;
+        top: 0%;
+    }
+    to {
+        left: 100%;
+        top : 90%;
+    }
+}
+.p{
+  position:fixed;
+  z-index:90;
+  border-right:50%;
+  position:fixed;
+  animation-name:particleAnimation;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.p::before{
+  position:absolute;
+  display:block;
+  content:"";
+  width:100px;
+  right:0px;
+  top:0px;
+  height:5px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); 
+  -moz-transform: rotate(30deg);  
+  -o-transform: rotate(30deg);  
+  -webkit-transform: rotate(30deg);  
+  -ms-transform: rotate(30deg);  
+  transform: rotate(30deg); 
+}
+.p2{
+  position:fixed;
+  z-index:90;
+  border-right:50%;
+  position:fixed;
+  animation-name:particleAnimation2;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.p2::before{
+  position:absolute;
+  display:block;
+  content:"";
+  width:100px;
+  right:0px;
+  top:0px;
+  height:2px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); 
+  -moz-transform: rotate(40deg);  
+  -o-transform: rotate(40deg);  
+  -webkit-transform: rotate(40deg);  
+  -ms-transform: rotate(40deg);  
+  transform: rotate(40deg); 
+}
+.p3{
+  position:fixed;
+  z-index:90;
+  border-right:50%;
+  position:fixed;
+  animation-name:particleAnimation3;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.p3::before{
+  position:absolute;
+  display:block;
+  content:"";
+  width:80px;
+  right:0px;
+  top:0px;
+  height:1px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); 
+  -moz-transform: rotate(20deg);  
+  -o-transform: rotate(20deg);  
+  -webkit-transform: rotate(20deg);  
+  -ms-transform: rotate(20deg);  
+  transform: rotate(20deg); 
+}
+.p-1{
+  animation-duration:5s;
+}
+.p-2{
+  animation-duration:3s;
+}
+.p-3{
+  animation-duration:7s;
 }
 </style>

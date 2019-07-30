@@ -179,7 +179,9 @@ export default {
       var check = false
       if(typeIsAdmin === 'object'){
         firebase.database().ref('user').child(this.$store.getters.dbuser.email.split('@')[0]).on("value", snapshot => {
-          check =  snapshot.val().accessLevel === '2' ? true : false
+          var al = snapshot.val().accessLevel
+          this.$store.commit('setDBUserAL', al)
+          check =  al === '2' ? true : false          
         })
       }
       return check
