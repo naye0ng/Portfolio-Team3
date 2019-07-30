@@ -105,29 +105,31 @@ export default {
         }
         // Chart.js
         var ctx = document.getElementById("teamChart");
-        var teamChart = new chart.Chart(ctx, {
-          type: "line",
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "# commits",
-                data: commits,
-                backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-                borderColor: ["rgba(153, 102, 255, 1)"],
-                borderWidth: 1
-              }
-            ]
-          },
-          options: {
-            legend: {
-              display: false
+        if (commits){
+          var teamChart = new chart.Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "# commits",
+                  data: commits,
+                  backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+                  borderColor: ["rgba(153, 102, 255, 1)"],
+                  borderWidth: 1
+                }
+              ]
             },
-            layout: {
-              padding: 5
+            options: {
+              legend: {
+                display: false
+              },
+              layout: {
+                padding: 5
+              }
             }
-          }
-        });
+          });
+        }
       }
     },
     createMemberGraph(data) {
@@ -255,33 +257,36 @@ export default {
           });
           // Chart.js
           var ctx = document.getElementById("socialChart");
-          var memberChart = new chart.Chart(ctx, {
-            type: "pie",
-            data: {
-              labels: socialName,
-              datasets: [
-                {
-                  label: "# social",
-                  data: socialLogin,
-                  backgroundColor: [
-                    "rgba(255, 99, 132, 0.2)",
-                    "rgba(54, 162, 235, 0.2)",
-                    "rgba(255, 206, 86, 0.2)",
-                    "rgba(75, 192, 192, 0.2)",
-                    "rgba(153, 102, 255, 0.2)"
-                  ],
-                  borderColor: [
-                    "rgba(255,99,132,1)",
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(153, 102, 255, 1)"
-                  ],
-                  borderWidth: 1
-                }
-              ]
-            }
+          if (socialLogin){
+            var memberChart = new chart.Chart(ctx, {
+              type: "pie",
+              data: {
+                labels: socialName,
+                datasets: [
+                  {
+                    label: "# social",
+                    data: socialLogin,
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)"
+                    ],
+                    borderColor: [
+                      "rgba(255,99,132,1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)"
+                    ],
+                    borderWidth: 1
+                  }
+                ]
+              }
           });
+          }
+          
         });
     },
     async asyncForEach(nextUrl, data) {

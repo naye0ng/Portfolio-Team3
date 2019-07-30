@@ -63,7 +63,8 @@
                 title: post.title,
                 id: post.id,
                 body: post.body,
-                tag : post.tag
+                tag : post.tag,
+                user : post.user
               }}">
               <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" class="button button--wayra button--border-medium button--text-medium button--size-s" 
               style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
