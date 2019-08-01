@@ -41,7 +41,6 @@
 import Comments from './Comment.vue'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import FirebaseService from '@/services/FirebaseService'
 
 const firestore = firebase.firestore()
 export default {
@@ -129,10 +128,9 @@ export default {
         this.current_user.user=user.nickname;
       }
     },
-    async getCommentList(){
+    getCommentList(){
       this.comments=[]
-      // var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
-      const commentList = await FirebaseService.getComments(this.port.id);
+      var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       commentList
         .orderBy('time_stamp', 'asc')
         .get()

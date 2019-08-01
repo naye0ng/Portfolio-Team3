@@ -188,11 +188,6 @@ export default {
         })
       })
   },
-  getComments(portid){
-    const commentList= firestore.collection('portfolios').doc(portid).collection('commentList');
-    return commentList;
-  },
-
   postPortfolio(user, title, body, img, id, avatar, nickname) {
       var date = new Date()
       console.log("here is avatar : "+  avatar)
