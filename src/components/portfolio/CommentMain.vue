@@ -84,12 +84,18 @@ export default {
       this.getCommentList();
     },
     big_deleted(key){
-      this.comments.forEach(comment => {
-        if (comment.key === key){
-          this.comments.pop(comment);
-          return
+      for (let i=0;i<this.comments.length;i++){
+        if (this.comments[i].key == key){
+          this.comments.splice(i,1);
+          break;
         }
-      })
+      }
+      // this.comments.forEach(comment => {
+      //   if (comment.key === key){
+      //     this.comments.pop(comment);
+      //     return
+      //   }
+      // })
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
@@ -103,7 +109,8 @@ export default {
           //email parsing 후(@앞 부분) key로 저장할것
           id: key,
           text : reply, 
-          time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
+          // time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
+          time_stamp : new Date(),
           avatar : user.photoURL
         }).then(ref=>{
           this.comments.push({
@@ -115,41 +122,51 @@ export default {
           })
         })
       }
-      
-        if(user!=null){
-          this.current_user.avatar=user.photoURL;
-          this.current_user.user=user.nickname;
-        }
+      if(user!=null){
+        this.current_user.avatar=user.photoURL;
+        this.current_user.user=user.nickname;
+      }
     },
     getCommentList(){
       this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       commentList
-        .orderBy('time_stamp', 'desc')
+        .orderBy('time_stamp', 'asc')
         .get()
         .then((docSnapshots) => {
           docSnapshots.docs.map((doc) => {
           let data = doc.data()
+          // console.log(doc.data())
           data.key=doc.id;
           var getKey=data.id;
-          var query=firebase.database().ref("user").orderByKey();
-          query.once("value")
-            .then((snapshot)=>{
-              snapshot.forEach((childSnapshot)=>{
-                var key=childSnapshot.key;
-                var childData=childSnapshot.val();
-                if(key===getKey){
-                  this.comments.push({
-                    key: data.key,
-                    id : data.id,
-                    avatar : data.avatar,
-                    user : childData.nickname,
-                    text : data.text,
-                  })
-                }
+          // var query=firebase.database().ref("user").orderByKey();
+          // query.once("value")
+          //   .then((snapshot)=>{
+          //     snapshot.forEach((childSnapshot)=>{
+          //       var key=childSnapshot.key;
+          //       var childData=childSnapshot.val();
+          //       if(key===getKey){
+          //         this.comments.push({
+          //           key: data.key,
+          //           id : data.id,
+          //           avatar : data.avatar,
+          //           user : childData.nickname,
+          //           text : data.text,
+          //         })
+          //       }
+          //     })
+          //   })
+          // });
+            firebase.database().ref("user").child(getKey).once('value').then(snap=>{
+              this.comments.push({
+                key : data.key,
+                id: data.id,
+                avatar : data.avatar,
+                user : snap.val().nickname,
+                text: data.text
               })
             })
-          });
+          })
         })
       },
   },
