@@ -34,5 +34,20 @@
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <div id="app"></div>
+  <div id="frogue-container" class="position-right-bottom"
+      data-chatbot="537ff657-a34a-47c5-9c09-4f537ace02b4"
+      data-user="사용자ID"
+      data-init-key="value"
+      ></div>
+<!-- data-init-식별키=값 으로 셋팅하면 챗플로우에 파라미터와 연동가능. 식별키는 소문자만 가능 -->
+<script>
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https:\/\/danbee.ai/js/plugins/frogue-embed/frogue-embed.min.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'frogue-embed'));
+</script>
 </body>
 </html>
