@@ -26,30 +26,30 @@
                 </v-flex>
                 <v-layout column px-3>
                   <v-card-title primary-title>
-                    <div style="font-size:2vw;">
+                    <div style="font-size:4vh;">
                       <i class="fa fa-angle-double-right fa-1x">&nbsp;</i>
                       <strong>{{name}}</strong>
                     </div>
                   </v-card-title>
                   <v-layout row align-center justify-center>
                     <div class="icon">
-                      <i class="fa fa-quote-left" style="font-size:2vw;"></i>
+                      <i class="fa fa-quote-left" style="font-size:4vh;"></i>
                     </div>
-                    <v-card-text class="text-xs-center" style="font-size:0.95vw;" px-0>
+                    <v-card-text class="text-xs-center" style="font-size:1.9vh;" px-0>
                       <span v-for="i in intro">
                         {{i}}
                         <br />
                       </span>
                     </v-card-text>
                     <div class="icon">
-                      <i class="fa fa-quote-right" style="font-size:2vw;"></i>
+                      <i class="fa fa-quote-right" style="font-size:4vh;"></i>
                     </div>
                   </v-layout>
-                  <v-layout row justify-space-around align-start style="padding-top:3vh;">
-                    <i class="fa fa-github" style="font-size:3vw;" @click="openWindow(repo[0])"></i>
-                    <i class="fa fa-at" style="font-size:3vw;" @click="openWindow(repo[1])"></i>
-                    <i class="fa fa-instagram" style="font-size:3vw;" @click="openWindow(repo[2])"></i>
-                    <i class="fa fa-envelope" style="font-size:3vw;" @click="show = !show"></i>
+                  <v-layout row justify-space-around align-start style="padding-top:5vh;">
+                    <i class="fa fa-github" style="font-size:5vh;" @click="openWindow(repo[0])"></i>
+                    <i class="fa fa-at" style="font-size:5vh;" @click="openWindow(repo[1])"></i>
+                    <i class="fa fa-instagram" style="font-size:5vh;" @click="openWindow(repo[2])"></i>
+                    <i class="fa fa-envelope" style="font-size:5vh;" @click="show = !show"></i>
                   </v-layout>
                   <v-card-text>
                     <v-slide-y-transition>
