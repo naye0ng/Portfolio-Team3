@@ -26,16 +26,41 @@
             <v-divider></v-divider>
             <v-card-actions class="pl-0 bg-1">
               <div class="ml-2">
+                <v-btn icon v-if="liked" @click="likes">
+                  <i class="material-icons" style="color:#ec407a;">
+                    favorite
+                  </i>
+                </v-btn>
+                <v-btn icon v-if="!liked" @click="likes">
+                  <i class="material-icons" style="color:#ec407a;">
+                    favorite_border
+                  </i>
+                </v-btn>
+                <!-- <v-btn icon>
+                  <v-icon>bookmark</v-icon>
+                </v-btn>
                 <v-btn icon>
-                <v-icon>favorite</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>bookmark</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>share</v-icon>
-              </v-btn>
+                  <v-icon>share</v-icon>
+                </v-btn> -->
               </div>
+              <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
+              <v-dialog v-model="dialog" max-width="300px">
+                  <v-card>
+                    <v-card-title>
+                      Likes
+                    </v-card-title>
+                    <v-card-text>
+                      <div v-for="i in likers.length" class="py-1">
+                        <v-avatar>
+                          <img
+                            :src="likers[i-1].avatar"
+                          >
+                        </v-avatar>
+                        <span class="pl-3">{{likers[i-1].nickname}}</span>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
               <v-spacer></v-spacer>
               <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
             </v-card-actions>
@@ -89,6 +114,8 @@
 <script>
 import PostList from "../components/post/PostList";
 import FirebaseService from "@/services/FirebaseService";
+import  firebase  from 'firebase';
+import Swal from "sweetalert2";
 
 export default {
   name: "PostDetail",
@@ -106,6 +133,10 @@ export default {
       post.id (게시물 id)
       post.tag (게시물 tag)
       */
+      liked:false,
+      likecount:0,
+      likers:[],
+      dialog:false,
     }
   },
   computed: {
@@ -126,6 +157,15 @@ export default {
   methods:{
     async getPost(){
       this.post = await FirebaseService.getPost(this.$route.params.id);
+      this.getLikeCount();
+      this.getLikers();
+      await this.$store.dispatch("checkUserStatus");
+      if (this.$store.getters.getUser){
+        this.getLike();
+      }
+      else{
+        this.liked = false;
+      }
     },
     deletePost() {
       FirebaseService.deletePost(this.$route.params.id)
@@ -133,6 +173,49 @@ export default {
     filter(keyword){
       this.$store.commit('SET_searchtag',keyword);
       this.$router.push("/post");
+    },
+    likes(){
+      if (this.$store.getters.getUser){
+        if (this.liked){
+          this.liked=false;
+          const user=this.$store.getters.dbuser;
+          FirebaseService.deletePostLike(this.post.id,user.email).then((res)=>{
+            this.getLikers();
+          });
+        }
+        else{
+          this.liked=true;
+          const user=this.$store.getters.dbuser;
+          FirebaseService.addPostLike(this.post.id,user.email).then((res)=>{
+            this.getLikers();
+          })
+        }
+        this.getLikeCount();
+      }
+      else{
+        Swal.fire({
+            text:"좋아요를 누르시려면 로그인을 해주세요",
+            type: "warning"
+          })
+      }
+      
+    },
+    async getLike(){
+      const user = this.$store.getters.getUser;
+      this.liked = await FirebaseService.checkPostLike(this.post.id,user.email);
+    },
+    async getLikeCount(){
+      this.likecount = await FirebaseService.getPostLikeCount(this.post.id);
+    },
+    async getLikers(){
+      const list = await FirebaseService.getPostLikers(this.post.id);
+      this.likers = [];
+      list.forEach(l=>{
+        firebase.database().ref("user").child(l.user.split('@')[0]).once("value")
+            .then(snapshot => {
+              this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
+          })
+      })
     }
   }
 };
