@@ -1,5 +1,5 @@
 <template>
-  <back-to-top bottom="50px" right="50px">
+  <back-to-top bottom="20px" right="90px">
     <v-btn fab dark color="primary">
       <v-icon dark>keyboard_arrow_up</v-icon>
     </v-btn>
