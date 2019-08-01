@@ -24,7 +24,7 @@
                 </div>
                 <comments 
                 :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
-                :comments="comments"
+                :comments="getCommentList"
                 :current_user="current_user"
                 :port="this.port"
                 @submit-comment="submitComment"
@@ -73,6 +73,43 @@ export default {
         this.current_user.user=user.nickname;
       }
   },
+  computed:{
+    getCommentList(){
+      if(this.port) {
+        
+      }
+      var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList')
+      commentList
+        .orderBy('time_stamp', 'desc') 
+        .get()
+        .then((docSnapshots) => {
+            docSnapshots.docs.map((doc) => {
+            let data = doc.data()
+            data.key=doc.id;
+            var getKey=data.id;
+            var query=firebase.database().ref("user").orderByKey();
+            query.once("value")
+              .then((snapshot)=>{
+                var result = []
+                snapshot.forEach((childSnapshot)=>{
+                  var key=childSnapshot.key;
+                  var childData=childSnapshot.val();
+                  if(key===getKey){
+                    result.push({
+                      key: data.key,
+                      id : data.id,
+                      avatar : data.avatar,
+                      user : childData.nickname,
+                      text : data.text  
+                    })
+                  }
+                })
+                return result;
+              })
+            });
+          })
+      },
+  },
   methods: {
     refreshComment () {
       const user=this.$store.getters.dbuser;
@@ -84,7 +121,7 @@ export default {
       this.comments = [];
       this.creator.user=this.port.nickname;
       this.creator.avatar=this.port.avatar; 
-      this.getCommentList();
+      // this.getCommentList();
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
@@ -115,36 +152,36 @@ export default {
           this.current_user.user=user.nickname;
         }
     },
-    getCommentList(){
-      var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
-      commentList
-        .orderBy('time_stamp', 'desc')
-        .get()
-        .then((docSnapshots) => {
-            docSnapshots.docs.map((doc) => {
-            let data = doc.data()
-            data.key=doc.id;
-            var getKey=data.id;
-            var query=firebase.database().ref("user").orderByKey();
-            query.once("value")
-              .then((snapshot)=>{
-                snapshot.forEach((childSnapshot)=>{
-                  var key=childSnapshot.key;
-                  var childData=childSnapshot.val();
-                  if(key===getKey){
-                    this.comments.push({
-                      key: data.key,
-                      id : data.id,
-                      avatar : data.avatar,
-                      user : childData.nickname,
-                      text : data.text  
-                    })
-                  }
-                })
-              })
-            });
-          })
-      },
+    // getCommentList(){
+    //   var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
+    //   commentList
+    //     .orderBy('time_stamp', 'desc')
+    //     .get()
+    //     .then((docSnapshots) => {
+    //         docSnapshots.docs.map((doc) => {
+    //         let data = doc.data()
+    //         data.key=doc.id;
+    //         var getKey=data.id;
+    //         var query=firebase.database().ref("user").orderByKey();
+    //         query.once("value")
+    //           .then((snapshot)=>{
+    //             snapshot.forEach((childSnapshot)=>{
+    //               var key=childSnapshot.key;
+    //               var childData=childSnapshot.val();
+    //               if(key===getKey){
+    //                 this.comments.push({
+    //                   key: data.key,
+    //                   id : data.id,
+    //                   avatar : data.avatar,
+    //                   user : childData.nickname,
+    //                   text : data.text  
+    //                 })
+    //               }
+    //             })
+    //           })
+    //         });
+    //       })
+    //   },
   },
   props: ['port']
 }

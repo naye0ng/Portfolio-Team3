@@ -4,7 +4,8 @@
             <single-comment 
                 v-for="comment in comments"
                 :comment="comment"
-                :key="comment.key"
+                :key="comment.id"
+                :port="port"
             ></single-comment>
         </div>
         <hr>
@@ -50,7 +51,7 @@ const firestore = firebase.firestore()
                     this.$emit('submit-comment', this.reply);
                     this.reply = '';
               }
-            }
+            },
         },
         props: ['port','comments', 'current_user', 'comments_wrapper_classes'],
     }

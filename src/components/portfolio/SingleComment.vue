@@ -4,15 +4,28 @@
             <img :src="comment.avatar" alt="">
         </div>
         <div class="text">
-            <a class="username" href="#">@{{ comment.user }}</a> <span>{{ comment.text }}</span>
+            <a class="username" href="#">@{{ comment.user }}</a> 
+            <span>{{ comment.text }}</span> 
+            <span><v-btn class="ma-2" color="red" dark v-on:click="deleteComment"><v-icon>delete</v-icon></v-btn></span>
         </div>
     </div>
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+const firestore = firebase.firestore()
+
     export default {
         name: 'singleComment',
-        props: ['comment'],
+        props: ['comment', 'port'],
+        methods : {
+            deleteComment(){
+                console.log(this.port);
+                console.log(this.comment);
+                firestore.collection('portfolios').doc(this.port.id).collection('commentList').doc(this.comment.key).delete()
+            }
+        }
     }
 </script>
 
