@@ -2,6 +2,9 @@
   <v-layout align-center justify-center row fill-height style="background-color:#000000;">
     <div class="stars"></div>
     <div class="twinkling"></div>
+    <div class="p p-1"></div>
+    <div class="p2 p-2"></div>
+    <div class="p3 p-3"></div>
     <!-- </div> -->
     <v-container id="portcard" class="mt-3">
       <v-layout my-5 wrap>
@@ -23,8 +26,15 @@
                 <div v-html="port.body" style="font-size:1.24rem;"></div>
               </v-card-text>
               <v-card-actions class="pl-3 pt-0">
-                <v-btn icon>
-                  <v-icon>favorite</v-icon>
+                <v-btn icon v-if="liked">
+                  <i class="material-icons" style="color:#ec407a;">
+                    favorite
+                  </i>
+                </v-btn>
+                <v-btn icon v-if="!liked">
+                  <i class="material-icons" style="color:#ec407a;">
+                    favorite_border
+                  </i>
                 </v-btn>
                 <v-btn icon>
                   <v-icon>bookmark</v-icon>
@@ -108,7 +118,8 @@ export default {
       port.user (해당 portfolio의 작성자 email)
       port.created_at (게시물 생성 날짜)
       port.id (게시물 id)
-      */
+      */,
+      liked:false
     };
   },
   computed: {
