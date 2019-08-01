@@ -26,8 +26,15 @@
                 <div v-html="port.body" style="font-size:1.24rem;"></div>
               </v-card-text>
               <v-card-actions class="pl-3 pt-0">
-                <v-btn icon>
-                  <v-icon>favorite</v-icon>
+                <v-btn icon v-if="liked">
+                  <i class="material-icons" style="color:#ec407a;">
+                    favorite
+                  </i>
+                </v-btn>
+                <v-btn icon v-if="!liked">
+                  <i class="material-icons" style="color:#ec407a;">
+                    favorite_border
+                  </i>
                 </v-btn>
                 <v-btn icon>
                   <v-icon>bookmark</v-icon>
@@ -111,7 +118,8 @@ export default {
       port.user (해당 portfolio의 작성자 email)
       port.created_at (게시물 생성 날짜)
       port.id (게시물 id)
-      */
+      */,
+      liked:false
     };
   },
   computed: {
