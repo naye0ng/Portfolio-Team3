@@ -109,15 +109,17 @@ export default {
           text : reply, 
           time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
           avatar : user.photoURL
+        }).then(ref=>{
+          this.comments.push({
+            key: ref.id,
+            id : key,
+            avatar : this.current_user.avatar,
+            user : this.current_user.user,
+            text : reply,
+          })
         })
-        this.getCommentList();
-        // this.comments.push({
-        //   key: data.key,
-        //   id : key,
-        //   avatar : data.avatar,
-        //   user : childData.nickname,
-        //   text : data.text,
-        // })
+        // this.getCommentList();
+        
       }
       
         if(user!=null){
