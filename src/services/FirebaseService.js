@@ -5,6 +5,7 @@ import 'firebase/auth'
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
 const TAGS = 'tags'
+const TOKENS = 'tokens'
 
 // Setup Firebase
 const config = {
@@ -48,8 +49,67 @@ firebase.firestore().enablePersistence()
   });
 
   
+//FCM PUSH
+//Get firebase messaging function
+const messaging = firebase.messaging();
+//Set VApiIdKey
+messaging.usePublicVapidKey("BMuvOdnou4GfoVG_8fSmde7sbnnFOvgMaEp7qn2vlZ5qHxF4HvGVqGz7Jrvc6NdP7KCij8fRgfyUsLUfg0M-a0g");
+
+//Request notification permission
+messaging.requestPermission()
+  .then(function() {
+    console.log("WE HAVE PERMISSION");
+    return messaging.getToken();
+  })
+  //If messaging called with token
+  .then(function(token){
+    console.log("TOKEN IS : " + token)
+    //Save token into firestore database
+    this.saveTokens(token, adminflag)
+    //need to check admin
+  })
+  .catch(function(err) {
+    console.log("Error occuered in RP")
+  });
+
+messaging.onMessage(function(payload){
+  console.log('onMessage: ', payload);
+});
+
+
 export default {
+  getTokens() { 
+    const tokenbox = firestore.collection(TOKENS)
+    return tokenbox
+      .get()
+      .then((docSnapshots) => {
+        return docSnapshots.docs.map((doc) => {
+          if(doc != null){
+            console.log("Get Tokens success")
+          }
+          let tokendata = doc.data()
+          tokendata.id = doc.id;
+          return tokendata
+        })
+      })
+      .catch(function(err){
+        console.log("Get Tokens fail : " + err)
+      })
+  },
+  saveTokens(token, permission) {
+    firestore.collection(TOKENS).doc(token)({
+      token,
+      permission,
+    })
+    .then(function(){
+      console.log("Save token success")
+    })
+    .catch(function(err){
+      console.log("Save token failed : " + err)
+    })
+  },
   getPosts() {
+    this.push()
     const postsCollection = firestore.collection(POSTS)
     return postsCollection
       .orderBy('created_at', 'desc')
