@@ -26,12 +26,12 @@
                 <div v-html="port.body" style="font-size:1.24rem;"></div>
               </v-card-text>
               <v-card-actions class="pl-3 pt-0">
-                <v-btn icon v-if="liked" @click="likes">
+                <v-btn icon v-if="curUser && liked" @click="likes">
                   <i class="material-icons" style="color:#ec407a;">
                     favorite
                   </i>
                 </v-btn>
-                <v-btn icon v-if="!liked" @click="likes">
+                <v-btn icon v-if="!curUser || !liked" @click="likes">
                   <!-- <template v-slot:badge>{{likecount}}</template> -->
                   <i class="material-icons" style="color:#ec407a;">
                     favorite_border
@@ -146,6 +146,9 @@ export default {
     };
   },
   computed: {
+    curUser(){
+      return this.$store.getters.getUser;
+    },
     userEmail() {
       // 현재 로그인한 user의 이메일값
       if (!this.$store.getters.getUser) return null;
@@ -163,15 +166,9 @@ export default {
   methods: {
     async getPort() {
       this.port = await FirebaseService.getPortfolio(this.$route.params.id);
+      this.getLike();
       this.getLikeCount();
       this.getLikers();
-      await this.$store.dispatch("checkUserStatus");
-      if (this.$store.getters.getUser){
-        this.getLike();
-      }
-      else{
-        this.liked =false;
-      }
     },
     deletePortfolio() {
       FirebaseService.deletePortfolio(this.port.id, this.port.img);
@@ -204,7 +201,13 @@ export default {
     },
     async getLike(){
       const user = this.$store.getters.getUser;
-      this.liked = await FirebaseService.checkPortLike(this.port.id,user.email);
+      if (user){
+        this.liked = await FirebaseService.checkPortLike(this.port.id,user.email);
+      }
+      else{
+        this.liked = false;
+      }
+      
     },
     async getLikeCount(){
       this.likecount = await FirebaseService.getPortLikeCount(this.port.id);
