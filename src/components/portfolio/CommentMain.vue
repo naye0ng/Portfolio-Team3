@@ -28,6 +28,7 @@
                 :current_user="current_user"
                 :port="this.port"
                 @submit-comment="submitComment"
+                @big_deleted="big_deleted"
                 ></comments>
                 </div>
             </div>
@@ -80,11 +81,19 @@ export default {
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.nickname;
       }
-      console.log(this.port)
+      // console.log(this.port)
       this.comments = [];
       this.creator.user=this.port.nickname;
       this.creator.avatar=this.port.avatar; 
       this.getCommentList();
+    },
+    big_deleted(key){
+      this.comments.forEach(comment => {
+        if (comment.key === key){
+          this.comments.pop(comment);
+          return
+        }
+      })
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
@@ -92,30 +101,32 @@ export default {
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
         var key=user.email.split('@')[0];
-        this.comments.push({
-          //user에는 user의 nickname을 key값으로 가져온다.
-          id: user.email,
-          user: user.nickname,
-          avatar: user.photoURL,
-          text: reply
-        });
 
         firestore.collection('portfolios').doc(this.port.id).collection('commentList')
         .add({
           //email parsing 후(@앞 부분) key로 저장할것
-          id : key,
+          id: key,
           text : reply, 
           time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
           avatar : user.photoURL
         })
+        this.getCommentList();
+        // this.comments.push({
+        //   key: data.key,
+        //   id : key,
+        //   avatar : data.avatar,
+        //   user : childData.nickname,
+        //   text : data.text,
+        // })
       }
-
+      
         if(user!=null){
           this.current_user.avatar=user.photoURL;
           this.current_user.user=user.nickname;
         }
     },
     getCommentList(){
+      this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       commentList
         .orderBy('time_stamp', 'desc')
@@ -137,7 +148,7 @@ export default {
                       id : data.id,
                       avatar : data.avatar,
                       user : childData.nickname,
-                      text : data.text  
+                      text : data.text,
                     })
                   }
                 })

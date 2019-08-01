@@ -4,15 +4,29 @@
             <img :src="comment.avatar" alt="">
         </div>
         <div class="text">
-            <a class="username" href="#">@{{ comment.user }}</a> <span>{{ comment.text }}</span>
+            <a class="username" href="#">@{{ comment.user }}</a> 
+            <span>{{ comment.text }}</span> 
+            <span v-if="comment.id === this.$store.getters.dbuser.email.split('@')[0]">
+                <v-btn class="ma-2" color="red" dark v-on:click="deleteComment" style="cursor:pointer;"><v-icon>delete</v-icon></v-btn>
+            </span>
         </div>
     </div>
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+const firestore = firebase.firestore()
+
     export default {
         name: 'singleComment',
-        props: ['comment'],
+        props: ['comment', 'port'],
+        methods : {
+            deleteComment(){
+                firestore.collection('portfolios').doc(this.port.id).collection('commentList').doc(this.comment.key).delete()
+                this.$emit('deleted',this.comment.key);
+            }
+        }
     }
 </script>
 
