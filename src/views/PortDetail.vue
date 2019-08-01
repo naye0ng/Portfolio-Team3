@@ -26,19 +26,38 @@
                 <div v-html="port.body" style="font-size:1.24rem;"></div>
               </v-card-text>
               <v-card-actions class="pl-3 pt-0">
-                <v-btn icon v-if="liked">
+                <v-btn icon v-if="curUser && liked" @click="likes">
                   <i class="material-icons" style="color:#ec407a;">
                     favorite
                   </i>
                 </v-btn>
-                <v-btn icon v-if="!liked">
+                <v-btn icon v-if="!curUser || !liked" @click="likes">
+                  <!-- <template v-slot:badge>{{likecount}}</template> -->
                   <i class="material-icons" style="color:#ec407a;">
                     favorite_border
                   </i>
                 </v-btn>
-                <v-btn icon>
+                <!-- <v-btn icon>
                   <v-icon>bookmark</v-icon>
-                </v-btn>
+                </v-btn> -->
+                <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
+                <v-dialog v-model="dialog" max-width="300px">
+                  <v-card>
+                    <v-card-title>
+                      Likes
+                    </v-card-title>
+                    <v-card-text>
+                      <div v-for="i in likers.length" class="py-1">
+                        <v-avatar>
+                          <img
+                            :src="likers[i-1].avatar"
+                          >
+                        </v-avatar>
+                        <span class="pl-3">{{likers[i-1].nickname}}</span>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
                 <v-spacer></v-spacer>
                 <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
               </v-card-actions>
@@ -100,7 +119,8 @@
 import PortfolioList from "../components/portfolio/PortfolioList";
 import FirebaseService from "@/services/FirebaseService";
 import CommentMain from "@/components/portfolio/CommentMain";
-import { firestore } from 'firebase';
+import  firebase  from 'firebase';
+import Swal from "sweetalert2";
 
 export default {
   name: "PortDetail",
@@ -119,21 +139,26 @@ export default {
       port.created_at (게시물 생성 날짜)
       port.id (게시물 id)
       */,
-      liked:false
+      liked:false,
+      likecount:0,
+      likers:[],
+      dialog:false,
     };
   },
   computed: {
+    curUser(){
+      return this.$store.getters.getUser;
+    },
     userEmail() {
       // 현재 로그인한 user의 이메일값
-      var user = this.$store.getters.getUser;
-      if (!user) return null;
+      if (!this.$store.getters.getUser) return null;
       return this.$store.getters.getUser.email;
     },
     formatedDate() {
       if (this.port.created_at){
         return `${this.port.created_at.getFullYear()}년 ${this.port.created_at.getMonth()+1}월 ${this.port.created_at.getDate()}일`
       }
-    },
+    }
   },
   mounted() {
     this.getPort();
@@ -141,10 +166,62 @@ export default {
   methods: {
     async getPort() {
       this.port = await FirebaseService.getPortfolio(this.$route.params.id);
+      this.getLike();
+      this.getLikeCount();
+      this.getLikers();
     },
     deletePortfolio() {
       FirebaseService.deletePortfolio(this.port.id, this.port.img);
     },
+    likes(){
+      if (this.$store.getters.getUser){
+        if (this.liked){
+          this.liked=false;
+          const user=this.$store.getters.getUser;
+          FirebaseService.deletePortLike(this.port.id,user.email).then((res)=>{
+            this.getLikers();
+          });
+        }
+        else{
+          this.liked=true;
+          const user=this.$store.getters.getUser;
+          FirebaseService.addPortLike(this.port.id,user.email).then((res)=>{
+            this.getLikers();
+          })
+        }
+        this.getLikeCount();
+      }
+      else{
+        Swal.fire({
+            text:"좋아요를 누르시려면 로그인을 해주세요",
+            type: "warning"
+          })
+      }
+      
+    },
+    async getLike(){
+      const user = this.$store.getters.getUser;
+      if (user){
+        this.liked = await FirebaseService.checkPortLike(this.port.id,user.email);
+      }
+      else{
+        this.liked = false;
+      }
+      
+    },
+    async getLikeCount(){
+      this.likecount = await FirebaseService.getPortLikeCount(this.port.id);
+    },
+    async getLikers(){
+      const list = await FirebaseService.getPortLikers(this.port.id);
+      this.likers = [];
+      list.forEach(l=>{
+        firebase.database().ref("user").child(l.user.split('@')[0]).once("value")
+            .then(snapshot => {
+              this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
+          })
+      })
+    }
   }
 };
 </script>
@@ -191,5 +268,16 @@ export default {
 #portcard {
   position: relative;
   z-index: 99;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 16px; /* pixel unit */
+    padding: 35px 50px; /* pixel unit */
+    border-radius: 50%;
+    font-size: 75px;
+    text-align: center;
+    background: #1779ba;
+    color: #fefefe;
 }
 </style>

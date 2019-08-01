@@ -192,7 +192,7 @@ export default {
           }
         });
       }
-      
+
     },
     createVisitorChart() {
       var today = new Date();
@@ -286,7 +286,7 @@ export default {
               }
           });
           }
-          
+
         });
     },
     async asyncForEach(nextUrl, data) {
@@ -302,10 +302,13 @@ export default {
   },
   mounted() {
     // Draw git graph
+
+    /*
     this.getCommits(
       "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
       []
     );
+    */
   }
 };
 </script>
