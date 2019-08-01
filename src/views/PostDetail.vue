@@ -26,12 +26,12 @@
             <v-divider></v-divider>
             <v-card-actions class="pl-0 bg-1">
               <div class="ml-2">
-                <v-btn icon v-if="liked" @click="likes">
+                <v-btn icon v-if="curUser && liked" @click="likes">
                   <i class="material-icons" style="color:#ec407a;">
                     favorite
                   </i>
                 </v-btn>
-                <v-btn icon v-if="!liked" @click="likes">
+                <v-btn icon v-if="!curUser || !liked" @click="likes">
                   <i class="material-icons" style="color:#ec407a;">
                     favorite_border
                   </i>
@@ -140,6 +140,9 @@ export default {
     }
   },
   computed: {
+    curUser(){
+      return this.$store.getters.getUser;
+    },
     userEmail(){   // 현재 로그인한 user의 이메일값
       var user = this.$store.getters.getUser;
       if (!user) return null;
@@ -157,15 +160,9 @@ export default {
   methods:{
     async getPost(){
       this.post = await FirebaseService.getPost(this.$route.params.id);
+      this.getLike();
       this.getLikeCount();
       this.getLikers();
-      await this.$store.dispatch("checkUserStatus");
-      if (this.$store.getters.getUser){
-        this.getLike();
-      }
-      else{
-        this.liked = false;
-      }
     },
     deletePost() {
       FirebaseService.deletePost(this.$route.params.id)
@@ -202,7 +199,12 @@ export default {
     },
     async getLike(){
       const user = this.$store.getters.getUser;
-      this.liked = await FirebaseService.checkPostLike(this.post.id,user.email);
+      if (user){
+        this.liked = await FirebaseService.checkPostLike(this.post.id,user.email);
+      }
+      else{
+        this.liked = false;
+      }
     },
     async getLikeCount(){
       this.likecount = await FirebaseService.getPostLikeCount(this.post.id);
