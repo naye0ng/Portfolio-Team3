@@ -24,7 +24,7 @@
                 </div>
                 <comments 
                 :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
-                :comments="comments"
+                :comments="getCommentList"
                 :current_user="current_user"
                 :port="this.port"
                 @submit-comment="submitComment"
@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       likes: 15,
-
       creator: {
         avatar: '',
         user: ''
@@ -57,10 +56,9 @@ export default {
         avatar: '',
         user: ''
       },
-      comments: [
-
-      ],
-      dialog:false
+      comments: [],
+      dialog:false,
+      isActive : true,
     }
   },
   mounted(){
@@ -73,6 +71,40 @@ export default {
         this.current_user.user=user.nickname;
       }
   },
+  computed : {
+    getCommentList(){
+      if(this.isActive && typeof this.port != 'undefined'){
+        console.log(this.port.id)
+        var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList')
+        commentList.orderBy('time_stamp', 'desc').get()
+          .then((docSnapshots) => {
+            var result = []
+            docSnapshots.docs.map(doc => {
+              let data = doc.data()
+              data.key=doc.id;
+              var getKey =data.id;
+              firebase.database().ref("user").once("value").then((snapshot)=>{
+                var users = snapshot.val()
+                // console.log(users)
+                if(users.hasOwnProperty(getKey)){
+                  result.push({
+                      key: data.key,
+                      id : data.id,
+                      avatar : data.avatar,
+                      user : users[getKey].nickname,
+                      text : data.text  
+                    })
+                }
+                })
+            })
+            this.isActive = false
+            console.log(result)
+            console.log('이거임',typeof result)
+            return result
+          })
+      }
+    }
+  },
   methods: {
     refreshComment () {
       const user=this.$store.getters.dbuser;
@@ -80,11 +112,10 @@ export default {
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.nickname;
       }
-      console.log(this.port)
       this.comments = [];
       this.creator.user=this.port.nickname;
       this.creator.avatar=this.port.avatar; 
-      this.getCommentList();
+      // this.getCommentList();
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
@@ -126,8 +157,7 @@ export default {
             data.key=doc.id;
             var getKey=data.id;
             var query=firebase.database().ref("user").orderByKey();
-            query.once("value")
-              .then((snapshot)=>{
+            query.once("value").then((snapshot)=>{
                 snapshot.forEach((childSnapshot)=>{
                   var key=childSnapshot.key;
                   var childData=childSnapshot.val();
@@ -141,6 +171,7 @@ export default {
                     })
                   }
                 })
+                console.log("dddd",this.comments)
               })
             });
           })

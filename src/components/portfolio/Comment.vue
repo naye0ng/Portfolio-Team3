@@ -53,6 +53,9 @@ const firestore = firebase.firestore()
               }
             },
         },
+        mounted() {
+            console.log("dddd",this.comments)
+        },
         props: ['port','comments', 'current_user', 'comments_wrapper_classes'],
     }
 </script>
