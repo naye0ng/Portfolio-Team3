@@ -41,6 +41,7 @@
 import Comments from './Comment.vue'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import FirebaseService from '@/services/FirebaseService'
 
 const firestore = firebase.firestore()
 export default {
@@ -99,18 +100,19 @@ export default {
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
+      
       if(user !=null){      
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
         var key=user.email.split('@')[0];
-
+        var date = new Date();
         firestore.collection('portfolios').doc(this.port.id).collection('commentList')
         .add({
           //email parsing 후(@앞 부분) key로 저장할것
           id: key,
           text : reply, 
           // time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
-          time_stamp : new Date(),
+          time_stamp : date,
           avatar : user.photoURL
         }).then(ref=>{
           this.comments.push({
@@ -127,16 +129,17 @@ export default {
         this.current_user.user=user.nickname;
       }
     },
-    getCommentList(){
+    async getCommentList(){
       this.comments=[]
-      var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
+      // var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
+      const commentList = await FirebaseService.getComments(this.port.id);
       commentList
         .orderBy('time_stamp', 'asc')
         .get()
         .then((docSnapshots) => {
           docSnapshots.docs.map((doc) => {
           let data = doc.data()
-          // console.log(doc.data())
+          console.log(doc.data())
           data.key=doc.id;
           var getKey=data.id;
           // var query=firebase.database().ref("user").orderByKey();
