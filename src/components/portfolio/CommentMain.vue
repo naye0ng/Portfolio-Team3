@@ -18,7 +18,7 @@
                         <img :src="creator.avatar" alt="">  <!-- -->
                         </div>
                         <div class="username">
-                        <a href="#">@{{ current_user.user }}</a>
+                        <a href="#">@{{ creator.user }}</a>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,8 @@ export default {
       likes: 15,
 
       creator: {
-        avatar: 'http://via.placeholder.com/100x100/a74848',
-        user: 'exampleCreator'
+        avatar: '',
+        user: ''
       },
       current_user: {
         avatar: '',
@@ -63,18 +63,37 @@ export default {
       dialog:false
     }
   },
+  mounted(){
+      this.creator.user=this.port.nickname;
+      this.creator.avatar=this.port.avatar; 
+      
+      const user=this.$store.getters.dbuser;
+      if(user!=null){
+        this.current_user.avatar=user.photoURL;
+        this.current_user.user=user.nickname;
+      }
+  },
   methods: {
     refreshComment () {
+      const user=this.$store.getters.dbuser;
+      if(user!=null){
+        this.current_user.avatar=user.photoURL;
+        this.current_user.user=user.nickname;
+      }
+      console.log(this.port)
       this.comments = [];
+      this.creator.user=this.port.nickname;
+      this.creator.avatar=this.port.avatar; 
       this.getCommentList();
     },
-    submitComment: function(reply) {
+    submitComment(reply){
       const user=this.$store.getters.dbuser;
-      console.log(user);  
       if(user !=null){      
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
+        var key=user.email.split('@')[0];
         this.comments.push({
+          //user에는 user의 nickname을 key값으로 가져온다.
           id: user.email,
           user: user.nickname,
           avatar: user.photoURL,
@@ -83,34 +102,49 @@ export default {
 
         firestore.collection('portfolios').doc(this.port.id).collection('commentList')
         .add({
-          id : user.email,
-          name : user.nickname,
+          //email parsing 후(@앞 부분) key로 저장할것
+          id : key,
           text : reply, 
           time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
           avatar : user.photoURL
         })
       }
 
-      //여기에 파베에 insert하는 것으로 바
+        if(user!=null){
+          this.current_user.avatar=user.photoURL;
+          this.current_user.user=user.nickname;
+        }
     },
     getCommentList(){
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       commentList
-        .orderBy('time_stamp', 'asc')
+        .orderBy('time_stamp', 'desc')
         .get()
         .then((docSnapshots) => {
             docSnapshots.docs.map((doc) => {
-            let data = doc.data() 
-            console.log(data);
-            this.comments.push({
-              id : data.id,
-              avatar : data.avatar,
-              user : data.name,
-              text : data.text
-            })
-            })
-        })  
-    }
+            let data = doc.data()
+            data.key=doc.id;
+            var getKey=data.id;
+            var query=firebase.database().ref("user").orderByKey();
+            query.once("value")
+              .then((snapshot)=>{
+                snapshot.forEach((childSnapshot)=>{
+                  var key=childSnapshot.key;
+                  var childData=childSnapshot.val();
+                  if(key===getKey){
+                    this.comments.push({
+                      key: data.key,
+                      id : data.id,
+                      avatar : data.avatar,
+                      user : childData.nickname,
+                      text : data.text  
+                    })
+                  }
+                })
+              })
+            });
+          })
+      },
   },
   props: ['port']
 }
@@ -122,7 +156,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2c3e50; 
   margin-top: 60px;
 }
 a {

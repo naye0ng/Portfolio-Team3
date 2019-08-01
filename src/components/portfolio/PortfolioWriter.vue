@@ -122,7 +122,9 @@ export default {
       selectUrl : '',
       storageUrl : '',
       portfolioId : '',
+      userNick : '',
       userEmail : '',
+      avatar : '',
       dialog: false
     };
   },
@@ -135,6 +137,9 @@ export default {
     this.title = this.$route.params.title
     this.imageUrl = this.$route.params.imgSrc
     this.text = this.$route.params.body
+    const user=this.$store.getters.dbuser;
+    this.avatar=user.photoURL;
+    this.userNick=user.nickname;
     
     //Get userinfo from vuex
     if (this.$route.params.user){
@@ -173,7 +178,7 @@ export default {
       else {
         //Call Firebase service
         console.log(this.title)
-        FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.imageUrl, this.portfolioId)
+        FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.imageUrl, this.portfolioId, this.avatar, this.userNick)
         this.dialog = false
 
         //Reinitialize data
@@ -182,7 +187,8 @@ export default {
         this.imageFile = ''
         this.text = ''
         this.title = ''
-
+        this.avatar=''
+        this.userNick=''
         //Popup
         this.$swal({
           type : 'success',

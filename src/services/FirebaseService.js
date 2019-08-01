@@ -187,15 +187,18 @@ export default {
         })
       })
   },
-  postPortfolio(user, title, body, img, id) {
+  postPortfolio(user, title, body, img, id, avatar, nickname) {
       var date = new Date()
+      console.log("here is avatar : "+  avatar)
       if(id != null) {
         firestore.collection(PORTFOLIOS).doc(id).set({
           user,
           title,
           body,
           img,
-          created_at: date //firebase.firestore.FieldValue.serverTimestamp()
+          avatar,
+          nickname,
+          created_at: date, //firebase.firestore.FieldValue.serverTimestamp(),
         }).then(function(){
           console.log("Modify portfolio succeed")
         }).catch(function() {
@@ -208,6 +211,8 @@ export default {
           title,
           body,
           img,
+          avatar,
+          nickname,
           created_at: date//firebase.firestore.FieldValue.serverTimestamp()
         }).then(function(){
           console.log("Post portfolio succeed")
