@@ -4,7 +4,7 @@
             <single-comment 
                 v-for="comment in comments"
                 :comment="comment"
-                :key="comment.id"
+                :key="comment.key"
             ></single-comment>
         </div>
         <hr>
@@ -52,7 +52,7 @@ const firestore = firebase.firestore()
               }
             }
         },
-        props: ['port','comments', 'current_user', 'comments_wrapper_classes']
+        props: ['port','comments', 'current_user', 'comments_wrapper_classes'],
     }
 </script>
 

@@ -12,7 +12,7 @@
 <script>
     export default {
         name: 'singleComment',
-        props: ['comment']
+        props: ['comment'],
     }
 </script>
 
