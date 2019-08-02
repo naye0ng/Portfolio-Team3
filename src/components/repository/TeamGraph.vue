@@ -148,7 +148,7 @@ export default {
             m_won += 1;
           } else if (author == "Yongbeom Jo") {
             m_jo += 1;
-          } else if (author == "KimTongWook") {
+          } else if (author == "KimTongWook" && author == "ehddnr8813") {
             m_tong += 1;
           } else {
             m_ah += 1;
