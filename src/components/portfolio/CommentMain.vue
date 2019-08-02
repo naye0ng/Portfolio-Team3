@@ -1,38 +1,40 @@
 <template>
     <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="600px">
-            <template v-slot:activator="{ on }">
-                <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
-                    <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
-                </v-btn>
-            </template>
-            <div id="main">
-                <div class="comments-outside">
-                <div class="comments-header">
-                    <div class="comments-stats">
-                        <span><i class="fa fa-thumbs-up"></i> {{ likes }}</span>
-                        <span><i class="fa fa-comment"></i> {{ comments.length }}</span>
-                    </div>
-                    <div class="post-owner">
-                        <div class="avatar">
-                        <img :src="creator.avatar" alt="">  <!-- -->
-                        </div>
-                        <div class="username">
-                        <a href="#">@{{ creator.user }}</a>
-                        </div>
-                    </div>
-                </div>
-                <comments 
-                :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
-                :comments="comments"
-                :current_user="current_user"
-                :port="this.port"
-                @submit-comment="submitComment"
-                ></comments>
-                </div>
+      <v-dialog v-model="dialog" max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
+            <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
+          </v-btn>
+        </template>
+        <div id="main">
+          <div class="comments-outside">
+          <div class="comments-header">
+            <div class="comments-stats">
+              <!-- <span><i class="fa fa-thumbs-up"></i> {{ likes }}</span> -->
+              <span><i class="fa fa-comment"></i> {{ comments.length }}</span>
             </div>
-        </v-dialog> 
-    </v-layout>
+            <div class="post-owner">
+              <div class="avatar">
+              <img :src="creator.avatar" alt="">  <!-- -->
+              </div>
+              <div class="username">
+              <a href="#">@{{ creator.user }}</a>
+              </div>
+            </div>
+          </div>
+          <comments 
+            :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
+            :comments="comments"
+            :current_user="current_user"
+            :port="this.port"
+            @submit-comment="submitComment"
+            @big_deleted="big_deleted"
+          >
+          </comments>
+        </div>
+      </div>
+    </v-dialog> 
+  </v-layout>
 </template>
 
 <script>
@@ -47,8 +49,6 @@ export default {
   },
   data() {
     return {
-      likes: 15,
-
       creator: {
         avatar: '',
         user: ''
@@ -57,21 +57,18 @@ export default {
         avatar: '',
         user: ''
       },
-      comments: [
-
-      ],
-      dialog:false
+      comments: [],
+      dialog:false,
     }
   },
   mounted(){
-      this.creator.user=this.port.nickname;
-      this.creator.avatar=this.port.avatar; 
-      
-      const user=this.$store.getters.dbuser;
-      if(user!=null){
-        this.current_user.avatar=user.photoURL;
-        this.current_user.user=user.nickname;
-      }
+    this.creator.user=this.port.nickname;
+    this.creator.avatar=this.port.avatar;
+    const user=this.$store.getters.dbuser;
+    if(user!=null){
+      this.current_user.avatar=user.photoURL;
+      this.current_user.user=user.nickname;
+    }
   },
   methods: {
     refreshComment () {
@@ -80,70 +77,82 @@ export default {
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.nickname;
       }
-      console.log(this.port)
+      // console.log(this.port)
       this.comments = [];
       this.creator.user=this.port.nickname;
       this.creator.avatar=this.port.avatar; 
       this.getCommentList();
     },
+    big_deleted(key){
+      for (let i=0;i<this.comments.length;i++){
+        if (this.comments[i].key == key){
+          this.comments.splice(i,1);
+          break;
+        }
+      }
+      // this.comments.forEach(comment => {
+      //   if (comment.key === key){
+      //     this.comments.pop(comment);
+      //     return
+      //   }
+      // })
+    },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
+      
       if(user !=null){      
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
         var key=user.email.split('@')[0];
-        this.comments.push({
-          //user에는 user의 nickname을 key값으로 가져온다.
-          id: user.email,
-          user: user.nickname,
-          avatar: user.photoURL,
-          text: reply
-        });
-
+        var date = new Date();
         firestore.collection('portfolios').doc(this.port.id).collection('commentList')
         .add({
           //email parsing 후(@앞 부분) key로 저장할것
-          id : key,
+          id: key,
           text : reply, 
-          time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
+          // time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
+          time_stamp : date,
           avatar : user.photoURL
+        }).then(ref=>{
+          this.comments.push({
+            key: ref.id,
+            id : key,
+            avatar : this.current_user.avatar,
+            user : this.current_user.user,
+            text : reply,
+          })
         })
       }
-
-        if(user!=null){
-          this.current_user.avatar=user.photoURL;
-          this.current_user.user=user.nickname;
-        }
+      if(user!=null){
+        this.current_user.avatar=user.photoURL;
+        this.current_user.user=user.nickname;
+      }
     },
     getCommentList(){
+      this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       commentList
-        .orderBy('time_stamp', 'desc')
+        .orderBy('time_stamp', 'asc')
         .get()
         .then((docSnapshots) => {
-            docSnapshots.docs.map((doc) => {
-            let data = doc.data()
-            data.key=doc.id;
-            var getKey=data.id;
-            var query=firebase.database().ref("user").orderByKey();
-            query.once("value")
-              .then((snapshot)=>{
-                snapshot.forEach((childSnapshot)=>{
-                  var key=childSnapshot.key;
-                  var childData=childSnapshot.val();
-                  if(key===getKey){
-                    this.comments.push({
-                      key: data.key,
-                      id : data.id,
-                      avatar : data.avatar,
-                      user : childData.nickname,
-                      text : data.text  
-                    })
-                  }
-                })
+          docSnapshots.docs.map((doc) => {
+          console.log(doc)
+          let data = doc.data()
+          console.log(doc.data())
+          data.key=doc.id;
+          var getKey=data.id;
+
+            firebase.database().ref("user").child(getKey).once('value').then(snap=>{
+              this.comments.push({
+                key : data.key,
+                id: data.id,
+                avatar : data.avatar,
+                user : snap.val().nickname,
+                text: data.text
               })
-            });
+            })
           })
+        })
       },
   },
   props: ['port']
@@ -204,4 +213,5 @@ hr {
 .post-owner .username > a {
   color: #333;
 }
+
 </style>

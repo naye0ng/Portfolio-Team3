@@ -5,6 +5,8 @@
                 v-for="comment in comments"
                 :comment="comment"
                 :key="comment.key"
+                :port="port"
+                @deleted="deleted"
             ></single-comment>
         </div>
         <hr>
@@ -50,6 +52,9 @@ const firestore = firebase.firestore()
                     this.$emit('submit-comment', this.reply);
                     this.reply = '';
               }
+            },
+            deleted(key){
+                this.$emit('big_deleted',key);
             }
         },
         props: ['port','comments', 'current_user', 'comments_wrapper_classes'],
