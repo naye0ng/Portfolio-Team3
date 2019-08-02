@@ -131,7 +131,7 @@ export default {
     getCommentList(){
       this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
-      console.log(commentList.get());
+      // console.log(commentList.get());
       commentList
         .orderBy('time_stamp', 'asc')
         .get()
