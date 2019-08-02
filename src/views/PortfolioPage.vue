@@ -16,7 +16,7 @@
                 }}">
                 <!-- v-if : Check login status -->
                 <button
-                  v-if="user != null"
+                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
                   class="button button--wayra button--border-medium button--text-medium button--size-s"
                   style="max-width: 160px;padding:0.5em 1em;">
                   포트폴리오 작성

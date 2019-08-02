@@ -288,22 +288,27 @@ export default {
       .then((docSnapshots) => {
         return docSnapshots.docs.map((doc) => {
           let data = doc.data()
+          // console.log(data);
           // Get firestore documentID
+
           data.id = doc.id;
           data.created_at = new Date(data.created_at.toDate())
           return data
         })
       })
   },
-  postPortfolio(user, title, body, img, id) {
+  postPortfolio(user, title, body, img, id, avatar, nickname) {
       var date = new Date()
+      console.log("here is avatar : "+  avatar)
       if(id != null) {
         firestore.collection(PORTFOLIOS).doc(id).set({
           user,
           title,
           body,
           img,
-          created_at: date //firebase.firestore.FieldValue.serverTimestamp()
+          avatar,
+          nickname,
+          created_at: date, //firebase.firestore.FieldValue.serverTimestamp(),
         }).then(function(){
           console.log("Modify portfolio succeed")
         }).catch(function() {
@@ -316,6 +321,8 @@ export default {
           title,
           body,
           img,
+          avatar,
+          nickname,
           created_at: date//firebase.firestore.FieldValue.serverTimestamp()
         }).then(function(){
           console.log("Post portfolio succeed")
@@ -338,7 +345,7 @@ export default {
       .then(doc => {
         var data = doc.data();
         data.created_at = new Date(data.created_at.toDate());
-        data.id = id;
+        data.id = doc.id;
         return data;
       });
   },
@@ -363,6 +370,101 @@ export default {
         else{
           return null;
         }
+      })
+  },
+  getTags() {
+    const tagsCollection = firestore.collection(TAGS)
+    return tagsCollection
+      .get()
+      .then((docSnapshots) => {
+        return docSnapshots.docs.map((doc) => {
+          let data = doc.data()
+          // Get firestore documentID
+          data.id = doc.id;
+          return data
+        })
+      })
+  },
+  async deletePortLike(portid, useremail){
+    await firestore.collection('portfolios').doc(portid).collection('likeList').doc(useremail).delete();
+    return true;
+  },
+  async addPortLike(portid, useremail){
+    await firestore.collection('portfolios').doc(portid).collection('likeList').doc(useremail).set({
+      created_at : firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    return true;
+  },
+  checkPortLike(portid, useremail){
+    const likes = firestore.collection('portfolios').doc(portid).collection('likeList').doc(useremail);
+    return likes.get()
+    .then(doc => {
+      if (doc.exists){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  },
+  getPortLikeCount(portid){
+    return firestore.collection(PORTFOLIOS).doc(portid).collection('likeList').get().then(snap => {
+      return snap.size // will return the collection size
+   });
+  },
+  getPortLikers(portid){
+    const portsCollection = firestore.collection(PORTFOLIOS).doc(portid).collection('likeList')
+    return portsCollection
+      .orderBy('created_at','desc')
+      .get()
+      .then((docSnapshots) => {
+        return docSnapshots.docs.map((doc) => {
+          let data = doc.data()
+          // Get firestore documentID
+          data.user = doc.id;
+          return data
+        })
+      })
+  },
+  async deletePostLike(postid, useremail){
+    await firestore.collection(POSTS).doc(postid).collection('likeList').doc(useremail).delete();
+    return true;
+  },
+  async addPostLike(postid, useremail){
+    await firestore.collection(POSTS).doc(postid).collection('likeList').doc(useremail).set({
+      created_at : firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    return true;
+  },
+  checkPostLike(postid, useremail){
+    const likes = firestore.collection(POSTS).doc(postid).collection('likeList').doc(useremail);
+    return likes.get()
+    .then(doc => {
+      if (doc.exists){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  },
+  getPostLikeCount(postid){
+    return firestore.collection(POSTS).doc(postid).collection('likeList').get().then(snap => {
+      return snap.size // will return the collection size
+   });
+  },
+  getPostLikers(postid){
+    const postsCollection = firestore.collection(POSTS).doc(postid).collection('likeList')
+    return postsCollection
+      .orderBy('created_at','desc')
+      .get()
+      .then((docSnapshots) => {
+        return docSnapshots.docs.map((doc) => {
+          let data = doc.data()
+          // Get firestore documentID
+          data.user = doc.id;
+          return data
+        })
       })
   },
   curUser() {

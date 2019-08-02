@@ -31,11 +31,31 @@ import SnsService from "@/services/login/SnsService";
 
 export default {
   name: "SnsLogin",
+  data(){
+    return{
+      photoURL : "",
+    }
+  },
   components:{
     SnsService,
   },
   methods: {
-    registerUserInfo(result) {
+    async useRandomImg(){ // RandomImgBtn
+      this.photoURL = 'https://source.unsplash.com/random/100x100'
+      await this.onUrlImagePicked(this.photoURL)
+    },
+    async onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+      const image2base64 = require('image-to-base64');
+      await image2base64(url)
+        .then(
+          (response) => {
+              this.photoURL = 'data:image/jpeg;base64,' + response
+            }
+        )
+    },
+    async registerUserInfo(result) {
+      await this.useRandomImg();
+
       var email = result.user.email;
       var displayName = result.user.displayName;
       var emailKey = email.split('@')[0];
@@ -48,8 +68,9 @@ export default {
         name: displayName,
         answer: '',
         telephone: '',
-        nickName : displayName,
-        accessLevel : "0" // 권한 부여 - 방문자
+        nickname : displayName,
+        accessLevel : "0", // 권한 부여 - 방문자
+        photoURL : this.photoURL // : 포토 박아주고 이름 맞추고
       };
 
       ref.once("value").then(snapshot => {
@@ -57,7 +78,7 @@ export default {
           if(hasKey) {
             // 데이터베이스에 이미 존재하는 경우 => 소셜 로그인 시 vuex 저장
             this.$store.commit("setDBUser",snapshot.val()[emailKey]);
-            console.log(this.$store.getters.dbuser)
+            // console.log(this.$store.getters.dbuser)
           } else {
             // 데이터베이스에 존재하지 않는 경우 - 처음 로그인 => user를 vuex 저장
             ref.child(emailKey) // key값 부여 - email의 앞부분
@@ -65,7 +86,7 @@ export default {
             .then(data => {
               console.log("회원가입완료--db")
               this.$store.commit("setDBUser",user);
-              console.log(this.$store.getters.dbuser)
+              // console.log(this.$store.getters.dbuser)
             })
             .catch(error => {
               console.log(error);

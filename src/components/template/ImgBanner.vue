@@ -2,6 +2,9 @@
   <div class="banner">
     <div class="stars">
       <div class="twinkling">
+        <div class="p p-1"></div>
+        <div class="p2 p-2"></div>
+        <div class="p3 p-3"></div>
       </div>
     </div>
     <v-layout align-center justify-center row fill-height style="position:absolute; width:100%">
@@ -42,12 +45,6 @@ export default {
     position: relative;
     width:100%;
     height: 100vh;
-    /*
-    border-bottom:3vh solid #EC407A;
-    -moz-box-shadow: 2vh 2vh #181818;
-    -webkit-box-shadow: 2vh 2vh #181818;
-    box-shadow: 2vh 2vh #181818;
-    */
   }
   .twinkling{
     z-index:1;

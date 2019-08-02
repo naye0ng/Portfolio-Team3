@@ -115,7 +115,8 @@ export default {
       name: "",
       telephone: "",
       findPass: "",
-      answer: ""
+      answer: "",
+      photoURL : ""
     };
   },
   methods: {
@@ -123,7 +124,24 @@ export default {
       // key값 생성
       return email.split('@')[0];
     },
-    SignUp() {
+    async useRandomImg(){ // RandomImgBtn
+      this.photoURL = 'https://source.unsplash.com/random/100x100'
+      await this.onUrlImagePicked(this.photoURL)
+    },
+    async onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+      const image2base64 = require('image-to-base64');
+      await image2base64(url)
+        .then(
+          (response) => {
+              this.photoURL = 'data:image/jpeg;base64,' + response
+              console.log("i264 : " +this.photoURL)
+            }
+        )
+    },
+    async SignUp() {
+
+      await this.useRandomImg();
+
       const user = {
         email: this.email,
         password: this.password,
@@ -131,9 +149,10 @@ export default {
         name: this.name,
         answer: this.answer,
         telephone: this.telephone,
-        accessLevel : "0", // 권한 부여 - 방문자
+        accessLevel : "0", // 권한 부여 x- 방문자
         biography : '즐거운 인생, 오늘도 개발 내일도 개발🎉',
-        nickname : this.name
+        nickname : this.name,
+        photoURL : this.photoURL
       };
 
       user.password = registerService.Crypto(user.email, user.password);
@@ -175,6 +194,8 @@ export default {
             });
           }
         });
+      
+
     }
   }
 };

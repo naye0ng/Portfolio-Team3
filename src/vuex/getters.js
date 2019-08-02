@@ -22,5 +22,8 @@ export default {
   },
   dbuser(state) {
     return state.dbuser
+  },
+  isAdmin(state) {
+    return state.isAdmin
   }
 }
