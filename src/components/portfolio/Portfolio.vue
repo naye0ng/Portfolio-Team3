@@ -87,4 +87,7 @@ p {
   position: absolute;
   width: 100%;
 }
+.ql-align-center img{
+  width:100%!important;
+}
 </style>
