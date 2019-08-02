@@ -141,17 +141,20 @@ export default {
       // data에서 멤버별 커밋 수를 카운트한다.
       if (data){
         for (let i = data.length - 1; i >= 0; i--) {
-          let author = data[i].commit.author.name;
-          if (author == "naye0ng") {
-            m_na += 1;
-          } else if (author == "Park Haewon") {
-            m_won += 1;
-          } else if (author == "Yongbeom Jo") {
-            m_jo += 1;
-          } else if (author == "KimTongWook" && author == "ehddnr8813") {
-            m_tong += 1;
-          } else {
-            m_ah += 1;
+          let strCommit = data[i].commit.message
+          if (strCommit.split(' ')[0] != 'Merge'){ 
+            let author = data[i].commit.author.name;
+            if (author == "naye0ng") {
+              m_na += 1;
+            } else if (author == "Park Haewon") {
+              m_won += 1;
+            } else if (author == "Yongbeom Jo") {
+              m_jo += 1;
+            } else if (author == "KimTongWook" || author == "ehddnr8813") {
+              m_tong += 1;
+            } else {
+              m_ah += 1;
+            }
           }
         }
         // Chart.js
