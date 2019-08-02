@@ -163,7 +163,7 @@ export default {
             avatar : data.avatar,
             // user : snap.val().nickname,
             text: data.text,
-            time_stamp : data.time_stamp
+            time_stamp : new Date(data.time_stamp.toDate())
           })
         })
       })

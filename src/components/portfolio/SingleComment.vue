@@ -52,10 +52,9 @@ export default {
       this.trashicon = 'closeTrash.png'
     },
     formatedDate() {
-      if (this.comment.time_stamp){
-        console.log(this.comment.time_stamp)
-        var date = new Date(this.comment.time_stamp.toDate())
-        return `${this.port.created_at.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일`
+      if (this.comment){
+        var date= this.comment.time_stamp;
+        return `${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일`
       }
     },
     deleteComment(){
