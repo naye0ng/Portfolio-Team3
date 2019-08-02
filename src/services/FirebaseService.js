@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import FirebaseService from '@/services/FirebaseService'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
@@ -65,8 +66,9 @@ messaging.requestPermission()
   .then(function(token){
     console.log("TOKEN IS : " + token)
     //Save token into firestore database
-    this.saveTokens(token, adminflag)
-    //need to check admin
+    FirebaseService.saveTokens(token)
+    FirebaseService.getTokens()
+    //TODO : need to check admin
   })
   .catch(function(err) {
     console.log("Error occuered in RP")
@@ -86,9 +88,10 @@ messaging.onMessage(function(payload){
 
 
 export default {
-  getTokens() { 
+  async getTokens() { 
+    console.log("getTokenSequence")
     const tokenbox = []
-    firestore.collection(TOKENS)
+    await firestore.collection(TOKENS)
     .get()
     .then((docSnapshots) => {
       docSnapshots.forEach((doc) => {
@@ -98,10 +101,13 @@ export default {
     .catch(function(err){
       console.log("Get Tokens fail : " + err)
     })
+    console.log("tokenbox : " + tokenbox)
     return tokenbox
   },
   saveTokens(token) {
-    firestore.collection(TOKENS).add({
+    console.log("saveTokenSequence")
+    console.log("Token id is : " + token)
+    firestore.collection(TOKENS).doc(token).set({
       token,
     })
     .then(function(){
@@ -127,6 +133,7 @@ export default {
   },
 
   requestToFCM(to, userId) {
+    console.log("requestToFCM to : " + to)
     var request = require("request");
     request.post({
       headers: {
@@ -146,10 +153,9 @@ export default {
     });
   },
   pushBullet(id){
-    var tokenList = []
-    tokenList = this.getTokens()
+    var tokenList = FirebaseService.getTokens()
     console.log("PB TokenList : " + tokenList)
-    this.requestToFCM(tokenList, id)
+    FirebaseService.requestToFCM(tokenList, id)
   },
   getPosts() {
     const postsCollection = firestore.collection(POSTS)
@@ -167,7 +173,7 @@ export default {
       })
   },
   async postPost(user, title, body, id, tag) {
-    this.pushBullet(id)
+    FirebaseService.pushBullet(id)
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
