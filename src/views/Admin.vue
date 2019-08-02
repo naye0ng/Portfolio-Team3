@@ -37,6 +37,7 @@
 <script>
 import AdminCount from "../components/admin/AdminCount";
 import AdminTable from "../components/admin/AdminTable";
+import Firebase from "firebase";
 
 export default {
   name: "Admin",
@@ -47,6 +48,7 @@ export default {
   data() {
     return {
       page : 0,
+      user : ''
     }
   },
   methods: {
@@ -62,6 +64,16 @@ export default {
   },
   mounted() {
     this.$store.dispatch("checkUserStatus");
+    Firebase.auth().onAuthStateChanged(user => {
+      this.user = user;
+    });
+  },
+  watch: {
+    user: function(val) {
+      if (!this.user) {
+        this.$router.push("/");
+      }
+    }
   }
 };
 </script>
