@@ -179,7 +179,7 @@ export default {
       .then((docSnapshots) => {
         return docSnapshots.docs.map((doc) => {
           let data = doc.data()
-          console.log(data);
+          // console.log(data);
           // Get firestore documentID
 
           data.id = doc.id;

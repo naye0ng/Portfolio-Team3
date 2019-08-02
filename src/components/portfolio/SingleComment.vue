@@ -6,7 +6,7 @@
         <div class="text">
             <a class="username" href="#">@{{nickname }}</a> 
             <span>{{ comment.text }}</span> 
-            <span v-if="comment.id === this.$store.getters.dbuser.email.split('@')[0]">
+            <span v-if="this.$store.getters.getUser && comment.id === this.$store.getters.dbuser.email.split('@')[0]">
                 <v-btn class="ma-2" color="red" dark v-on:click="deleteComment" style="cursor:pointer;"><v-icon>delete</v-icon></v-btn>
             </span>
         </div>
