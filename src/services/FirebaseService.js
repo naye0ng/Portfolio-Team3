@@ -74,7 +74,7 @@ messaging.requestPermission()
   });
 
 // Get push in foreground status. payload = push notification
-/* messaging.onMessage(function(payload){
+  messaging.onMessage(function(payload){
   console.log('onMessage: ', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
@@ -83,7 +83,7 @@ messaging.requestPermission()
   if (Notification.permission === "granted") {
     var notification = new Notification(notificationTitle, notificationOptions);
   }
-}); */
+});
 
 
 export default {
