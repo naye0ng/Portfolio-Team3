@@ -27,7 +27,7 @@ const firestore = firebase.firestore()
             }
         },
         mounted(){
-            this.nickname = this.getNickname(this.comment.id);
+            this.getNickname(this.comment.id);
         },
         methods : {
             deleteComment(){
@@ -35,8 +35,9 @@ const firestore = firebase.firestore()
                 this.$emit('deleted',this.comment.key);
             },
             getNickname(id){
-                firebase.database().ref("user").child(id).child('nickname').on("value", snapshot => {
-                    return snapshot.val()
+                 firebase.database().ref("user").child(id).child('nickname').on("value", snapshot => {
+                    // console.log(snapshot.val())
+                    this.nickname = snapshot.val()
                 })
             }
         }
