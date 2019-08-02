@@ -48,7 +48,7 @@ export default {
         name: displayName,
         answer: '',
         telephone: '',
-        nickName : displayName,
+        nickname : displayName,
         accessLevel : "0" // 권한 부여 - 방문자
         //todo : 포토 박아주고 이름 맞추고
       };
