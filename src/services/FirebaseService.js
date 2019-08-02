@@ -72,34 +72,37 @@ messaging.requestPermission()
     console.log("Error occuered in RP")
   });
 
+// Get push in foreground status. payload = push notification
 messaging.onMessage(function(payload){
   console.log('onMessage: ', payload);
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+  };
+  if (Notification.permission === "granted") {
+    var notification = new Notification(notificationTitle, notificationOptions);
+  }
 });
 
 
 export default {
   getTokens() { 
-    const tokenbox = firestore.collection(TOKENS)
+    const tokenbox = []
+    firestore.collection(TOKENS)
+    .get()
+    .then((docSnapshots) => {
+      docSnapshots.forEach((doc) => {
+        tokenbox.push(doc.data().token)
+      })
+    })
+    .catch(function(err){
+      console.log("Get Tokens fail : " + err)
+    })
     return tokenbox
-      .get()
-      .then((docSnapshots) => {
-        return docSnapshots.docs.map((doc) => {
-          if(doc != null){
-            console.log("Get Tokens success")
-          }
-          let tokendata = doc.data()
-          tokendata.id = doc.id;
-          return tokendata
-        })
-      })
-      .catch(function(err){
-        console.log("Get Tokens fail : " + err)
-      })
   },
-  saveTokens(token, permission) {
-    firestore.collection(TOKENS).doc(token)({
+  saveTokens(token) {
+    firestore.collection(TOKENS).add({
       token,
-      permission,
     })
     .then(function(){
       console.log("Save token success")
@@ -108,8 +111,47 @@ export default {
       console.log("Save token failed : " + err)
     })
   },
+
+  saveTokenInRt(token){
+    var cbGetToekn = function (token) {
+      console.log('setLogin fcmId get : ', token);
+      var userUid = this.auth.currentUser.uid;
+      var fcmIdRef = this.database.ref('FcmId/' + userUid);
+      fcmIdRef.set(token);
+  }
+    firebase.messaging().getToken()
+      .then(cbGetToekn.bind(this))
+      .catch(function (e) {
+          console.log('fcmId 확인 중 에러 : ', e);
+      })
+  },
+
+  requestToFCM(to, userId) {
+    var request = require("request");
+    request.post({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=AAAAu19_X0Y:APA91bGKLCeCLA5KTw0l46bDqDV4wbreffDvajZRN3oW9_cgCLhzAOgYDSKpGFpIluuM2Jh8goPrFgLTqb0iT3mgUFyPBHg5abXDVX8Kw2syBXa9jV6PHSojlsv2IuF28E2TB1uy1Qvn'
+      },
+      uri: "https://fcm.googleapis.com/fcm/send",
+      body: JSON.stringify({
+        "to": to,
+        "notification": {
+          "title": "새글 알림",
+          "body": userId + "님이 글을 쓰셨습니다"
+        }
+      })
+    }, function (error, response, body) {
+      console.log(body);
+    });
+  },
+  pushBullet(id){
+    var tokenList = []
+    tokenList = this.getTokens()
+    console.log("PB TokenList : " + tokenList)
+    this.requestToFCM(tokenList, id)
+  },
   getPosts() {
-    this.push()
     const postsCollection = firestore.collection(POSTS)
     return postsCollection
       .orderBy('created_at', 'desc')
@@ -125,6 +167,7 @@ export default {
       })
   },
   async postPost(user, title, body, id, tag) {
+    this.pushBullet(id)
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
