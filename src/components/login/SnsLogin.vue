@@ -31,11 +31,31 @@ import SnsService from "@/services/login/SnsService";
 
 export default {
   name: "SnsLogin",
+  data(){
+    return{
+      photoURL : "",
+    }
+  },
   components:{
     SnsService,
   },
   methods: {
-    registerUserInfo(result) {
+    async useRandomImg(){ // RandomImgBtn
+      this.photoURL = 'https://source.unsplash.com/random/100x100'
+      await this.onUrlImagePicked(this.photoURL)
+    },
+    async onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+      const image2base64 = require('image-to-base64');
+      await image2base64(url)
+        .then(
+          (response) => {
+              this.photoURL = 'data:image/jpeg;base64,' + response
+            }
+        )
+    },
+    async registerUserInfo(result) {
+      await this.useRandomImg();
+
       var email = result.user.email;
       var displayName = result.user.displayName;
       var emailKey = email.split('@')[0];
@@ -49,8 +69,8 @@ export default {
         answer: '',
         telephone: '',
         nickName : displayName,
-        accessLevel : "0" // 권한 부여 - 방문자
-        //todo : 포토 박아주고 이름 맞추고
+        accessLevel : "0", // 권한 부여 - 방문자
+        photoURL : this.photoURL
       };
 
       ref.once("value").then(snapshot => {

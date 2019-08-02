@@ -124,7 +124,6 @@ export default {
       // key값 생성
       return email.split('@')[0];
     },
-
     async useRandomImg(){ // RandomImgBtn
       this.photoURL = 'https://source.unsplash.com/random/100x100'
       await this.onUrlImagePicked(this.photoURL)

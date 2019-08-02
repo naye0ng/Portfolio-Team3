@@ -2,7 +2,7 @@
     <v-layout row justify-center>
       <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
+          <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;" v-if="user != null && $store.getters.dbuser.accessLevel>=1">
             <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
           </v-btn>
         </template>
@@ -21,7 +21,7 @@
               <a href="#">@{{ creator.user }}</a>
               </div>
             </div>
-          </div>
+          </div>  
           <comments 
             :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
             :comments="comments"
@@ -68,6 +68,11 @@ export default {
     if(user!=null){
       this.current_user.avatar=user.photoURL;
       this.current_user.user=user.nickname;
+    }
+  },
+  computed: {
+    user(){ // Get user infomation from vuex
+      return this.$store.getters.getUser;
     }
   },
   methods: {
@@ -150,16 +155,6 @@ export default {
               // user : snap.val().nickname,
               text: data.text
             })
-
-          // firebase.database().ref("user").child(getKey).once('value').then(snap=>{
-          //   this.comments.push({
-          //     key : data.key,
-          //     id: data.id,
-          //     avatar : data.avatar,
-          //     user : snap.val().nickname,
-          //     text: data.text
-          //   })
-          // })
         })
       })
     },
