@@ -116,12 +116,10 @@ export default {
     }
   },
   mounted() {
-    /*
     var commits = this.getCommits();
     commits.then(data => {
       this.createMemberGraph(data);
     });
-    */
   }
 };
 </script>
