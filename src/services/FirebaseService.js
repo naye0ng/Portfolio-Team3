@@ -67,7 +67,6 @@ messaging.requestPermission()
     console.log("TOKEN IS : " + token)
     //Save token into firestore database
     FirebaseService.saveTokens(token)
-    FirebaseService.getTokens()
     //TODO : need to check admin
   })
   .catch(function(err) {
@@ -75,7 +74,7 @@ messaging.requestPermission()
   });
 
 // Get push in foreground status. payload = push notification
-messaging.onMessage(function(payload){
+/* messaging.onMessage(function(payload){
   console.log('onMessage: ', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
@@ -84,7 +83,7 @@ messaging.onMessage(function(payload){
   if (Notification.permission === "granted") {
     var notification = new Notification(notificationTitle, notificationOptions);
   }
-});
+}); */
 
 
 export default {
@@ -131,9 +130,18 @@ export default {
           console.log('fcmId 확인 중 에러 : ', e);
       })
   },
-
-  requestToFCM(to, userId) {
-    console.log("requestToFCM to : " + to)
+  async pushBullet(id){
+    console.log(id)
+    var tokenList = await FirebaseService.getTokens()
+      .then(function(result) {
+        result.forEach(function(singleToken) {
+          FirebaseService.ShotPushMessage(singleToken, id)
+        })
+      }
+    )
+  },
+  ShotPushMessage(to, userId) {
+    console.log("Shot to : " + to)
     var request = require("request");
     request.post({
       headers: {
@@ -152,11 +160,6 @@ export default {
       console.log(body);
     });
   },
-  pushBullet(id){
-    var tokenList = FirebaseService.getTokens()
-    console.log("PB TokenList : " + tokenList)
-    FirebaseService.requestToFCM(tokenList, id)
-  },
   getPosts() {
     const postsCollection = firestore.collection(POSTS)
     return postsCollection
@@ -173,7 +176,7 @@ export default {
       })
   },
   async postPost(user, title, body, id, tag) {
-    FirebaseService.pushBullet(id)
+    FirebaseService.pushBullet(user)
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
@@ -298,39 +301,39 @@ export default {
       })
   },
   postPortfolio(user, title, body, img, id, avatar, nickname) {
-      var date = new Date()
-      console.log("here is avatar : "+  avatar)
-      if(id != null) {
-        firestore.collection(PORTFOLIOS).doc(id).set({
-          user,
-          title,
-          body,
-          img,
-          avatar,
-          nickname,
-          created_at: date, //firebase.firestore.FieldValue.serverTimestamp(),
-        }).then(function(){
-          console.log("Modify portfolio succeed")
-        }).catch(function() {
-          console.error("Modify portfolio failed")
-        });
-      }
-      else{
-        firestore.collection(PORTFOLIOS).add({
-          user,
-          title,
-          body,
-          img,
-          avatar,
-          nickname,
-          created_at: date//firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function(){
-          console.log("Post portfolio succeed")
-        }).catch(function() {
-          console.error("Post portfolio failed")
-        });
-      }
-    
+    FirebaseService.pushBullet(user)  
+    var date = new Date()
+    console.log("here is avatar : "+  avatar)
+    if(id != null) {
+      firestore.collection(PORTFOLIOS).doc(id).set({
+        user,
+        title,
+        body,
+        img,
+        avatar,
+        nickname,
+        created_at: date, //firebase.firestore.FieldValue.serverTimestamp(),
+      }).then(function(){
+        console.log("Modify portfolio succeed")
+      }).catch(function() {
+        console.error("Modify portfolio failed")
+      });
+    }
+    else{
+      firestore.collection(PORTFOLIOS).add({
+        user,
+        title,
+        body,
+        img,
+        avatar,
+        nickname,
+        created_at: date//firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function(){
+        console.log("Post portfolio succeed")
+      }).catch(function() {
+        console.error("Post portfolio failed")
+      });
+    }
   },
   deletePortfolio(id, imgSrc){
     firestore.collection(PORTFOLIOS).doc(id).delete().then(function() {
