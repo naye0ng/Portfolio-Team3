@@ -1,40 +1,43 @@
 <template>
-    <v-layout row justify-center>
-      <v-dialog v-model="dialog" max-width="600px">
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;" v-if="user != null && $store.getters.dbuser.accessLevel>=1">
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" max-width="600px">
+      <template v-slot:activator="{ on }">
+        <v-flex xs10 mb-5>
+          <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
             <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
           </v-btn>
-        </template>
-        <div id="main">
-          <div class="comments-outside">
+        </v-flex>
+      </template>
+      <div id="main">
+        <div class="comments-outside">
           <div class="comments-header">
-            <div class="comments-stats">
-              <!-- <span><i class="fa fa-thumbs-up"></i> {{ likes }}</span> -->
-              <span><i class="fa fa-comment"></i> {{ comments.length }}</span>
-            </div>
             <div class="post-owner">
-              <div class="avatar">
-              <img :src="creator.avatar" alt="">  <!-- -->
-              </div>
+              <v-avatar size="32pt">
+                <img :src="creator.avatar" alt="">  <!-- -->
+              </v-avatar>
               <div class="username">
-              <a href="#">@{{ creator.user }}</a>
+                <strong><a href="#" class="body-1">{{ creator.user }}</a></strong>
+                <div class="caption">{{formatedDate()}}</div>
               </div>
             </div>
-          </div>  
-          <comments 
-            :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
-            :comments="comments"
-            :current_user="current_user"
-            :port="this.port"
-            @submit-comment="submitComment"
-            @big_deleted="big_deleted"
+            <div class="comments-stats">
+              <span class="body-1"><i class="fa fa-comment body-2"></i>&nbsp;{{ comments.length }}</span>
+            </div>
+          </div>
+          <v-divider class="my-0"></v-divider>
+          <comments
+          :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
+          :comments="comments"
+          :current_user="current_user"
+          :port="this.port"
+          @submit-comment="submitComment"
+          @big_deleted="big_deleted"
           >
-          </comments>
-        </div>
+        </comments>
       </div>
-    </v-dialog> 
-  </v-layout>
+    </div>
+  </v-dialog>
+</v-layout>
 </template>
 
 <script>
@@ -76,6 +79,11 @@ export default {
     }
   },
   methods: {
+    formatedDate() {
+      if (this.port.created_at){
+        return `${this.port.created_at.getFullYear()}년 ${this.port.created_at.getMonth()+1}월 ${this.port.created_at.getDate()}일`
+      }
+    },
     refreshComment () {
       const user=this.$store.getters.dbuser;
       if(user!=null){
@@ -85,7 +93,7 @@ export default {
       // console.log(this.port)
       this.comments = [];
       this.creator.user=this.port.nickname;
-      this.creator.avatar=this.port.avatar; 
+      this.creator.avatar=this.port.avatar;
       this.getCommentList();
     },
     big_deleted(key){
@@ -104,8 +112,8 @@ export default {
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
-      
-      if(user !=null){      
+
+      if(user !=null){
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
         var key=user.email.split('@')[0];
@@ -114,7 +122,7 @@ export default {
         .add({
           //email parsing 후(@앞 부분) key로 저장할것
           id: key,
-          text : reply, 
+          text : reply,
           // time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
           time_stamp : date,
           avatar : user.photoURL
@@ -138,23 +146,23 @@ export default {
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       // console.log(commentList.get());
       commentList
-        .orderBy('time_stamp', 'asc')
-        .get()
-        .then((docSnapshots) => {
-          docSnapshots.docs.map((doc) => {
+      .orderBy('time_stamp', 'asc')
+      .get()
+      .then((docSnapshots) => {
+        docSnapshots.docs.map((doc) => {
           let data = doc.data()
-          
+
           data.key=doc.id;
           var getKey=data.id;
-          
+
           // console.log(doc.data())
           this.comments.push({
-              key : data.key,
-              id: data.id,
-              avatar : data.avatar,
-              // user : snap.val().nickname,
-              text: data.text
-            })
+            key : data.key,
+            id: data.id,
+            avatar : data.avatar,
+            // user : snap.val().nickname,
+            text: data.text
+          })
         })
       })
     },
@@ -169,7 +177,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50; 
+  color: #2c3e50;
   margin-top: 60px;
 }
 a {
@@ -190,17 +198,18 @@ hr {
   background-color: white;
 }
 .comments-header {
-  background-color: rgb(231, 129, 180);
   padding: 10px;
   align-items: center;
   display: flex;
   justify-content: space-between;
-  color: #333;
+  color: #181818;
   min-height: 80px;
   font-size: 20px;
 }
-.comments-header .comments-stats span {
+.comments-header .comments-stats span{
+  margin-right: 10px;
   margin-left: 10px;
+  text-align: bottom;
 }
 .post-owner {
   display: flex;
@@ -212,7 +221,9 @@ hr {
   border-radius: 100%;
 }
 .post-owner .username {
-  margin-left: 5px;
+  margin-left: 10px;
+  text-align: left;
+  color: black;
 }
 .post-owner .username > a {
   color: #333;
