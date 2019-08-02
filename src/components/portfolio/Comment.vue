@@ -22,6 +22,7 @@
                 maxlength="250"
                 required
                 @keyup.enter="submitComment"
+                v-if="this.$store.getters.getUser"
             />
             <button class="reply--button" @click.prevent="submitComment"><i class="fa fa-paper-plane"></i> Send</button>
         </div>

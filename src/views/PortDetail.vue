@@ -23,7 +23,7 @@
 
             <div style="background-color:#ffffff;">
               <v-card-text class="pb-0 pl-4 pt-3">
-                <div v-html="port.body" style="font-size:1.24rem;"></div>
+                <div v-html="port.body" style="font-size:1.24rem;word-break: break-all;"></div>
               </v-card-text>
               <v-card-actions class="pl-3 pt-0">
                 <v-btn icon v-if="curUser && liked" @click="likes">

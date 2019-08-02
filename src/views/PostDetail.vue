@@ -16,7 +16,7 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text style="min-height:30vh;">
-              <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1"></p>
+              <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1" style="word-break: break-all;"></p>
             </v-card-text>
             <v-card-text class="pb-1 pl-3" v-if="post">
               <span style="font-size:0.89rem;" class="card-media-body-supporting-bottom-text subtle" v-for="i in post.tag.length" >
