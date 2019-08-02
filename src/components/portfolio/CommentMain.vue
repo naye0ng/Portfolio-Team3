@@ -150,16 +150,6 @@ export default {
               // user : snap.val().nickname,
               text: data.text
             })
-
-          // firebase.database().ref("user").child(getKey).once('value').then(snap=>{
-          //   this.comments.push({
-          //     key : data.key,
-          //     id: data.id,
-          //     avatar : data.avatar,
-          //     user : snap.val().nickname,
-          //     text: data.text
-          //   })
-          // })
         })
       })
     },
