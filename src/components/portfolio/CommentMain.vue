@@ -173,7 +173,7 @@ export default {
   margin-top: 60px;
 }
 a {
-  text-decoration: none;
+  text-decoration: none;  
 }
 hr {
   display: block;
