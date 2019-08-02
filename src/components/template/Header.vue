@@ -191,7 +191,7 @@ export default {
     user() {
       if (this.$store.getters.getUser) {
         if (!this.$store.getters.getUser.photoURL) {
-          this.profile_image = "https://i.stack.imgur.com/34AD2.jpg";
+          this.profile_image = this.$store.getters.dbuser.avatar;
         } else {
           this.profile_image = this.$store.getters.getUser.photoURL;
         }
