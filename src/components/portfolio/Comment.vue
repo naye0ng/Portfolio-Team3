@@ -44,6 +44,7 @@ const firestore = firebase.firestore()
             return {
                 dialog : false,
                 reply: '',
+                
             }
         },
         methods: {

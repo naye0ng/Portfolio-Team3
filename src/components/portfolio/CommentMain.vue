@@ -131,45 +131,38 @@ export default {
     getCommentList(){
       this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
+      console.log(commentList.get());
       commentList
         .orderBy('time_stamp', 'asc')
         .get()
         .then((docSnapshots) => {
           docSnapshots.docs.map((doc) => {
           let data = doc.data()
-          console.log(doc.data())
+          
           data.key=doc.id;
           var getKey=data.id;
-          // var query=firebase.database().ref("user").orderByKey();
-          // query.once("value")
-          //   .then((snapshot)=>{
-          //     snapshot.forEach((childSnapshot)=>{
-          //       var key=childSnapshot.key;
-          //       var childData=childSnapshot.val();
-          //       if(key===getKey){
-          //         this.comments.push({
-          //           key: data.key,
-          //           id : data.id,
-          //           avatar : data.avatar,
-          //           user : childData.nickname,
-          //           text : data.text,
-          //         })
-          //       }
-          //     })
-          //   })
-          // });
-            firebase.database().ref("user").child(getKey).once('value').then(snap=>{
-              this.comments.push({
-                key : data.key,
-                id: data.id,
-                avatar : data.avatar,
-                user : snap.val().nickname,
-                text: data.text
-              })
+          
+          // console.log(doc.data())
+          this.comments.push({
+              key : data.key,
+              id: data.id,
+              avatar : data.avatar,
+              // user : snap.val().nickname,
+              text: data.text
             })
-          })
+
+          // firebase.database().ref("user").child(getKey).once('value').then(snap=>{
+          //   this.comments.push({
+          //     key : data.key,
+          //     id: data.id,
+          //     avatar : data.avatar,
+          //     user : snap.val().nickname,
+          //     text: data.text
+          //   })
+          // })
         })
-      },
+      })
+    },
   },
   props: ['port']
 }
