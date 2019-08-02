@@ -68,7 +68,7 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round class="bg-3">
-           <CommentMain :port="this.port"/>          <!-- 댓글보기 --> 
+           <CommentMain :port="this.port"/>          <!-- 댓글보기 -->
           <router-link to="/portfolio">
             <button
               class="button button--wayra button--border-medium button--text-medium button--size-s"
@@ -197,7 +197,7 @@ export default {
             type: "warning"
           })
       }
-      
+
     },
     async getLike(){
       const user = this.$store.getters.getUser;
@@ -207,7 +207,7 @@ export default {
       else{
         this.liked = false;
       }
-      
+
     },
     async getLikeCount(){
       this.likecount = await FirebaseService.getPortLikeCount(this.port.id);

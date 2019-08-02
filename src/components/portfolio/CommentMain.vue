@@ -133,6 +133,7 @@ export default {
             avatar : this.current_user.avatar,
             user : this.current_user.user,
             text : reply,
+            time_stamp : date,
           })
         })
       }
@@ -161,7 +162,8 @@ export default {
             id: data.id,
             avatar : data.avatar,
             // user : snap.val().nickname,
-            text: data.text
+            text: data.text,
+            time_stamp : data.time_stamp
           })
         })
       })
@@ -181,7 +183,7 @@ export default {
   margin-top: 60px;
 }
 a {
-  text-decoration: none;  
+  text-decoration: none;
 }
 hr {
   display: block;
