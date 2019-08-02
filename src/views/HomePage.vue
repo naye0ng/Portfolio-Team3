@@ -23,6 +23,9 @@
     <div class="contents star-bg">
       <div class="stars"></div>
       <div class="twinkling"></div>
+      <div class="p p-1"></div>
+      <div class="p2 p-2"></div>
+      <div class="p3 p-3"></div>
       <v-layout py-5 mt-4 row wrap class="grey lighten-5" id="portfolio">
         <v-flex pt-3 pb-1 xs12 style="z-index:99">
           <h2 class="mt-4 pt-3 text-xs-center homepage-title text-white">PORTFOLIO</h2>
@@ -69,6 +72,9 @@
     <div class="contents star-bg">
       <div class="stars"></div>
       <div class="twinkling"></div>
+      <div class="p p-1"></div>
+      <div class="p2 p-2"></div>
+      <div class="p3 p-3"></div>
       <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
         <v-flex pt-3 xs12 style="z-index:99">
           <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
