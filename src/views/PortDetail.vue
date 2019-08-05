@@ -15,7 +15,7 @@
               <v-spacer></v-spacer>
               <v-flex hidden-xs-only class="caption grey--text pt-2 text-xs-right">
                 <v-avatar size="35px">
-                  <img :src="port.avatar" alt="">
+                  <img :src="userimg" alt="">
                 </v-avatar>
                 {{port.user}}
               </v-flex>
@@ -148,6 +148,7 @@ export default {
       likecount:0,
       likers:[],
       dialog:false,
+      userimg:"",
     };
   },
   computed: {
@@ -174,6 +175,7 @@ export default {
       this.getLike();
       this.getLikeCount();
       this.getLikers();
+      this.getUserImg(this.port.user);
     },
     deletePortfolio() {
       FirebaseService.deletePortfolio(this.port.id, this.port.img);
@@ -225,6 +227,13 @@ export default {
             .then(snapshot => {
               this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
           })
+      })
+    },
+    getUserImg(id){
+      var key=id.split('@')[0];
+      firebase.database().ref("user").child(key).child('photoURL').on("value", snapshot => {
+        // console.log(snapshot.val())
+        this.userimg = snapshot.val()
       })
     }
   }

@@ -121,19 +121,24 @@ export default {
     biography : { type : String },
     accessLevel : { type : String },
     nickname : { type : String },
-    profile_image: {type : String},
   },
   data: () => ({
-      dialog: false,
-      databio : "",
-      datatel : "",
-      datanick : "",
-      dialog2: false,
-      selectUrl:"",
-      imageName:"",
-      imageFile:"",
-      image:"",
+    dialog: false,
+    databio : "",
+    datatel : "",
+    datanick : "",
+    dialog2: false,
+    selectUrl:"",
+    imageName:"",
+    imageFile:"",
+    image:"",
   }),
+  mounted(){
+    if (this.$store.getters.dbuser.photoURL){
+      // console.log(this.$store.getters.dbuser.photoURL);
+      this.image = this.$store.getters.dbuser.photoURL;
+    }
+  },
   methods : {
     save() {
       this.dialog = false;
@@ -205,7 +210,7 @@ export default {
         fr.addEventListener('load', () => {
           this.image = fr.result
           this.imageFile = files[0]
-          console.log("url : " + this.image)
+          // console.log("url : " + this.image)
           // console.log("file : " + this.imageFile)
           // console.log(this.image.name)
         })
@@ -221,7 +226,7 @@ export default {
         .then(
           (response) => {
               this.image = 'data:image/jpeg;base64,' + response
-              console.log("i264 : " +this.image)
+              // console.log("i264 : " +this.image)
             }
         )
     },
@@ -230,6 +235,9 @@ export default {
     showLevel() {
       return this.accessLevel == "0" ? '방문자' : this.accessLevel == "1" ? '팀원' : '어드민';
     },
+    profile_image(){
+      return this.$store.getters.dbuser.photoURL;
+    }
   },
   watch:{
     profile_image(){

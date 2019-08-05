@@ -55,7 +55,6 @@
           :telephone="$store.getters.dbuser.telephone"
           :biography="$store.getters.dbuser.biography"
           :accessLevel="$store.getters.dbuser.accessLevel"
-          :profile_image="$store.getters.dbuser.photoURL"
         ></modifyProfile>
 
       </div>
