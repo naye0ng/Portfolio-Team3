@@ -127,7 +127,6 @@ export default {
     firebase.messaging().getToken()
       .then(cbGetToekn.bind(this))
       .catch(function (e) {
-          console.log('fcmId 확인 중 에러 : ', e);
       })
   },
   async pushBullet(id){

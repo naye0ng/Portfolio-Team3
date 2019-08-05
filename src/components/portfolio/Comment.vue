@@ -66,9 +66,8 @@ export default {
 
 <style scoped>
 .comments {
-  padding: 20px;
-  padding-top: 0px;
-  margin-top: 20px;
+    padding: 20px;
+    padding-top: 0px;
 }
 .comments-wrapper {
   max-height: 250px;
