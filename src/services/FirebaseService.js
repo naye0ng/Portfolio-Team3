@@ -56,25 +56,9 @@ const messaging = firebase.messaging();
 //Set VApiIdKey
 messaging.usePublicVapidKey("BMuvOdnou4GfoVG_8fSmde7sbnnFOvgMaEp7qn2vlZ5qHxF4HvGVqGz7Jrvc6NdP7KCij8fRgfyUsLUfg0M-a0g");
 
-//Request notification permission
-messaging.requestPermission()
-  .then(function() {
-    console.log("WE HAVE PERMISSION");
-    return messaging.getToken();
-  })
-  //If messaging called with token
-  .then(function(token){
-    console.log("TOKEN IS : " + token)
-    //Save token into firestore database
-    FirebaseService.saveTokens(token)
-    //TODO : need to check admin
-  })
-  .catch(function(err) {
-    console.log("Error occuered in RP")
-  });
 
 // Get push in foreground status. payload = push notification
-  messaging.onMessage(function(payload){
+messaging.onMessage(function(payload){
   console.log('onMessage: ', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
@@ -85,8 +69,25 @@ messaging.requestPermission()
   }
 });
 
-
 export default {
+  getPushPermission(email){
+    //Request notification permission
+    messaging.requestPermission()
+    .then(function() {
+      console.log("WE HAVE PERMISSION");
+      return messaging.getToken();
+    })
+    //If messaging called with token
+    .then(function(token){
+      console.log("TOKEN IS : " + token)
+      //Save token into firestore database
+      FirebaseService.saveTokens(token, email)
+      //TODO : need to check admin
+    })
+    .catch(function(err) {
+      console.log("Error occuered in RP")
+    });
+  },
   async getTokens() { 
     console.log("getTokenSequence")
     const tokenbox = []
@@ -103,11 +104,12 @@ export default {
     console.log("tokenbox : " + tokenbox)
     return tokenbox
   },
-  saveTokens(token) {
+  saveTokens(token, email) {
     console.log("saveTokenSequence")
     console.log("Token id is : " + token)
     firestore.collection(TOKENS).doc(token).set({
       token,
+      email
     })
     .then(function(){
       console.log("Save token success")
@@ -116,31 +118,17 @@ export default {
       console.log("Save token failed : " + err)
     })
   },
-
-  saveTokenInRt(token){
-    var cbGetToekn = function (token) {
-      console.log('setLogin fcmId get : ', token);
-      var userUid = this.auth.currentUser.uid;
-      var fcmIdRef = this.database.ref('FcmId/' + userUid);
-      fcmIdRef.set(token);
-  }
-    firebase.messaging().getToken()
-      .then(cbGetToekn.bind(this))
-      .catch(function (e) {
-          console.log('fcmId 확인 중 에러 : ', e);
-      })
-  },
-  async pushBullet(id){
-    console.log(id)
+  async pushBullet(id, title, type, img){
+    console.log("pushbullet : " + img)
     var tokenList = await FirebaseService.getTokens()
       .then(function(result) {
         result.forEach(function(singleToken) {
-          FirebaseService.ShotPushMessage(singleToken, id)
+          FirebaseService.ShotPushMessage(singleToken, id, title, type, img)
         })
       }
     )
   },
-  ShotPushMessage(to, userId) {
+  ShotPushMessage(to, userId, title, type, img) {
     console.log("Shot to : " + to)
     var request = require("request");
     request.post({
@@ -152,10 +140,15 @@ export default {
       body: JSON.stringify({
         "to": to,
         "notification": {
-          "title": "새글 알림",
-          "body": userId + "님이 글을 쓰셨습니다"
+          "title": title,
+          "body": userId + "님의 새 " + type,
+          "icon": img
+          // 'https://source.unsplash.com/random/100x100' is Success
+          // '../assets/logo.png' is Fail
+          // Get Img from portfolioWriter's data() is Success
+          // Goal :: Get Post image from firestorage
         }
-      })
+      }),
     }, function (error, response, body) {
       console.log(body);
     });
@@ -175,8 +168,9 @@ export default {
         })
       })
   },
-  async postPost(user, title, body, id, tag) {
-    FirebaseService.pushBullet(user)
+  async postPost(user, title, body, id, tag, img) {
+    var type = "게시글"
+    FirebaseService.pushBullet(user, title, type, img)
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
@@ -301,7 +295,8 @@ export default {
       })
   },
   postPortfolio(user, title, body, img, id, avatar, nickname) {
-    FirebaseService.pushBullet(user)  
+    var type = "포트폴리오"
+    FirebaseService.pushBullet(user, title, type, img)  
     var date = new Date()
     console.log("here is avatar : "+  avatar)
     if(id != null) {
