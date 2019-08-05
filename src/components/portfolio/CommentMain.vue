@@ -65,8 +65,9 @@ export default {
     }
   },
   mounted(){
-    this.creator.user=this.port.nickname;
-    this.creator.avatar=this.port.avatar;
+    if (this.port){
+      this.getCreatorInfo(this.port.user);
+    }
     const user=this.$store.getters.dbuser;
     if(user!=null){
       this.current_user.avatar=user.photoURL;
@@ -74,7 +75,7 @@ export default {
     }
   },
   computed: {
-    user(){ // Get user infomation from vuex
+    user(){ // Get user information from vuex
       return this.$store.getters.getUser;
     }
   },
@@ -90,10 +91,8 @@ export default {
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.nickname;
       }
-      // console.log(this.port)
       this.comments = [];
-      this.creator.user=this.port.nickname;
-      this.creator.avatar=this.port.avatar;
+      this.getCreatorInfo(this.port.user);
       this.getCommentList();
     },
     big_deleted(key){
@@ -103,16 +102,9 @@ export default {
           break;
         }
       }
-      // this.comments.forEach(comment => {
-      //   if (comment.key === key){
-      //     this.comments.pop(comment);
-      //     return
-      //   }
-      // })
     },
     submitComment(reply){
       const user=this.$store.getters.dbuser;
-
       if(user !=null){
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
@@ -123,15 +115,11 @@ export default {
           //email parsing 후(@앞 부분) key로 저장할것
           id: key,
           text : reply,
-          // time_stamp: firebase.firestore.FieldValue.serverTimestamp(),
           time_stamp : date,
-          avatar : user.photoURL
         }).then(ref=>{
           this.comments.push({
             key: ref.id,
             id : key,
-            avatar : this.current_user.avatar,
-            user : this.current_user.user,
             text : reply,
             time_stamp : date,
           })
@@ -145,29 +133,30 @@ export default {
     getCommentList(){
       this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
-      // console.log(commentList.get());
       commentList
       .orderBy('time_stamp', 'asc')
       .get()
       .then((docSnapshots) => {
         docSnapshots.docs.map((doc) => {
           let data = doc.data()
-
           data.key=doc.id;
           var getKey=data.id;
-
-          // console.log(doc.data())
           this.comments.push({
             key : data.key,
             id: data.id,
-            avatar : data.avatar,
-            // user : snap.val().nickname,
             text: data.text,
             time_stamp : new Date(data.time_stamp.toDate())
           })
         })
       })
     },
+    getCreatorInfo(userid){
+      var key=userid.split('@')[0];
+      firebase.database().ref("user").child(key).on("value", snapshot => {
+        this.creator.avatar = snapshot.val().photoURL;
+        this.creator.user = snapshot.val().nickname;
+      })
+    }
   },
   props: ['port']
 }

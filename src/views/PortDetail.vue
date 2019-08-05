@@ -13,7 +13,12 @@
             <v-card-title primary-title class="pb-2 pt-2" style="background-color:#fff;">
               <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{port.title}}</h2>
               <v-spacer></v-spacer>
-              <v-flex hidden-xs-only class="caption grey--text pt-4 text-xs-right">{{port.user}}</v-flex>
+              <v-flex hidden-xs-only class="caption grey--text pt-2 text-xs-right">
+                <v-avatar size="35px">
+                  <img :src="userimg" alt="">
+                </v-avatar>
+                {{port.user}}
+              </v-flex>
             </v-card-title>
             <v-img
               :src="port.img"
@@ -143,6 +148,7 @@ export default {
       likecount:0,
       likers:[],
       dialog:false,
+      userimg:"",
     };
   },
   computed: {
@@ -169,6 +175,7 @@ export default {
       this.getLike();
       this.getLikeCount();
       this.getLikers();
+      this.getUserImg(this.port.user);
     },
     deletePortfolio() {
       FirebaseService.deletePortfolio(this.port.id, this.port.img);
@@ -220,6 +227,13 @@ export default {
             .then(snapshot => {
               this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
           })
+      })
+    },
+    getUserImg(id){
+      var key=id.split('@')[0];
+      firebase.database().ref("user").child(key).child('photoURL').on("value", snapshot => {
+        // console.log(snapshot.val())
+        this.userimg = snapshot.val()
       })
     }
   }

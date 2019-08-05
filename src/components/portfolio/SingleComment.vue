@@ -1,7 +1,7 @@
 <template>
   <div class="comment">
     <div class="avatar" >
-      <img :src="comment.avatar" alt="">
+      <img :src="avatar" alt="">
     </div>
     <div class="text">
       <div class="user">
@@ -53,6 +53,7 @@ export default {
   data(){
     return {
       nickname:'',
+      avatar:'',
       trashicon:'closeTrash.png',
       modifyicon:'commentModBefore.png',
       modYet: true,
@@ -60,6 +61,7 @@ export default {
   },
   mounted(){
     this.getNickname(this.comment.id);
+    this.getAvatar(this.comment.id);
   },
   methods : {
     subComment() {
@@ -122,6 +124,12 @@ export default {
       firebase.database().ref("user").child(id).child('nickname').on("value", snapshot => {
         // console.log(snapshot.val())
         this.nickname = snapshot.val()
+      })
+    },
+    getAvatar(id){
+      firebase.database().ref("user").child(id).child('photoURL').on("value", snapshot => {
+        // console.log(snapshot.val())
+        this.avatar = snapshot.val()
       })
     }
   }
