@@ -55,6 +55,7 @@
           :telephone="$store.getters.dbuser.telephone"
           :biography="$store.getters.dbuser.biography"
           :accessLevel="$store.getters.dbuser.accessLevel"
+          :profile_image="$store.getters.dbuser.photoURL"
         ></modifyProfile>
 
       </div>
@@ -91,25 +92,32 @@ export default {
     },
     async setProfile() {
       var userFromDatabase = {}
-
       await firebase.auth().onAuthStateChanged(user => {
         // 현재 계정이 연결되어 있는지 확인 for 링크 버튼
         if(user && ((user.providerData.length > 1 && user.providerData[1].providerId == "password") ||
         (user.providerData.length == 1 && user.providerData[0].providerId != "password"))) {
           this.linked = true;
-          if(user.photoURL != null) {
-            this.photoURL = user.photoURL
-          }
         }
         if (user){
           this.emailKey = user.email.split('@')[0];
         }
-
       });
     }
   },
+  computed:{
+    user() {
+      if (this.$store.getters.getUser) {
+        this.photoURL = this.$store.getters.dbuser.photoURL;
+      }
+      return this.$store.getters.getUser;
+    },
+  },
   created() {
     this.setProfile();
+  },
+  watch: {
+    user() {
+    }
   }
 };
 </script>

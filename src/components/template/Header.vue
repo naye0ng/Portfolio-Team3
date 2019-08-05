@@ -8,7 +8,8 @@
         <v-toolbar-title>&nbsp;Hello Universe;</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">  <!-- key 넣기 -->
+      <v-toolbar-items class="hidden-sm-and-down" v-for="item in items">
+        <!-- key 넣기 -->
         <v-btn flat :to="item.to" active-class="primary">{{ item.title }}</v-btn>
       </v-toolbar-items>
 
@@ -126,9 +127,9 @@ import firebase from "firebase";
 import Login from "@/components/login/Login";
 import WeatherDetail from "@/components/template/WeatherDetail";
 import Visited from "@/components/repository/Visited";
-import { access } from 'fs';
-import { isAbsolute } from 'path';
-import { isArray } from 'util';
+import { access } from "fs";
+import { isAbsolute } from "path";
+import { isArray } from "util";
 
 export default {
   name: "main-header",
@@ -143,7 +144,7 @@ export default {
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
         { title: "TEAM3", icon: "group", to: "/team3" }
       ],
-      profile_image: "",
+      profile_image: ""
     };
   },
   components: {
@@ -158,7 +159,7 @@ export default {
         title: "Notification",
         text: "우측 상단에 ☆을 눌러 즐겨찾기로 추가하세요!"
       });
-    },
+    }
   },
   computed: {
     getListTitleColor() {
@@ -172,29 +173,33 @@ export default {
       return this.$store.getters.dbuser.nickname;
     },
     user() {
-      if (this.$store.getters.getUser){
+      if (this.$store.getters.getUser) {
         this.profile_image = this.$store.getters.dbuser.photoURL;
       }
       return this.$store.getters.getUser;
     },
-    isAdmin(){
-      var typeIsAdmin = typeof(this.$store.getters.dbuser)
-      var check = false
-      if(typeIsAdmin === 'object'){
-        firebase.database().ref('user').child(this.$store.getters.dbuser.email.split('@')[0]).on("value", snapshot => {
-          var al = snapshot.val().accessLevel
-          this.$store.commit('setDBUserAL', al)
-          check =  al === '2' ? true : false          
-        })
+    isAdmin() {
+      var typeIsAdmin = typeof this.$store.getters.dbuser;
+      var check = false;
+      if (typeIsAdmin === "object") {
+        firebase
+          .database()
+          .ref("user")
+          .child(this.$store.getters.dbuser.email.split("@")[0])
+          .on("value", snapshot => {
+            var al = snapshot.val().accessLevel;
+            this.$store.commit("setDBUserAL", al);
+            check = al === "2" ? true : false;
+          });
       }
-      return check
-    },
+      return check;
+    }
   },
   watch: {
     user() {
       this.dialog = false;
     }
-  },
+  }
 };
 </script>
 <style>
@@ -216,18 +221,19 @@ export default {
 }
 
 .v-btn--icon:before {
-    background-color : transparent!important;
+  background-color: transparent !important;
 }
-.v-btn:hover, .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover {
-    background-color: rgba(1,1,1,0.5)!important;
+.v-btn:hover,
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover {
+  background-color: rgba(1, 1, 1, 0.5) !important;
 }
 .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-    background-color: transparent!important;
+  background-color: transparent !important;
 }
-#header .text-fff{
+#header .text-fff {
   color: #fff !important;
 }
 #header .v-btn:before {
-    background-color: transparent!important;
+  background-color: transparent !important;
 }
 </style>
