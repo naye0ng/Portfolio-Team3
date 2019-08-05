@@ -64,6 +64,10 @@
               <v-spacer></v-spacer>
               <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
             </v-card-actions>
+            <v-divider></v-divider>
+            <PostComment
+              :id="post.id"
+            ></PostComment>
           </v-card>
         </v-flex>
       </v-layout>
@@ -114,13 +118,15 @@
 <script>
 import PostList from "../components/post/PostList";
 import FirebaseService from "@/services/FirebaseService";
+import PostComment from "@/components/post/PostComment"
 import  firebase  from 'firebase';
 import Swal from "sweetalert2";
 
 export default {
   name: "PostDetail",
   components: {
-    PostList
+    PostList,
+    PostComment
   },
   data(){
     return {
