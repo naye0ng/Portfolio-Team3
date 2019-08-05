@@ -8,27 +8,27 @@
       </div>
     </div>
     <v-layout align-center justify-center row fill-height style="position:absolute; width:100%">
-      <v-flex text-xs-center>
-        <span class="text-shadow font-weight-light">
+      <v-flex v-show="!this.$store.state.isLoading" class="v-fade text-xs-center">
+        <span class="text-shadow font-weight-light" style="width: 100%;">
           <slot name="text"/>
         </span>
       </v-flex>
+      <SolarSystemLoading v-show="this.$store.state.isLoading" class="v-fade"></SolarSystemLoading> 
     </v-layout>
   </div>
 </template>
-
-
-
 <script>
+import SolarSystemLoading from './solarSystemLoading'
 
 export default {
 	name: 'ImgBanner',
 	props: {
 		imgSrc: {type: String},
 		text: {type: String}
-	},
-	methods: {
-	},
+  },
+  components:{
+     SolarSystemLoading
+  },
 }
 </script>
 <style>

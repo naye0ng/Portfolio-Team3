@@ -72,11 +72,14 @@ export default {
         // 다음 호출이 필요한 경우(isNext === true) 재귀적으로 getCommits함수를 호출한다.
         this.getCommits(nextUrl, data);
       } else {
-        this.createTeamGraph(data);
-        this.createMemberGraph(data);
-        // team3 web site graph
-        this.createVisitorChart();
-        this.socialLoginChart();
+        this.$store.state.isLoading = false;
+        setTimeout(() => {
+          this.createTeamGraph(data);
+          this.createMemberGraph(data);
+          // team3 web site graph
+          this.createVisitorChart();
+          this.socialLoginChart();
+        }, 300);
       }
     },
     createTeamGraph(data) {
@@ -309,7 +312,6 @@ export default {
       "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
       []
     );
-    
   }
 };
 </script>

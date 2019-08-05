@@ -36,3 +36,15 @@ export default {
   }
 }
 </script>
+<style>
+.v-fade {
+  display: inherit !important; /* override v-show display: none */
+  transition: opacity 0.5s;
+  z-index:9999;
+}
+.v-fade[style*="display: none;"] {
+  opacity: 0;
+  pointer-events: none; /* disable user interaction */
+  user-select: none; /* disable user selection */
+}
+</style>

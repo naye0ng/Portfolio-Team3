@@ -15,6 +15,7 @@ const state = {
   searchtag:"",
   dbuser : '',
   isAdmin : false,
+  isLoading : true,
 }
 
 export default new Vuex.Store({

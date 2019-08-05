@@ -104,13 +104,17 @@ export default {
         if (user){
           this.emailKey = user.email.split('@')[0];
         }
+        setTimeout(() => {
+          this.$store.state.isLoading = false; 
+          console.log('dddd2', this.$store.state.isLoading)
+        }, 1000);
 
       });
     }
   },
   created() {
     this.setProfile();
-  }
+  },
 };
 </script>
 <style>

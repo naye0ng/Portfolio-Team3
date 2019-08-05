@@ -42,7 +42,8 @@ export default {
 	methods: {
     // Get All Portfolios infomation from firestore database
 		async getPortfolios() {
-			this.portfolios = await FirebaseService.getPortfolios()
+      this.portfolios = await FirebaseService.getPortfolios()
+      this.$store.state.isLoading = false;
 		},
 		loadMorePortfolios() {
       this.loadMore = true;

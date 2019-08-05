@@ -51,7 +51,7 @@ export default {
     return {
       dialog: false // Modal Condition
     };
-  }
+  },
 };
 </script>
 
