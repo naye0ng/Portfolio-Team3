@@ -172,6 +172,9 @@ export default {
       return this.$store.getters.dbuser.nickname;
     },
     user() {
+      if (this.$store.getters.getUser){
+        this.profile_image = this.$store.getters.dbuser.photoURL;
+      }
       return this.$store.getters.getUser;
     },
     isAdmin(){
@@ -185,17 +188,10 @@ export default {
         })
       }
       return check
-    }
+    },
   },
   watch: {
     user() {
-      if (this.$store.getters.getUser) {
-        if (!this.$store.getters.getUser.photoURL) {
-          this.profile_image = this.$store.getters.dbuser.avatar;
-        } else {
-          this.profile_image = this.$store.getters.getUser.photoURL;
-        }
-      }
       this.dialog = false;
     }
   },
