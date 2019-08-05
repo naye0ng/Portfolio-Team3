@@ -366,15 +366,15 @@ export default {
 
 .button--wayra2:hover {
   color: #f7f7f7;
-  border-color: #5349d6;
+  border-color: #555a9c;
 }
 .button--wayra2.button--inverted:hover {
-  color: #5349d6;
+  color: #555a9c;
   border-color: #f7f7f7;
 }
 .button--wayra2:hover::before {
   opacity: 1;
-  background-color: #5349d6;
+  background-color: #555a9c;
   -webkit-transform: rotate3d(0, 0, 1, 0deg);
   transform: rotate3d(0, 0, 1, 0deg);
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
