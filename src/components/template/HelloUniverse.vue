@@ -1,48 +1,52 @@
 <template>
   <div id="universe-body">
-    <div class="stars"></div>      
+    <div class="stars"></div>
     <div class="twinkling"></div>
+    <div class="p p-1"></div>
+    <div class="p2 p-2"></div>
+    <div class="p3 p-3"></div>
     <div id="solarSystem" class="planetScaleIn">
       <div id="flash"></div>
 
       <div class="shell" id="layer8">
         <div class="in">
-          <div class="planet medium" id="uranus"></div>
+          <div class="planet small basic" id="na"></div>
         </div>
       </div>
       <div class="shell" id="layer7">
         <div class="in">
-          <div class="planet medium" id="neptune"></div>
+          <div class="planet medium" id="#neptune"></div>
         </div>
       </div>
       <div class="shell" id="layer6">
         <div class="in">
-          <div class="planet large" id="saturn"></div>
+          <div class="planet large" id="won"></div>
         </div>
       </div>
       <div class="shell" id="layer5">
         <div class="in">
-          <div class="planet large" id="jupiter"></div>
+          <div class="planet medium" id="bum"></div>
         </div>
       </div>
       <div class="shell" id="layer4">
         <div class="in">
-          <div class="planet small basic" id="mars"></div>
+          <div class="planet small basic" id="na"></div>
         </div>
       </div>
+      <!--  -->
       <div class="shell" id="layer3">
         <div class="in">
-          <div class="planet small" id="earth"></div>
+          <div class="planet large" id="ah"></div>
         </div>
       </div>
       <div class="shell" id="layer2">
         <div class="in">
-          <div class="planet small basic" id="venus"></div>
+          <div class="planet medium" id="dong"></div>
         </div>
       </div>
       <div class="shell" id="layer1">
         <div class="in">
-          <div class="planet small basic" id="mercury"></div>
+          <div class="planet small basic" id="na"></div>
         </div>
       </div>
       <div class="sun sunStyle"></div>
@@ -92,30 +96,30 @@
 </template>
 <script>
 export default {
-  name: 'HelloUniverse',
-  methods : {
+  name: "HelloUniverse",
+  methods: {
     setHelloUniverse() {
       setTimeout(() => {
-          this.$store.state.isHelloUniverse = false
-        }, 3000);
+        this.$store.state.isHelloUniverse = false;
+      }, 3000);
     }
   },
-  mounted(){
-    var sun = document.querySelector('.sun')
-    var bkrd = document.querySelector('.outerShell')
-    var solarSystem = document.querySelector('#solarSystem')
-    var blackHole = document.querySelector('#blackHole')
-    var setHelloUniverse = this.setHelloUniverse
+  mounted() {
+    var sun = document.querySelector(".sun");
+    var bkrd = document.querySelector(".outerShell");
+    var solarSystem = document.querySelector("#solarSystem");
+    var blackHole = document.querySelector("#blackHole");
+    var setHelloUniverse = this.setHelloUniverse;
 
-    sun.addEventListener('click', function() {
-      sun.className = "blackHole"
-      bkrd.className = "implode"
-      solarSystem.className = "planetScaleOut"
-      blackHole.style.display="block";
-      setHelloUniverse()
+    sun.addEventListener("click", function() {
+      sun.className = "blackHole";
+      bkrd.className = "implode";
+      solarSystem.className = "planetScaleOut";
+      blackHole.style.display = "block";
+      setHelloUniverse();
     });
   }
-}
+};
 </script>
 <style>
 #universe-body {
@@ -128,8 +132,8 @@ export default {
   position: relative;
 }
 #solarSystem {
-  z-index:999;
-  width:100%;
+  z-index: 999;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -147,12 +151,12 @@ export default {
   0% {
     height: 0;
     width: 0;
-    background: rgba(256,256,256, 0.3);
+    background: rgba(256, 256, 256, 0.3);
   }
   100% {
     height: 100%;
     width: 100%;
-    background: rgba(256,256,256, 0);
+    background: rgba(256, 256, 256, 0);
   }
 }
 
@@ -201,8 +205,8 @@ export default {
 }
 
 #layer2 {
-  width: 260px;
-  height: 260px;
+  width: 300px;
+  height: 300px;
   transform: rotate(90deg);
 }
 #layer2 .in {
@@ -210,8 +214,8 @@ export default {
 }
 
 #layer3 {
-  width: 325px;
-  height: 325px;
+  width: 400px;
+  height: 400px;
   transform: rotate(220deg);
 }
 #layer3 .in {
@@ -219,8 +223,8 @@ export default {
 }
 
 #layer4 {
-  width: 390px;
-  height: 390px;
+  width: 430px;
+  height: 430px;
   transform: rotate(290deg);
 }
 #layer4 .in {
@@ -228,8 +232,8 @@ export default {
 }
 
 #layer5 {
-  width: 520px;
-  height: 520px;
+  width: 550px;
+  height: 550px;
   transform: rotate(150deg);
 }
 #layer5 .in {
@@ -237,16 +241,17 @@ export default {
 }
 
 #layer6 {
-  width: 680px;
-  height: 680px;
+  width: 600px;
+  height: 600px;
+  transform: rotate(50deg);
 }
 #layer6 .in {
   animation: orbit 30s linear infinite;
 }
 
 #layer7 {
-  width: 800px;
-  height: 800px;
+  width: 630px;
+  height: 630px;
   transform: rotate(270deg);
 }
 #layer7 .in {
@@ -272,17 +277,37 @@ export default {
 .sun:hover {
   animation: blackHole 1s linear infinite;
   animation-direction: reverse;
-  background: rgba(0,0,0, 1);
-  box-shadow: 6px 0 0 10px rgba(256,256,256,  0.2), -6px 0 0 20px rgba(256,256,256,  0.2),
-    0 6px 0 30px rgba(256,256,256, 0.2), 0 -6px 0 35px rgba(256,256,256, 0.1);
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 6px 0 0 10px rgba(256, 256, 256, 0.2),
+    -6px 0 0 20px rgba(256, 256, 256, 0.2),
+    0 6px 0 30px rgba(256, 256, 256, 0.2),
+    0 -6px 0 35px rgba(256, 256, 256, 0.1);
+}
+.sun:hover {
+  animation: blackHole 1s linear infinite;
+  animation-direction: reverse;
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 6px 0 0 10px rgba(256, 256, 256, 0.2),
+    -6px 0 0 20px rgba(256, 256, 256, 0.2),
+    0 6px 0 30px rgba(256, 256, 256, 0.2),
+    0 -6px 0 35px rgba(256, 256, 256, 0.1);
+}
+.sun:hover::after {
+  content: "Click!";
+  top: 36%;
+  left: 24%;
+  position: absolute;
+  color: #ffffff;
+  font-size: 30px;
 }
 
 .sunStyle {
-  background-color: #f7cf20;
+  background-color: rgba(255, 99, 132);/*#f7cf20;*/
   animation: coronaFlare 1s ease-in-out infinite;
   animation-direction: alternate;
-  box-shadow: 3px 0 0 10px rgba(247,207,32, 0.2), -3px 0 0 20px rgba(247,207,32, 0.2),
-    0 3px 0 30px rgba(247,207,32, 0.2), 0 -3px 0 35px rgba(247,207,32, 0.1);
+  box-shadow: 3px 0 0 10px rgba(247, 207, 32, 0.2),
+    -3px 0 0 20px rgba(247, 207, 32, 0.2), 0 3px 0 30px rgba(247, 207, 32, 0.2),
+    0 -3px 0 35px rgba(247, 207, 32, 0.1);
 }
 
 .blackHole {
@@ -290,72 +315,108 @@ export default {
   display: none;
   animation: blackHole 1s linear infinite;
   animation-direction: reverse;
-  background: rgba(0,0,0, 1);
-  box-shadow: 6px 0 0 10px rgba(256,256,256, 0.2), -6px 0 0 20px rgba(256,256,256,  0.2),
-    0 6px 0 30px rgba(256,256,256, 0.2), 0 -6px 0 35px rgba(256,256,256, 0.1);
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 6px 0 0 10px rgba(256, 256, 256, 0.2),
+    -6px 0 0 20px rgba(256, 256, 256, 0.2),
+    0 6px 0 30px rgba(256, 256, 256, 0.2),
+    0 -6px 0 35px rgba(256, 256, 256, 0.1);
 }
 
 @keyframes blackHole {
   0% {
     transform: rotate(0deg) scale(0.8);
-    box-shadow: 6px 0 0 20px rgba(256,256,256, 0.1), 4px 4px 0 20px rgba(256,256,256, 0.1),
-      -6px 0 0 35px rgba(256,256,256, 0.1), -4px 4px 0 35px rgba(256,256,256, 0.1),
-      0 6px 0 50px rgba(256,256,256, 0.1), -4px -4px 0 50px rgba(256,256,256, 0.1),
-      0 -6px 0 65px rgba(256,256,256, 0.1), 4px -4px 0 65px rgba(256,256,256, 0.1);
+    box-shadow: 6px 0 0 20px rgba(256, 256, 256, 0.1),
+      4px 4px 0 20px rgba(256, 256, 256, 0.1),
+      -6px 0 0 35px rgba(256, 256, 256, 0.1),
+      -4px 4px 0 35px rgba(256, 256, 256, 0.1),
+      0 6px 0 50px rgba(256, 256, 256, 0.1),
+      -4px -4px 0 50px rgba(256, 256, 256, 0.1),
+      0 -6px 0 65px rgba(256, 256, 256, 0.1),
+      4px -4px 0 65px rgba(256, 256, 256, 0.1);
   }
   100% {
     transform: rotate(360deg) scale(0.8);
-    box-shadow: 6px 0 0 20px rgba(256,256,256, 0.1), 4px 4px 0 20px rgba(256,256,256, 0.1),
-      -6px 0 0 35px rgba(256,256,256, 0.1), -4px 4px 0 35px rgba(256,256,256, 0.1),
-      0 6px 0 50px rgba(256,256,256, 0.1), -4px -4px 0 50px rgba(256,256,256, 0.1),
-      0 -6px 0 65px rgba(256,256,256, 0.1), 4px -4px 0 65px rgba(256,256,256, 0.1);
+    box-shadow: 6px 0 0 20px rgba(256, 256, 256, 0.1),
+      4px 4px 0 20px rgba(256, 256, 256, 0.1),
+      -6px 0 0 35px rgba(256, 256, 256, 0.1),
+      -4px 4px 0 35px rgba(256, 256, 256, 0.1),
+      0 6px 0 50px rgba(256, 256, 256, 0.1),
+      -4px -4px 0 50px rgba(256, 256, 256, 0.1),
+      0 -6px 0 65px rgba(256, 256, 256, 0.1),
+      4px -4px 0 65px rgba(256, 256, 256, 0.1);
   }
 }
 
 @keyframes coronaFlare {
   0% {
-    box-shadow: 3px 0 0 10px rgba(250,228,88, 0.2),
-      -5px 0 0 20px rgba(250,228,88, 0.2), 0 3px 0 30px rgba(250,228,88, 0.2),
-      0 -5px 0 35px rgba(250,228,88, 0.1);
+    box-shadow: 3px 0 0 10px rgba(255, 99, 132, 0.2),
+      -5px 0 0 20px rgba(255, 99, 132, 0.2),
+      0 3px 0 30px rgba(255, 99, 132, 0.2),
+      0 -5px 0 35px rgba(255, 99, 132, 0.1);
   }
   100% {
-    box-shadow: -5px -3px 0 10px rgba(250,228,88, 0.2),
-      3px -5px 0 20px rgba(250,228,88, 0.2), 5px -3px 0 30px rgba(250,228,88, 0.2),
-      3px 5px 0 35px rgba(250,228,88, 0.1);
+    box-shadow: -5px -3px 0 10px rgba(255, 99, 132, 0.2),
+      3px -5px 0 20px rgba(255, 99, 132, 0.2),
+      5px -3px 0 30px rgba(255, 99, 132, 0.2),
+      3px 5px 0 35px rgba(255, 99, 132, 0.1);
   }
 }
 
 .planet {
   border-radius: 50%;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
 .small {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   transform: scale(0.6);
 }
 
 .medium {
-  width: 70px;
-  height: 70px;
+  width: 85px;
+  height: 85px;
 }
 
 .large {
-  width: 90px;
+  width: 100px;
+  height: 100px;
+}
+
+#na {
+  background-color: rgba(256,256,256);
+}
+#ah {
+  background-color: rgba(75, 192, 192);
+}
+#dong {
+  background-color: rgba(54, 162, 235);
+}
+#won {
+  background-color: rgba(255, 206, 86);
+}
+#bum {
+  background-color: rgba(153, 102, 255);
+}
+#bum:after {
+  content: "";
+  position: absolute;
   height: 90px;
+  width: 100px;
+  border-radius: 50%;
+  left: -12px;
+  top: 5px;
+  border-bottom: 8px solid rgba(256, 256, 256, 0.9);
+  border-left: 8px solid rgba(256, 256, 256, 0.9);
+  -webkit-transform: skew(50deg) rotateX(50deg);
+  transform: skew(50deg) rotateX(50deg);
 }
-
-#mercury {
-  background-color: #636365;
-}
-
 #venus {
   background-color: #a26205;
 }
 
-#earth {
+/* #earth {
   background-color: #6199f5;
   animation: orbit 18s linear infinite;
   animation-direction: reverse;
@@ -383,9 +444,9 @@ export default {
   width: 50px;
   height: 10px;
   box-shadow: -8px 8px 0 0 #61cc00;
-}
+} */
 
-#mars {
+/* #mars {
   background-color: #b53200;
 }
 
@@ -399,9 +460,9 @@ export default {
   position: absolute;
   background: rgba(0,0,0, 0.2);
   box-shadow: 6px -10px 0 rgba(0,0,0, 0.34);
-}
+} */
 
-#jupiter {
+/* #jupiter {
   background-color: #a5957b;
   transform: rotate(0deg);
   animation: orbit 26s linear infinite;
@@ -433,7 +494,7 @@ export default {
   overflow: visible;
   animation: orbit 30s linear infinite;
   animation-direction: reverse;
-}
+} */
 #saturn:after {
   content: "";
   position: absolute;
@@ -442,8 +503,8 @@ export default {
   border-radius: 50%;
   left: 7px;
   top: 0px;
-  border-bottom: 20px solid rgba(256,256,256, 0.9);
-  border-left: 20px solid rgba(256,256,256, 0.9);
+  border-bottom: 20px solid rgba(256, 256, 256, 0.9);
+  border-left: 20px solid rgba(256, 256, 256, 0.9);
   transform: skew(50deg) rotateX(50deg);
 }
 
@@ -491,9 +552,9 @@ export default {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: rgba(256,256,256, 0.4);
+  background-color: rgba(256, 256, 256, 0.4);
   border-radius: 50%;
-  box-shadow: 0px -300px 0 rgba(256,256,256, 0.4);
+  box-shadow: 0px -300px 0 rgba(256, 256, 256, 0.4);
 }
 
 .outerShell:after {
@@ -502,9 +563,9 @@ export default {
   right: 0;
   width: 10px;
   height: 10px;
-  background-color: rgba(256,256,256, 0.5);
+  background-color: rgba(256, 256, 256, 0.5);
   border-radius: 50%;
-  box-shadow: 0px -300px 0 rgba(256,256,256, 0.5);
+  box-shadow: 0px -300px 0 rgba(256, 256, 256, 0.5);
 }
 
 @keyframes bangBack {
