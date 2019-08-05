@@ -21,7 +21,7 @@ export default {
 
 <style>
 .solar {
-  z-index: 1000;
+  z-index: 99;
   position: fixed;
   top: 10%;
   /* left: 50%; */

@@ -16,6 +16,7 @@ const state = {
   dbuser : '',
   isAdmin : false,
   isLoading : true,
+  isHelloUniverse : true,
 }
 
 export default new Vuex.Store({
