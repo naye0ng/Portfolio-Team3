@@ -54,7 +54,7 @@ export default {
     return {
       nickname:'',
       avatar:'',
-      trashicon:'closeTrash.png'
+      trashicon:'closeTrash.png',
       modifyicon:'commentModBefore.png',
       modYet: true,
     }
