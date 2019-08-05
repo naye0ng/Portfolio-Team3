@@ -3,7 +3,7 @@
     <v-flex xs12 align-center justify-center layout text-xs-center>
       <!-- User photo -->
       <v-avatar size="150" id="photophoto">
-        <v-img :src="photoURL" aspect-ratio="1" width="150px" height="150px"></v-img>
+        <v-img :src="photoURL" aspect-ratio="1" height="150px"></v-img>
       </v-avatar>
     </v-flex>
 
