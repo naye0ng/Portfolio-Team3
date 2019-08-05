@@ -67,7 +67,6 @@ const firestore = firebase.firestore()
 .comments {
     padding: 20px;
     padding-top: 0px;
-    margin-top: 20px;
 }
 .comments-wrapper {
     max-height: 250px;
