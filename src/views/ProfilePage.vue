@@ -14,7 +14,7 @@
 <script>
 import Profile from "../components/login/Profile";
 import Firebase from "firebase";
-import SolarSystemLoading from '../components/template/solarSystemLoading'
+import SolarSystemLoading from '../components/template/SolarSystemLoading'
 
 export default {
   name: "ProfilePage",

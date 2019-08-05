@@ -12,7 +12,7 @@
 
 <script>
 import TeamGraph from '../components/repository/TeamGraph'
-import SolarSystemLoading from '../components/template/solarSystemLoading'
+import SolarSystemLoading from '../components/template/SolarSystemLoading'
 
 export default {
 	name: 'TeamGitGraph',

@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import SolarSystemLoading from './solarSystemLoading'
+import SolarSystemLoading from './SolarSystemLoading'
 
 export default {
 	name: 'ImgBanner',
