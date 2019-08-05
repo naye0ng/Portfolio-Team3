@@ -43,6 +43,8 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import Swal from 'sweetalert2'
+
 const firestore = firebase.firestore()
 
 export default {
@@ -97,8 +99,24 @@ export default {
     },
     deleteComment(){
       // swal - 삭제할 거냐고 물어보기
-      firestore.collection('portfolios').doc(this.port.id).collection('commentList').doc(this.comment.key).delete()
-      this.$emit('deleted',this.comment.key);
+      Swal.fire({
+        title: '삭제하실거에요?😧',
+        text: '삭제한 댓글은 복구가 불가능합니다.',
+        type:'warning',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if(result.value) {
+          firestore.collection('portfolios').doc(this.port.id).collection('commentList').doc(this.comment.key).delete()
+          this.$emit('deleted',this.comment.key);
+          Swal.fire({
+            title: '삭제되었습니다!',
+            type: 'success'
+          })
+        }
+      });
+
     },
     getNickname(id){
       firebase.database().ref("user").child(id).child('nickname').on("value", snapshot => {
