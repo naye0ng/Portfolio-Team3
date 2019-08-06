@@ -100,7 +100,7 @@ export default {
   methods: {
     setHelloUniverse() {
       setTimeout(() => {
-        this.$store.state.isHelloUniverse = false;
+        this.$router.push("/home");
       }, 3000);
     }
   },
