@@ -1,11 +1,12 @@
 <!-- Developer를 보여주는 컴포넌트 -->
 <template>
   <div id="banner" style="overflow: hidden;">
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="p p-1"></div>
-    <div class="p2 p-2"></div>
-    <div class="p3 p-3"></div>
+    <div class="shooting-star">
+      <div class="stars"></div>
+      <div class="twinkling"></div>
+      <div class="p p-1"></div>
+      <div class="p2 p-2"></div>
+      <div class="p3 p-3"></div>
         <v-layout align-center justify-space-around row fill-height text-xs-center>
           <div v-for="member in members" style="cursor:pointer;">
             <Developer
@@ -19,6 +20,7 @@
               :capa="member.capa"/>
           </div>
         </v-layout>
+    </div>
   </div>
 </template>
 

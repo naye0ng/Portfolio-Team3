@@ -47,6 +47,9 @@ export default {
 		ImgBanner,
 		PortfolioList,
   },
+  beforeCreate(){
+    this.$store.state.isLoading = true
+  },
   computed: {
     user(){ // Get user infomation from vuex
       return this.$store.getters.getUser;

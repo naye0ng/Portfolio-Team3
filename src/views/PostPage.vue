@@ -78,7 +78,10 @@ export default {
     clear(){
       this.$store.commit('SET_searchtag',"");
     }
-  }
+  },
+  beforeCreate(){
+    this.$store.state.isLoading = true
+  },
 }
 </script>
 <style>

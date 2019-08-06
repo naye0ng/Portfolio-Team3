@@ -58,6 +58,7 @@ export default {
     },
     async getTags(){
       this.tags = await FirebaseService.getTags();
+      this.$store.state.isLoading = false
     },
     loadMorePosts() {
       this.loadMore = true;
