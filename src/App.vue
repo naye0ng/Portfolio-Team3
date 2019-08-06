@@ -4,6 +4,7 @@
       <main-header/>
       <router-view/>
       <go-to-top/>
+      <chatbot/>
       <main-footer/>
     </v-content>
   </v-app>
@@ -14,6 +15,7 @@ import store from './vuex/store'
 import Header from './components/template/Header.vue'
 import Footer from './components/template/Footer.vue'
 import GoToTop from './components/template/GoToTop.vue'
+import ChatBot from './components/template/ChatBot.vue'
 
 export default {
 	name: 'App',
@@ -21,6 +23,7 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
+    'chatbot' : ChatBot
   },
 	store,
 	data() {
