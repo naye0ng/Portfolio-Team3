@@ -6,6 +6,7 @@
         <main-header/>
         <router-view/>
         <go-to-top/>
+        <chatbot/>
         <main-footer/>
       </v-content>
     </div>
@@ -18,6 +19,7 @@ import Header from './components/template/Header.vue'
 import Footer from './components/template/Footer.vue'
 import GoToTop from './components/template/GoToTop.vue'
 import HelloUniverse from './components/template/HelloUniverse.vue'
+import ChatBot from './components/template/ChatBot.vue'
 
 export default {
 	name: 'App',
@@ -25,7 +27,8 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
-    HelloUniverse
+    HelloUniverse,
+    'chatbot' : ChatBot
   },
 	store,
 	data() {
