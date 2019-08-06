@@ -43,6 +43,7 @@
 <script>
 import Comments from './Comment.vue'
 import firebase from 'firebase/app'
+import FirebaseService from "@/services/FirebaseService"
 import 'firebase/firestore'
 
 const firestore = firebase.firestore()
@@ -110,8 +111,17 @@ export default {
       //   }
       // })
     },
-    submitComment(reply){
+    async submitComment(reply){
       const user=this.$store.getters.dbuser;
+
+      ////////////////////////////////////////////////////////
+        console.log("Comment PUSH")
+        var tkr = await FirebaseService.getSingleToken(this.port.user)
+        console.log("incommentMain : " + tkr.token)
+        var type = "댓글"
+        //필요없는 정보는 '' 으로 보내기
+        FirebaseService.ShotPushMessage(tkr.token, user.email, reply, type)
+        ///////////////////////////////////////////////////////
 
       if(user !=null){
         this.current_user.avatar=user.photoURL;
@@ -135,11 +145,6 @@ export default {
             text : reply,
           })
         })
-        ////////////////////////////////////////////////////////
-        var token = firebase.getSingleToken("글 작성자 email")
-        //필요없는 정보는 '' 으로 보내기
-        firebase.ShotPushMessage(token, userId, title, type, img)
-        ///////////////////////////////////////////////////////
       }
       if(user!=null){
         this.current_user.avatar=user.photoURL;

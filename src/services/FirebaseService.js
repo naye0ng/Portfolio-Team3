@@ -93,10 +93,10 @@ export default {
     var token = await firestore.collection(TOKENS).doc(email)
     return token.get()
       .then(doc => {
-        var data = doc.data()
-        data.id = id
-        return data
-      })
+        var data = doc.data();
+        console.log("fbs : " + data.token)
+        return data;
+      });
   },
   async getTokens() { 
     console.log("getTokenSequence")
@@ -128,9 +128,9 @@ export default {
       console.log("Save token failed : " + err)
     })
   },
-  async pushBullet(id, title, type, img){
+  pushBullet(id, title, type, img){
     console.log("pushbullet : " + img)
-    var tokenList = await FirebaseService.getTokens()
+    var tokenList = FirebaseService.getTokens()
       .then(function(result) {
         result.forEach(function(singleToken) {
           FirebaseService.ShotPushMessage(singleToken, id, title, type, img)
