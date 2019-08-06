@@ -304,6 +304,125 @@ export default {
         })
       })
   },
+
+  postPortfolioBefore(user, title, body, img, id) {
+    console.log("uploadId : " + id)
+    
+    /* Check image status
+          if img.substr(0,4) === 'data' : it is base64 type data url (not uploaded yet)
+          img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */ 
+    if(img.substr(0,4) === 'data'){
+      // Create firestorage reference
+      var ref = firebase.storage().ref();
+      
+      // Create simple date
+      function getFormatDate(date){ var year = date.getFullYear();
+        var year = date.getFullYear();
+        var month = (1 + date.getMonth());
+        var month = month >= 10 ? month : '0' + month;
+        var day = date.getDate();
+        day = day >= 10 ? day : '0' + day;
+        return year + '' + month + '' + day;
+      }
+
+      // Image name setting
+      var name = getFormatDate(new Date()) + '_' + title;
+
+      // Upload image to firestorage
+      var uploadTask = ref.child('images/' + name).putString(img, 'data_url');
+      
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, function(error) {
+        switch (error.code) {
+          case 'storage/unauthorized':
+            break;
+          case 'storage/canceled':
+            break;
+          case 'storage/unknown':
+            break;
+        }
+      }, function() {
+        // Get stored image url from firestorage
+        uploadTask.snapshot.ref.getDownloadURL().then(function(fireImg) {
+          img = fireImg
+          
+          /* Check id
+          if id != null : it is exist PORTFOLIO
+          if id == null : it is new PORTFOLIO */ 
+          if(id != null) {
+            firestore.collection(PORTFOLIOS).doc(id).set({
+              user,
+              title,
+              body,
+              img,
+              created_at: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(function(){
+              console.log("Modify portfolio succeed")
+            }).catch(function() {
+              console.error("Modify portfolio failed")
+            });
+          }
+          else{
+            firestore.collection(PORTFOLIOS).add({
+              user,
+              title,
+              body,
+              img,
+              created_at: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(function(){
+              console.log("Post portfolio succeed")
+            }).catch(function() {
+              console.error("Post portfolio failed")
+            });
+          }
+        });
+      });
+    }
+    else {
+      /* Check id
+          if id != null : it is exist PORTFOLIO
+          if id == null : it is new PORTFOLIO */ 
+      if(id != null) {
+        firestore.collection(PORTFOLIOS).doc(id).set({
+          user,
+          title,
+          body,
+          img,
+          created_at: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function(){
+          console.log("Modify portfolio succeed")
+        }).catch(function() {
+          console.error("Modify portfolio failed")
+        });
+      }
+      else{
+        firestore.collection(PORTFOLIOS).add({
+          user,
+          title,
+          body,
+          img,
+          created_at: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function(){
+          console.log("Post portfolio succeed")
+        }).catch(function() {
+          console.error("Post portfolio failed")
+        });
+      }
+    }
+  },
+
+
   postPortfolio(user, title, body, img, id, avatar, nickname) {
     var type = "포트폴리오"
     FirebaseService.pushBullet(user, title, type, img)  
