@@ -5,7 +5,7 @@
         <div class="card-media">
           <div class="card-media-body">
             <div class="card-media-body-top">
-              <span class="subtle">{{formatedDate}}</span>
+              <span class="subtle">{{formatedDate}}{{id}}</span>
               
               <div class="card-media-body-top-icons" style="margin-top:2.5px;">
                 <div class="u-float-right">

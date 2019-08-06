@@ -72,6 +72,7 @@
             <v-divider></v-divider>
             <PostComment
               :id="post.id"
+              v-if="post"   
             ></PostComment>
           </v-card>
         </v-flex>
@@ -136,7 +137,7 @@ export default {
   data(){
     return {
       post : "",
-      /* 설명******************************
+      /* 설명********s**********************
       post.title (제목)
       post.body (내용)
       post.user (해당 post의 작성자 email)
