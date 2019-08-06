@@ -20,7 +20,7 @@
                 <div class="caption">{{formatedDate()}}</div>
               </div>
             </div>
-            <div class="jhcomments-stats">
+            <div class="jhcomments-stats pr-3">
               <span class="body-1"><i class="fa fa-comment body-2"></i>&nbsp;{{ comments.length }}</span>
             </div>
           </div>
