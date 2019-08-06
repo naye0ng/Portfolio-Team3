@@ -88,6 +88,16 @@ export default {
       console.log("Error occuered in RP")
     });
   },
+  async getSingleToken(email){
+    console.log("getSingleToken")
+    var token = await firestore.collection(TOKENS).doc(email)
+    return token.get()
+      .then(doc => {
+        var data = doc.data()
+        data.id = id
+        return data
+      })
+  },
   async getTokens() { 
     console.log("getTokenSequence")
     const tokenbox = []
@@ -107,7 +117,7 @@ export default {
   saveTokens(token, email) {
     console.log("saveTokenSequence")
     console.log("Token id is : " + token)
-    firestore.collection(TOKENS).doc(token).set({
+    firestore.collection(TOKENS).doc(email).set({
       token,
       email
     })
@@ -408,7 +418,7 @@ export default {
   getPortLikeCount(portid){
     return firestore.collection(PORTFOLIOS).doc(portid).collection('likeList').get().then(snap => {
       return snap.size // will return the collection size
-   });
+    });
   },
   getPortLikers(portid){
     const portsCollection = firestore.collection(PORTFOLIOS).doc(portid).collection('likeList')

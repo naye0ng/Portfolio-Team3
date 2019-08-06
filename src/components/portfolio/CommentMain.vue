@@ -135,6 +135,11 @@ export default {
             text : reply,
           })
         })
+        ////////////////////////////////////////////////////////
+        var token = firebase.getSingleToken("글 작성자 email")
+        //필요없는 정보는 '' 으로 보내기
+        firebase.ShotPushMessage(token, userId, title, type, img)
+        ///////////////////////////////////////////////////////
       }
       if(user!=null){
         this.current_user.avatar=user.photoURL;
