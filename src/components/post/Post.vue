@@ -5,11 +5,11 @@
         <div class="card-media">
           <div class="card-media-body">
             <div class="card-media-body-top">
-              <span class="subtle">{{formatedDate}}{{id}}</span>
+              <span class="subtle">{{formatedDate}}</span>
               
               <div class="card-media-body-top-icons" style="margin-top:2.5px;">
                 <div class="u-float-right">
-                  <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <!-- <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path
                       d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
@@ -18,16 +18,24 @@
                   <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
                     <path d="M0 0h24v24H0z" fill="none" />
-                  </svg>
+                  </svg> -->
+                  <i class="fa fa-heart">
+                  </i>
+                  <div class="caption grey--text" style="display:inline-block;">&nbsp;{{likecount}} &nbsp;</div>
+                  <i class="fa fa-comment">
+                  </i>
+                  <div class="caption grey--text" style="display:inline-block;">&nbsp;{{commentcount}} </div>
                 </div>
               </div>
-              <div class="card-media-body-top-text u-float-right">
+              <div class="card-media-body-top2">
+                <div class="card-media-body-top-text u-float-right">
                 <div class="caption grey--text u-float-right">
-                  <v-avatar size="35px">
-                    <img :src="userimg" alt="">
+                  <v-avatar size="35">
+                    <v-img :src="userimg" aspect-ratio="1" height="35px"></v-img>
                   </v-avatar>
-                  {{email}}
+                  <span class="subtle" id="postemail">&nbsp;{{email}}</span>
                 </div>
+              </div>
               </div>
             </div>
             <span class="card-media-body-heading">{{title}}</span>
@@ -88,10 +96,14 @@ export default {
     return {
       userimg:'',
       usernickname:'',
+      likecount:0,
+      commentcount:0,
     }
   },
   mounted(){
     this.getUserImg(this.email);
+    this.getLikeCount();
+    this.getCommentCount();
   },
   computed : {
     formatedDate() {
@@ -110,6 +122,12 @@ export default {
         this.userimg = snapshot.val().photoURL;
         this.usernickname = snapshot.val().nickname;
       })
+    },
+    async getLikeCount(){
+      this.likecount = await FirebaseService.getPostLikeCount(this.id);
+    },
+    async getCommentCount(){
+      this.commentcount = await FirebaseService.getPostCommentCount(this.id);
     }
   }
 };
@@ -318,14 +336,6 @@ html {
   width: 82%;
 }
 
-.card-media-body-top-text{
-  position: absolute;
-  display: inline-block;
-  margin-top:-2px;
-  opacity:1;
-  transition: all 300ms ease-out;
-  width: 82%;
-}
 
 .card-media:hover .card-media-body-top-text {
   position: absolute;
@@ -364,6 +374,20 @@ html {
   width: 100%;
 }
 
+.card-media-body-top2{
+  position:absolute;
+  top: 10px;
+  right: 20px;
+  opacity:1;
+  transition: all 300ms ease-out;
+  width: 82%;
+}
+
+.card-media-body-top-text{
+  display: inline-block;
+  /* margin-top:-2px; */
+}
+
 .card-media:hover .card-media-body-supporting-bottom {
   opacity: 0;
   transform: translateY(-8px);
@@ -391,12 +415,9 @@ html {
   text-decoration: none;
 }
 
-@media(max-width:670px){
-  .card-media-body-top-text{
-    display:none !important;
-  }
-  .card-media-body-top-icons{
-    display:none !important;
+@media (max-width:615px){
+  #postemail{
+    display:none!important;
   }
 }
 </style>

@@ -283,8 +283,8 @@ export default {
     });
   },
   getPortfolios() {
-    const postsCollection = firestore.collection(PORTFOLIOS)
-    return postsCollection
+    const portsCollection = firestore.collection(PORTFOLIOS)
+    return portsCollection
       .orderBy('created_at', 'desc')
       .get()
       .then((docSnapshots) => {
@@ -468,6 +468,11 @@ export default {
           return data
         })
       })
+  },
+  getPostCommentCount(postid){
+    return firestore.collection(POSTS).doc(postid).collection('commentList').get().then(snap=>{
+      return snap.size;
+    })
   },
   curUser() {
     var user = firebase.auth().currentUser;
