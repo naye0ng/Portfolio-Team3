@@ -6,7 +6,7 @@
     <div class="p p-1"></div>
     <div class="p2 p-2"></div>
     <div class="p3 p-3"></div>
-    <v-container class="mt-3">
+    <v-container class="mt-3" fluid>
       <div style="margin-top:90px;">
         <v-layout my-5 wrap justify-start row>
           <v-flex xs3 my-1>

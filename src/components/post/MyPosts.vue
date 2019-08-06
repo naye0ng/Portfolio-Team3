@@ -3,7 +3,7 @@
     <!-- Post -->
     <v-flex xs12 v-if="userposts">
       <v-layout row wrap mw-700 class="bg-3">
-        <v-flex v-for="i in userposts.length > limit ? limit : userposts.length" :class="'xs' + 12" px-3>
+        <v-flex v-for="i in userposts.length > limit ? limit : userposts.length" xs12 px-3>
           <!-- Give post infomation to each Post.vue -->
           <Post class="ma-3"
             :email="userposts[i - 1].user"

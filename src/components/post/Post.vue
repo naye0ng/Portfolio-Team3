@@ -5,7 +5,7 @@
         <div class="card-media">
           <div class="card-media-body">
             <div class="card-media-body-top">
-              <span class="subtle">{{formatedDate}}{{id}}</span>
+              <span class="subtle">{{formatedDate}}</span>
               
               <div class="card-media-body-top-icons" style="margin-top:2.5px;">
                 <div class="u-float-right">
@@ -21,13 +21,15 @@
                   </svg>
                 </div>
               </div>
-              <div class="card-media-body-top-text u-float-right">
+              <div class="card-media-body-top2">
+                <div class="card-media-body-top-text u-float-right">
                 <div class="caption grey--text u-float-right">
-                  <v-avatar size="35px">
-                    <img :src="userimg" alt="">
+                  <v-avatar size="35">
+                    <v-img :src="userimg" aspect-ratio="1" height="35px"></v-img>
                   </v-avatar>
-                  {{email}}
+                  <span class="subtle" id="postemail">&nbsp;{{email}}</span>
                 </div>
+              </div>
               </div>
             </div>
             <span class="card-media-body-heading">{{title}}</span>
@@ -318,14 +320,6 @@ html {
   width: 82%;
 }
 
-.card-media-body-top-text{
-  position: absolute;
-  display: inline-block;
-  margin-top:-2px;
-  opacity:1;
-  transition: all 300ms ease-out;
-  width: 82%;
-}
 
 .card-media:hover .card-media-body-top-text {
   position: absolute;
@@ -364,6 +358,20 @@ html {
   width: 100%;
 }
 
+.card-media-body-top2{
+  position:absolute;
+  top: 10px;
+  right: 20px;
+  opacity:1;
+  transition: all 300ms ease-out;
+  width: 82%;
+}
+
+.card-media-body-top-text{
+  display: inline-block;
+  /* margin-top:-2px; */
+}
+
 .card-media:hover .card-media-body-supporting-bottom {
   opacity: 0;
   transform: translateY(-8px);
@@ -389,14 +397,5 @@ html {
 .card-media-link {
   /* color: #41c1f2; */
   text-decoration: none;
-}
-
-@media(max-width:670px){
-  .card-media-body-top-text{
-    display:none !important;
-  }
-  .card-media-body-top-icons{
-    display:none !important;
-  }
 }
 </style>

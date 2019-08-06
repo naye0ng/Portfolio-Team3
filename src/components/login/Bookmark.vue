@@ -50,6 +50,7 @@
 
 <script>
 import firebase from "firebase";
+import FirebaseService from '@/services/FirebaseService';
 import Portfolio from "@/components/portfolio/Portfolio";
 import Post from "@/components/post/Post";
 
@@ -79,13 +80,27 @@ export default {
   },
   methods: {
     async getUserPortfolios(){
-      this.userports = await this.portfolioss.filter(port=>{
-        return port.likeList && port.likeList.contains(this.useremail);
+      await this.portfolioss.filter(port=>{
+        return FirebaseService.getPortLikers(port.id).then(likers=>{
+          for(var i=0;i<likers.length; i++){
+            if (likers[i].user==this.useremail){
+              this.userports.push(port);
+              break;
+            }
+          }
+        })
       })
     },
     async getUserPosts(){
-      this.userposts = await this.postss.filter(post=>{
-        return post.likeList && post.likeList.contains(this.useremail);
+      await this.postss.filter(post=>{
+        return FirebaseService.getPostLikers(post.id).then(likers=>{
+          for(var i=0;i<likers.length; i++){
+            if (likers[i].user==this.useremail){
+              this.userposts.push(post);
+              break;
+            }
+          }
+        })
       })
     },
     loadMorePortfolios() {

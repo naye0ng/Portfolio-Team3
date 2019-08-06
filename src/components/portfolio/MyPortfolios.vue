@@ -3,7 +3,7 @@
     <!-- Portfolio -->
     <v-flex xs12 v-if="userports">
       <v-layout row wrap mw-700 class="bg-3">
-        <v-flex v-for="i in userports.length > limit ? limit : userports.length" :class="'xs' + 12 / 2" px-3>
+        <v-flex v-for="i in userports.length > limit ? limit : userports.length" xs6 px-3>
           <!-- Give post infomation to each Post.vue -->
           <Portfolio class="ma-3"
             :email="userports[i - 1].user"
