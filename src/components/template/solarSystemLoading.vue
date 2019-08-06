@@ -1,12 +1,16 @@
 <template>
-	  <div class="solar">
-      <i class="earth"></i>
-      <i class="mars"></i>
-      <i class="belt"></i>
-      <i class="jupiter"></i>
-      <i class="saturn"></i>
-      <i class="uranus"></i>
+  <div class="solar">
+    <i class="mercury"></i>
+    <i class="earth"></i>
+    <i class="mars"></i>
+    <i class="belt"></i>
+    <i class="jupiter"></i>
+    <i class="saturn"></i>
+    <i class="uranus"></i>
+    <div class="loading-wrap">
+      <h3 data-text="loading..." class="loading">loading...</h3>
     </div>
+  </div>
 </template>
 
 <script>
@@ -20,17 +24,51 @@ export default {
 </script>
 
 <style>
+.loading-wrap{
+  position:fixed;
+  overflow:hidden;
+  bottom: 15%;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
+.loading {
+  position: relative;
+  color: rgba(255,255,255, 0.3);
+  font-size:2rem;
+  letter-spacing: 0.3rem;
+}
+.loading:before {
+    content: attr(data-text);
+    position: absolute;
+    overflow: hidden;
+    max-width: 7em;
+    white-space: nowrap;
+    color: #fff;
+    animation: loading 6s infinite;
+}
+@keyframes loading {
+    0% {
+        max-width: 0;
+    }
+}
+@keyframes solar-loading {
+  from {
+    border-color: rgba(255,255,255, 0.1);
+  }
+  to {
+      border-color: rgba(255,255,255, 0.5);
+  }
+}
 .solar {
   z-index: 99;
   position: fixed;
   top: 10%;
-  /* left: 50%; */
   margin: 250px auto 350px;
   height: 50px;
   width: 50px;
   background: orange;
   border-radius: 25px;
-  /* position:relative; */
   -webkit-animation:glow 1.5s linear infinite;
   -moz-animation:glow 1.5s linear infinite;
 }
@@ -43,6 +81,7 @@ export default {
   -moz-box-sizing: border-box;
   -webkit-transform-origin: 50% 50%;
   -moz-transform-origin: 50% 50%;
+  animation: solar-loading 6s infinite;
 }
 .solar i:before {
   content:'';
@@ -60,8 +99,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -40px;
-  -webkit-animation:orbit .5s linear infinite;
-  -moz-animation:orbit .5s linear infinite;
+  -webkit-animation:orbit 1.5s linear infinite;
+  -moz-animation:orbit 1.5s linear infinite;
 }
 .solar i.mercury:before {
   background: #6F5F5F;
@@ -75,8 +114,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -55px;
-  -webkit-animation:orbit 1s linear infinite;
-  -moz-animation:orbit 1s linear infinite;
+  -webkit-animation:orbit 3s linear infinite;
+  -moz-animation:orbit 3s linear infinite;
 }
 .solar i.venus:before {
   background: #E7A71F;
@@ -90,8 +129,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -70px;
-  -webkit-animation:orbit 1.5s linear infinite;
-  -moz-animation:orbit 1.5s linear infinite;
+  -webkit-animation:orbit 3.5s linear infinite;
+  -moz-animation:orbit 3.5s linear infinite;
 }
 .solar i.earth:before {
   background: #63BEE2;
@@ -105,8 +144,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -85px;
-  -webkit-animation:orbit 2s linear infinite;
-  -moz-animation:orbit 2s linear infinite;
+  -webkit-animation:orbit 4s linear infinite;
+  -moz-animation:orbit 4s linear infinite;
 }
 .solar i.mars:before {
   background: red;
@@ -132,8 +171,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -130px;
-  -webkit-animation:orbit 2.5s linear infinite;
-  -moz-animation:orbit 2.5s linear infinite;
+  -webkit-animation:orbit 4.5s linear infinite;
+  -moz-animation:orbit 4.5s linear infinite;
 }
 .solar i.jupiter:before {
   background: #CF9B2B;
@@ -148,8 +187,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -160px;
-  -webkit-animation:orbit 3s linear infinite;
-  -moz-animation:orbit 3s linear infinite;
+  -webkit-animation:orbit 5s linear infinite;
+  -moz-animation:orbit 5s linear infinite;
 }
 .solar i.saturn:before {
   background: #CF7A2B;
@@ -179,8 +218,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -180px;
-  -webkit-animation:orbit 3.5s linear infinite;
-  -moz-animation:orbit 3.5s linear infinite;
+  -webkit-animation:orbit 6s linear infinite;
+  -moz-animation:orbit 6s linear infinite;
 }
 .solar i.uranus:before {
   background: #10C593;
@@ -195,8 +234,8 @@ export default {
   left: 50%;
   top: 50%;
   margin-top: -200px;
-  -webkit-animation:orbit 4s linear infinite;
-  -moz-animation:orbit 4s linear infinite;
+  -webkit-animation:orbit 6.3s linear infinite;
+  -moz-animation:orbit 6.3s linear infinite;
 }
 .solar i.neptune:before {
   background: #1470E4;

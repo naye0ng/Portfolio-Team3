@@ -1,12 +1,14 @@
 <template>
-  <v-layout align-center justify-center row fill-height style="background-color:#fafafa;">
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="p p-1"></div>
-    <div class="p2 p-2"></div>
-    <div class="p3 p-3"></div>
-    <SolarSystemLoading v-show="this.$store.state.isLoading" class="v-fade"></SolarSystemLoading>
-    <TeamGraph style="z-index:99" v-show="!this.$store.state.isLoading" class="v-fade"></TeamGraph>
+  <v-layout align-center justify-center row style="min-height:100vh!important;position:relative;">
+    <div class="shooting-star">
+      <div class="stars"></div>
+      <div class="twinkling"></div>
+      <div class="p p-1 v-fade"></div>
+      <div class="p2 p-2 v-fade"></div>
+      <div class="p3 p-3 v-fade"></div>
+       <TeamGraph style="z-index:99;position: relative;" v-show="!this.$store.state.isLoading" class="v-fade" :class="{'hide':this.$store.state.isLoading}"></TeamGraph>
+    </div>
+    <SolarSystemLoading v-show="this.$store.state.isLoading" :class="{'hide':!this.$store.state.isLoading}" class="v-fade" ></SolarSystemLoading>
   </v-layout>
 </template>
 
@@ -26,6 +28,15 @@ export default {
 }
 </script>
 <style>
+.height-100vh{
+  min-height:100vh!important;
+}
+.shooting-star{
+  position: absolute;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
 .twinkling{
   z-index:1;
   position:absolute;

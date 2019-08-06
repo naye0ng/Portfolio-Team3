@@ -20,7 +20,7 @@
     </div>
 
     <!-- Portfolio -->
-    <div class="contents star-bg">
+    <div class="shooting-star-2">
       <div class="stars"></div>
       <div class="twinkling"></div>
       <div class="p p-1"></div>
@@ -70,19 +70,21 @@
 
     <!-- Github -->
     <div class="contents star-bg">
-      <div class="stars"></div>
-      <div class="twinkling"></div>
-      <div class="p p-1"></div>
-      <div class="p2 p-2"></div>
-      <div class="p3 p-3"></div>
-      <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
-        <v-flex pt-3 xs12 style="z-index:99">
-          <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
-        </v-flex>
-        <v-flex xs12 class="cal-padding">
-          <RepositoryList style="z-index:99"></RepositoryList>
-        </v-flex>
-      </v-layout>
+      <div class="shooting-star-2">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="p p-1"></div>
+        <div class="p2 p-2"></div>
+        <div class="p3 p-3"></div>
+        <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
+          <v-flex pt-3 xs12 style="z-index:99">
+            <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
+          </v-flex>
+          <v-flex xs12 class="cal-padding">
+            <RepositoryList style="z-index:99"></RepositoryList>
+          </v-flex>
+        </v-layout>
+      </div>
     </div>
   </div>
 </template>
@@ -413,5 +415,12 @@ export default {
   transform: rotate3d(0, 0, 1, 0deg);
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.shooting-star-2{
+  position:relative;
+  overflow: hidden;
+}
+.shooting-star-2 .stars{
+  z-index: 1;
 }
 </style>

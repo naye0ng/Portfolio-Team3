@@ -82,6 +82,7 @@ export default {
         var user = snapshot.val();
         this.users = Object.values(user)
         this.getAlerts()
+        this.$store.state.isLoading = false
       })
     },
     getAlerts() {
@@ -121,6 +122,7 @@ td.table-content{
   padding: 0 10px;
   margin: 0 10px;
   text-align:center;
+  color:#fff;
 }
 .user-table{
   width:100%;
@@ -129,6 +131,7 @@ td.table-content{
   border-bottom: 2px solid #dee2e6;
 }
 .user-table thead th{
+    color: #fff;
     padding: .75rem;
     vertical-align: middle;
     border-top: 2px solid #dee2e6;
