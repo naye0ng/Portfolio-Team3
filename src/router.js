@@ -10,6 +10,7 @@ import ProfilePage from './views/ProfilePage.vue'
 import PortDetail from './views/PortDetail.vue'
 import PostDetail from './views/PostDetail.vue'
 import Admin from './views/Admin.vue'
+import HelloUniverse from './views/HelloUniverse.vue'
 
 Vue.use(Router)
 
@@ -19,6 +20,11 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
+			name: 'intro',
+			component: HelloUniverse
+		},
+		{
+			path: '/home',
 			name: 'home',
 			component: HomePage
 		},

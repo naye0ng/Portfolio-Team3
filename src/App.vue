@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <v-app>
     <HelloUniverse class="v-fade" v-show="this.$store.state.isHelloUniverse" :class="{'hide':!this.$store.state.isHelloUniverse}"></HelloUniverse>
     <div v-show="!this.$store.state.isHelloUniverse">
@@ -10,14 +10,22 @@
       </v-content>
     </div>
   </v-app>
+</template>-->
+<template>
+  <v-app>
+      <v-content>
+        <main-header v-if="isNotRoot()"/>
+        <router-view/>
+        <go-to-top/>
+        <main-footer/>
+      </v-content>
+  </v-app>
 </template>
-
 <script>
 import store from './vuex/store'
 import Header from './components/template/Header.vue'
 import Footer from './components/template/Footer.vue'
 import GoToTop from './components/template/GoToTop.vue'
-import HelloUniverse from './components/template/HelloUniverse.vue'
 
 export default {
 	name: 'App',
@@ -25,7 +33,6 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
-    HelloUniverse
   },
 	store,
 	data() {
@@ -33,9 +40,16 @@ export default {
 			//
 		}
   },
+  methods: {
+    isNotRoot() {
+      // console.log(this.$store.path)
+      return this.$store.path === '/' ? false : true
+    }
+  },
   created() {
     // App이 생성될 때, init에 필요한 부분.
     // 날씨 정보를 받아와 vuex에 저장.
+    console.log(this.$router)
     this.$store.dispatch('initWeather');
   }
 }
