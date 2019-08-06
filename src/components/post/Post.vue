@@ -5,7 +5,7 @@
         <div class="card-media">
           <div class="card-media-body">
             <div class="card-media-body-top">
-              <span class="subtle">{{formatedDate}}</span>
+              <span class="subtle">{{formatedDate}}{{id}}</span>
               
               <div class="card-media-body-top-icons u-float-right" style="margin-top:2.5px;">
                 <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
