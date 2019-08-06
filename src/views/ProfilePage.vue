@@ -9,7 +9,8 @@
     <v-container class="mt-3" fluid>
       <div style="margin-top:90px;">
         <v-layout my-5 wrap justify-start row>
-          <v-flex xs3 my-1>
+          <v-flex xs1></v-flex>
+          <v-flex xs2 my-1>
             <v-layout wrap row justify-end id="profile-btns" >
               <v-flex xs10>
                 <button

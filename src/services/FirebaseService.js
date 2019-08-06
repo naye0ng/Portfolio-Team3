@@ -469,6 +469,11 @@ export default {
         })
       })
   },
+  getPostCommentCount(postid){
+    return firestore.collection(POSTS).doc(postid).collection('commentList').get().then(snap=>{
+      return snap.size;
+    })
+  },
   curUser() {
     var user = firebase.auth().currentUser;
     return user;
