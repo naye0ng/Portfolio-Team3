@@ -12,7 +12,12 @@
             <v-card-title primary-title class="pb-2 pt-2">
               <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
               <v-spacer></v-spacer>
-              <div class="caption grey--text pt-4">{{post.user}}</div>
+              <div class="caption grey--text pt-4">
+                <v-avatar size="35px">
+                  <img :src="userimg" alt="">
+                </v-avatar>
+                {{post.user}}
+              </div>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text style="min-height:30vh;">
@@ -143,6 +148,7 @@ export default {
       likecount:0,
       likers:[],
       dialog:false,
+      userimg:'',
     }
   },
   computed: {
@@ -169,6 +175,7 @@ export default {
       this.getLike();
       this.getLikeCount();
       this.getLikers();
+      this.getUserImg(this.post.user);
     },
     deletePost() {
       FirebaseService.deletePost(this.$route.params.id)
@@ -223,6 +230,13 @@ export default {
             .then(snapshot => {
               this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
           })
+      })
+    },
+    getUserImg(id){
+      var key=id.split('@')[0];
+      firebase.database().ref("user").child(key).child('photoURL').on("value", snapshot => {
+        // console.log(snapshot.val())
+        this.userimg = snapshot.val()
       })
     }
   }
