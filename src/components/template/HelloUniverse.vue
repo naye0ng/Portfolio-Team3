@@ -10,46 +10,46 @@
 
       <div class="shell" id="layer8">
         <div class="in">
-          <div class="planet small basic" id="na"></div>
+          <div class="planet small basic" id="sub"></div>
         </div>
       </div>
       <div class="shell" id="layer7">
         <div class="in">
-          <div class="planet medium" id="#neptune"></div>
+          <div class="planet" id="jupiter"></div>
         </div>
       </div>
       <div class="shell" id="layer6">
         <div class="in">
-          <div class="planet large" id="won"></div>
+          <div class="planet large" id="hazel"></div>
         </div>
       </div>
       <div class="shell" id="layer5">
         <div class="in">
-          <div class="planet medium" id="bum"></div>
+          <div class="planet medium" id="richard"></div>
         </div>
       </div>
       <div class="shell" id="layer4">
         <div class="in">
-          <div class="planet small basic" id="na"></div>
+          <div class="planet" id="earth"></div>
         </div>
       </div>
       <!--  -->
       <div class="shell" id="layer3">
         <div class="in">
-          <div class="planet large" id="ah"></div>
+          <div class="planet large" id="anna"></div>
         </div>
       </div>
       <div class="shell" id="layer2">
         <div class="in">
-          <div class="planet medium" id="dong"></div>
+          <div class="planet medium" id="eddy"></div>
         </div>
       </div>
       <div class="shell" id="layer1">
         <div class="in">
-          <div class="planet small basic" id="na"></div>
+          <div class="planet small basic" id="sub"></div>
         </div>
       </div>
-      <div class="sun sunStyle"></div>
+      <div id="nana" class="sun sunStyle"></div>
 
       <div id="blackHole" class="sun blackHole"></div>
       <div id="boom"></div>
@@ -210,7 +210,7 @@ export default {
   transform: rotate(90deg);
 }
 #layer2 .in {
-  animation: orbit 14s linear infinite;
+  animation: orbit 8s linear infinite;
 }
 
 #layer3 {
@@ -246,12 +246,12 @@ export default {
   transform: rotate(50deg);
 }
 #layer6 .in {
-  animation: orbit 30s linear infinite;
+  animation: orbit 10s linear infinite;
 }
 
 #layer7 {
-  width: 630px;
-  height: 630px;
+  width: 700px;
+  height: 700px;
   transform: rotate(270deg);
 }
 #layer7 .in {
@@ -277,13 +277,13 @@ export default {
 .sun:hover {
   animation: blackHole 1s linear infinite;
   animation-direction: reverse;
-  background: rgba(0, 0, 0, 1);
+  background: rgba(0, 0, 0, 1)!important;
   box-shadow: 6px 0 0 10px rgba(256, 256, 256, 0.2),
     -6px 0 0 20px rgba(256, 256, 256, 0.2),
     0 6px 0 30px rgba(256, 256, 256, 0.2),
     0 -6px 0 35px rgba(256, 256, 256, 0.1);
 }
-.sun:hover {
+/* .sun:hover {
   animation: blackHole 1s linear infinite;
   animation-direction: reverse;
   background: rgba(0, 0, 0, 1);
@@ -291,7 +291,7 @@ export default {
     -6px 0 0 20px rgba(256, 256, 256, 0.2),
     0 6px 0 30px rgba(256, 256, 256, 0.2),
     0 -6px 0 35px rgba(256, 256, 256, 0.1);
-}
+} */
 .sun:hover::after {
   content: "Click!";
   top: 36%;
@@ -302,7 +302,7 @@ export default {
 }
 
 .sunStyle {
-  background-color: rgba(255, 99, 132);/*#f7cf20;*/
+  background-color: rgba(255, 99, 132);
   animation: coronaFlare 1s ease-in-out infinite;
   animation-direction: alternate;
   box-shadow: 3px 0 0 10px rgba(247, 207, 32, 0.2),
@@ -364,7 +364,6 @@ export default {
 
 .planet {
   border-radius: 50%;
-  /* overflow: hidden; */
   position: relative;
 }
 
@@ -384,39 +383,82 @@ export default {
   height: 100px;
 }
 
-#na {
+#sub{
   background-color: rgba(256,256,256);
 }
-#ah {
+#nana, #anna, #eddy, #hazel, #richard {
+  background-size: cover;
+  background-position: center center;
+}
+#nana{
+  background-color: rgba(255, 99, 132);
+  background-image:url(../../assets/nana.png);
+}
+#anna {
   background-color: rgba(75, 192, 192);
+  background-image:url(../../assets/anna.png);
 }
-#dong {
-  background-color: rgba(54, 162, 235);
-}
-#won {
-  background-color: rgba(255, 206, 86);
-}
-#bum {
-  background-color: rgba(153, 102, 255);
-}
-#bum:after {
+#anna:after {
   content: "";
   position: absolute;
   height: 90px;
   width: 100px;
   border-radius: 50%;
-  left: -12px;
-  top: 5px;
-  border-bottom: 8px solid rgba(256, 256, 256, 0.9);
-  border-left: 8px solid rgba(256, 256, 256, 0.9);
+  left: -5px;
+  top: 15px;
+  border-bottom: 20px solid  rgba(255,255,255,0.5);
+  border-left: 20px solid  rgba(255,255,255,0.5);
   -webkit-transform: skew(50deg) rotateX(50deg);
   transform: skew(50deg) rotateX(50deg);
 }
-#venus {
-  background-color: #a26205;
+#eddy {
+  background-color: rgba(54, 162, 235);
+  background-image:url(../../assets/eddy.png);
 }
+#hazel {
+  width: 110px;
+  height: 110px;
+  background-color: rgba(255, 206, 86);
+  background-image:url(../../assets/hazel.png);
+}
+#richard {
+  background-color: rgba(153, 102, 255);
+  background-image:url(../../assets/richard.png);
+}
+#richard:before{
+  content: "";
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  left: -9px;
+  top: -5px;
+  border-bottom: 10px solid  rgba(255,255,255,0.3);
+  border-right: 10px solid  rgba(255,255,255,0.3);
+  -webkit-transform: skew(50deg) rotateX(50deg);
+  transform: skew(-50deg) rotateX(-50deg);
+}
+#richard:after {
+  content: "";
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  left: -9px;
+  top: -5px;
+  border-bottom: 8px solid  rgba(255,255,255,0.3);
+  border-left: 8px solid  rgba(255,255,255,0.3);
+  -webkit-transform: skew(50deg) rotateX(50deg);
+  transform: skew(50deg) rotateX(50deg);
+}
+/* #venus {
+  background-color: #a26205;
+} */
 
-/* #earth {
+#earth {
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
   background-color: #6199f5;
   animation: orbit 18s linear infinite;
   animation-direction: reverse;
@@ -444,7 +486,7 @@ export default {
   width: 50px;
   height: 10px;
   box-shadow: -8px 8px 0 0 #61cc00;
-} */
+}
 
 /* #mars {
   background-color: #b53200;
@@ -462,7 +504,10 @@ export default {
   box-shadow: 6px -10px 0 rgba(0,0,0, 0.34);
 } */
 
-/* #jupiter {
+#jupiter {
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
   background-color: #a5957b;
   transform: rotate(0deg);
   animation: orbit 26s linear infinite;
@@ -488,13 +533,13 @@ export default {
   top: 40px;
   box-shadow: 0 20px 0 0 rgba(132,89,64, 0.9)!important;
 }
-
+/*
 #saturn {
   background-color: #ebc067;
   overflow: visible;
   animation: orbit 30s linear infinite;
   animation-direction: reverse;
-} */
+} 
 #saturn:after {
   content: "";
   position: absolute;
@@ -515,7 +560,7 @@ export default {
 #neptune {
   background-color: #4653ff;
 }
-
+*/
 #starBack {
   position: absolute;
   z-index: -11;

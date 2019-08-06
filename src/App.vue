@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <HelloUniverse class="v-fade" v-show="this.$store.state.isHelloUniverse" :class="{'hide':!this.$store.state.isHelloUniverse, 'v-fade': true}"></HelloUniverse>
+    <HelloUniverse class="v-fade" v-show="this.$store.state.isHelloUniverse" :class="{'hide':!this.$store.state.isHelloUniverse}"></HelloUniverse>
     <div v-show="!this.$store.state.isHelloUniverse">
-      <v-content style="background-color:#ffffff;" v-show="!this.$store.state.isHelloUniverse" class="v-fade">
+      <v-content style="background-color:#ffffff;" v-show="!this.$store.state.isHelloUniverse" :class="{'hide':this.$store.state.isHelloUniverse}">
         <main-header/>
         <router-view/>
         <go-to-top/>
@@ -44,9 +44,10 @@ export default {
 .v-fade {
   display: inherit !important; /* override v-show display: none */
   transition: opacity 1s;
-  z-index:9999;
+  /* z-index:9999; */
 }
 .v-fade[style*="display: none;"] {
+  z-index:0;
   opacity: 0;
   pointer-events: none; /* disable user interaction */
   user-select: none; /* disable user selection */
