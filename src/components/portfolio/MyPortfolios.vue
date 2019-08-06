@@ -3,6 +3,12 @@
     <!-- Portfolio -->
     <v-flex xs12 v-if="userports">
       <v-layout row wrap mw-700 class="bg-3">
+        <v-flex xs12>
+          <h2
+            class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
+            style="color:#fff;font-size:3.4vw;"
+          >내가 작성한 portfolio</h2>
+        </v-flex>
         <v-flex v-for="i in userports.length > limit ? limit : userports.length" xs6 px-3>
           <!-- Give post infomation to each Post.vue -->
           <Portfolio class="ma-3"
@@ -61,6 +67,10 @@ export default {
   watch:{
     portfolios: function(){
       this.portfolioss = this.portfolios
+      this.getUserPortfolios();
+    },
+    useremail: function(){
+      this.portfolioss = this.portfolios;
       this.getUserPortfolios();
     }
   }

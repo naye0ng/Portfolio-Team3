@@ -398,4 +398,10 @@ html {
   /* color: #41c1f2; */
   text-decoration: none;
 }
+
+@media (max-width:615px){
+  #postemail{
+    display:none!important;
+  }
+}
 </style>

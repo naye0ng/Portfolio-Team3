@@ -10,47 +10,47 @@
       <div style="margin-top:90px;">
         <v-layout my-5 wrap justify-start row>
           <v-flex xs3 my-1>
-            <v-layout wrap row justify-end>
+            <v-layout wrap row justify-end id="profile-btns" >
               <v-flex xs10>
                 <button
-                  class="button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:10px;"
+                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff; min-width:35%; max-width:35%; padding:1.5em 0.2em;margin-top:10px;"
                   :class="{'button-selected':isPage0()}"
                   v-on:click="toggle(0)"
-                >Profile</button>
+                ><i class="fa fa-user"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
                   style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
                   :class="{'button-selected':isPage1()}"
                   v-on:click="toggle(1)"
-                >Bookmarks</button>
+                ><i class="fa fa-bookmark"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
                   style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
                   :class="{'button-selected':isPage2()}"
                   v-on:click="toggle(2)"
-                >My Portfolio</button>
+                ><i class="fa fa-image"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
                   style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
                   :class="{'button-selected':isPage3()}"
                   v-on:click="toggle(3)"
-                >My Post</button>
+                ><i class="fa fa-sticky-note"></i></button>
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs6 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage0()}">
+          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage0()}">
             <v-layout justify-start>
               <Profile></Profile>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage1()}">
+          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage1()}">
             <v-layout justify-start>
               <Bookmark
               :useremail="$store.getters.dbuser.email"
@@ -58,14 +58,14 @@
               :posts="posts"></Bookmark>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage2()}">
+          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage2()}">
             <v-layout justify-start>
               <MyPortfolios
               :useremail="$store.getters.dbuser.email"
               :portfolios="portfolios"></MyPortfolios>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage3()}">
+          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage3()}">
             <v-layout justify-start>
               <MyPosts
               :useremail="$store.getters.dbuser.email"
@@ -178,3 +178,9 @@ export default {
   text-align: center;
   margin-bottom: 10px;
 }
+
+.font-icon i::before {
+  font-size: 23px!important;
+}
+
+</style>

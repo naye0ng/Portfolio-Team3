@@ -78,7 +78,9 @@
             <v-icon :color="getListTitleColor">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title style="color:#ffffff">{{getListTitleName}}</v-list-tile-title>
+            <router-link to="/profile">
+              <v-list-tile-title style="color:#ffffff">{{getListTitleName}}</v-list-tile-title>
+            </router-link> 
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

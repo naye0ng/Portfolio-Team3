@@ -2,7 +2,12 @@
   <v-layout row justify-center wrap> 
     <!-- Post -->
     <v-flex xs12 v-if="userposts">
-      <v-layout row wrap mw-700 class="bg-3">
+      <v-layout row wrap mw-700 class="bg-3"><v-flex xs12>
+          <h2
+            class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
+            style="color:#fff;font-size:3.4vw;"
+          >내가 작성한 post</h2>
+        </v-flex>
         <v-flex v-for="i in userposts.length > limit ? limit : userposts.length" xs12 px-3>
           <!-- Give post infomation to each Post.vue -->
           <Post class="ma-3"
@@ -61,6 +66,10 @@ export default {
   watch:{
     posts: function(){
       this.postss = this.posts
+      this.getUserPosts();
+    },
+    useremail: function(){
+      this.portfolioss = this.portfolios;
       this.getUserPosts();
     }
   }

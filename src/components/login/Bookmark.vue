@@ -1,8 +1,14 @@
 <template>
-  <v-layout row justify-center wrap> 
+  <v-layout row justify-center wrap>
     <!-- Portfolio -->
     <v-flex xs12 v-if="userports">
       <v-layout row wrap mw-700 class="bg-3">
+        <v-flex xs12>
+          <h2
+            class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
+            style="color:#fff;font-size:3.4vw;"
+          >Portfolio Bookmarks</h2>
+        </v-flex>
         <v-flex v-for="i in userports.length > portlimit ? portlimit : userports.length" :class="'xs' + 12 / 2" px-3>
           <!-- Give post infomation to each Post.vue -->
           <Portfolio class="ma-3"
@@ -26,6 +32,12 @@
     <!-- Post -->
     <v-flex xs12 v-if="userposts">
       <v-layout row wrap mw-700 class="bg-3">
+        <v-flex xs12>
+          <h2
+            class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
+            style="color:#fff;font-size:3.4vw;"
+          >Post Bookmarks</h2>
+        </v-flex>
         <v-flex v-for="i in userposts.length > postlimit ? postlimit : userposts.length" :class="'xs' + 12" px-3>
           <!-- Give post infomation to each Post.vue -->
           <Post class="ma-3"
