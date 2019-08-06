@@ -9,7 +9,7 @@
         @deleted="deleted"
       ></single-comment>
     </div>
-    <hr />
+    <hr/>
     <div class="reply">
       <div class="avatar">
         <img :src="current_user.avatar" alt />

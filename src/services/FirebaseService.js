@@ -351,7 +351,7 @@ export default {
         return data;
       });
   },
-  getPost(id){
+  async getPost(id){
     let post = firestore.collection(POSTS).doc(id)
     return post.get()
       .then(doc => {

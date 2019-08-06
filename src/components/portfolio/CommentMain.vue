@@ -20,7 +20,7 @@
                 <div class="caption">{{formatedDate()}}</div>
               </div>
             </div>
-            <div class="comments-stats">
+            <div class="jhcomments-stats">
               <span class="body-1"><i class="fa fa-comment body-2"></i>&nbsp;{{ comments.length }}</span>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default {
     }
     const user=this.$store.getters.dbuser;
     if(user!=null){
-      this.current_user.avatar=user.photoURL;
+      this.current_user.avatar=user.photoURL; 
       this.current_user.user=user.nickname;
     }
   },
