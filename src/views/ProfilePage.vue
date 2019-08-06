@@ -5,63 +5,109 @@
     <div class="twinkling"></div>
     <div class="p p-1"></div>
     <div class="p2 p-2"></div>
-    <div class="p3 p-3"></div> 
+    <div class="p3 p-3"></div>
     <v-container class="mt-3">
-      <v-layout my-5 wrap justify-center row>
-        <v-flex xs2>
-          <v-layout wrap justify-end row>
-            <v-flex xs10>
-              <button
-              class="button button--wayra button--border-thin button--text-thin button--size-s"
-              style="color:#fff; min-width:100%; max-width:100%;padding:0.3em 0.5em;margin-top:10px;"
-              v-on="on"
-              :class="{'button-selected':isPage0()}"
-              v-on:click="toggle(0)"
-              >My Profile</button>
+      <div style="margin-top:90px;">
+        <v-layout my-5 wrap justify-start row>
+          <v-flex xs3 my-1>
+            <v-layout wrap row justify-end>
+              <v-flex xs10>
+                <button
+                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:10px;"
+                  :class="{'button-selected':isPage0()}"
+                  v-on:click="toggle(0)"
+                >Profile</button>
               </v-flex>
               <v-flex xs10>
-              <button
-                class="button button--wayra button--border-thin button--text-thin button--size-s"
-                style="color:#fff; min-width:100%; max-width:100%;padding:0.3em 0.5em;margin-top:8px;"
-                v-on="on"
-                :class="{'button-selected':isPage1()}"
-                v-on:click="toggle(1)"
-              >Bookmarks</button>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-        <v-flex xs10 text-xs-center style="margin:auto 0px;" :class="{'d-none':!isPage0()}">
-          <Profile ></Profile>
-        </v-flex>
-
-        <v-flex xs10 :class="{'d-none':!isPage1()}" >
-          <LikedPost></LikedPost>
-        </v-flex>
-      </v-layout>
+                <button
+                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  :class="{'button-selected':isPage1()}"
+                  v-on:click="toggle(1)"
+                >Bookmarks</button>
+              </v-flex>
+              <v-flex xs10>
+                <button
+                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  :class="{'button-selected':isPage2()}"
+                  v-on:click="toggle(2)"
+                >My Portfolio</button>
+              </v-flex>
+              <v-flex xs10>
+                <button
+                  class="button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  :class="{'button-selected':isPage3()}"
+                  v-on:click="toggle(3)"
+                >My Post</button>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs6 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage0()}">
+            <v-layout justify-start>
+              <Profile></Profile>
+            </v-layout>
+          </v-flex>
+          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage1()}">
+            <v-layout justify-start>
+              <Bookmark
+              :useremail="$store.getters.dbuser.email"
+              :portfolios="portfolios"
+              :posts="posts"></Bookmark>
+            </v-layout>
+          </v-flex>
+          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage2()}">
+            <v-layout justify-start>
+              <MyPortfolios
+              :useremail="$store.getters.dbuser.email"
+              :portfolios="portfolios"></MyPortfolios>
+            </v-layout>
+          </v-flex>
+          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage3()}">
+            <v-layout justify-start>
+              <MyPosts
+              :useremail="$store.getters.dbuser.email"
+              :posts="posts"></MyPosts>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </div>
     </v-container>
   </v-layout>
-  
 </template>
 
 <script>
 import Profile from "../components/login/Profile";
+import Bookmark from "../components/login/Bookmark";
+import MyPortfolios from "../components/portfolio/MyPortfolios";
+import MyPosts from "../components/post/MyPosts";
 import Firebase from "firebase";
+import FirebaseService from '@/services/FirebaseService'
 
 export default {
   name: "ProfilePage",
   data() {
     return {
       user: "",
-      page:0,
+      page: 0,
+      portfolios:[],
+      posts:[],
     };
   },
   components: {
-    Profile
+    Profile,
+    Bookmark,
+    MyPortfolios,
+    MyPosts,
   },
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       this.user = user;
     });
+    this.getUserPortfolios();
+    this.getUserPosts();
   },
   watch: {
     user: function(val) {
@@ -70,15 +116,29 @@ export default {
       }
     }
   },
-  methods:{
-    toggle(page){
-      this.page = page
+  methods: {
+    async getUserPortfolios(){
+      this.portfolios = await FirebaseService.getPortfolios();
+      // console.log(this.portfolios);
     },
-    isPage0(){
-      return this.page == 0 ? true : false
+    async getUserPosts(){
+      this.posts = await FirebaseService.getPosts();
+      // console.log(this.posts);
     },
-    isPage1(){
-      return this.page == 1 ? true : false
+    toggle(page) {
+      this.page = page;
+    },
+    isPage0() {
+      return this.page == 0 ? true : false;
+    },
+    isPage1() {
+      return this.page == 1 ? true : false;
+    },
+    isPage2() {
+      return this.page == 2 ? true : false;
+    },
+    isPage3() {
+      return this.page == 3 ? true : false;
     }
   }
 };
@@ -94,7 +154,7 @@ export default {
   font-size: 14px;
   font-weight: 550;
   background-color: #f5f5f5;
-  border-radius: 0px!important;
+  border-radius: 0px !important;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
@@ -102,9 +162,9 @@ export default {
   color: #ffff;
   background-color: rgb(90, 90, 90);
 }
-.button-selected{
-  color: #ffff!important;
-  background-color: #ec407a!important;
+.button-selected {
+  color: #ffff !important;
+  background-color: #ec407a !important;
 }
 
 .card-title {
@@ -118,4 +178,3 @@ export default {
   text-align: center;
   margin-bottom: 10px;
 }
-</style>
