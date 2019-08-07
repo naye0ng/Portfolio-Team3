@@ -2,7 +2,7 @@
   <v-layout row justify-center wrap> 
     <!-- Post -->
     <v-flex xs12 v-if="userposts">
-      <v-layout row wrap mw-700 class="bg-3">
+      <v-layout row wrap class="bg-3">
         <v-flex xs12>
           <h2
             class="mb-5 mt-0 text-xs-center text-shadow homepage-title"

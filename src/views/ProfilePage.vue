@@ -7,7 +7,7 @@
       <div class="p2 p-2"></div>
       <div class="p3 p-3"></div>
       <v-container fluid fill-height style="min-height:100vh;" v-show="!this.$store.state.isLoading" class="v-fade mt-3" :class="{'hide':this.$store.state.isLoading}">
-      <div style="margin-top:90px;">
+      <div style="margin-top:90px; min-width:100%">
         <v-layout my-5 wrap justify-start row>
           <v-flex xs1></v-flex>
           <v-flex xs2 my-1>
@@ -46,12 +46,12 @@
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage0()}">
+          <v-flex xs7 my-5 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage0()}">
             <v-layout justify-start>
               <Profile style="position: relative;" class="v-fade"></Profile>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage1()}">
+          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage1()}">
             <v-layout justify-start>
               <Bookmark
               :useremail="$store.getters.dbuser.email"
@@ -60,7 +60,7 @@
               style="position: relative;" class="v-fade"></Bookmark>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage2()}">
+          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage2()}">
             <v-layout justify-start>
               <MyPortfolios
               :useremail="$store.getters.dbuser.email"
@@ -68,7 +68,7 @@
               style="position: relative;" class="v-fade"></MyPortfolios>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage3()}">
+          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage3()}">
             <v-layout justify-start>
               <MyPosts
               :useremail="$store.getters.dbuser.email"
