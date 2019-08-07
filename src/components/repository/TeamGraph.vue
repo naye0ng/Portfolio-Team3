@@ -314,12 +314,14 @@ export default {
 
     },
     createVisitorChart() {
-      var today = new Date();
-      var dates = [];
+      var today = new Date()
+      var dates = []
+      var labels = []
       for (var i = 4; i >= 0; i--) {
         var some_date = new Date();
         some_date.setDate(today.getDate() - i);
         dates.push(some_date.toDateString());
+        labels.push(some_date.getMonth() + 1 + "월 " + some_date.getDate() + "일")
       }
       var visitor = [];
       firebase
@@ -339,7 +341,7 @@ export default {
           var teamChart = new chart.Chart(ctx, {
             type: "line",
             data: {
-              labels: dates,
+              labels: labels,
               datasets: [
                 {
                   label: "# visitors",
