@@ -5,6 +5,7 @@
               v-for="comment in comments"
               :comment="comment"
               :key="comment.key"
+              :post="curPost"
               @deleted="deleted"
           ></PostSingleComment>
       </div>

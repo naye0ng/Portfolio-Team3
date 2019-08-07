@@ -3,7 +3,7 @@
     <div class="avatar" >
       <img :src="avatar" alt="">
     </div>
-    <div class="text">
+    <div class="text" style="align-self:center;">
       <div class="user">
         <a class="username body-1" href="#">{{nickname }}</a>
         <span>
@@ -16,12 +16,13 @@
       </div>
       <div class="date caption">{{formatedDate()}}</div>
     </div>
-    <div class="del-btn" style="align-self:flex-end; padding-bottom:15px;">
+    <div class="del-btn" style="padding-bottom:15px;">
       <span v-if="this.$store.getters.getUser  && this.curUser && comment.id === this.curUser.email.split('@')[0]"
       v-on:click="showModifyTerminal"
       style="cursor:pointer;"
       @mouseenter="setModAfter()"
-      @mouseleave="setModBefore()">
+      @mouseleave="setModBefore()"
+      class="mr-1">
         <v-avatar tile size="25px">
           <img :src="getImgUrl(2)" alt="avatar">
         </v-avatar>
@@ -75,7 +76,7 @@ export default {
     },
     subComment() {
       var modComment = document.getElementById("mod-comment").value;
-      firestore.collection('portfolios').doc(this.post.id).collection('commentList').doc(this.comment.key).update({
+      firestore.collection('posts').doc(this.post).collection('commentList').doc(this.comment.key).update({
         text : modComment
       });
       this.comment.text = modComment;
@@ -119,7 +120,7 @@ export default {
         cancelButtonText: '취소'
       }).then((result) => {
         if(result.value) {
-          firestore.collection('posts').doc(this.post.id).collection('commentList').doc(this.comment.key).delete()
+          firestore.collection('posts').doc(this.post).collection('commentList').doc(this.comment.key).delete()
           this.$emit('deleted',this.comment.key);
           Swal.fire({
             title: '삭제되었습니다!',
@@ -153,7 +154,8 @@ export default {
   align-items: end;
 }
 .comment .avatar {
-  align-self: flex-start;
+  /* align-self: flex-start; */
+  align-self:center;
 }
 .comment .avatar > img {
   width: 40px;
@@ -164,8 +166,8 @@ export default {
 .comment .text {
   text-align: left;
   margin-left: 10px;
-  align-self: flex-end;
-  width:72%;
+  /* align-self: flex-end; */
+  width:80%;
 }
 .commemt .date {
   padding-top:2px;

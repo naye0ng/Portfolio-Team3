@@ -13,7 +13,8 @@
                 <v-btn icon class="ma-0">
                   <i class="fa fa-search"></i>
                 </v-btn>
-                <input :value="tag" @input="updateTag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색...">
+                <input :value="tag" @input="updateTag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색..."
+                style="background-color:#fafafa;">
                 <v-btn small icon @click="clear" style="margin-bottom:0px">
                   <v-icon>close</v-icon>
                 </v-btn>
