@@ -3,7 +3,7 @@
       <v-content>
         <main-header v-if="isNotRoot()"/>
         <router-view/>
-        <go-to-top  v-if="isNotRoot()"/>
+        <UtilityButtons  v-if="isNotRoot()"/>
         <main-footer v-if="isNotRoot()"/>
       </v-content>
   </v-app>
@@ -12,16 +12,14 @@
 import store from './vuex/store'
 import Header from './components/template/Header.vue'
 import Footer from './components/template/Footer.vue'
-import GoToTop from './components/template/GoToTop.vue'
-import ChatBot from './components/template/ChatBot.vue'
+import UtilityButtons from './components/template/UtilityButtons.vue'
 
 export default {
 	name: 'App',
   components : {
     'main-header' : Header,
     'main-footer' : Footer,
-    'go-to-top' : GoToTop,
-    'chatbot' : ChatBot,
+    UtilityButtons,
   },
 	store,
 	data() {
@@ -45,7 +43,6 @@ export default {
 .v-fade {
   display: inherit !important; /* override v-show display: none */
   transition: opacity 1s;
-  /* z-index:9999; */
 }
 .v-fade[style*="display: none;"] {
   z-index:0;
