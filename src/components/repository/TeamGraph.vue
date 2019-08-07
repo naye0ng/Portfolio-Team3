@@ -103,7 +103,7 @@ export default {
         let eddy = []
         let richard = []
         let anna = []
-
+        let name = []
         let labels = []
         
         let k = data.length - 1;
@@ -113,8 +113,10 @@ export default {
           hazel.push(0)
           eddy.push(0)
           richard.push(0)
+          
           anna.push(0)
           while (k >= 0) {
+            name.push(data[k].commit.author.name)
             var commitDate = new Date(data[k].commit.author.date.slice(0, 10));
             if(commitDate - start == 0){
               let strCommit = data[k].commit.message
@@ -124,7 +126,7 @@ export default {
                   nana[nana.length - 1] += 1
                 } else if (author == "Park Haewon") {
                   hazel[hazel.length - 1] += 1
-                } else if (author == "Yongbeom Jo") {
+                } else if (author == "Yongbeom Jo" || author == "조용범" ) {
                   richard[richard.length - 1] += 1
                 } else if (author == "KimTongWook" || author == "ehddnr8813") {
                   eddy[eddy.length - 1] += 1
@@ -148,7 +150,7 @@ export default {
               {
                 label: "김나영",
                 data: nana,
-                backgroundColor: ["rgba(255,99,1325, 0.2)"],
+                backgroundColor: ["rgba(255,99,132, 0.2)"],
                 borderColor: ["rgba(255,99,132, 1)"],
                 borderWidth: 1
               },
@@ -262,7 +264,7 @@ export default {
               m_na += 1;
             } else if (author == "Park Haewon") {
               m_won += 1;
-            } else if (author == "Yongbeom Jo") {
+            } else if (author == "Yongbeom Jo"  || author == "조용범" ) {
               m_jo += 1;
             } else if (author == "KimTongWook" || author == "ehddnr8813") {
               m_tong += 1;
