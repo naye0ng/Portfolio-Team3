@@ -12,7 +12,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -21,7 +20,6 @@ export default {
   },
 }
 </script>
-
 <style>
 .loading-wrap{
   position:fixed;
