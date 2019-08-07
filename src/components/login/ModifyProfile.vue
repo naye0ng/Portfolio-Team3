@@ -9,7 +9,7 @@
         >프로필 수정</button>
       </template>
       <v-card>
-        <v-card-title style="margin-top:20px;">
+        <v-card-title>
           <span class="headline">User Profile</span>
         </v-card-title>
         <v-card-text style="padding-bottom:0px;">
