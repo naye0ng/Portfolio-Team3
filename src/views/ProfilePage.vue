@@ -81,7 +81,6 @@
     </v-container>
     </div>
     <SolarSystemLoading v-show="this.$store.state.isLoading" :class="{'hide':!this.$store.state.isLoading}" class="v-fade" ></SolarSystemLoading>
-    
   </v-layout>
 </template>
 <script>

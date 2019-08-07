@@ -1,5 +1,5 @@
 <template>
-  <div class="comment">
+  <div class="comment pr-0">
     <div class="avatar" >
       <img :src="avatar" alt="">
     </div>
@@ -26,7 +26,7 @@
           <img :src="getImgUrl(2)" alt="avatar">
         </v-avatar>
       </span>
-      &nbsp;
+      <!-- &nbsp; -->
       <span v-if="this.$store.getters.getUser && this.curUser && comment.id === this.curUser.email.split('@')[0]"
       v-on:click="deleteComment"
       style="cursor:pointer;"
@@ -165,7 +165,7 @@ export default {
   text-align: left;
   margin-left: 10px;
   align-self: flex-end;
-  width:78%;
+  width:72%;
 }
 .commemt .date {
   padding-top:2px;
@@ -174,7 +174,7 @@ export default {
   font-weight: bold;
   margin-right: 5px;
 }
-.commemt .del-btn {
+.comment .del-btn {
   /* align-self: flex-end; */
 }
 #mod-comment {
