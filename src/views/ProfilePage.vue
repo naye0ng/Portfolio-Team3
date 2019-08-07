@@ -2,7 +2,7 @@
   <v-layout align-center justify-center row style="min-height:100vh!important;position:relative;">
     <div  :class="{'shooting-star':this.$store.state.isLoading,'shooting-star-2':!this.$store.state.isLoading}" class="v-fade">
       <div class="stars"></div>
-      <div class="twinkling" style="z-index:0!important;"></div>
+      <div class="twinkling"></div>
       <div class="p p-1"></div>
       <div class="p2 p-2"></div>
       <div class="p3 p-3"></div>
