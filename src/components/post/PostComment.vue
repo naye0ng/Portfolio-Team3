@@ -1,13 +1,24 @@
 <template>
     <div class="comments">
       <div class="comments_wrapper_classes custom-scrollbar">
+        <v-flex v-for="i in comments.length > pageLimit ? pageLimit : comments.length" xs12>
           <PostSingleComment
-              v-for="comment in comments"
-              :comment="comment"
-              :key="comment.key"
+              :comment="comments[i-1]"
+              :key="comments[i-1].key"
               :post="curPost"
               @deleted="deleted"
           ></PostSingleComment>
+        </v-flex>
+        <v-flex xs12 text-xs-center round v-if="pageLimit<comments.length">
+          <button @click="loadMoreComments" class="more-btn">
+            more
+          </button>
+        </v-flex>
+        <v-flex xs12 text-xs-center round v-if="comments.length>4 && pageLimit>=comments.length">
+          <button @click="foldComments" class="more-btn">
+            fold
+          </button>
+        </v-flex>
       </div>
       <hr/>
       <div class="reply">
@@ -51,6 +62,8 @@ export default {
         user: ''
       },
       comments: [],
+      pageLimit : 4,
+      loadMore: true,
     }
   },
   components : {
@@ -131,7 +144,13 @@ export default {
           })
         })
       })  
-    }          
+    },
+    loadMoreComments(){
+      this.pageLimit +=4;
+    },
+    foldComments(){
+      this.pageLimit = 4;
+    }
   },
   props : ['id']
 }
@@ -291,5 +310,15 @@ hr {
 }
 .post-owner .username > a {
   color: #333;
+}
+.more-btn {
+  border-radius:14px; 
+  border: 1.15px solid #777;
+  width:70px;
+  height:30px;
+}
+.more-btn:hover{
+  border: none;
+  background-color:#ec407967;
 }
 </style>
