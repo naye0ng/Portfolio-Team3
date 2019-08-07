@@ -332,8 +332,8 @@ export default {
   height: 100%;
   background: #37474f;
   z-index: -1;
-  -webkit-transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
-  transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+  -webkit-transform: rotate3d(0, 0, 1, -50deg) translate3d(0, -3em, 0);
+  transform: rotate3d(0, 0, 1, -50deg) translate3d(0, -3em, 0);
   -webkit-transform-origin: 0% 100%;
   transform-origin: 0% 100%;
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s,
