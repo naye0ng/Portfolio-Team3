@@ -1,5 +1,5 @@
 <template>
-  <v-layout align-center justify-center row style="min-height:100vh!important;position:relative;">
+  <v-layout class="profile-bts" align-center justify-center row style="min-height:100vh!important;position:relative;">
     <div  :class="{'shooting-star':this.$store.state.isLoading,'shooting-star-2':!this.$store.state.isLoading}" class="v-fade">
       <div class="stars"></div>
       <div class="twinkling"></div>
@@ -7,51 +7,51 @@
       <div class="p2 p-2"></div>
       <div class="p3 p-3"></div>
       <v-container fluid fill-height style="min-height:100vh;" v-show="!this.$store.state.isLoading" class="v-fade mt-3" :class="{'hide':this.$store.state.isLoading}">
-      <div style="margin-top:90px;">
+      <div style="margin-top:90px; min-width:100%">
         <v-layout my-5 wrap justify-start row>
           <v-flex xs1></v-flex>
           <v-flex xs2 my-1>
             <v-layout wrap row justify-end id="profile-btns" >
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%; padding:1.5em 0.2em;margin-top:10px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:10px;"
                   :class="{'button-selected':isPage0()}"
                   v-on:click="toggle(0)"
                 ><i class="fa fa-user"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:8px;"
                   :class="{'button-selected':isPage1()}"
                   v-on:click="toggle(1)"
                 ><i class="fa fa-bookmark"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:8px;"
                   :class="{'button-selected':isPage2()}"
                   v-on:click="toggle(2)"
                 ><i class="fa fa-image"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:8px;"
                   :class="{'button-selected':isPage3()}"
                   v-on:click="toggle(3)"
                 ><i class="fa fa-sticky-note"></i></button>
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-5 style="margin:auto 0px;" :class="{'d-none':!isPage0()}">
+          <v-flex xs7 my-5 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage0()}">
             <v-layout justify-start>
               <Profile style="position: relative;" class="v-fade"></Profile>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage1()}">
+          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage1()}">
             <v-layout justify-start>
               <Bookmark
               :useremail="$store.getters.dbuser.email"
@@ -60,7 +60,7 @@
               style="position: relative;" class="v-fade"></Bookmark>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage2()}">
+          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage2()}">
             <v-layout justify-start>
               <MyPortfolios
               :useremail="$store.getters.dbuser.email"
@@ -68,7 +68,7 @@
               style="position: relative;" class="v-fade"></MyPortfolios>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px;" :class="{'d-none':!isPage3()}">
+          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage3()}">
             <v-layout justify-start>
               <MyPosts
               :useremail="$store.getters.dbuser.email"
@@ -193,5 +193,23 @@ export default {
 .font-icon i::before {
   font-size: 23px!important;
 }
-
+.nav-profile{
+  padding: 1em 0.2em;
+  width: 60px!important;
+  height: 60px!important;
+  min-width: 60px; 
+  max-width: 60px;
+}
+@media (max-width:700px) {
+  .nav-profile{
+    padding: 0.8em 0.2em;
+    width: 50px!important;
+    height: 50px!important;
+    min-width: 50px; 
+    max-width: 50px;
+  }
+  .font-icon i::before {
+    font-size: 15px!important;
+  }
+}
 </style>

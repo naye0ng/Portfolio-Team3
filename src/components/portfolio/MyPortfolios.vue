@@ -2,7 +2,7 @@
   <v-layout row justify-center wrap> 
     <!-- Portfolio -->
     <v-flex xs12 v-if="userports">
-      <v-layout row wrap mw-700 class="bg-3">
+      <v-layout row wrap class="bg-3">
         <v-flex xs12>
           <h2
             class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
@@ -21,9 +21,14 @@
             >
           </Portfolio>
         </v-flex>
-        <v-flex xs12 text-xs-center round my-5 v-if="loadmoreport && userports && userports.length>0" class="bg-1">
+        <v-flex xs12 text-xs-center round my-4 v-if="loadmoreport && userports && limit<userports.length" class="bg-1">
           <button v-on:click="loadMorePortfolios" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
             더 보기
+          </button>
+        </v-flex>
+        <v-flex xs12 text-xs-center round my-4 v-if="loadmoreport && userports && userports.length>4 && limit>=userports.length" class="bg-1">
+          <button v-on:click="foldPortfolios" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
+            접기
           </button>
         </v-flex>
       </v-layout>
@@ -63,6 +68,9 @@ export default {
       this.loadmoreport = true;
       this.limit += 4;
     },
+    foldPortfolios(){
+      this.limit = 4;
+    }
   },
   watch:{
     portfolios: function(){
