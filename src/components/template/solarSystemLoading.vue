@@ -15,7 +15,6 @@
 
 <script>
 export default {
-  name : 'SolarSystemLoading',
   data() {
     return {
     }

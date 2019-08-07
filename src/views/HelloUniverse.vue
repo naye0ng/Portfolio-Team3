@@ -100,8 +100,8 @@ export default {
   methods: {
     setHelloUniverse() {
       setTimeout(() => {
-        this.$store.state.isHelloUniverse = false;
-      }, 3000);
+        this.$router.push("/home");
+      }, 2800);
     }
   },
   mounted() {
@@ -392,11 +392,11 @@ export default {
 }
 #nana{
   background-color: rgba(255, 99, 132);
-  background-image:url(../../assets/nana.png);
+  background-image:url(../assets/nana.png);
 }
 #anna {
   background-color: rgba(75, 192, 192);
-  background-image:url(../../assets/anna.png);
+  background-image:url(../assets/anna.png);
 }
 #anna:after {
   content: "";
@@ -413,17 +413,17 @@ export default {
 }
 #eddy {
   background-color: rgba(54, 162, 235);
-  background-image:url(../../assets/eddy.png);
+  background-image:url(../assets/eddy.png);
 }
 #hazel {
   width: 110px;
   height: 110px;
   background-color: rgba(255, 206, 86);
-  background-image:url(../../assets/hazel.png);
+  background-image:url(../assets/hazel.png);
 }
 #richard {
   background-color: rgba(153, 102, 255);
-  background-image:url(../../assets/richard.png);
+  background-image:url(../assets/richard.png);
 }
 #richard:before{
   content: "";

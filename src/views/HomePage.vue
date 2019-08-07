@@ -2,7 +2,7 @@
   <div>
     <DeveloperList />
     <div class="contents">
-      <v-layout column py-5 my-1 id="aboutUs">
+      <v-layout column py-5 my-1 id="aboutUs" style="background: #fff;">
         <v-flex xs12 mt-3 py-1>
           <h2 class="my-2 text-xs-center homepage-title">ABOUT US</h2>
         </v-flex>
@@ -26,7 +26,7 @@
       <div class="p p-1"></div>
       <div class="p2 p-2"></div>
       <div class="p3 p-3"></div>
-      <v-layout py-5 mt-4 row wrap class="grey lighten-5" id="portfolio">
+      <v-layout py-5 mt-4 row wrap id="portfolio">
         <v-flex pt-3 pb-1 xs12 style="z-index:99">
           <h2 class="mt-4 pt-3 text-xs-center homepage-title text-white">PORTFOLIO</h2>
         </v-flex>
@@ -76,7 +76,7 @@
         <div class="p p-1"></div>
         <div class="p2 p-2"></div>
         <div class="p3 p-3"></div>
-        <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
+        <v-layout py-5 mt-1 row wrap id="github">
           <v-flex pt-3 xs12 style="z-index:99">
             <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
           </v-flex>
@@ -419,6 +419,8 @@ export default {
 .shooting-star-2{
   position:relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 .shooting-star-2 .stars{
   z-index: 1;

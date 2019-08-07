@@ -1,37 +1,36 @@
 <template>
   <v-app>
-    <HelloUniverse class="v-fade" v-show="this.$store.state.isHelloUniverse" :class="{'hide':!this.$store.state.isHelloUniverse}"></HelloUniverse>
-    <div v-show="!this.$store.state.isHelloUniverse">
-      <v-content style="background-color:#ffffff;" v-show="!this.$store.state.isHelloUniverse" :class="{'hide':this.$store.state.isHelloUniverse}">
-        <main-header/>
+      <v-content>
+        <main-header v-if="isNotRoot()"/>
         <router-view/>
-        <go-to-top/>
-        <main-footer/>
+        <UtilityButtons  v-if="isNotRoot()"/>
+        <main-footer v-if="isNotRoot()"/>
       </v-content>
-    </div>
   </v-app>
 </template>
-
 <script>
 import store from './vuex/store'
 import Header from './components/template/Header.vue'
 import Footer from './components/template/Footer.vue'
-import GoToTop from './components/template/GoToTop.vue'
-import HelloUniverse from './components/template/HelloUniverse.vue'
+import UtilityButtons from './components/template/UtilityButtons.vue'
 
 export default {
 	name: 'App',
   components : {
     'main-header' : Header,
     'main-footer' : Footer,
-    'go-to-top' : GoToTop,
-    HelloUniverse
+    UtilityButtons,
   },
 	store,
 	data() {
 		return {
 			//
 		}
+  },
+  methods: {
+    isNotRoot() {
+      return this.$route.path === '/' ? false : true
+    }
   },
   created() {
     // App이 생성될 때, init에 필요한 부분.
@@ -44,7 +43,6 @@ export default {
 .v-fade {
   display: inherit !important; /* override v-show display: none */
   transition: opacity 1s;
-  /* z-index:9999; */
 }
 .v-fade[style*="display: none;"] {
   z-index:0;

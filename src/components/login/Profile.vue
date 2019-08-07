@@ -100,10 +100,6 @@ export default {
         if (user){
           this.emailKey = user.email.split('@')[0];
         }
-        setTimeout(() => {
-          this.$store.state.isLoading = false; 
-        }, 1000);
-
       });
     }
   },
