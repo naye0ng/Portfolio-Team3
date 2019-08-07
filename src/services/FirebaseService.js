@@ -56,25 +56,9 @@ const messaging = firebase.messaging();
 //Set VApiIdKey
 messaging.usePublicVapidKey("BMuvOdnou4GfoVG_8fSmde7sbnnFOvgMaEp7qn2vlZ5qHxF4HvGVqGz7Jrvc6NdP7KCij8fRgfyUsLUfg0M-a0g");
 
-//Request notification permission
-messaging.requestPermission()
-  .then(function() {
-    console.log("WE HAVE PERMISSION");
-    return messaging.getToken();
-  })
-  //If messaging called with token
-  .then(function(token){
-    console.log("TOKEN IS : " + token)
-    //Save token into firestore database
-    FirebaseService.saveTokens(token)
-    //TODO : need to check admin
-  })
-  .catch(function(err) {
-    console.log("Error occuered in RP")
-  });
 
 // Get push in foreground status. payload = push notification
-  messaging.onMessage(function(payload){
+messaging.onMessage(function(payload){
   console.log('onMessage: ', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
@@ -85,8 +69,35 @@ messaging.requestPermission()
   }
 });
 
-
 export default {
+  getPushPermission(email){
+    //Request notification permission
+    messaging.requestPermission()
+    .then(function() {
+      console.log("WE HAVE PERMISSION");
+      return messaging.getToken();
+    })
+    //If messaging called with token
+    .then(function(token){
+      console.log("TOKEN IS : " + token)
+      //Save token into firestore database
+      FirebaseService.saveTokens(token, email)
+      //TODO : need to check admin
+    })
+    .catch(function(err) {
+      console.log("Error occuered in RP")
+    });
+  },
+  async getSingleToken(email){
+    console.log("getSingleToken")
+    var token = await firestore.collection(TOKENS).doc(email)
+    return token.get()
+      .then(doc => {
+        var data = doc.data();
+        console.log("fbs : " + data.token)
+        return data;
+      });
+  },
   async getTokens() { 
     console.log("getTokenSequence")
     const tokenbox = []
@@ -103,11 +114,12 @@ export default {
     console.log("tokenbox : " + tokenbox)
     return tokenbox
   },
-  saveTokens(token) {
+  saveTokens(token, email) {
     console.log("saveTokenSequence")
     console.log("Token id is : " + token)
-    firestore.collection(TOKENS).doc(token).set({
+    firestore.collection(TOKENS).doc(email).set({
       token,
+      email
     })
     .then(function(){
       console.log("Save token success")
@@ -116,30 +128,18 @@ export default {
       console.log("Save token failed : " + err)
     })
   },
-
-  saveTokenInRt(token){
-    var cbGetToekn = function (token) {
-      console.log('setLogin fcmId get : ', token);
-      var userUid = this.auth.currentUser.uid;
-      var fcmIdRef = this.database.ref('FcmId/' + userUid);
-      fcmIdRef.set(token);
-  }
-    firebase.messaging().getToken()
-      .then(cbGetToekn.bind(this))
-      .catch(function (e) {
-      })
-  },
-  async pushBullet(id){
-    console.log(id)
-    var tokenList = await FirebaseService.getTokens()
+  pushBullet(id, title, type, img){
+    console.log("pushbullet : " + img)
+    var tokenList = FirebaseService.getTokens()
       .then(function(result) {
         result.forEach(function(singleToken) {
-          FirebaseService.ShotPushMessage(singleToken, id)
+          console.log("SingleToken ::: " + singleToken)
+          FirebaseService.ShotPushMessage(singleToken, id, title, type, img)
         })
       }
     )
   },
-  ShotPushMessage(to, userId) {
+  ShotPushMessage(to, userId, title, type, img) {
     console.log("Shot to : " + to)
     var request = require("request");
     request.post({
@@ -151,10 +151,15 @@ export default {
       body: JSON.stringify({
         "to": to,
         "notification": {
-          "title": "새글 알림",
-          "body": userId + "님이 글을 쓰셨습니다"
+          "title": title,
+          "body": userId + "님의 새 " + type, 
+          "icon": img
+          // 'https://source.unsplash.com/random/100x100' is Success
+          // '../assets/logo.png' is Fail
+          // Get Img from portfolioWriter's data() is Success
+          // Goal :: Get Post image from firestorage
         }
-      })
+      }),
     }, function (error, response, body) {
       console.log(body);
     });
@@ -174,8 +179,9 @@ export default {
         })
       })
   },
-  async postPost(user, title, body, id, tag) {
-    FirebaseService.pushBullet(user)
+  async postPost(user, title, body, id, tag, img) {
+    var type = "게시글"
+    FirebaseService.pushBullet(user, title, type, img)
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
@@ -299,8 +305,135 @@ export default {
         })
       })
   },
+  photoUploader(imgUrl){
+    // Create firestorage reference
+    var ref = firebase.storage().ref();
+      
+    // Create simple date
+    function getFormatDate(date){ var year = date.getFullYear();
+      var year = date.getFullYear();
+      var month = (1 + date.getMonth());
+      var month = month >= 10 ? month : '0' + month;
+      var day = date.getDate();
+      day = day >= 10 ? day : '0' + day;
+      return year + '' + month + '' + day;
+    }
+    
+    var name = getFormatDate(new Date()) + '_' + title;
+
+    // Upload image to firestorage
+    var uploadTask = ref.child('images/' + name).putString(imgUrl, 'data_url');
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, function(error) {
+        switch (error.code) {
+          case 'storage/unauthorized':
+            break;
+          case 'storage/canceled':
+            break;
+          case 'storage/unknown':
+            break;
+        }
+      }, function() {
+        // Get stored image url from firestorage
+        uploadTask.snapshot.ref.getDownloadURL().then(function(fireImg) {
+          console.log("FireStorage img : " + fireImg)
+          return fireImg;
+        })
+      })
+  },
+
+  // async postPortfolioBefore(user, title, body, img, id, avatar, nickname) {
+  //   console.log("uploadId : " + id)
+    
+  //   /* Check image status
+  //         if img.substr(0,4) === 'data' : it is base64 type data url (not uploaded yet)
+  //         img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */ 
+  //   if(img.substr(0,4) === 'data'){
+  //     var fireUrl = await this.photoUploader(img)
+  //   }
+    
+
+    
+          
+  //         /* Check id
+  //         if id != null : it is exist PORTFOLIO
+  //         if id == null : it is new PORTFOLIO */ 
+  //         if(id != null) {
+  //           firestore.collection(PORTFOLIOS).doc(id).set({
+  //             user,
+  //             title,
+  //             body,
+  //             img,
+  //             created_at: firebase.firestore.FieldValue.serverTimestamp()
+  //           }).then(function(){
+  //             console.log("Modify portfolio succeed")
+  //           }).catch(function() {
+  //             console.error("Modify portfolio failed")
+  //           });
+  //         }
+  //         else{
+  //           firestore.collection(PORTFOLIOS).add({
+  //             user,
+  //             title,
+  //             body,
+  //             img,
+  //             created_at: firebase.firestore.FieldValue.serverTimestamp()
+  //           }).then(function(){
+  //             console.log("Post portfolio succeed")
+  //           }).catch(function() {
+  //             console.error("Post portfolio failed")
+  //           });
+  //         }
+  //       });
+  //     });
+  //   }
+  //   else {
+  //     /* Check id
+  //         if id != null : it is exist PORTFOLIO
+  //         if id == null : it is new PORTFOLIO */ 
+  //     if(id != null) {
+  //       firestore.collection(PORTFOLIOS).doc(id).set({
+  //         user,
+  //         title,
+  //         body,
+  //         img,
+  //         created_at: firebase.firestore.FieldValue.serverTimestamp()
+  //       }).then(function(){
+  //         console.log("Modify portfolio succeed")
+  //       }).catch(function() {
+  //         console.error("Modify portfolio failed")
+  //       });
+  //     }
+  //     else{
+  //       firestore.collection(PORTFOLIOS).add({
+  //         user,
+  //         title,
+  //         body,
+  //         img,
+  //         created_at: firebase.firestore.FieldValue.serverTimestamp()
+  //       }).then(function(){
+  //         console.log("Post portfolio succeed")
+  //       }).catch(function() {
+  //         console.error("Post portfolio failed")
+  //       });
+  //     }
+  //   }
+  // },
   postPortfolio(user, title, body, img, id, avatar, nickname) {
-    FirebaseService.pushBullet(user)  
+    var type = "포트폴리오"
+    FirebaseService.pushBullet(user, title, type)
     var date = new Date()
     console.log("here is avatar : "+  avatar)
     if(id != null) {
@@ -326,7 +459,7 @@ export default {
         img,
         avatar,
         nickname,
-        created_at: date//firebase.firestore.FieldValue.serverTimestamp()
+        created_at: date //firebase.firestore.FieldValue.serverTimestamp()
       }).then(function(){
         console.log("Post portfolio succeed")
       }).catch(function() {
@@ -412,7 +545,7 @@ export default {
   getPortLikeCount(portid){
     return firestore.collection(PORTFOLIOS).doc(portid).collection('likeList').get().then(snap => {
       return snap.size // will return the collection size
-   });
+    });
   },
   getPortLikers(portid){
     const portsCollection = firestore.collection(PORTFOLIOS).doc(portid).collection('likeList')

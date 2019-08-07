@@ -43,6 +43,7 @@
 <script>
 import Comments from './Comment.vue'
 import firebase from 'firebase/app'
+import FirebaseService from "@/services/FirebaseService"
 import 'firebase/firestore'
 
 const firestore = firebase.firestore()
@@ -103,8 +104,21 @@ export default {
         }
       }
     },
-    submitComment(reply){
+    async submitComment(reply){
       const user=this.$store.getters.dbuser;
+
+      ////////////////////////////////////////////////////////
+      //If Someone write comment(slave), writer of post or portfolio(master) receive push notification
+      console.log("Comment PUSH")
+      
+      //get receiver's token
+      var tkr = await FirebaseService.getSingleToken(this.port.user)
+      console.log("incommentMain : " + tkr.token)
+      var type = "댓글"
+      //필요없는 정보는 '' 으로 보내기
+      FirebaseService.ShotPushMessage(tkr.token, user.email, reply, type)
+      ///////////////////////////////////////////////////////
+
       if(user !=null){
         this.current_user.avatar=user.photoURL;
         this.current_user.user=user.name;
