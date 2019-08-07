@@ -100,8 +100,8 @@ export default {
   methods: {
     setHelloUniverse() {
       setTimeout(() => {
-        this.$store.state.isHelloUniverse = false;
-      }, 3000);
+        this.$router.push("/home");
+      }, 2800);
     }
   },
   mounted() {

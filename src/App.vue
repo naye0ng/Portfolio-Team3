@@ -1,10 +1,9 @@
-
 <template>
   <v-app>
       <v-content>
         <main-header v-if="isNotRoot()"/>
         <router-view/>
-        <go-to-top v-if="isNotRoot()"/>
+        <go-to-top  v-if="isNotRoot()"/>
         <main-footer v-if="isNotRoot()"/>
       </v-content>
   </v-app>
