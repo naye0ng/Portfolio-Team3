@@ -21,9 +21,14 @@
             >
           </Post>
         </v-flex>
-        <v-flex xs12 text-xs-center round my-5 v-if="loadmorepost && userposts && userposts.length>0" class="bg-1">
+        <v-flex xs12 text-xs-center round my-4 v-if="loadmorepost && userposts && limit<userposts.length" class="bg-1">
           <button v-on:click="loadMorePosts" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
             더 보기
+          </button>
+        </v-flex>
+        <v-flex xs12 text-xs-center round my-4 v-if="loadmorepost && userposts &&  userposts.length>4 && limit>=userposts.length" class="bg-1">
+          <button v-on:click="foldPosts" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
+            접기
           </button>
         </v-flex>
       </v-layout>
@@ -62,6 +67,9 @@ export default {
     loadMorePosts() {
       this.loadmorepost = true;
       this.limit += 4;
+    },
+    foldPosts(){
+      this.limit = 4;
     }
   },
   watch:{
@@ -72,6 +80,9 @@ export default {
     useremail: function(){
       this.portfolioss = this.portfolios;
       this.getUserPosts();
+    },
+    foldPosts(){
+      this.limit = 4;
     }
   }
 };
