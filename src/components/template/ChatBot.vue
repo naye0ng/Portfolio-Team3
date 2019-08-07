@@ -16,7 +16,7 @@ export default {
   name: 'ChatBot',
   data () {
     return {
-      visible: true,
+      visible: false,
       visibleoffset : 600,
       visibleoffsetbottom : 0,
     }
