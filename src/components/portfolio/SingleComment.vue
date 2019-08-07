@@ -1,8 +1,8 @@
 <template>
   <div class="comment pr-0">
-    <div class="avatar" >
-      <img :src="avatar" alt="">
-    </div>
+    <v-avatar size="40">
+      <v-img :src="avatar" aspect-ratio="1" height="40px"></v-img>
+    </v-avatar>
     <div class="text" style="align-self:center;">
       <div class="user">
         <a class="username body-1" href="#">{{nickname }}</a>

@@ -9,16 +9,14 @@
               @deleted="deleted"
           ></PostSingleComment>
         </v-flex>
-        <v-flex xs12 text-xs-center round v-if="pageLimit<comments.length">
-          <button @click="loadMoreComments" class="more-btn">
+        <div style="text-align:center;">
+          <button @click="loadMoreComments" class="more-btn mx-1" v-if="pageLimit<comments.length">
             more
           </button>
-        </v-flex>
-        <v-flex xs12 text-xs-center round v-if="comments.length>4 && pageLimit>=comments.length">
-          <button @click="foldComments" class="more-btn">
+          <button @click="foldComments" class="more-btn mx-1" v-if="(comments.length>4 && pageLimit>=comments.length) || (pageLimit<comments.length && pageLimit>4)">
             fold
           </button>
-        </v-flex>
+        </div>
       </div>
       <hr/>
       <div class="reply" v-show="this.$store.getters.getUser">
@@ -223,7 +221,7 @@ hr {
 }
 .reply .reply--text {
   min-height: 40px;
-  padding: 10px 10px 10px 55px;
+  padding: 10px 10px 10px 15px;
   margin-right: 10px;
   border: 0;
   color: #333;
@@ -320,5 +318,9 @@ hr {
 .more-btn:hover{
   border: none;
   background-color:#ec407967;
+}
+
+.more-btn:focus{
+  outline:0;
 }
 </style>
