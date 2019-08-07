@@ -9,7 +9,7 @@
             style="color:#fff;font-size:3.4vw;"
           >내가 작성한 portfolio</h2>
         </v-flex>
-        <v-flex v-for="i in userports.length > limit ? limit : userports.length" xs6 px-3>
+        <v-flex v-for="i in userports.length > limit ? limit : userports.length" xs12 md6 px-3>
           <!-- Give post infomation to each Post.vue -->
           <Portfolio class="ma-3"
             :email="userports[i - 1].user"
@@ -21,7 +21,7 @@
             >
           </Portfolio>
         </v-flex>
-        <v-flex xs12 text-xs-center round my-5 v-if="loadmoreport && userports" class="bg-1">
+        <v-flex xs12 text-xs-center round my-5 v-if="loadmoreport && userports && userports.length>0" class="bg-1">
           <button v-on:click="loadMorePortfolios" class="button button--wayra button--border-medium button--text-medium button--size-s" style="max-width: 150px;padding:0.5em 1em;">
             더 보기
           </button>
