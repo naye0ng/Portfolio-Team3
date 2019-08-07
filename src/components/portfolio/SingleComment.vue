@@ -1,9 +1,9 @@
 <template>
-  <div class="comment">
+  <div class="comment pr-0">
     <div class="avatar" >
       <img :src="avatar" alt="">
     </div>
-    <div class="text">
+    <div class="text" style="align-self:center;">
       <div class="user">
         <a class="username body-1" href="#">{{nickname }}</a>
         <span>
@@ -16,7 +16,7 @@
       </div>
       <div class="date caption">{{formatedDate()}}</div>
     </div>
-    <div class="del-btn" style="align-self:flex-end; padding-bottom:15px;">
+    <div class="del-btn" style="padding-bottom:15px;">
       <span v-if="this.$store.getters.getUser && comment.id === this.$store.getters.dbuser.email.split('@')[0]"
       v-on:click="showModifyTerminal"
       style="cursor:pointer;"
@@ -26,7 +26,7 @@
           <img :src="getImgUrl(2)" alt="avatar">
         </v-avatar>
       </span>
-      &nbsp;
+      <!-- &nbsp; -->
       <span v-if="this.$store.getters.getUser && comment.id === this.$store.getters.dbuser.email.split('@')[0]"
       v-on:click="deleteComment"
       style="cursor:pointer;"

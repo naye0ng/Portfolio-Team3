@@ -11,7 +11,7 @@
       <v-flex xs12 mt-5>
         <h2
           class="mt-3 pt-5 text-xs-center text-shadow homepage-title"
-          style="color:#fff;font-size: 5rem;"
+          style="color:#fff;font-size: 7vw;"
         >관리자 페이지</h2>
         <div id="toggle-btns" class="mt-2 mb-5">
           <button class="button toggle-btn" :class="{'button-selected':isPage0()}" v-on:click="toggle(0)">웹 로그</button>

@@ -1,6 +1,6 @@
 <template>
   <div class="comments">
-    <div :class="comments_wrapper_classes">
+    <div class="comments_wrapper_classes">
       <single-comment
         v-for="comment in comments"
         :comment="comment"

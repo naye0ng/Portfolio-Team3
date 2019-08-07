@@ -7,9 +7,9 @@
 
       <!-- Post Writer -->
       <v-layout justify-center class="mb-2" style="fixed:true;">
-          <v-layout wrap align-center justify-center>
+          <v-layout wrap align-center justify-center mw-700 px-3>
             <v-flex xs8 mt-4>
-              <div style="text-align:center;">
+              <div>
                 <v-btn icon class="ma-0">
                   <i class="fa fa-search"></i>
                 </v-btn>
@@ -29,15 +29,15 @@
                <button
                   v-if="user != null && $store.getters.dbuser.accessLevel>=1" 
                   class="button button--wayra button--border-medium button--text-medium button--size-s sm-button"
-                  style="min-width:150px; max-width: 150px; padding:0.5em 1em; margin:0;">
+                  style="float:right;min-width:150px; max-width: 150px; padding:0.5em 1em; margin:0;">
                   포스트 작성
                 </button>
-                <button
+                <!-- <button
                   v-if="user != null && $store.getters.dbuser.accessLevel>=1"
                   class="button button--wayra button--border-thin button--text-medium button--size-xs xs-button"
                   style="min-width:100px; max-width: 100px; padding:0.5em 1em; margin:0;">
                   작성하기
-                </button>
+                </button> -->
               </router-link>
             </v-flex>
           </v-layout>
@@ -129,9 +129,9 @@ export default {
 }
 
 @media(max-width:500px){
-  .sm-button{
+  /* .sm-button{
     display:none !important;
-  }
+  } */
   .searchbar{
     width:100px !important;
   }
@@ -139,12 +139,12 @@ export default {
     width: 120px !important;
   }
 }
-
+/* 
 @media(min-width:501px){
   .xs-button{
     display:none !important;
   }
-}
+} */
 
 
 </style>

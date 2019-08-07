@@ -1,5 +1,5 @@
 <template>
-  <v-layout align-center justify-center row style="min-height:100vh!important;position:relative;">
+  <v-layout class="profile-bts" align-center justify-center row style="min-height:100vh!important;position:relative;">
     <div  :class="{'shooting-star':this.$store.state.isLoading,'shooting-star-2':!this.$store.state.isLoading}" class="v-fade">
       <div class="stars"></div>
       <div class="twinkling"></div>
@@ -14,32 +14,32 @@
             <v-layout wrap row justify-end id="profile-btns" >
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%; padding:1.5em 0.2em;margin-top:10px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:10px;"
                   :class="{'button-selected':isPage0()}"
                   v-on:click="toggle(0)"
                 ><i class="fa fa-user"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:8px;"
                   :class="{'button-selected':isPage1()}"
                   v-on:click="toggle(1)"
                 ><i class="fa fa-bookmark"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:8px;"
                   :class="{'button-selected':isPage2()}"
                   v-on:click="toggle(2)"
                 ><i class="fa fa-image"></i></button>
               </v-flex>
               <v-flex xs10>
                 <button
-                  class="font-icon button button--wayra button--border-thin button--text-thin button--size-s"
-                  style="color:#fff; min-width:35%; max-width:35%;padding:1.5em 0.2em;margin-top:8px;"
+                  class="nav-profile font-icon button button--wayra button--border-thin button--text-thin button--size-s"
+                  style="color:#fff;margin-top:8px;"
                   :class="{'button-selected':isPage3()}"
                   v-on:click="toggle(3)"
                 ><i class="fa fa-sticky-note"></i></button>
@@ -193,5 +193,23 @@ export default {
 .font-icon i::before {
   font-size: 23px!important;
 }
-
+.nav-profile{
+  padding: 1em 0.2em;
+  width: 60px!important;
+  height: 60px!important;
+  min-width: 60px; 
+  max-width: 60px;
+}
+@media (max-width:700px) {
+  .nav-profile{
+    padding: 0.8em 0.2em;
+    width: 50px!important;
+    height: 50px!important;
+    min-width: 50px; 
+    max-width: 50px;
+  }
+  .font-icon i::before {
+    font-size: 15px!important;
+  }
+}
 </style>
