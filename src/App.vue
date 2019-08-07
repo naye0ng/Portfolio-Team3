@@ -1,23 +1,11 @@
-<!--<template>
-  <v-app>
-    <HelloUniverse class="v-fade" v-show="this.$store.state.isHelloUniverse" :class="{'hide':!this.$store.state.isHelloUniverse}"></HelloUniverse>
-    <div v-show="!this.$store.state.isHelloUniverse">
-      <v-content style="background-color:#ffffff;" v-show="!this.$store.state.isHelloUniverse" :class="{'hide':this.$store.state.isHelloUniverse}">
-        <main-header/>
-        <router-view/>
-        <go-to-top/>
-        <main-footer/>
-      </v-content>
-    </div>
-  </v-app>
-</template>-->
+
 <template>
   <v-app>
       <v-content>
         <main-header v-if="isNotRoot()"/>
         <router-view/>
-        <go-to-top/>
-        <main-footer/>
+        <go-to-top v-if="isNotRoot()"/>
+        <main-footer v-if="isNotRoot()"/>
       </v-content>
   </v-app>
 </template>
@@ -26,6 +14,7 @@ import store from './vuex/store'
 import Header from './components/template/Header.vue'
 import Footer from './components/template/Footer.vue'
 import GoToTop from './components/template/GoToTop.vue'
+import ChatBot from './components/template/ChatBot.vue'
 
 export default {
 	name: 'App',
@@ -33,6 +22,7 @@ export default {
     'main-header' : Header,
     'main-footer' : Footer,
     'go-to-top' : GoToTop,
+    'chatbot' : ChatBot,
   },
 	store,
 	data() {
@@ -42,14 +32,12 @@ export default {
   },
   methods: {
     isNotRoot() {
-      // console.log(this.$store.path)
-      return this.$store.path === '/' ? false : true
+      return this.$route.path === '/' ? false : true
     }
   },
   created() {
     // App이 생성될 때, init에 필요한 부분.
     // 날씨 정보를 받아와 vuex에 저장.
-    console.log(this.$router)
     this.$store.dispatch('initWeather');
   }
 }

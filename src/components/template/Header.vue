@@ -22,14 +22,9 @@
         <v-menu v-if="user" offset-y style="z-index:999;">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
-              <v-img
-                contain
-                max-width="40px"
-                max-height="40px"
-                :src="profile_image"
-                style="border-radius:100%;"
-                aspect-ratio="1"
-              ></v-img>
+              <v-avatar size="40">
+                <v-img :src="profile_image" aspect-ratio="1" height="40px"></v-img>
+              </v-avatar>
             </v-btn>
           </template>
 
@@ -83,7 +78,9 @@
             <v-icon :color="getListTitleColor">favorite</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title style="color:#ffffff">{{getListTitleName}}</v-list-tile-title>
+            <router-link to="/profile">
+              <v-list-tile-title style="color:#ffffff">{{getListTitleName}}</v-list-tile-title>
+            </router-link> 
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

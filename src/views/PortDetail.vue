@@ -10,7 +10,7 @@
       <v-layout my-5 wrap>
         <v-flex xs8 offset-xs2 mt-5>
           <v-card outlined style="border:1.2px solid #f7f7f7;">
-            <v-card-title primary-title class="pb-2 pt-2" style="background-color:#fff;">
+            <v-card-title primary-title class="pb-3 pt-3" style="background-color:#fff;">
               <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{port.title}}</h2>
               <v-spacer></v-spacer>
               <v-flex hidden-xs-only class="caption grey--text pt-2 text-xs-right">
