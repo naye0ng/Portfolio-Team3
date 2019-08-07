@@ -2,8 +2,8 @@
   <div id="chatbot" v-show="visible" class="v-fade">
     <v-menu top offset-y>
       <template v-slot:activator="{ on }">
-        <v-avatar color="primary" size="56" v-on="on">
-          <v-icon fab dark size="30" color="white">help_outline</v-icon>
+        <v-avatar color="primary" size="56" v-on="on" class="chatbot-avatar">
+          <div class="icon-fairy"></div>
         </v-avatar>
       </template>
       <iframe src="https://app.closer.ai/webchat/Bdv8x4" id="chat-contain"></iframe>
@@ -50,11 +50,30 @@ export default {
   bottom: 25px;
   right: 20px;
   z-index: 1000;
+  cursor: pointer;
 }
-
+#chatbot .icon-fairy{
+  width: 56px;
+  height: 56px;
+  content:'';
+  position:absolute;
+  background-size: cover;
+  background-position: center center;
+  background-image:url(../../assets/nana.png);
+}
+.v-btn:hover, .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover ,#chatbot .icon-fairy:hover{
+  background-color: #181818!important;
+}
+.chatbot-avatar{
+  overflow:hidden;
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+}
 #chat-contain {
   width: 350px;
   height: 500px;
   border-radius: 15px;
+}
+.v-menu__content--fixed {
+  box-shadow:none!important;
 }
 </style>
