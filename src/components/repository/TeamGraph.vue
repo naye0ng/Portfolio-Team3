@@ -7,6 +7,16 @@
           style="color:#fff;font-size:4.3vw;"
         >Hi, We are Team3!</h2>
       </v-flex>
+      <v-flex xs12 px-3 py-3>
+        <v-card class="graph-card" style="padding:10px;">
+          <v-card-title primary-title>
+            <h3 class="headline mb-2" style="width:100%;text-align:center;">Team3 member Commits</h3>
+          </v-card-title>
+          <div style="padding: 5px 10px; margin-bottom:20px;">
+            <canvas id="memberCommitChart" width="100%" class="mb-1"></canvas>
+          </div>
+        </v-card>
+      </v-flex>
       <v-flex xs12 md6 px-3 py-3>
         <v-card class="graph-card" style="padding:10px;">
           <v-card-title primary-title>
@@ -74,12 +84,113 @@ export default {
       } else {
         this.$store.state.isLoading = false;
         setTimeout(() => {
-          this.createTeamGraph(data);
-          this.createMemberGraph(data);
+          this.createDateMemberCommitGraph(data)
+          this.createTeamGraph(data)
+          this.createMemberGraph(data)
           // team3 web site graph
-          this.createVisitorChart();
-          this.socialLoginChart();
+          this.createVisitorChart()
+          this.socialLoginChart()
         }, 300);
+      }
+    },
+    createDateMemberCommitGraph(data){
+      if (data){
+        let end = new Date(data[0].commit.author.date.slice(0, 10));
+        let start = new Date(data[data.length - 1].commit.author.date.slice(0, 10));
+        
+        let nana = []
+        let hazel = []
+        let eddy = []
+        let richard = []
+        let anna = []
+
+        let labels = []
+        
+        let k = data.length - 1;
+        while (start <= end) {
+          labels.push(start.getMonth() + 1 + "월 " + start.getDate() + "일");
+          nana.push(0)
+          hazel.push(0)
+          eddy.push(0)
+          richard.push(0)
+          anna.push(0)
+          while (k >= 0) {
+            var commitDate = new Date(data[k].commit.author.date.slice(0, 10));
+            if(commitDate - start == 0){
+              let strCommit = data[k].commit.message
+              if (strCommit.split(' ')[0] != 'Merge'){ 
+                let author = data[k].commit.author.name;
+                if (author == "naye0ng") {
+                  nana[nana.length - 1] += 1
+                } else if (author == "Park Haewon") {
+                  hazel[hazel.length - 1] += 1
+                } else if (author == "Yongbeom Jo") {
+                  richard[richard.length - 1] += 1
+                } else if (author == "KimTongWook" || author == "ehddnr8813") {
+                  eddy[eddy.length - 1] += 1
+                } else {
+                  anna[anna.length - 1] += 1
+                }
+              }
+              k -= 1
+            }else {
+              break
+            }
+          }
+          start.setDate(start.getDate() + 1);
+        }
+        var ctx = document.getElementById("memberCommitChart");
+        var teamChart = new chart.Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "김나영",
+                data: nana,
+                backgroundColor: ["rgba(255,99,1325, 0.2)"],
+                borderColor: ["rgba(255,99,132, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "김동욱",
+                data: eddy,
+                backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+                borderColor: ["rgba(54, 162, 235, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "박해원",
+                data: hazel,
+                backgroundColor: ["rgba(255, 206, 86, 0.2)"],
+                borderColor: ["rgba(255, 206, 86, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "임현아",
+                data: anna,
+                backgroundColor: ["rgba(75, 192, 192, 0.2)"],
+                borderColor: ["rgba(75, 192, 192, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "조용범",
+                data: richard,
+                backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+                borderColor: ["rgba(153, 102, 255, 1)"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            legend: {
+              display: true
+            },
+            layout: {
+              padding: 5
+            }
+          }
+        });
       }
     },
     createTeamGraph(data) {
