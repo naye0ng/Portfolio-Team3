@@ -4,7 +4,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer">
         <v-icon>menu</v-icon>
       </v-toolbar-side-icon>
-      <router-link to="/" exact style="text-decoration:none;">
+      <router-link to="/home" exact style="text-decoration:none;">
         <v-toolbar-title>&nbsp;Hello Universe;</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
@@ -139,7 +139,7 @@ export default {
       drawer: null,
       dialog: false,
       items: [
-        { title: "HOME", icon: "home", to: "/" },
+        { title: "HOME", icon: "home", to: "/home" },
         { title: "POST", icon: "web", to: "/post" },
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
         { title: "TEAM3", icon: "group", to: "/team3" }

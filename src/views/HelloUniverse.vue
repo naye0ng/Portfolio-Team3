@@ -101,7 +101,7 @@ export default {
     setHelloUniverse() {
       setTimeout(() => {
         this.$router.push("/home");
-      }, 3000);
+      }, 2800);
     }
   },
   mounted() {

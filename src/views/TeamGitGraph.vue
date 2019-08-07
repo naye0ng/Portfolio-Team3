@@ -1,6 +1,6 @@
 <template>
   <v-layout align-center justify-center row style="min-height:100vh!important;position:relative;">
-    <div class="shooting-star">
+    <div :class="{'shooting-star':this.$store.state.isLoading,'shooting-star-2':!this.$store.state.isLoading}">
       <div class="stars"></div>
       <div class="twinkling"></div>
       <div class="p p-1 v-fade"></div>

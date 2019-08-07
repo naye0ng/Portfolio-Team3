@@ -419,6 +419,8 @@ export default {
 .shooting-star-2{
   position:relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 .shooting-star-2 .stars{
   z-index: 1;
