@@ -1,6 +1,6 @@
 <template>
   <v-layout align-center justify-center row style="min-height:100vh!important;position:relative;">
-    <div class="shooting-star">
+    <div  :class="{'shooting-star':this.$store.state.isLoading,'shooting-star-2':!this.$store.state.isLoading}" class="v-fade">
       <div class="stars"></div>
       <div class="twinkling" style="z-index:0!important;"></div>
       <div class="p p-1"></div>
@@ -81,7 +81,6 @@
     </v-container>
     </div>
     <SolarSystemLoading v-show="this.$store.state.isLoading" :class="{'hide':!this.$store.state.isLoading}" class="v-fade" ></SolarSystemLoading>
-    
   </v-layout>
 </template>
 <script>
@@ -130,11 +129,12 @@ export default {
   methods: {
     async getUserPortfolios(){
       this.portfolios = await FirebaseService.getPortfolios();
-      // console.log(this.portfolios);
     },
     async getUserPosts(){
       this.posts = await FirebaseService.getPosts();
-      // console.log(this.posts);
+      setTimeout(() => {
+        this.$store.state.isLoading = false; 
+      }, 1000);
     },
     toggle(page) {
       this.page = page;

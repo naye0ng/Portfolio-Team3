@@ -1,123 +1,125 @@
 <template>
   <v-layout align-center justify-center row fill-height style="background-color:#000000;">
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="p p-1"></div>
-    <div class="p2 p-2"></div>
-    <div class="p3 p-3"></div>
-    <v-container id="postcard" class="mt-3">
-      <v-layout my-5 wrap justify-center row>
-        <v-flex xs8 sm6 mt-5>
-          <v-card>
-            <v-card-title primary-title class="pb-2 pt-2">
-              <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
-              <v-spacer></v-spacer>
-              <div class="caption grey--text pt-4">
-                <v-avatar size="35px">
-                  <img :src="userimg" alt="">
-                </v-avatar>
-                {{post.user}}
-              </div>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text style="min-height:30vh;">
-              <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1" style="word-break: break-all;"></p>
-            </v-card-text>
-            <v-card-text class="pb-1 pl-3" v-if="post">
-              <span style="font-size:0.89rem;" class="card-media-body-supporting-bottom-text subtle" v-for="i in post.tag.length" >
-                #{{post.tag[i-1]}}&nbsp;
-              </span>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions class="pl-0 bg-1">
-              <div class="ml-2">
-                <v-btn icon v-if="curUser && liked" @click="likes">
-                  <i class="material-icons" style="color:#ec407a;">
-                    favorite
-                  </i>
-                </v-btn>
-                <v-btn icon v-if="!curUser || !liked" @click="likes">
-                  <i class="material-icons" style="color:#ec407a;">
-                    favorite_border
-                  </i>
-                </v-btn>
-                <!-- <v-btn icon>
-                  <v-icon>bookmark</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon>share</v-icon>
-                </v-btn> -->
-              </div>
-              <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
-              <v-dialog v-model="dialog" max-width="300px">
-                  <v-card>
-                    <v-card-title>
-                      Likes
-                    </v-card-title>
-                    <v-card-text>
-                      <div v-for="i in likers.length" class="py-1">
-                        <v-avatar>
-                          <img
-                            :src="likers[i-1].avatar"
-                          >
-                        </v-avatar>
-                        <span class="pl-3">{{likers[i-1].nickname}}</span>
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
-              <v-spacer></v-spacer>
-              <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
-            </v-card-actions>
-            <v-divider></v-divider>
-            <PostComment
-              :id="post.id"
-              v-if="post"   
-            ></PostComment>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <!-- go back button -->
-        <v-flex xs12 text-xs-center round class="bg-3">
-          <router-link to="/post">
-            <button class="button button--wayra button--border-medium button--text-medium button--size-s"
-            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
-              리스트로
-            </button>
-          </router-link>
-          <router-link to="/">
-            <button class="button button--wayra button--border-medium button--text-medium button--size-s"
-            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
-              홈으로
-            </button>
-          </router-link>
-          <!-- EditBtn, RemoveBtn check login user's email match with post's email infomation-->
-          <!-- EditBtn pass post infomation to PostWriter.vue -->
-          <router-link :to="{
-              name: 'makecontents',
-              params: {
-                kind: 'Post', // MakeContents.vue will call PostWriter.vue
-                title: post.title,
-                id: post.id,
-                body: post.body,
-                tag : post.tag,
-                user : post.user
-              }}">
-              <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" class="button button--wayra button--border-medium button--text-medium button--size-s" 
-              style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
-                수정하기
-              </button>
-            </router-link>
+    <div class="shooting-star-2">
+      <div class="stars"></div>
+      <div class="twinkling"></div>
+      <div class="p p-1"></div>
+      <div class="p2 p-2"></div>
+      <div class="p3 p-3"></div>
+      <v-container id="postcard" class="mt-3">
+        <v-layout my-5 wrap justify-center row>
+          <v-flex xs8 sm6 mt-5>
+            <v-card>
+              <v-card-title primary-title class="pb-2 pt-2">
+                <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
+                <v-spacer></v-spacer>
+                <div class="caption grey--text pt-4">
+                  <v-avatar size="35px">
+                    <img :src="userimg" alt="">
+                  </v-avatar>
+                  {{post.user}}
+                </div>
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text style="min-height:30vh;">
+                <p v-html="post.body" class="color-666 font-weight-light subheading mt-2 ml-1" style="word-break: break-all;"></p>
+              </v-card-text>
+              <v-card-text class="pb-1 pl-3" v-if="post">
+                <span style="font-size:0.89rem;" class="card-media-body-supporting-bottom-text subtle" v-for="i in post.tag.length" >
+                  #{{post.tag[i-1]}}&nbsp;
+                </span>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-actions class="pl-0 bg-1">
+                <div class="ml-2">
+                  <v-btn icon v-if="curUser && liked" @click="likes">
+                    <i class="material-icons" style="color:#ec407a;">
+                      favorite
+                    </i>
+                  </v-btn>
+                  <v-btn icon v-if="!curUser || !liked" @click="likes">
+                    <i class="material-icons" style="color:#ec407a;">
+                      favorite_border
+                    </i>
+                  </v-btn>
+                  <!-- <v-btn icon>
+                    <v-icon>bookmark</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>share</v-icon>
+                  </v-btn> -->
+                </div>
+                <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
+                <v-dialog v-model="dialog" max-width="300px">
+                    <v-card>
+                      <v-card-title>
+                        Likes
+                      </v-card-title>
+                      <v-card-text>
+                        <div v-for="i in likers.length" class="py-1">
+                          <v-avatar>
+                            <img
+                              :src="likers[i-1].avatar"
+                            >
+                          </v-avatar>
+                          <span class="pl-3">{{likers[i-1].nickname}}</span>
+                        </div>
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
+                <v-spacer></v-spacer>
+                <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
+              </v-card-actions>
+              <v-divider></v-divider>
+              <PostComment
+                :id="post.id"
+                v-if="post"   
+              ></PostComment>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <!-- go back button -->
+          <v-flex xs12 text-xs-center round class="bg-3">
             <router-link to="/post">
-              <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
-              style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
-                삭제하기
+              <button class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+                리스트로
               </button>
             </router-link>
-        </v-flex>
-      </v-layout>
-    </v-container>
+            <router-link to="/home">
+              <button class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;">
+                홈으로
+              </button>
+            </router-link>
+            <!-- EditBtn, RemoveBtn check login user's email match with post's email infomation-->
+            <!-- EditBtn pass post infomation to PostWriter.vue -->
+            <router-link :to="{
+                name: 'makecontents',
+                params: {
+                  kind: 'Post', // MakeContents.vue will call PostWriter.vue
+                  title: post.title,
+                  id: post.id,
+                  body: post.body,
+                  tag : post.tag,
+                  user : post.user
+                }}">
+                <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" class="button button--wayra button--border-medium button--text-medium button--size-s" 
+                style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
+                  수정하기
+                </button>
+              </router-link>
+              <router-link to="/post">
+                <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+                style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
+                  삭제하기
+                </button>
+              </router-link>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </div>
   </v-layout>
 </template>
 
