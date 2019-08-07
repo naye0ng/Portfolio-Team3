@@ -11,7 +11,7 @@
         </v-flex>
         <v-flex v-for="i in userposts.length > limit ? limit : userposts.length" xs10 px-3>
           <!-- Give post infomation to each Post.vue -->
-          <Post class="ma-3"
+          <Post class="mx-3"
             :email="userposts[i - 1].user"
             :date="userposts[i - 1].created_at"
             :title="userposts[i - 1].title"
