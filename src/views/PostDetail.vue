@@ -6,9 +6,9 @@
       <div class="p p-1"></div>
       <div class="p2 p-2"></div>
       <div class="p3 p-3"></div>
-      <v-container id="postcard" class="mt-3">
+      <v-container id="postcard" fluid class="mt-3">
         <v-layout my-5 wrap justify-center row>
-          <v-flex xs8 sm6 mt-5>
+          <v-flex xs6 mt-5>
             <v-card>
               <v-card-title primary-title class="pb-2 pt-2">
                 <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>

@@ -8,7 +8,7 @@
       <v-layout justify-center>
         <v-flex xs11>
           <v-layout wrap align-center justify-end>
-            <v-flex xs2 mt-5 pl-4 class="bg-1">
+            <v-flex xs4 mt-5 pl-4 class="bg-1">
               <router-link :to="{
                 name: 'makecontents',
                 params: {
@@ -16,10 +16,16 @@
                 }}">
                 <!-- v-if : Check login status -->
                 <button
-                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
-                  class="button button--wayra button--border-medium button--text-medium button--size-s"
-                  style="max-width: 160px;padding:0.5em 1em;">
+                  v-if="user != null && $store.getters.dbuser.accessLevel>=1" 
+                  class="button button--wayra button--border-medium button--text-medium button--size-s sm-button"
+                  style="min-width:157px; max-width: 157px; padding:0.5em 1em;">
                   포트폴리오 작성
+                </button>
+                <button
+                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
+                  class="button button--wayra button--border-thin button--text-medium button--size-xs xs-button"
+                  style="min-width:100px; max-width: 100px; padding:0.5em 1em; margin:0;">
+                  작성하기
                 </button>
               </router-link>
             </v-flex>

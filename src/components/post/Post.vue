@@ -10,7 +10,7 @@
                 <div class="u-float-right">
                   <i class="fa fa-heart">
                   </i>
-                  <div class="caption grey--text" style="display:inline-block;">&nbsp;{{likecount}} &nbsp;</div>
+                  <div class="caption grey--text" style="display:inline-block;">&nbsp;{{likecount}}</div>
                   <i class="fa fa-comment">
                   </i>
                   <div class="caption grey--text" style="display:inline-block;">&nbsp;{{commentcount}} </div>
@@ -316,13 +316,12 @@ html {
 }
 
 .card-media-body-top-icons {
-  position: absolute;
-  display: inline-block;
-  margin-top: -2px;
-  opacity: 0;
+  position:absolute;
+  top: 10px;
+  right: 20px;
+  opacity:0;
   transition: all 300ms ease-out;
   transform: translateY(-5px);
-  width: 82%;
 }
 
 
@@ -333,18 +332,16 @@ html {
 }
 
 .card-media:hover .card-media-body-top-icons {
+  position:absolute;
   opacity: 1;
   transform: translateY(0);
 }
 
-.card-media-body-top-icons > svg {
-  cursor: pointer;
+
+.card-media-body-top-icons i {
+  /* cursor: pointer; */
   margin-left: 10px;
   transition: all 300ms ease-out;
-}
-
-.card-media-body-top-icons > svg:hover {
-  fill: #444;
 }
 
 .card-media-body-heading {
@@ -404,9 +401,4 @@ html {
   text-decoration: none;
 }
 
-@media (max-width:615px){
-  #postemail{
-    display:none!important;
-  }
-}
 </style>
