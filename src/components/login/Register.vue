@@ -83,6 +83,8 @@
 import firebase from "firebase";
 import { Decipher } from "crypto";
 import registerService from "@/services/login/RegisterService";
+import FirebaseService from '@/services/FirebaseService'
+
 import Swal from "sweetalert2";
 
 export default {
@@ -124,17 +126,20 @@ export default {
       // key값 생성
       return email.split('@')[0];
     },
-    async useRandomImg(){ // RandomImgBtn
+    useRandomImg(){ // RandomImgBtn
       this.photoURL = 'https://source.unsplash.com/random/100x100'
-      await this.onUrlImagePicked(this.photoURL)
+      this.onUrlImagePicked(this.photoURL)
     },
-    async onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+    onUrlImagePicked(url) { // Transform Url Image to base64 type data url
       const image2base64 = require('image-to-base64');
-      await image2base64(url)
+      image2base64(url)
         .then(
           (response) => {
               this.photoURL = 'data:image/jpeg;base64,' + response
               console.log("i264 : " +this.photoURL)
+              var fire = FirebaseService.profilePhotoUploader('cse@kw.ac.kr', this.photoURL)
+              this.photoURL = fire
+              //console.log("i264 : " +this.photoURL)
             }
         )
     },
