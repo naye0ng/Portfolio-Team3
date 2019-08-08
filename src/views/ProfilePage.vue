@@ -46,35 +46,35 @@
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-5 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage0()}">
+          <v-flex xs6 my-5 ml-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage0()}">
             <v-layout justify-start>
-              <Profile style="position: relative;" class="v-fade"></Profile>
+              <Profile style="position: relative; width:100%;" class="v-fade"></Profile>
             </v-layout>
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage1()}">
-            <v-layout justify-start>
+          <v-flex xs7 my-2 ml-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage1()}">
+            <!-- <v-layout justify-start> -->
               <Bookmark
               :useremail="$store.getters.dbuser.email"
               :portfolios="portfolios"
               :posts="posts"
-              style="position: relative;" class="v-fade"></Bookmark>
-            </v-layout>
+              style="position: relative; width:100%;" class="v-fade"></Bookmark>
+            <!-- </v-layout> -->
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage2()}">
-            <v-layout justify-start>
+          <v-flex xs7 my-2 ml-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage2()}">
+            <!-- <v-layout justify-start> -->
               <MyPortfolios
               :useremail="$store.getters.dbuser.email"
               :portfolios="portfolios"
-              style="position: relative;" class="v-fade"></MyPortfolios>
-            </v-layout>
+              style="position: relative; width:100%;" class="v-fade"></MyPortfolios>
+            <!-- </v-layout> -->
           </v-flex>
-          <v-flex xs7 my-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage3()}">
-            <v-layout justify-start>
+          <v-flex xs7 my-2 ml-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage3()}">
+            <!-- <v-layout justify-start> -->
               <MyPosts
               :useremail="$store.getters.dbuser.email"
               :posts="posts"
-              style="position: relative;" class="v-fade"></MyPosts>
-            </v-layout>
+              style="position: relative; width:100%;" class="v-fade"></MyPosts>
+            <!-- </v-layout> -->
           </v-flex>
         </v-layout>
       </div>
