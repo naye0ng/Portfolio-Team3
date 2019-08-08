@@ -9,22 +9,20 @@
               @deleted="deleted"
           ></PostSingleComment>
         </v-flex>
-        <v-flex xs12 text-xs-center round v-if="pageLimit<comments.length">
-          <button @click="loadMoreComments" class="more-btn">
+        <div style="text-align:center;">
+          <button @click="loadMoreComments" class="more-btn mx-1" v-if="pageLimit<comments.length">
             more
           </button>
-        </v-flex>
-        <v-flex xs12 text-xs-center round v-if="comments.length>4 && pageLimit>=comments.length">
-          <button @click="foldComments" class="more-btn">
+          <button @click="foldComments" class="more-btn mx-1" v-if="(comments.length>4 && pageLimit>=comments.length) || (pageLimit<comments.length && pageLimit>4)">
             fold
           </button>
-        </v-flex>
+        </div>
       </div>
       <hr/>
-      <div class="reply">
-        <div class="avatar">
-            <img :src="current_user.avatar" alt="">
-        </div>
+      <div class="reply" v-show="this.$store.getters.getUser">
+        <v-avatar size="40">
+          <v-img :src="current_user.avatar" aspect-ratio="1" height="40px"></v-img>
+        </v-avatar>
         <input
             type="text"
             v-model.trim="reply"
@@ -33,7 +31,6 @@
             maxlength="250"
             required
             @keyup.enter="submitComment"
-            v-if="this.$store.getters.getUser"
         />
         <button class="reply--button" @click.prevent="submitComment"><i class="fa fa-paper-plane"></i> Send</button>
       </div>
@@ -104,6 +101,7 @@ export default {
                 time_stamp : date,
             })
             this.reply='';
+            this.pageLimit = this.comments.length;
         })
       }
     },
@@ -223,7 +221,7 @@ hr {
 }
 .reply .reply--text {
   min-height: 40px;
-  padding: 10px 10px 10px 55px;
+  padding: 10px 10px 10px 15px;
   margin-right: 10px;
   border: 0;
   color: #333;
@@ -320,5 +318,9 @@ hr {
 .more-btn:hover{
   border: none;
   background-color:#ec407967;
+}
+
+.more-btn:focus{
+  outline:0;
 }
 </style>

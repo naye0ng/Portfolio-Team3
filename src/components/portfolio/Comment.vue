@@ -1,6 +1,6 @@
 <template>
   <div class="comments">
-    <div class="comments_wrapper_classes">
+    <div class="comments_wrapper_classes mt-1">
       <single-comment
         v-for="comment in comments"
         :comment="comment"
@@ -10,10 +10,13 @@
       ></single-comment>
     </div>
     <hr/>
-    <div class="reply">
-      <div class="avatar">
+    <div class="reply" v-show="this.$store.getters.getUser">
+      <!-- <div class="avatar">
         <img :src="current_user.avatar" alt />
-      </div>
+      </div> -->
+      <v-avatar size="40">
+        <v-img :src="current_user.avatar" aspect-ratio="1" height="40px"></v-img>
+      </v-avatar>
       <input
         type="text"
         v-model.trim="reply"
@@ -22,7 +25,6 @@
         maxlength="250"
         required
         @keyup.enter="submitComment"
-        v-if="this.$store.getters.getUser"
       />
       <button class="reply--button" @click.prevent="submitComment">
         <i class="fa fa-paper-plane"></i> Send

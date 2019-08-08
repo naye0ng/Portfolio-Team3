@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" max-width="600px">
       <template v-slot:activator="{ on }">
         <button
           class="button button--wayra button--border-medium button--text-medium button--size-s"

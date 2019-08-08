@@ -14,8 +14,8 @@
                 <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
                 <v-spacer></v-spacer>
                 <div class="caption grey--text pt-4">
-                  <v-avatar size="35px">
-                    <img :src="userimg" alt="">
+                  <v-avatar size="35">
+                    <v-img :src="userimg" aspect-ratio="1" height="35px"></v-img>
                   </v-avatar>
                   {{post.user}}
                 </div>

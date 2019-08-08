@@ -14,8 +14,8 @@
                 <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{port.title}}</h2>
                 <v-spacer></v-spacer>
                 <v-flex hidden-xs-only class="caption grey--text pt-2 text-xs-right">
-                  <v-avatar size="35px">
-                    <img :src="userimg" alt="">
+                  <v-avatar size="35">
+                    <v-img :src="userimg" aspect-ratio="1" height="35px"></v-img>
                   </v-avatar>
                   {{port.user}}
                 </v-flex>
