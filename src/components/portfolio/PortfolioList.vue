@@ -56,7 +56,7 @@ export default {
     },
     foldPortfolios(){
       this.pageLimit = 4;
-      
+
     }
 	},
 }

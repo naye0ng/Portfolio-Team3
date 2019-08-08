@@ -7,7 +7,7 @@
       <div class="user">
         <a class="username body-1" href="#">{{nickname }}</a>
         <span>
-          <span v-if="modYet">{{ comment.text }}</span>
+          <span v-if="modYet" class="body-2">{{ comment.text }}</span>
           <div v-if="!modYet">
             <textarea id="mod-comment" :value="comment.text" rows=1></textarea>
             <button class="caption" id="mod-comment-btn" @click="subComment">submit</button>

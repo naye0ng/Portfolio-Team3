@@ -7,8 +7,8 @@
       <div class="p2 p-2"></div>
       <div class="p3 p-3"></div>
       <v-container id="portcard" class="mt-3">
-        <v-layout my-5 wrap>
-          <v-flex xs8 offset-xs2 mt-5>
+        <v-layout my-5 wrap justify-center row>
+          <v-flex xs10 md8 mt-5>
             <v-card outlined style="border:1.2px solid #f7f7f7;">
               <v-card-title primary-title class="pb-3 pt-3" style="background-color:#fff;">
                 <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{port.title}}</h2>
@@ -20,12 +20,13 @@
                   {{port.user}}
                 </v-flex>
               </v-card-title>
-              <v-img
+              <v-card-text style="background-color:#fff;" class="px-0 pb-0">
+                <v-img
                 :src="port.img"
                 contain
-                style="max-height:70vh; max-width:70vw; background-color:#000000;"
-              ></v-img>
-
+                style="max-height:70vh; max-width:70vw; margin:auto;"
+                ></v-img>
+              </v-card-text>
               <div style="background-color:#ffffff;">
                 <v-card-text class="pb-0 pl-4 pt-3">
                   <div v-html="port.body" style="font-size:1.24rem;word-break: break-all;"></div>
@@ -43,75 +44,75 @@
                     </i>
                   </v-btn>
                   <!-- <v-btn icon>
-                    <v-icon>bookmark</v-icon>
-                  </v-btn> -->
-                  <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
-                  <v-dialog v-model="dialog" max-width="300px">
-                    <v-card>
-                      <v-card-title>
-                        Likes
-                      </v-card-title>
-                      <v-card-text>
-                        <div v-for="i in likers.length" class="py-1">
-                          <v-avatar>
-                            <img
-                              :src="likers[i-1].avatar"
-                            >
-                          </v-avatar>
-                          <span class="pl-3">{{likers[i-1].nickname}}</span>
-                        </div>
-                      </v-card-text>
-                    </v-card>
-                  </v-dialog>
-                  <v-spacer></v-spacer>
-                  <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
-                </v-card-actions>
-              </div>
-            </v-card>
-          </v-flex>
-        </v-layout>
-        <v-layout>
-          <!-- go back button -->
-          <v-flex xs12 text-xs-center round class="bg-3">
-            <CommentMain :port="this.port"/>          <!-- 댓글보기 -->
-            <router-link to="/portfolio">
-              <button
-                class="button button--wayra button--border-medium button--text-medium button--size-s"
-                style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
-              >리스트로</button>
-            </router-link>
-            <router-link to="/home">
-              <button
-                class="button button--wayra button--border-medium button--text-medium button--size-s"
-                style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
-              >홈으로</button>
-            </router-link>
-            <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
-            <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
-            <router-link
-              :to="{
-              name: 'makecontents',
-              params: {
-                kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
-                title: port.title,
-                id: port.id,
-                body: port.body,
-                imgSrc: port.img,
-                user: port.user
+                  <v-icon>bookmark</v-icon>
+                </v-btn> -->
+                <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
+                <v-dialog v-model="dialog" max-width="300px">
+                  <v-card>
+                    <v-card-title>
+                      Likes
+                    </v-card-title>
+                    <v-card-text>
+                      <div v-for="i in likers.length" class="py-1">
+                        <v-avatar>
+                          <img
+                          :src="likers[i-1].avatar"
+                          >
+                        </v-avatar>
+                        <span class="pl-3">{{likers[i-1].nickname}}</span>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
+                <v-spacer></v-spacer>
+                <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
+              </v-card-actions>
+            </div>
+          </v-card>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <!-- go back button -->
+        <v-flex xs12 text-xs-center round class="bg-3">
+          <CommentMain :port="this.port"/>          <!-- 댓글보기 -->
+          <router-link to="/portfolio">
+            <button
+            class="button button--wayra button--border-medium button--text-medium button--size-s"
+            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
+            >리스트로</button>
+          </router-link>
+          <router-link to="/home">
+            <button
+            class="button button--wayra button--border-medium button--text-medium button--size-s"
+            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
+            >홈으로</button>
+          </router-link>
+          <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
+          <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
+          <router-link
+          :to="{
+            name: 'makecontents',
+            params: {
+              kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
+              title: port.title,
+              id: port.id,
+              body: port.body,
+              imgSrc: port.img,
+              user: port.user
               }}"
-            >
+              >
               <button
-                v-if="port.user == userEmail || $store.getters.dbuser.accessLevel>=2"
-                class="button button--wayra button--border-medium button--text-medium button--size-s"
-                style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
+              v-if="port.user == userEmail || $store.getters.dbuser.accessLevel>=2"
+              class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
               >수정하기</button>
             </router-link>
             <router-link to="/portfolio">
               <button
-                v-if="port.user == userEmail || $store.getters.dbuser.accessLevel>=2"
-                v-on:click="deletePortfolio"
-                class="button button--wayra button--border-medium button--text-medium button--size-s"
-                style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
+              v-if="port.user == userEmail || $store.getters.dbuser.accessLevel>=2"
+              v-on:click="deletePortfolio"
+              class="button button--wayra button--border-medium button--text-medium button--size-s"
+              style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
               >삭제하기</button>
             </router-link>
           </v-flex>
@@ -201,9 +202,9 @@ export default {
       }
       else{
         Swal.fire({
-            text:"좋아요를 누르시려면 로그인을 해주세요",
-            type: "warning"
-          })
+          text:"좋아요를 누르시려면 로그인을 해주세요",
+          type: "warning"
+        })
       }
 
     },
@@ -225,9 +226,9 @@ export default {
       this.likers = [];
       list.forEach(l=>{
         firebase.database().ref("user").child(l.user.split('@')[0]).once("value")
-            .then(snapshot => {
-              this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
-          })
+        .then(snapshot => {
+          this.likers.push({'nickname': snapshot.val().nickname,'avatar': snapshot.val().photoURL});
+        })
       })
     },
     getUserImg(id){
@@ -261,7 +262,7 @@ export default {
 
 .twinkling {
   background: transparent url(../../public/images/twinkling.png) repeat top
-    center;
+  center;
   z-index: 1;
 
   -moz-animation: move-twink-back 200s linear infinite;
@@ -286,13 +287,13 @@ export default {
 }
 
 .badge {
-    display: inline-block;
-    min-width: 16px; /* pixel unit */
-    padding: 35px 50px; /* pixel unit */
-    border-radius: 50%;
-    font-size: 75px;
-    text-align: center;
-    background: #1779ba;
-    color: #fefefe;
+  display: inline-block;
+  min-width: 16px; /* pixel unit */
+  padding: 35px 50px; /* pixel unit */
+  border-radius: 50%;
+  font-size: 75px;
+  text-align: center;
+  background: #1779ba;
+  color: #fefefe;
 }
 </style>
