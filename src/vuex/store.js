@@ -65,6 +65,6 @@ export default new Vuex.Store({
     },
     SET_searchtag(state,tag){
       state.searchtag = tag;
-    }
+    },
   }
 })
