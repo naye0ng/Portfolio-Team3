@@ -46,7 +46,7 @@
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs6 my-5 ml-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage0()}">
+          <v-flex xs6 my-2 ml-2 style="margin:auto 0px; min-height: 100vh;" :class="{'d-none':!isPage0()}">
             <v-layout justify-start>
               <Profile style="position: relative; width:100%;" class="v-fade"></Profile>
             </v-layout>
