@@ -18,10 +18,13 @@
 <template>
   <v-footer height="auto" style="background-color:#181818;">
     <v-layout justify-center align-center row wrap>
-      <v-flex xs4 py-3 class="footer-el text-xs-center">
+      <v-flex xs6 sm4 py-3 class="footer-el text-xs-center footer-el-mob-hid">
         <div id="google_translate_element"></div>
       </v-flex>
-      <v-flex xs4 py-3 class="footer-el text-xs-center " style="color:#fff;" align-self-center>
+      <v-flex xs6 py-3 class="footer-el text-xs-center hidden-sm-and-up footer-el-mob-hid" style="line-height: 2.5rem; color:#fff;">
+        <weather/>
+      </v-flex>
+      <v-flex xs12 sm4 py-3 class="footer-el text-xs-center " style="color:#fff;" align-self-center>
         <v-layout justify-center align-center row wrap>
           <v-flex xs5 class="text-xs-right"> &copy;2019&nbsp;—&nbsp;</v-flex>
           <v-flex xs6 style="float:left;" class="text-xs-left">
@@ -32,7 +35,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex xs4 py-3 class="footer-el text-xs-center" style="line-height: 2.5rem; color:#fff;">
+      <v-flex sm4 py-3 class="footer-el text-xs-center hidden-xs-only" style="line-height: 2.5rem; color:#fff;">
         <weather/>
       </v-flex>
     </v-layout>
@@ -57,3 +60,11 @@ export default {
   }
 }
 </script>
+
+<style>
+@media(max-width:450px) {
+  .footer-el-mob-hid {
+    display: none;
+  }
+}
+</style>

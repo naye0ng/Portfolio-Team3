@@ -8,7 +8,7 @@
       <div class="p3 p-3"></div>
       <v-container id="postcard" fluid class="mt-3">
         <v-layout my-5 wrap justify-center row>
-          <v-flex xs6 mt-5>
+          <v-flex xs10 md8  mt-5>
             <v-card>
               <v-card-title primary-title class="pb-2 pt-2">
                 <h2 class="color-333 headline font-weight-heavy mt-2 mb-1 ml-1">{{post.title}}</h2>
@@ -73,7 +73,7 @@
               <v-divider></v-divider>
               <PostComment
                 :id="post.id"
-                v-if="post"   
+                v-if="post"
               ></PostComment>
             </v-card>
           </v-flex>
@@ -105,13 +105,13 @@
                   tag : post.tag,
                   user : post.user
                 }}">
-                <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" class="button button--wayra button--border-medium button--text-medium button--size-s" 
+                <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" class="button button--wayra button--border-medium button--text-medium button--size-s"
                 style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
                   수정하기
                 </button>
               </router-link>
               <router-link to="/post">
-                <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s" 
+                <button v-if="post.user == userEmail || $store.getters.dbuser.accessLevel>=2" v-on:click="deletePost" class="button button--wayra button--border-thin button--text-medium button--size-s"
                 style="max-width:150px; padding:0.5em 1em; margin:0.5em;">
                   삭제하기
                 </button>
@@ -211,7 +211,7 @@ export default {
             type: "warning"
           })
       }
-      
+
     },
     async getLike(){
       const user = this.$store.getters.getUser;

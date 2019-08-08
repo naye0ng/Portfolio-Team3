@@ -2,8 +2,8 @@
   <div id="chatbot" v-show="visible" class="v-fade">
     <v-menu top offset-y>
       <template v-slot:activator="{ on }">
-        <v-avatar color="primary" size="56" v-on="on" class="chatbot-avatar">
-          <div class="icon-fairy"></div>
+        <v-avatar color="primary" size="58" v-on="on" class="chatbot-avatar">
+          <div id="icon-fairy-back" class="icon-fairy"></div>
         </v-avatar>
       </template>
       <iframe src="https://app.closer.ai/webchat/Bdv8x4" id="chat-contain"></iframe>
@@ -19,6 +19,14 @@ export default {
       visible: false,
       visibleoffset : 600,
       visibleoffsetbottom : 0,
+      speakers : [
+        'annaSpeaker.png',
+        'eddySpeaker.png',
+        'hazelSpeaker.png',
+        'nanaSpeaker.png',
+        'richardSpeaker.png'
+      ],
+      presp : 'nanaSpeaker.png',
     }
   },
   mounted () {
@@ -30,11 +38,19 @@ export default {
       }
     }
     window.addEventListener('scroll', this.catchScroll2)
+
+    // random image at ChatBot background
+    var random = Math.floor(Math.random() * 5) + 0;
+    this.presp = this.getImageUrl(this.speakers[random]);
+    document.getElementById('icon-fairy-back').style.backgroundImage="url("+this.presp+")";
   },
   destroyed () {
     window.removeEventListener('scroll', this.catchScroll2)
   },
   methods: {
+    getImageUrl(url) {
+      return require('@/assets/draw/' + url)
+    },
     catchScroll2 () {
       const pastTopOffset = window.pageYOffset > parseInt(this.visibleoffset)
       const pastBottomOffset = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - parseInt(this.visibleoffsetbottom)
@@ -47,19 +63,21 @@ export default {
 <style>
 #chatbot {
   position: fixed;
-  bottom: 25px;
-  right: 20px;
+  bottom: 100px;
+  right: 30px;
   z-index: 1000;
   cursor: pointer;
+  margin: 6px 8px;
 }
 #chatbot .icon-fairy{
-  width: 56px;
-  height: 56px;
+  width: 58px;
+  height: 58px;
   content:'';
   position:absolute;
   background-size: cover;
   background-position: center center;
-  background-image:url(../../assets/nana.png);
+  background-repeat: no-repeat;
+
 }
 .v-btn:hover, .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover ,#chatbot .icon-fairy:hover{
   background-color: #181818!important;

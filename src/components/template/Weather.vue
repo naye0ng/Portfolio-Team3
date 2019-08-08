@@ -31,6 +31,12 @@
   background-color: rgba(255,255,255,0.9);
   color:black
 }
+@media (max-width: 600px) {
+  #weather-modal {
+    display: none !important;
+  }
+}
+
 </style>
 <script>
 import WeatherDetail from '@/components/template/WeatherDetail'

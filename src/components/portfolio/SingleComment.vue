@@ -1,5 +1,5 @@
 <template>
-  <div class="comment pr-0">
+  <div class="comment pr-0" >
     <v-avatar size="40">
       <v-img :src="avatar" aspect-ratio="1" height="40px"></v-img>
     </v-avatar>
@@ -138,11 +138,19 @@ export default {
 
 <style scoped>
 /* Single-comment component */
+@media(max-width:565px) {
+  .comment {
+    margin-bottom:0px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+
+  }
+}
 .comment {
   display: flex;
   padding: 10px;
   margin-bottom: 10px;
-  align-items: end;
+  align-items: center;
 }
 .comment .avatar {
   align-self: flex-start;

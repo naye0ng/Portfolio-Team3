@@ -311,7 +311,7 @@ export default {
         })
       })
   },
-  profilePhotoUploader(email, img) {
+  async profilePhotoUploader(email, img) {
     
     var ref = firebase.storage().ref();
     
@@ -321,7 +321,7 @@ export default {
     // Upload image to firestorage
     var uploadTask = ref.child('profile/' + name).putString(img, 'data_url');
     
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+    await uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
     function(snapshot) {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');

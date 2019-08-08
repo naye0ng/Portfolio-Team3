@@ -1,43 +1,44 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="dialog" max-width="600px">
-      <template v-slot:activator="{ on }">
-        <v-flex xs10 mb-5>
-          <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
-            <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
-          </v-btn>
-        </v-flex>
-      </template>
-      <div id="main">
-        <div class="comments-outside">
-          <div class="comments-header">
-            <div class="post-owner">
-              <v-avatar size="32pt">
-                <img :src="creator.avatar" alt="">  <!-- -->
-              </v-avatar>
-              <div class="username">
-                <strong><a href="#" class="body-1">{{ creator.user }}</a></strong>
-                <div class="caption">{{formatedDate()}}</div>
-              </div>
-            </div>
-            <div class="jhcomments-stats pr-3">
-              <span class="body-1"><i class="fa fa-comment body-2"></i>&nbsp;{{ comments.length }}</span>
+  <v-dialog v-model="dialog" max-width="600px">
+    <template v-slot:activator="{ on }">
+    <v-btn icon v-on="on" v-on:click="refreshComment">
+      <i class="material-icons-outlined" style="color:#ec407a;">
+        sms
+      </i>
+    </v-btn>
+  </template>
+  <v-layout>
+    <v-flex xs12 id="main" style="margin-top:0px">
+      <div class="comments-outside">
+        <div class="comments-header">
+          <div class="post-owner">
+            <v-avatar size="32pt">
+              <img :src="creator.avatar" alt="">  <!-- -->
+            </v-avatar>
+            <div class="username">
+              <strong><a href="#" class="body-1">{{ creator.user }}</a></strong>
+              <div class="caption">{{formatedDate()}}</div>
             </div>
           </div>
-          <v-divider class="my-0"></v-divider>
-          <comments
-          :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
-          :comments="comments"
-          :current_user="current_user"
-          :port="this.port"
-          @submit-comment="submitComment"
-          @big_deleted="big_deleted"
-          >
-        </comments>
-      </div>
+          <div class="jhcomments-stats pr-3">
+            <span class="body-1"><i class="fa fa-comment body-2"></i>&nbsp;{{ comments.length }}</span>
+          </div>
+        </div>
+        <v-divider class="my-0"></v-divider>
+        <comments
+        :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
+        :comments="comments"
+        :current_user="current_user"
+        :port="this.port"
+        @submit-comment="submitComment"
+        @big_deleted="big_deleted"
+        >
+      </comments>
     </div>
-  </v-dialog>
+  </v-flex>
 </v-layout>
+
+</v-dialog>
 </template>
 
 <script>
@@ -71,7 +72,7 @@ export default {
     }
     const user=this.$store.getters.dbuser;
     if(user!=null){
-      this.current_user.avatar=user.photoURL; 
+      this.current_user.avatar=user.photoURL;
       this.current_user.user=user.nickname;
     }
   },
@@ -110,7 +111,7 @@ export default {
       ////////////////////////////////////////////////////////
       //If Someone write comment(slave), writer of post or portfolio(master) receive push notification
       console.log("Comment PUSH")
-      
+
       //get receiver's token
       var tkr = await FirebaseService.getSingleToken(this.port.user)
       console.log("incommentMain : " + tkr.token)
@@ -183,7 +184,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 a {
   text-decoration: none;

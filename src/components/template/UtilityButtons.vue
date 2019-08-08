@@ -1,6 +1,6 @@
 <template>
 <div>
-  <back-to-top bottom="20px" right="90px">
+  <back-to-top bottom="20px" right="30px">
     <v-btn fab dark color="primary">
       <v-icon dark>keyboard_arrow_up</v-icon>
     </v-btn>
@@ -21,4 +21,3 @@ export default {
   }
 }
 </script>
-

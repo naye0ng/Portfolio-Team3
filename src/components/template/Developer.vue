@@ -21,42 +21,44 @@
           <v-layout column>
             <v-container py-0>
               <v-layout row>
-                <v-flex xs5>
+                <v-flex sm5 hidden-and-down-xs>
                   <v-img :src="image" width="100%" height="40vh"></v-img>
                 </v-flex>
-                <v-layout column px-3>
-                  <v-card-title primary-title>
-                    <div style="font-size:4vh;">
-                      <i class="fa fa-angle-double-right fa-1x">&nbsp;</i>
-                      <strong>{{name}}</strong>
-                    </div>
-                  </v-card-title>
-                  <v-layout row align-center justify-center>
-                    <div class="icon">
-                      <i class="fa fa-quote-left" style="font-size:4vh;"></i>
-                    </div>
-                    <v-card-text class="text-xs-center" style="font-size:1.9vh;" px-0>
-                      <span v-for="i in intro">
-                        {{i}}
-                        <br />
-                      </span>
+                <v-flex xs12 sm7>
+                  <v-layout column px-3>
+                    <v-card-title primary-title>
+                      <div style="font-size:3.5vh;">
+                        <i class="fa fa-angle-double-right">&nbsp;</i>
+                        <strong>{{name}}</strong>
+                      </div>
+                    </v-card-title>
+                    <v-layout row align-center justify-space-around px-1>
+                      <div class="icon">
+                        <i class="fa fa-quote-left" style="font-size:3vh;"></i>
+                      </div>
+                      <v-card-text class="text-xs-center px-0" style="font-size:1.9vh;" >
+                        <span v-for="i in intro">
+                          {{i}}
+                          <br />
+                        </span>
+                      </v-card-text>
+                      <div class="icon">
+                        <i class="fa fa-quote-right" style="font-size:3vh;"></i>
+                      </div>
+                    </v-layout>
+                    <v-layout row justify-space-around align-start style="padding-top:5vh;">
+                      <i class="fa fa-github" style="font-size:5vh;" @click="openWindow(repo[0])"></i>
+                      <i class="fa fa-at" style="font-size:5vh;" @click="openWindow(repo[1])"></i>
+                      <i class="fa fa-instagram" style="font-size:5vh;" @click="openWindow(repo[2])"></i>
+                      <i class="fa fa-envelope" style="font-size:5vh;" @click="show = !show"></i>
+                    </v-layout>
+                    <v-card-text>
+                      <v-slide-y-transition>
+                        <span v-show="show">{{email}}</span>
+                      </v-slide-y-transition>
                     </v-card-text>
-                    <div class="icon">
-                      <i class="fa fa-quote-right" style="font-size:4vh;"></i>
-                    </div>
                   </v-layout>
-                  <v-layout row justify-space-around align-start style="padding-top:5vh;">
-                    <i class="fa fa-github" style="font-size:5vh;" @click="openWindow(repo[0])"></i>
-                    <i class="fa fa-at" style="font-size:5vh;" @click="openWindow(repo[1])"></i>
-                    <i class="fa fa-instagram" style="font-size:5vh;" @click="openWindow(repo[2])"></i>
-                    <i class="fa fa-envelope" style="font-size:5vh;" @click="show = !show"></i>
-                  </v-layout>
-                  <v-card-text>
-                    <v-slide-y-transition>
-                      <span v-show="show">{{email}}</span>
-                    </v-slide-y-transition>
-                  </v-card-text>
-                </v-layout>
+                </v-flex>
               </v-layout>
             </v-container>
 
