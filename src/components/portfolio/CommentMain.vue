@@ -80,40 +80,6 @@ export default {
       return this.$store.getters.getUser;
     }
   },
-  computed : {
-    getCommentList(){
-      if(this.isActive && typeof this.port != 'undefined'){
-        console.log(this.port.id)
-        var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList')
-        commentList.orderBy('time_stamp', 'desc').get()
-          .then((docSnapshots) => {
-            var result = []
-            docSnapshots.docs.map(doc => {
-              let data = doc.data()
-              data.key=doc.id;
-              var getKey =data.id;
-              firebase.database().ref("user").once("value").then((snapshot)=>{
-                var users = snapshot.val()
-                // console.log(users)
-                if(users.hasOwnProperty(getKey)){
-                  result.push({
-                      key: data.key,
-                      id : data.id,
-                      avatar : data.avatar,
-                      user : users[getKey].nickname,
-                      text : data.text  
-                    })
-                }
-                })
-            })
-            this.isActive = false
-            console.log(result)
-            console.log('이거임',typeof result)
-            return result
-          })
-      }
-    }
-  },
   methods: {
     formatedDate() {
       if (this.port.created_at){
