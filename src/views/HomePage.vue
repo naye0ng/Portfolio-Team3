@@ -2,7 +2,7 @@
   <div>
     <DeveloperList />
     <div class="contents">
-      <v-layout column py-5 my-1 id="aboutUs">
+      <v-layout column py-5 my-1 id="aboutUs" style="background: #fff;">
         <v-flex xs12 mt-3 py-1>
           <h2 class="my-2 text-xs-center homepage-title">ABOUT US</h2>
         </v-flex>
@@ -20,10 +20,13 @@
     </div>
 
     <!-- Portfolio -->
-    <div class="contents star-bg">
+    <div class="shooting-star-2">
       <div class="stars"></div>
       <div class="twinkling"></div>
-      <v-layout py-5 mt-4 row wrap class="grey lighten-5" id="portfolio">
+      <div class="p p-1"></div>
+      <div class="p2 p-2"></div>
+      <div class="p3 p-3"></div>
+      <v-layout py-5 mt-4 row wrap id="portfolio">
         <v-flex pt-3 pb-1 xs12 style="z-index:99">
           <h2 class="mt-4 pt-3 text-xs-center homepage-title text-white">PORTFOLIO</h2>
         </v-flex>
@@ -67,16 +70,21 @@
 
     <!-- Github -->
     <div class="contents star-bg">
-      <div class="stars"></div>
-      <div class="twinkling"></div>
-      <v-layout py-5 mt-1 row wrap class="grey lighten-5" id="github">
-        <v-flex pt-3 xs12 style="z-index:99">
-          <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
-        </v-flex>
-        <v-flex xs12 class="cal-padding">
-          <RepositoryList style="z-index:99"></RepositoryList>
-        </v-flex>
-      </v-layout>
+      <div class="shooting-star-2">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="p p-1"></div>
+        <div class="p2 p-2"></div>
+        <div class="p3 p-3"></div>
+        <v-layout py-5 mt-1 row wrap id="github">
+          <v-flex pt-3 xs12 style="z-index:99">
+            <h2 class="my-4 pb-4 text-xs-center homepage-title text-white">PROJECT</h2>
+          </v-flex>
+          <v-flex xs12 class="cal-padding">
+            <RepositoryList style="z-index:99"></RepositoryList>
+          </v-flex>
+        </v-layout>
+      </div>
     </div>
   </div>
 </template>
@@ -324,8 +332,8 @@ export default {
   height: 100%;
   background: #37474f;
   z-index: -1;
-  -webkit-transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
-  transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+  -webkit-transform: rotate3d(0, 0, 1, -50deg) translate3d(0, -3em, 0);
+  transform: rotate3d(0, 0, 1, -50deg) translate3d(0, -3em, 0);
   -webkit-transform-origin: 0% 100%;
   transform-origin: 0% 100%;
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s,
@@ -360,15 +368,15 @@ export default {
 
 .button--wayra2:hover {
   color: #f7f7f7;
-  border-color: #5349d6;
+  border-color: #555a9c;
 }
 .button--wayra2.button--inverted:hover {
-  color: #5349d6;
+  color: #555a9c;
   border-color: #f7f7f7;
 }
 .button--wayra2:hover::before {
   opacity: 1;
-  background-color: #5349d6;
+  background-color: #555a9c;
   -webkit-transform: rotate3d(0, 0, 1, 0deg);
   transform: rotate3d(0, 0, 1, 0deg);
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
@@ -407,5 +415,14 @@ export default {
   transform: rotate3d(0, 0, 1, 0deg);
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.shooting-star-2{
+  position:relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.shooting-star-2 .stars{
+  z-index: 1;
 }
 </style>

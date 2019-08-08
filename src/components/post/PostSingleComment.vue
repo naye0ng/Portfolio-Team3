@@ -17,17 +17,18 @@
       <div class="date caption">{{formatedDate()}}</div>
     </div>
     <div class="del-btn" style="padding-bottom:15px;">
-      <span v-if="this.$store.getters.getUser && comment.id === this.$store.getters.dbuser.email.split('@')[0]"
+      <span v-if="this.$store.getters.getUser && this.curUser && comment.id === this.curUser.email.split('@')[0]"
       v-on:click="showModifyTerminal"
       style="cursor:pointer;"
       @mouseenter="setModAfter()"
-      @mouseleave="setModBefore()">
+      @mouseleave="setModBefore()"
+      class="mr-1">
         <v-avatar tile size="25px">
           <img :src="getImgUrl(2)" alt="avatar">
         </v-avatar>
       </span>
       <!-- &nbsp; -->
-      <span v-if="this.$store.getters.getUser && comment.id === this.$store.getters.dbuser.email.split('@')[0]"
+      <span v-if="this.$store.getters.getUser && this.curUser && comment.id === this.curUser.email.split('@')[0]"
       v-on:click="deleteComment"
       style="cursor:pointer;"
       @mouseenter="setOpen()"
@@ -48,8 +49,8 @@ import Swal from 'sweetalert2'
 const firestore = firebase.firestore()
 
 export default {
-  name: 'singleComment',
-  props: ['comment', 'port'],
+  name: 'postSingleComment',
+  props: ['comment', 'post'],
   data(){
     return {
       nickname:'',
@@ -57,16 +58,25 @@ export default {
       trashicon:'closeTrash.png',
       modifyicon:'commentModBefore.png',
       modYet: true,
+      curUser: ''
     }
   },
   mounted(){
-    this.getNickname(this.comment.id);
-    this.getAvatar(this.comment.id);
+    this.updateUser();
   },
   methods : {
+    async updateUser(){
+      await firebase.auth().onAuthStateChanged(user =>{
+        if(user){
+          this.curUser=user;
+        }
+      })
+      this.getNickname(this.comment.id);
+      this.getAvatar(this.comment.id);
+    },
     subComment() {
       var modComment = document.getElementById("mod-comment").value;
-      firestore.collection('portfolios').doc(this.port.id).collection('commentList').doc(this.comment.key).update({
+      firestore.collection('posts').doc(this.post).collection('commentList').doc(this.comment.key).update({
         text : modComment
       });
       this.comment.text = modComment;
@@ -110,7 +120,7 @@ export default {
         cancelButtonText: '취소'
       }).then((result) => {
         if(result.value) {
-          firestore.collection('portfolios').doc(this.port.id).collection('commentList').doc(this.comment.key).delete()
+          firestore.collection('posts').doc(this.post).collection('commentList').doc(this.comment.key).delete()
           this.$emit('deleted',this.comment.key);
           Swal.fire({
             title: '삭제되었습니다!',
@@ -128,7 +138,6 @@ export default {
     },
     getAvatar(id){
       firebase.database().ref("user").child(id).child('photoURL').on("value", snapshot => {
-        // console.log(snapshot.val())
         this.avatar = snapshot.val()
       })
     }
@@ -145,7 +154,8 @@ export default {
   align-items: end;
 }
 .comment .avatar {
-  align-self: flex-start;
+  /* align-self: flex-start; */
+  align-self:center;
 }
 .comment .avatar > img {
   width: 40px;
@@ -156,8 +166,8 @@ export default {
 .comment .text {
   text-align: left;
   margin-left: 10px;
-  align-self: flex-end;
-  width:78%;
+  /* align-self: flex-end; */
+  width:80%;
 }
 .commemt .date {
   padding-top:2px;
@@ -166,7 +176,7 @@ export default {
   font-weight: bold;
   margin-right: 5px;
 }
-.commemt .del-btn {
+.comment .del-btn {
   /* align-self: flex-end; */
 }
 #mod-comment {

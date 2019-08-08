@@ -1,10 +1,17 @@
 <template>
-  <v-container id="admin">
+<v-layout align-center justify-center row fill-height style="background-color:#fafafa;min-height:100vh" :class="{'height-100vh':this.$store.state.isLoading}">
+<div class="shooting-star" style="position: relative;">
+  <div class="stars"></div>
+  <div class="tt twinkling"></div>
+  <div class="p p-1"></div>
+  <div class="p2 p-2"></div>
+  <div class="p3 p-3"></div>
+  <v-container id="admin" style="z-index:99" v-show="!this.$store.state.isLoading" class="v-fade" :class="{'hide':this.$store.state.isLoading}">
     <v-layout row wrap v-if="$store.getters.dbuser.accessLevel==2">
       <v-flex xs12 mt-5>
         <h2
           class="mt-3 pt-5 text-xs-center text-shadow homepage-title"
-          style="color:#181818;font-size: 5rem;"
+          style="color:#fff;font-size: 7vw;"
         >관리자 페이지</h2>
         <div id="toggle-btns" class="mt-2 mb-5">
           <button class="button toggle-btn" :class="{'button-selected':isPage0()}" v-on:click="toggle(0)">웹 로그</button>
@@ -33,21 +40,26 @@
       </v-flex>
     </v-layout>
   </v-container>
+</div>
+<SolarSystemLoading v-show="this.$store.state.isLoading" :class="{'hide':!this.$store.state.isLoading}" class="v-fade" ></SolarSystemLoading>
+</v-layout>
 </template>
 <script>
 import AdminCount from "../components/admin/AdminCount";
 import AdminTable from "../components/admin/AdminTable";
+import SolarSystemLoading from '../components/template/SolarSystemLoading'
 import Firebase from "firebase";
 
 export default {
   name: "Admin",
   components: {
+    SolarSystemLoading,
     AdminCount,
-    AdminTable
+    AdminTable,
   },
   data() {
     return {
-      page : 0,
+      page : 1,
       user : ''
     }
   },
@@ -71,13 +83,22 @@ export default {
   watch: {
     user: function(val) {
       if (!this.user) {
-        this.$router.push("/");
+        this.$router.push("/home");
       }
     }
+  },
+  beforeCreate(){
+    this.$store.state.isLoading = true
   }
 };
 </script>
 <style>
+.tt{
+  z-index: 0!important;
+}
+.layout.wrap {
+  position: relative!important;
+}
 #toggle-btns {
   text-align: center;
 }
@@ -92,8 +113,7 @@ export default {
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 .button.toggle-btn:hover {
-  color: #ffff;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #ddd;
 }
 .button-selected{
   color: #ffff!important;
