@@ -2,11 +2,11 @@
   <v-layout row justify-center wrap> 
     <!-- Portfolio -->
     <v-flex xs12 v-if="userports">
-      <v-layout row wrap class="bg-3">
-        <v-flex xs12>
+      <v-layout row wrap class="bg-3" justify-center>
+        <v-flex xs10>
           <h2
             class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
-            style="color:#fff;font-size:3.4vw;"
+            style="color:#fff;font-size:calc(3.4vw + 0.8em);"
           >내가 작성한 portfolio</h2>
         </v-flex>
         <v-flex v-for="i in userports.length > limit ? limit : userports.length" xs12 md6 px-3>

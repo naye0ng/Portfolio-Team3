@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-layout pt-1 pl-3 h-100 justify-center>
-      <v-flex xs12>
+    <v-layout pt-1 h-100 justify-center>
+      <v-flex :class="'xs'+size">
         <div class="card-media">
           <div class="card-media-body">
             <div class="card-media-body-top">
@@ -27,7 +27,7 @@
               </div>
               </div>
             </div>
-            <span class="card-media-body-heading">{{title}}</span>
+            <div class="card-media-body-heading" style="width:90%; overflow:hidden; text-overflow: ellipsis;">{{title}}</div>
             <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal mb-1">
               <span class="card-media-body-supporting-bottom-text subtle" v-for="i in tag.length" @click="filter(tag[i-1])" style="cursor:pointer;">
                 #{{tag[i-1]}}&nbsp;
@@ -80,6 +80,7 @@ export default {
     body: { type: String },
     id: {type: String},
     tag: {type:Array},
+    size: {type: Number, default: 12},
   },
   data(){
     return {
@@ -401,4 +402,9 @@ html {
   text-decoration: none;
 }
 
+@media (max-width:500px){
+  .card-media-object-social-list{
+    display:none;
+  }
+}
 </style>

@@ -15,11 +15,13 @@
             class="d-flex transition-ease-in-out black darken-1 v-card--reveal display-3 white--text"
             style="height: 100%;justify-content:center;overflow:hidden;"
           >
-          <v-layout justify-center align-center row wrap  style="margin:0;padding:0;">
-            <v-flex xs12 text-xs-center mt-2 style="height:50px!important;overflow:hidden;font-size:0.6em; justify-content:center;display: -webkit-box!important; -webkit-box-orient: vertical!important; -webkit-line-clamp: 1!important; ">{{title}}
+          <v-layout justify-center align-center row wrap  style="margin:0;padding:0;height:80%;">
+            <v-flex xs12 text-xs-center mt-2 mx-2 
+            style="height:50px!important;overflow:hidden;font-size:0.6em; justify-content:center; text-overflow: ellipsis;">
+              {{title}}
             </v-flex>
             <!-- Press 'Show More button' will pass data to PortDetail.vue -->
-            <v-flex xs12 text-xs-center round mt-2 class="bg-3"  style="height:50px!important;">
+            <v-flex xs12 text-xs-center round class="bg-3"  style="height:50px!important;">
               <router-link :to="{name: 'portdetail',
                 params: {id: id}}">
               <button

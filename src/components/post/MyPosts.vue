@@ -3,13 +3,13 @@
     <!-- Post -->
     <v-flex xs12 v-if="userposts">
       <v-layout row wrap class="bg-3" justify-center>
-        <v-flex xs12>
+        <v-flex xs10>
           <h2
             class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
-            style="color:#fff;font-size:3.4vw;"
+            style="color:#fff;font-size:calc(3.4vw + 0.8em);"
           >내가 작성한 post</h2>
         </v-flex>
-        <v-flex v-for="i in userposts.length > limit ? limit : userposts.length" xs10 px-3>
+        <v-flex v-for="i in userposts.length > limit ? limit : userposts.length" xs12 px-3>
           <!-- Give post infomation to each Post.vue -->
           <Post class="mx-3"
             :email="userposts[i - 1].user"
@@ -18,6 +18,7 @@
             :body="userposts[i - 1].body"
             :id="userposts[i - 1].id"
             :tag="userposts[i-1].tag"
+            :size="10"
             >
           </Post>
         </v-flex>
