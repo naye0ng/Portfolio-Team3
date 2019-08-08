@@ -5,6 +5,14 @@
     <div class="p p-1"></div>
     <div class="p2 p-2"></div>
     <div class="p3 p-3"></div>
+    <div>
+      <audio id="soprano" autoplay loop>
+        <source src="@/assets/intro_with_soprano.mp3" />     
+      </audio>
+      <audio id="HU">
+        <source src="@/assets/intro_with_HU.mp3" />
+      </audio>
+    </div>
     <div id="solarSystem" class="planetScaleIn">
       <div id="flash"></div>
 
@@ -111,7 +119,15 @@ export default {
     var blackHole = document.querySelector("#blackHole");
     var setHelloUniverse = this.setHelloUniverse;
 
+    var x = document.getElementById("HU");
+    var y = document.getElementById("soprano");
+
     sun.addEventListener("click", function() {
+      y.autoplay=false;
+      x.autoplay = true;
+      y.load();
+      x.load();
+      
       sun.className = "blackHole";
       bkrd.className = "implode";
       solarSystem.className = "planetScaleOut";

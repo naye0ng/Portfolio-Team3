@@ -41,7 +41,7 @@
             <v-btn color="#4078c0" outline v-on:click="linkwithSNS(3)" style="width:96%;" class="hidden-md-and-down">
               <v-icon size="25" class="mr-2">fa-github</v-icon>Github 연동
             </v-btn>
-            <v-btn color="#181818" outline v-on:click="linkwithSNS(3)" style="width:100%;" class="hidden-lg-and-up">
+            <v-btn color="#4078c0" outline v-on:click="linkwithSNS(3)" style="width:100%;" class="hidden-lg-and-up">
               <v-icon size="25">fa-github</v-icon>
             </v-btn>
           </v-flex>
