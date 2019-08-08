@@ -9,7 +9,7 @@
             <v-layout wrap>
               <!-- image preview -->
               <v-flex xs12>
-                <img :src="imageUrl" height="150" v-if="imageUrl" />
+                <img :src="inputUrl" height="150" v-if="inputUrl" />
                 <input type="file" style="display:none" ref="image" accept="image/*" @change="onLocalImagePicked">
               </v-flex>
               <!-- title -->
@@ -42,7 +42,7 @@
                           사진 업로드
                         </v-card-title>
                         <v-card-text>
-                          <v-text-field label="Add Img By URL" v-model="selectUrl" required @change="useUrlImg"></v-text-field>
+                          <v-text-field label="Add Img By URL" v-model="inputUrl" required @change="onUrlImagePicked(inputUrl)"></v-text-field>
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions>
@@ -117,14 +117,14 @@ export default {
       text : '',  //bind with markdown editor
       title : '',
       imageName : '',
-      imageUrl : '',
+      inputUrl : '',
       imageFile : '',
-      selectUrl : '',
-      storageUrl : '',
       portfolioId : '',
       userNick : '',
       userEmail : '',
       avatar : '',
+      fireUrl : '',
+      dataUrl : '',
       dialog: false
     };
   },
@@ -135,7 +135,9 @@ export default {
     //If modify portfolio, PortfolioWriter.vue can get data from Portdetail.vue
     this.portfolioId = this.$route.params.id
     this.title = this.$route.params.title
-    this.imageUrl = this.$route.params.imgSrc
+    this.fireUrl = this.$route.params.fireUrl
+    this.dataUrl = this.$route.params.dataUrl
+    this.inputUrl = this.$route.params.fireUrl
     this.text = this.$route.params.body
     const user=this.$store.getters.dbuser;
     this.avatar=user.photoURL;
@@ -157,10 +159,10 @@ export default {
     //Save Portfolio
     save : function(event) {
       //Blank check
-      if(this.text == '' || this.title == '' || this.imageUrl == '') {
+      if(this.text == '' || this.title == '' || this.inputUrl == '') {
 
         var alertMsg = '';
-        if(this.imageUrl == '') {
+        if(this.inputUrl == '') {
           alertMsg = '이미지는 필수항목입니다. 이미지를 선택해주세요.'
         } else if(this.title == '') {
           alertMsg = '제목은 필수항목입니다. 제목을 입력해주세요.'
@@ -178,12 +180,19 @@ export default {
       else {
         //Call Firebase service
         console.log(this.title)
-        FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.imageUrl, this.portfolioId, this.avatar, this.userNick)
+        if(this.inputUrl == this.fireUrl){
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.dataUrl, this.fireUrl, this.portfolioId, this.avatar, this.userNick)
+        } else {
+          console.log("newImg")
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick)
+        }    
         this.dialog = false
 
         //Reinitialize data
         this.imageName = ''
-        this.imageUrl = ''
+        this.inputUrl = ''
+        this.dataUrl = ''
+        this.fireUrl = ''
         this.imageFile = ''
         this.text = ''
         this.title = ''
@@ -211,17 +220,13 @@ export default {
       this.title = ''
     },
     clearimg(){ // DeleteImageBtn
-      this.imageUrl = ''
-    },
-    useUrlImg(){ // UseUrlImageBtn
-      this.imageUrl = this.selectUrl
-      this.selectUrl = ''
-      this.dialog = false;
-      this.onUrlImagePicked(this.imageUrl)
+      this.inputUrl = ''
+      this.dataUrl = ''
+      this.fireUrl = ''
     },
     useRandomImg(){ // RandomImgBtn
-      this.imageUrl = 'https://source.unsplash.com/random/800x600'
-      this.onUrlImagePicked(this.imageUrl)
+      this.inputUrl = 'https://source.unsplash.com/random/800x600'
+      this.onUrlImagePicked(this.inputUrl)
     },
     useLocalFile() { // UseLocalImageBtn
       this.$refs.image.click()
@@ -235,16 +240,16 @@ export default {
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
-          this.imageUrl = fr.result
+          this.inputUrl = fr.result
           this.imageFile = files[0]
-          console.log("url : " + this.imageUrl)
+          console.log("url : " + this.inputUrl)
           console.log("file : " + this.imageFile)
-          console.log(this.imageUrl.name)
+          console.log(this.inputUrl.name)
         })
       } else {
         this.imageName=''
         this.imageFile=''
-        this.imageUrl=''
+        this.inputUrl=''
       }
     },
     onUrlImagePicked(url) { // Transform Url Image to base64 type data url
@@ -252,8 +257,8 @@ export default {
       image2base64(url)
         .then(
           (response) => {
-              this.imageUrl = 'data:image/jpeg;base64,' + response
-              console.log("i264 : " +this.imageUrl)
+              this.inputUrl = 'data:image/jpeg;base64,' + response
+              console.log("i264 : " +this.inputUrl)
             }
         )
     },

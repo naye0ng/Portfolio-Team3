@@ -17,7 +17,7 @@
                   <v-avatar size="35">
                     <v-img :src="userimg" aspect-ratio="1" height="35px"></v-img>
                   </v-avatar>
-                  {{port.user}}
+                  {{port.user}} 
                 </v-flex>
               </v-card-title>
               <v-img
@@ -96,7 +96,8 @@
                 title: port.title,
                 id: port.id,
                 body: port.body,
-                imgSrc: port.fireUrl,
+                fireUrl: port.fireUrl,
+                dataUrl: port.dataUrl,
                 user: port.user
               }}"
             >
