@@ -1,16 +1,11 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <!-- <v-flex xs1> -->
-      <!-- <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
-      <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
-    </v-btn> -->
     <v-btn icon v-on="on" v-on:click="refreshComment">
       <i class="material-icons-outlined" style="color:#ec407a;">
         sms
       </i>
     </v-btn>
-    <!-- </v-flex> -->
   </template>
   <v-layout>
     <v-flex xs12 id="main" style="margin-top:0px">
