@@ -132,7 +132,7 @@ export default {
     setHelloUniverse() {
       setTimeout(() => {
         this.$router.push("/home");
-      }, 5000);
+      }, 3200);
     },
   },
 };
