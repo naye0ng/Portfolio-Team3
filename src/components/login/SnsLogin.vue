@@ -28,6 +28,7 @@
 <script>
 import Firebase from "firebase";
 import SnsService from "@/services/login/SnsService";
+import FirebaseService from '@/services/FirebaseService'
 
 export default {
   name: "SnsLogin",
@@ -61,6 +62,8 @@ export default {
       var emailKey = email.split('@')[0];
       var ref = Firebase.database().ref("user");
 
+      FirebaseService.getPushPermission(email)
+      
       const user = {
         email: email,
         password: '',
