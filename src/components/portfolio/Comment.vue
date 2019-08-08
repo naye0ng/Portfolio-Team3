@@ -1,31 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div class="comments">
-        <div :class="comments_wrapper_classes">
-            <single-comment 
-                v-for="comment in comments"
-                :comment="comment"
-                :key="comment.id"
-                :port="port"
-            ></single-comment>
-        </div>
-        <hr>
-        <div class="reply">
-            <div class="avatar">
-                <img :src="current_user.avatar" alt="">
-            </div>
-            <input 
-                type="text" 
-                v-model.trim="reply" 
-                class="reply--text" 
-                placeholder="Leave a comment..."
-                maxlength="250"
-                required
-                @keyup.enter="submitComment"
-            />
-            <button class="reply--button" @click.prevent="submitComment"><i class="fa fa-paper-plane"></i> Send</button>
-        </div>
-=======
   <div class="comments">
     <div class="comments_wrapper_classes mt-1">
       <single-comment
@@ -35,7 +8,6 @@
         :port="port"
         @deleted="deleted"
       ></single-comment>
->>>>>>> 17bc7dd1a93b3a1dda71ae89e7e8feb607b883d2
     </div>
     <hr/>
     <div class="reply" v-show="this.$store.getters.getUser">

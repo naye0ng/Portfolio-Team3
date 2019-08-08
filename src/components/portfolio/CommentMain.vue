@@ -1,37 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="600px">
-            <template v-slot:activator="{ on }">
-                <v-btn v-on="on" v-on:click="refreshComment" style="width:80%; color:#f7f7f7; background-color:#181818!important;">
-                    <v-icon size="25" class="mr-2">fa-user-plus</v-icon>댓글보기
-                </v-btn>
-            </template>
-            <div id="main">
-                <div class="comments-outside">
-                <div class="comments-header">
-                    <div class="comments-stats">
-                        <span><i class="fa fa-thumbs-up"></i> {{ likes }}</span>
-                        <span><i class="fa fa-comment"></i> {{ comments.length }}</span>
-                    </div>
-                    <div class="post-owner">
-                        <div class="avatar">
-                        <img :src="creator.avatar" alt="">  <!-- -->
-                        </div>
-                        <div class="username">
-                        <a href="#">@{{ creator.user }}</a>
-                        </div>
-                    </div>
-                </div>
-                <comments 
-                :comments_wrapper_classes="['custom-scrollbar', 'comments-wrapper']"
-                :comments="getCommentList"
-                :current_user="current_user"
-                :port="this.port"
-                @submit-comment="submitComment"
-                ></comments>
-                </div>
-=======
   <v-layout row justify-center>
     <v-dialog v-model="dialog" max-width="600px">
       <template v-slot:activator="{ on }">
@@ -52,7 +19,6 @@
                 <strong><a href="#" class="body-1">{{ creator.user }}</a></strong>
                 <div class="caption">{{formatedDate()}}</div>
               </div>
->>>>>>> 17bc7dd1a93b3a1dda71ae89e7e8feb607b883d2
             </div>
             <div class="jhcomments-stats pr-3">
               <span class="body-1"><i class="fa fa-comment body-2"></i>&nbsp;{{ comments.length }}</span>
@@ -87,10 +53,6 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD
-      likes: 15,
-=======
->>>>>>> 17bc7dd1a93b3a1dda71ae89e7e8feb607b883d2
       creator: {
         avatar: '',
         user: ''
@@ -101,10 +63,6 @@ export default {
       },
       comments: [],
       dialog:false,
-<<<<<<< HEAD
-      isActive : true,
-=======
->>>>>>> 17bc7dd1a93b3a1dda71ae89e7e8feb607b883d2
     }
   },
   mounted(){
@@ -169,14 +127,8 @@ export default {
         this.current_user.user=user.nickname;
       }
       this.comments = [];
-<<<<<<< HEAD
-      this.creator.user=this.port.nickname;
-      this.creator.avatar=this.port.avatar; 
-      // this.getCommentList();
-=======
       this.getCreatorInfo(this.port.user);
       this.getCommentList();
->>>>>>> 17bc7dd1a93b3a1dda71ae89e7e8feb607b883d2
     },
     big_deleted(key){
       for (let i=0;i<this.comments.length;i++){
@@ -230,33 +182,6 @@ export default {
       this.comments=[]
       var commentList= firestore.collection('portfolios').doc(this.port.id).collection('commentList');
       commentList
-<<<<<<< HEAD
-        .orderBy('time_stamp', 'desc')
-        .get()
-        .then((docSnapshots) => {
-            docSnapshots.docs.map((doc) => {
-            let data = doc.data()
-            data.key=doc.id;
-            var getKey=data.id;
-            var query=firebase.database().ref("user").orderByKey();
-            query.once("value").then((snapshot)=>{
-                snapshot.forEach((childSnapshot)=>{
-                  var key=childSnapshot.key;
-                  var childData=childSnapshot.val();
-                  if(key===getKey){
-                    this.comments.push({
-                      key: data.key,
-                      id : data.id,
-                      avatar : data.avatar,
-                      user : childData.nickname,
-                      text : data.text  
-                    })
-                  }
-                })
-                console.log("dddd",this.comments)
-              })
-            });
-=======
       .orderBy('time_stamp', 'asc')
       .get()
       .then((docSnapshots) => {
@@ -269,7 +194,6 @@ export default {
             id: data.id,
             text: data.text,
             time_stamp : new Date(data.time_stamp.toDate())
->>>>>>> 17bc7dd1a93b3a1dda71ae89e7e8feb607b883d2
           })
         })
       })

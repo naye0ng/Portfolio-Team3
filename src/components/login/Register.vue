@@ -44,7 +44,7 @@
               </v-flex>
               <v-flex xs6 d-flex>
                 <v-select
-                  :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
+                  :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?','가장 기억에 남는 장소는?', '초등학교 때 나 의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
                   label="비밀번호 찾기 질문*"
                   v-model="findPass"
                   append-icon="expand_more"
@@ -200,3 +200,8 @@ export default {
   }
 };
 </script>
+<style>
+.v-menu__content{
+  z-index: 999!important
+}
+</style>

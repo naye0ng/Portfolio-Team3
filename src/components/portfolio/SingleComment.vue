@@ -43,6 +43,20 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import Swal from 'sweetalert2'
+
+const firestore = firebase.firestore()
+
+export default {
+  name: 'singleComment',
+  props: ['comment', 'port'],
+  data(){
+    return {
+      nickname:'',
+      avatar:'',
+      trashicon:'closeTrash.png',
+      modifyicon:'commentModBefore.png',
+      modYet: true,
     }
   },
   mounted(){
@@ -131,6 +145,7 @@ import 'firebase/firestore'
   align-items: end;
 }
 .comment .avatar {
+  align-self: flex-start;
 }
 .comment .avatar > img {
   width: 40px;
