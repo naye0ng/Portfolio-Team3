@@ -3,7 +3,7 @@
     <v-flex xs12 align-center justify-center layout text-xs-center>
       <!-- User photo -->
       <v-avatar size="150" id="photophoto">
-        <v-img :src="photoURL" aspect-ratio="1" width="150px" height="150px"></v-img>
+        <v-img :src="photoURL" aspect-ratio="1" height="150px"></v-img>
       </v-avatar>
     </v-flex>
 
@@ -22,26 +22,26 @@
         <!-- Sns 계정 연동하기-->
         <v-layout align-center justify-center col mt-3 v-if="!linked" wrap>
           <v-flex xs2 text-xs-center ml-1 mr-1>
-            <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:96%;" class="hidden-sm-and-down">
+            <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:96%;" class="hidden-md-and-down">
               <v-icon size="25" class="mr-2">fa-google</v-icon>Google 연동
             </v-btn>
-            <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:100%;" class="hidden-md-and-up">
+            <v-btn color="#df4a31" outline v-on:click="linkwithSNS(1)" style="width:100%;" class="hidden-lg-and-up">
               <v-icon size="25">fa-google</v-icon>
             </v-btn>
           </v-flex>
           <v-flex xs2 text-xs-center ml-1 mr-1>
-            <v-btn color="#3C5A99" outline v-on:click="linkwithSNS(2)" style="width:96%;" class="hidden-sm-and-down">
+            <v-btn color="#3C5A99" outline v-on:click="linkwithSNS(2)" style="width:96%;" class="hidden-md-and-down">
               <v-icon size="25" class="mr-2">fa-facebook</v-icon>Facebook 연동
             </v-btn>
-            <v-btn color="#3C5A99" outline v-on:click="linkwithSNS(2)" style="width:100%;" class="hidden-md-and-up">
+            <v-btn color="#3C5A99" outline v-on:click="linkwithSNS(2)" style="width:100%;" class="hidden-lg-and-up">
               <v-icon size="25">fa-facebook</v-icon>
             </v-btn>
           </v-flex>
           <v-flex xs2 text-xs-center ml-1 mr-1>
-            <v-btn color="#4078c0" outline v-on:click="linkwithSNS(3)" style="width:96%;" class="hidden-sm-and-down">
+            <v-btn color="#4078c0" outline v-on:click="linkwithSNS(3)" style="width:96%;" class="hidden-md-and-down">
               <v-icon size="25" class="mr-2">fa-github</v-icon>Github 연동
             </v-btn>
-            <v-btn color="#181818" outline v-on:click="linkwithSNS(3)" style="width:100%;" class="hidden-md-and-up">
+            <v-btn color="#181818" outline v-on:click="linkwithSNS(3)" style="width:100%;" class="hidden-lg-and-up">
               <v-icon size="25">fa-github</v-icon>
             </v-btn>
           </v-flex>
@@ -91,25 +91,32 @@ export default {
     },
     async setProfile() {
       var userFromDatabase = {}
-
       await firebase.auth().onAuthStateChanged(user => {
         // 현재 계정이 연결되어 있는지 확인 for 링크 버튼
         if(user && ((user.providerData.length > 1 && user.providerData[1].providerId == "password") ||
         (user.providerData.length == 1 && user.providerData[0].providerId != "password"))) {
           this.linked = true;
-          if(user.photoURL != null) {
-            this.photoURL = user.photoURL
-          }
         }
         if (user){
           this.emailKey = user.email.split('@')[0];
         }
-
       });
     }
   },
+  computed:{
+    user() {
+      if (this.$store.getters.getUser) {
+        this.photoURL = this.$store.getters.dbuser.photoURL;
+      }
+      return this.$store.getters.getUser;
+    },
+  },
   created() {
     this.setProfile();
+  },
+  watch: {
+    user() {
+    }
   }
 };
 </script>

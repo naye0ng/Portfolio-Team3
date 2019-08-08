@@ -28,6 +28,7 @@
 <script>
 import Firebase from "firebase";
 import SnsService from "@/services/login/SnsService";
+import FirebaseService from '@/services/FirebaseService'
 
 export default {
   name: "SnsLogin",
@@ -35,12 +36,16 @@ export default {
     SnsService,
   },
   methods: {
-    registerUserInfo(result) {
+    async registerUserInfo(result) {
+
       var email = result.user.email;
       var displayName = result.user.displayName;
       var emailKey = email.split('@')[0];
       var ref = Firebase.database().ref("user");
+      var photo= result.user.photoURL;
 
+      FirebaseService.getPushPermission(email)
+      
       const user = {
         email: email,
         password: '',
@@ -48,9 +53,9 @@ export default {
         name: displayName,
         answer: '',
         telephone: '',
-        nickName : displayName,
-        accessLevel : "0" // 권한 부여 - 방문자
-        //todo : 포토 박아주고 이름 맞추고
+        nickname : displayName,
+        accessLevel : "0", // 권한 부여 - 방문자
+        photoURL : photo // : 포토 박아주고 이름 맞추고
       };
 
       ref.once("value").then(snapshot => {
@@ -58,7 +63,7 @@ export default {
           if(hasKey) {
             // 데이터베이스에 이미 존재하는 경우 => 소셜 로그인 시 vuex 저장
             this.$store.commit("setDBUser",snapshot.val()[emailKey]);
-            // console.log(this.$store.getters.dbuser)
+            // console.log(this .$store.getters.dbuser)
           } else {
             // 데이터베이스에 존재하지 않는 경우 - 처음 로그인 => user를 vuex 저장
             ref.child(emailKey) // key값 부여 - email의 앞부분

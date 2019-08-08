@@ -1,34 +1,35 @@
 <template>
   <div class="banner">
-    <div class="stars">
-      <div class="twinkling">
-        <div class="p p-1"></div>
-        <div class="p2 p-2"></div>
-        <div class="p3 p-3"></div>
-      </div>
+    <div class="shooting-star-2">
+      <div class="stars"></div>
+      <div class="twinkling"></div>
+      <div class="p p-1"></div>
+      <div class="p2 p-2"></div>
+      <div class="p3 p-3"></div>
+      
+      <v-layout align-center justify-center row fill-height style="position:absolute; width:100%">
+        <v-flex v-show="!this.$store.state.isLoading" class="v-fade text-xs-center">
+          <span class="text-shadow font-weight-light" style="width: 100%;">
+            <slot name="text"/>
+          </span>
+        </v-flex>
+        <SolarSystemLoading v-show="this.$store.state.isLoading" class="v-fade"></SolarSystemLoading> 
+      </v-layout>
     </div>
-    <v-layout align-center justify-center row fill-height style="position:absolute; width:100%">
-      <v-flex text-xs-center>
-        <span class="text-shadow font-weight-light">
-          <slot name="text"/>
-        </span>
-      </v-flex>
-    </v-layout>
   </div>
 </template>
-
-
-
 <script>
+import SolarSystemLoading from './SolarSystemLoading'
 
 export default {
 	name: 'ImgBanner',
 	props: {
 		imgSrc: {type: String},
 		text: {type: String}
-	},
-	methods: {
-	},
+  },
+  components:{
+     SolarSystemLoading
+  },
 }
 </script>
 <style>

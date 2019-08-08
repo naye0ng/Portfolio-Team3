@@ -7,13 +7,14 @@
 
       <!-- Post Writer -->
       <v-layout justify-center class="mb-2" style="fixed:true;">
-          <v-layout wrap align-center justify-center>
+          <v-layout wrap align-center justify-center mw-700 px-3>
             <v-flex xs8 mt-4>
-              <div style="text-align:center;">
+              <div>
                 <v-btn icon class="ma-0">
                   <i class="fa fa-search"></i>
                 </v-btn>
-                <input :value="tag" @input="updateTag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색...">
+                <input :value="tag" @input="updateTag" id="searchBar" class="searchbar" type="text" placeholder="tag 검색..."
+                style="background-color:#fafafa;">
                 <v-btn small icon @click="clear" style="margin-bottom:0px">
                   <v-icon>close</v-icon>
                 </v-btn>
@@ -28,14 +29,8 @@
                <button
                   v-if="user != null && $store.getters.dbuser.accessLevel>=1" 
                   class="button button--wayra button--border-medium button--text-medium button--size-s sm-button"
-                  style="min-width:150px; max-width: 150px; padding:0.5em 1em; margin:0;">
+                  style="float:right;min-width:135px; max-width: 135px; padding:0.5em 1em; margin:0;">
                   포스트 작성
-                </button>
-                <button
-                  v-if="user != null && $store.getters.dbuser.accessLevel>=1"
-                  class="button button--wayra button--border-thin button--text-medium button--size-xs xs-button"
-                  style="min-width:100px; max-width: 100px; padding:0.5em 1em; margin:0;">
-                  작성하기
                 </button>
               </router-link>
             </v-flex>
@@ -78,7 +73,10 @@ export default {
     clear(){
       this.$store.commit('SET_searchtag',"");
     }
-  }
+  },
+  beforeCreate(){
+    this.$store.state.isLoading = true
+  },
 }
 </script>
 <style>
@@ -125,23 +123,13 @@ export default {
 }
 
 @media(max-width:500px){
-  .sm-button{
-    display:none !important;
-  }
   .searchbar{
-    width:100px !important;
+    width:85px !important;
   }
   .searchbar:focus{
-    width: 120px !important;
+    width: 100px !important;
   }
 }
-
-@media(min-width:501px){
-  .xs-button{
-    display:none !important;
-  }
-}
-
 
 </style>
 

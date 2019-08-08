@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="site-data">
     <v-layout row wrap mb-5>
         <v-flex xs6 sm3 px-3 py-3>
             <v-card class="graph-card" style="padding:10px;">
@@ -33,7 +33,7 @@
             </v-card>
         </v-flex>
     </v-layout>
-    <v-layout row wrap mb-5>
+    <v-layout row wrap mb-5 px-3>
         <v-flex xs12>
             <iframe 
                 src="https://datastudio.google.com/embed/reporting/18LHBcxeIXFg93s9Geu2kkUf8ow_AaSga/page/1M" 
@@ -42,6 +42,7 @@
                 scrolling="100%"
                 width="100%"
                 height="550px"
+                class='google-iframe'
                 ></iframe>
       </v-flex>
     </v-layout>
@@ -100,5 +101,25 @@ export default{
 .graph-card.google-analytics.v-card.v-sheet.theme--light:hover{
     background-color: #181818!important;
     color:#fff;
+}
+
+@media (max-width: 960px) {
+  #site-data{
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .google-iframe{
+      height: 490px!important;
+  }
+}
+@media (max-width: 700px) {
+  .google-iframe{
+      height: 500px!important;
+  }
+}
+@media (max-width: 400px) {
+  .google-iframe{
+      height: 200px!important;
+  }
 }
 </style>

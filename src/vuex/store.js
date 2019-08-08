@@ -15,6 +15,7 @@ const state = {
   searchtag:"",
   dbuser : '',
   isAdmin : false,
+  isLoading : true,
 }
 
 export default new Vuex.Store({
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     setDBUserNick(state, payload) {
       state.dbuser.nickname = payload
+    },
+    setDBPhotoURL(state,payload){
+      state.dbuser.photoURL = payload
     },
     setDBUserAL(state, payload) {
       state.dbuser.accessLevel = payload
@@ -61,6 +65,6 @@ export default new Vuex.Store({
     },
     SET_searchtag(state,tag){
       state.searchtag = tag;
-    }
+    },
   }
 })

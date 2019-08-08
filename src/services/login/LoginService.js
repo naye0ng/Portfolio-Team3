@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import Swal from 'sweetalert2'
+import FirebaseService from '@/services/FirebaseService'
 
 export default {
   loginUser(email, password) {
@@ -31,6 +32,7 @@ export default {
           text: "로그인에 성공하셨습니다!",
           type: 'success'
         })
+        FirebaseService.getPushPermission(user.email)
         return user;
       } else {
       }

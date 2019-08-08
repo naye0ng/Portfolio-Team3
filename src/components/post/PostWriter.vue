@@ -72,7 +72,8 @@ export default {
       tag1:"",
       tag2:"",
       tag3:"",
-      dialog: false
+      dialog: false,
+      logoImg: require('@/assets/logo.png')
     };
   },
   mounted() {
@@ -136,7 +137,7 @@ export default {
           this.tag = [...new Set(this.tag)]
         }
         // Call Firebase service
-        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag)
+        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag, this.logoImg)
         this.dialog = false
         
         // Reinitialize data

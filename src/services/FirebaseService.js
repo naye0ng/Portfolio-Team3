@@ -1,20 +1,29 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import FirebaseService from '@/services/FirebaseService'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
 const TAGS = 'tags'
+const TOKENS = 'tokens'
 
 // Setup Firebase
 const config = {
-  apiKey: "AIzaSyDeOmVEnsytGy8tgl1QjLdLLuMEru36Aak",
-  authDomain: "team3-435f1.firebaseapp.com",
-  databaseURL: "https://team3-435f1.firebaseio.com",
-  projectId: "team3-435f1",
-  storageBucket: "team3-435f1.appspot.com",
-  messagingSenderId: "804761067334",
-  appId: "1:804761067334:web:de1801641a9f3ddc"
+  // apiKey: "AIzaSyABGamq__VCiuIy4lAANPeLLEtaOsl8v6k",
+  // authDomain: "blogs-a7359.firebaseapp.com",
+  // databaseURL: "https://blogs-a7359.firebaseio.com",
+  // projectId: "blogs-a7359",
+  // storageBucket: "blogs-a7359.appspot.com",
+  // messagingSenderId: "749597724898",
+  //appId: "1:749597724898:web:dc4033993f01a42c"
+  apiKey: "AIzaSyBwi4B2tqFYbNQD3GOr44VQgcpO4CINH7w",
+  authDomain: "hello-team3.firebaseapp.com",
+  databaseURL: "https://hello-team3.firebaseio.com",
+  projectId: "hello-team3",
+  storageBucket: "hello-team3.appspot.com",
+  messagingSenderId: "253343349927",
+  appId: "1:253343349927:web:29381730f0313bc1"
 };
 
 
@@ -48,7 +57,120 @@ firebase.firestore().enablePersistence()
   });
 
   
+//FCM PUSH
+//Get firebase messaging function
+const messaging = firebase.messaging();
+//Set VApiIdKey
+messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
+
+
+// Get push in foreground status. payload = push notification
+messaging.onMessage(function(payload){
+  console.log('onMessage: ', payload);
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+  };
+  if (Notification.permission === "granted") {
+    var notification = new Notification(notificationTitle, notificationOptions);
+  }
+});
+
 export default {
+  getPushPermission(email){
+    //Request notification permission
+    messaging.requestPermission()
+    .then(function() {
+      console.log("WE HAVE PERMISSION");
+      return messaging.getToken();
+    })
+    //If messaging called with token
+    .then(function(token){
+      console.log("TOKEN IS : " + token)
+      //Save token into firestore database
+      FirebaseService.saveTokens(token, email)
+      //TODO : need to check admin
+    })
+    .catch(function(err) {
+      console.log("Error occuered in RP")
+    });
+  },
+  async getSingleToken(email){
+    console.log("getSingleToken")
+    var token = await firestore.collection(TOKENS).doc(email)
+    return token.get()
+      .then(doc => {
+        var data = doc.data();
+        console.log("fbs : " + data.token)
+        return data;
+      });
+  },
+  async getTokens() { 
+    console.log("getTokenSequence")
+    const tokenbox = []
+    await firestore.collection(TOKENS)
+    .get()
+    .then((docSnapshots) => {
+      docSnapshots.forEach((doc) => {
+        tokenbox.push(doc.data().token)
+      })
+    })
+    .catch(function(err){
+      console.log("Get Tokens fail : " + err)
+    })
+    console.log("tokenbox : " + tokenbox)
+    return tokenbox
+  },
+  saveTokens(token, email) {
+    console.log("saveTokenSequence")
+    console.log("Token id is : " + token)
+    firestore.collection(TOKENS).doc(email).set({
+      token,
+      email
+    })
+    .then(function(){
+      console.log("Save token success")
+    })
+    .catch(function(err){
+      console.log("Save token failed : " + err)
+    })
+  },
+  pushBullet(id, title, type, img){
+    console.log("pushbullet : " + img)
+    var tokenList = FirebaseService.getTokens()
+      .then(function(result) {
+        result.forEach(function(singleToken) {
+          console.log("SingleToken ::: " + singleToken)
+          FirebaseService.ShotPushMessage(singleToken, id, title, type, img)
+        })
+      }
+    )
+  },
+  ShotPushMessage(to, userId, title, type, img) {
+    console.log("Shot to : " + to)
+    var request = require("request");
+    request.post({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=AAAAOvxwvKc:APA91bFJ7C8SdWCqfA1hqvPjd0swlvujyBbdAw545uBNba3q0qGTlU83xq9HRvA70DpYUs1zNZb1Y_CaXpcOP3KPOO--XUMoef_6R7mz3DatPGP28WpqAMJOAtiGo3FZomUaqh1eM0ry'
+      },
+      uri: "https://fcm.googleapis.com/fcm/send",
+      body: JSON.stringify({
+        "to": to,
+        "notification": {
+          "title": title,
+          "body": userId + "님의 새 " + type, 
+          "icon": img
+          // 'https://source.unsplash.com/random/100x100' is Success
+          // '../assets/logo.png' is Fail
+          // Get Img from portfolioWriter's data() is Success
+          // Goal :: Get Post image from firestorage
+        }
+      }),
+    }, function (error, response, body) {
+      console.log(body);
+    });
+  },
   getPosts() {
     const postsCollection = firestore.collection(POSTS)
     return postsCollection
@@ -64,7 +186,9 @@ export default {
         })
       })
   },
-  async postPost(user, title, body, id, tag) {
+  async postPost(user, title, body, id, tag, img) {
+    var type = "게시글"
+    FirebaseService.pushBullet(user, title, type, img)
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
@@ -172,57 +296,179 @@ export default {
     });
   },
   getPortfolios() {
-    const postsCollection = firestore.collection(PORTFOLIOS)
-    return postsCollection
+    const portsCollection = firestore.collection(PORTFOLIOS)
+    return portsCollection
       .orderBy('created_at', 'desc')
       .get()
       .then((docSnapshots) => {
         return docSnapshots.docs.map((doc) => {
           let data = doc.data()
+          // console.log(data);
           // Get firestore documentID
-
           data.id = doc.id;
           data.created_at = new Date(data.created_at.toDate())
           return data
         })
       })
   },
-  postPortfolio(user, title, body, img, id, avatar, nickname) {
-      var date = new Date()
-      console.log("here is avatar : "+  avatar)
-      if(id != null) {
-        firestore.collection(PORTFOLIOS).doc(id).set({
-          user,
-          title,
-          body,
-          img,
-          avatar,
-          nickname,
-          created_at: date, //firebase.firestore.FieldValue.serverTimestamp(),
-        }).then(function(){
-          console.log("Modify portfolio succeed")
-        }).catch(function() {
-          console.error("Modify portfolio failed")
-        });
-      }
-      else{
-        firestore.collection(PORTFOLIOS).add({
-          user,
-          title,
-          body,
-          img,
-          avatar,
-          nickname,
-          created_at: date//firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function(){
-          console.log("Post portfolio succeed")
-        }).catch(function() {
-          console.error("Post portfolio failed")
-        });
-      }
+  profilePhotoUploader(email, img) {
     
+    var ref = firebase.storage().ref();
+    
+    // Image name setting
+    var name = email;
+
+    // Upload image to firestorage
+    var uploadTask = ref.child('profile/' + name).putString(img, 'data_url');
+    
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+    function(snapshot) {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+    }, function(error) {
+      switch (error.code) {
+        case 'storage/unauthorized':
+          break;
+        case 'storage/canceled':
+          break;
+        case 'storage/unknown':
+          break;
+      }
+    }, function() {
+      // Get stored image url from firestorage
+      uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
+        console.log("storageOutput : " + storageOutputUrl)
+        return storageOutputUrl
+      })
+    })
+  },
+
+  postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname) {
+    var type = "포트폴리오"
+    //FirebaseService.pushBullet(user, title, type)
+    var date = new Date()
+    
+    /* Check image status
+      if img.substr(0,4) === 'data' : it is base64 type data url (not uploaded yet)
+      img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */ 
+    if(fireUrl == ''){
+      // Create firestorage reference
+      var ref = firebase.storage().ref();
+      
+      // Create simple date
+      function getFormatDate(date){ var year = date.getFullYear();
+        var year = date.getFullYear();
+        var month = (1 + date.getMonth());
+        var month = month >= 10 ? month : '0' + month;
+        var day = date.getDate();
+        day = day >= 10 ? day : '0' + day;
+        return year + '' + month + '' + day;
+      }
+
+      // Image name setting
+      var name = getFormatDate(new Date()) + '_' + title;
+
+      // Upload image to firestorage
+      var uploadTask = ref.child('images/' + name).putString(dataUrl, 'data_url');
+      
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, function(error) {
+        switch (error.code) {
+          case 'storage/unauthorized':
+            break;
+          case 'storage/canceled':
+            break;
+          case 'storage/unknown':
+            break;
+        }
+      }, function() {
+        // Get stored image url from firestorage
+        uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
+          console.log("storageOutput : " + storageOutputUrl)
+          fireUrl = storageOutputUrl
+          /* Check id
+          if id != null : it is exist PORTFOLIO
+          if id == null : it is new PORTFOLIO */
+          if(id != null) {
+            firestore.collection(PORTFOLIOS).doc(id).set({
+              user,
+              title,
+              body,
+              fireUrl,
+              //dataUrl,
+              avatar,
+              nickname,
+              created_at: date,
+            }).then(function(){
+              console.log("Modify portfolio succeed")
+            }).catch(function() {
+              console.error("Modify portfolio failed")
+            });
+          }
+          else{
+            console.log("ADDPORTFOLIO")
+            firestore.collection(PORTFOLIOS).add({
+              user,
+              title,
+              body,
+              fireUrl,
+              //dataUrl,
+              avatar,
+              nickname,
+              created_at: date,
+            }).then(function(){
+              console.log("Post portfolio succeed")
+            }).catch(function() {
+              console.error("Post portfolio failed")
+            });
+          }
+        });
+      });
+    }
+    else {
+      firestore.collection(PORTFOLIOS).doc(id).set({
+        user,
+        title,
+        body,
+        fireUrl,
+        //dataUrl,
+        avatar,
+        nickname,
+        created_at: date,
+      }).then(function(){
+        console.log("Modify portfolio succeed")
+      }).catch(function() {
+        console.error("Modify portfolio failed")
+      });
+    }
   },
   deletePortfolio(id, imgSrc){
+    var desertRef = firebase.storage().refFromURL(imgSrc);
+    desertRef.delete().then(function() {
+      console.log("Delete image succeed(firestorage)")
+    }).catch(function(error) {
+      console.error("Delete image error(firestorage)")
+    });
+
     firestore.collection(PORTFOLIOS).doc(id).delete().then(function() {
       console.log("Delete portfolio succeed(firestore)")
     }).catch(function() {
@@ -239,7 +485,7 @@ export default {
         return data;
       });
   },
-  getPost(id){
+  async getPost(id){
     let post = firestore.collection(POSTS).doc(id)
     return post.get()
       .then(doc => {
@@ -300,7 +546,7 @@ export default {
   getPortLikeCount(portid){
     return firestore.collection(PORTFOLIOS).doc(portid).collection('likeList').get().then(snap => {
       return snap.size // will return the collection size
-   });
+    });
   },
   getPortLikers(portid){
     const portsCollection = firestore.collection(PORTFOLIOS).doc(portid).collection('likeList')
@@ -356,6 +602,11 @@ export default {
           return data
         })
       })
+  },
+  getPostCommentCount(postid){
+    return firestore.collection(POSTS).doc(postid).collection('commentList').get().then(snap=>{
+      return snap.size;
+    })
   },
   curUser() {
     var user = firebase.auth().currentUser;
