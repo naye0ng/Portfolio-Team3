@@ -40,30 +40,28 @@ export default {
         var members = snapshot.val();
         if(members === null){
           // commits데이터가 없을때
-          // var commits = this.getCommits();
-          this.getCommits().then(data => {
-            this.createCommitData(data);
-            drawCommitGraph(data)
+          this.getCommits(today).then(result => {
+            this.drawCommitGraph(this.createCommitData(result[0], result[1]))
           });
         }
         else {
           // 차트 그리기
-          drawCommitGraph(members)
+          this.drawCommitGraph(members)
         }
       })  
     },
     getImgUrl(img) {
       return require("@/assets/" + img);
     },
-    async getCommits() {
+    async getCommits(today) {
       var response = await axios.get(
         "https://api.github.com/repos/" +
           this.$props.repos.path_name +
           "/commits?per_page=100"
       );
-      return response.data;
+      return [response.data, today]
     },
-    createCommitData(data) {
+    createCommitData(data, today) {
       if (data){
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(
@@ -91,58 +89,57 @@ export default {
           label : labels,
           data : commits,
         }
-        firebase.database().ref().child("commits").child(today).child('member').child(this.$props.repos.nickname).set(result);
+        firebase.database().ref().child("commits").child(today).child('members').child(this.$props.repos.nickname).set(result);
         return result
       }
     },
     drawCommitGraph(data){
       var ctx = document.getElementById(this.$props.repos.username);
-        if (labels){
-          var teamChart = new chart.Chart(ctx, {
-            type: "line",
-            data: {
-              labels: data.label,
-              datasets: [
-                {
-                  data: data.data,
-                  backgroundColor: this.$props.repos.color[0],
-                  borderColor: this.$props.repos.color[1],
-                  borderWidth: 2
-                }
-              ]
-            },
-            options: {
-              legend: {
-                display: false
-              },
-              scales: {
-                xAxes: [
-                  {
-                    display: true,
-                    gridLines: {
-                      display: false
-                    }
-                  }
-                ],
-                yAxes: [
-                  {
-                    display: false,
-                    gridLines: {
-                      display: false
-                    }
-                  }
-                ]
-              },
-              layout: {
-                padding: 5
-              }
+      var teamChart = new chart.Chart(ctx, {
+        type: "line",
+        data: {
+          labels: data.label,
+          datasets: [
+            {
+              data: data.data,
+              backgroundColor: this.$props.repos.color[0],
+              borderColor: this.$props.repos.color[1],
+              borderWidth: 2
             }
-          });
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                gridLines: {
+                  display: false
+                }
+              }
+            ],
+            yAxes: [
+              {
+                display: false,
+                gridLines: {
+                  display: false
+                }
+              }
+            ]
+          },
+          layout: {
+            padding: 5
+          }
         }
+      });
+
     }
   },
   mounted() {
-    // this.initCommitData()
+    this.initCommitData()
   }
 };
 </script>
