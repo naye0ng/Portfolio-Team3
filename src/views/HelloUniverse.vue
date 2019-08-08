@@ -5,17 +5,16 @@
     <div class="p p-1"></div>
     <div class="p2 p-2"></div>
     <div class="p3 p-3"></div>
-    <div>
-      <audio id="soprano" autoplay loop>
-        <source src="@/assets/intro_with_soprano.mp3" />     
-      </audio>
-      <audio id="HU">
-        <source src="@/assets/intro_with_HU.mp3" />
-      </audio>
-    </div>
+
+    <audio id="soprano" autoplay loop>
+      <source src="@/assets/intro_with_long_soprano.mp3" />
+    </audio>
+    <audio id="HU">
+      <source src="@/assets/intro_with_long_HU.mp3" />
+    </audio>
+
     <div id="solarSystem" class="planetScaleIn">
       <div id="flash"></div>
-
       <div class="shell" id="layer8">
         <div class="in">
           <div class="planet small basic" id="sub"></div>
@@ -105,13 +104,6 @@
 <script>
 export default {
   name: "HelloUniverse",
-  methods: {
-    setHelloUniverse() {
-      setTimeout(() => {
-        this.$router.push("/home");
-      }, 2800);
-    }
-  },
   mounted() {
     var sun = document.querySelector(".sun");
     var bkrd = document.querySelector(".outerShell");
@@ -134,7 +126,15 @@ export default {
       blackHole.style.display = "block";
       setHelloUniverse();
     });
-  }
+    
+  },
+  methods: {
+    setHelloUniverse() {
+      setTimeout(() => {
+        this.$router.push("/home");
+      }, 5000);
+    },
+  },
 };
 </script>
 <style>
