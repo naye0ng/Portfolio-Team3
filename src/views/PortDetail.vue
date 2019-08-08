@@ -16,7 +16,7 @@
               <v-flex hidden-xs-only class="caption grey--text pt-4 text-xs-right">{{port.user}}</v-flex>
             </v-card-title>
             <v-img
-              :src="port.img"
+              :src="port.fireUrl"
               contain
               style="max-height:70vh; max-width:70vw; background-color:#000000;"
             ></v-img>
@@ -68,7 +68,7 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round class="bg-3">
-           <CommentMain :port="this.port"/>          <!-- 댓글보기 --> 
+          <CommentMain :port="this.port"/>          <!-- 댓글보기 --> 
           <router-link to="/portfolio">
             <button
               class="button button--wayra button--border-medium button--text-medium button--size-s"
@@ -91,7 +91,7 @@
               title: port.title,
               id: port.id,
               body: port.body,
-              imgSrc: port.img,
+              imgSrc: fireUrl,
               user: port.user
             }}"
           >
@@ -171,7 +171,7 @@ export default {
       this.getLikers();
     },
     deletePortfolio() {
-      FirebaseService.deletePortfolio(this.port.id, this.port.img);
+      FirebaseService.deletePortfolio(this.port.id, this.port.fireUrl);
     },
     likes(){
       if (this.$store.getters.getUser){

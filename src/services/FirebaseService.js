@@ -298,33 +298,41 @@ export default {
           let data = doc.data()
           // console.log(data);
           // Get firestore documentID
-
           data.id = doc.id;
           data.created_at = new Date(data.created_at.toDate())
           return data
         })
       })
   },
-  photoUploader(imgUrl){
-    // Create firestorage reference
-    var ref = firebase.storage().ref();
-      
-    // Create simple date
-    function getFormatDate(date){ var year = date.getFullYear();
-      var year = date.getFullYear();
-      var month = (1 + date.getMonth());
-      var month = month >= 10 ? month : '0' + month;
-      var day = date.getDate();
-      day = day >= 10 ? day : '0' + day;
-      return year + '' + month + '' + day;
-    }
+  postPortfolio(user, title, body, img, id, avatar, nickname) {
+    var type = "포트폴리오"
+    //FirebaseService.pushBullet(user, title, type)
+    var date = new Date()
     
-    var name = getFormatDate(new Date()) + '_' + title;
+    /* Check image status
+      if img.substr(0,4) === 'data' : it is base64 type data url (not uploaded yet)
+      img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */ 
+    if(img.substr(0,4) === 'data'){
+      // Create firestorage reference
+      var ref = firebase.storage().ref();
+      
+      // Create simple date
+      function getFormatDate(date){ var year = date.getFullYear();
+        var year = date.getFullYear();
+        var month = (1 + date.getMonth());
+        var month = month >= 10 ? month : '0' + month;
+        var day = date.getDate();
+        day = day >= 10 ? day : '0' + day;
+        return year + '' + month + '' + day;
+      }
 
-    // Upload image to firestorage
-    var uploadTask = ref.child('images/' + name).putString(imgUrl, 'data_url');
+      // Image name setting
+      var name = getFormatDate(new Date()) + '_' + title;
 
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      // Upload image to firestorage
+      var uploadTask = ref.child('images/' + name).putString(img, 'data_url');
+      
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
       function(snapshot) {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
@@ -347,127 +355,66 @@ export default {
         }
       }, function() {
         // Get stored image url from firestorage
-        uploadTask.snapshot.ref.getDownloadURL().then(function(fireImg) {
-          console.log("FireStorage img : " + fireImg)
-          return fireImg;
-        })
-      })
-  },
-
-  // async postPortfolioBefore(user, title, body, img, id, avatar, nickname) {
-  //   console.log("uploadId : " + id)
-    
-  //   /* Check image status
-  //         if img.substr(0,4) === 'data' : it is base64 type data url (not uploaded yet)
-  //         img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */ 
-  //   if(img.substr(0,4) === 'data'){
-  //     var fireUrl = await this.photoUploader(img)
-  //   }
-    
-
-    
-          
-  //         /* Check id
-  //         if id != null : it is exist PORTFOLIO
-  //         if id == null : it is new PORTFOLIO */ 
-  //         if(id != null) {
-  //           firestore.collection(PORTFOLIOS).doc(id).set({
-  //             user,
-  //             title,
-  //             body,
-  //             img,
-  //             created_at: firebase.firestore.FieldValue.serverTimestamp()
-  //           }).then(function(){
-  //             console.log("Modify portfolio succeed")
-  //           }).catch(function() {
-  //             console.error("Modify portfolio failed")
-  //           });
-  //         }
-  //         else{
-  //           firestore.collection(PORTFOLIOS).add({
-  //             user,
-  //             title,
-  //             body,
-  //             img,
-  //             created_at: firebase.firestore.FieldValue.serverTimestamp()
-  //           }).then(function(){
-  //             console.log("Post portfolio succeed")
-  //           }).catch(function() {
-  //             console.error("Post portfolio failed")
-  //           });
-  //         }
-  //       });
-  //     });
-  //   }
-  //   else {
-  //     /* Check id
-  //         if id != null : it is exist PORTFOLIO
-  //         if id == null : it is new PORTFOLIO */ 
-  //     if(id != null) {
-  //       firestore.collection(PORTFOLIOS).doc(id).set({
-  //         user,
-  //         title,
-  //         body,
-  //         img,
-  //         created_at: firebase.firestore.FieldValue.serverTimestamp()
-  //       }).then(function(){
-  //         console.log("Modify portfolio succeed")
-  //       }).catch(function() {
-  //         console.error("Modify portfolio failed")
-  //       });
-  //     }
-  //     else{
-  //       firestore.collection(PORTFOLIOS).add({
-  //         user,
-  //         title,
-  //         body,
-  //         img,
-  //         created_at: firebase.firestore.FieldValue.serverTimestamp()
-  //       }).then(function(){
-  //         console.log("Post portfolio succeed")
-  //       }).catch(function() {
-  //         console.error("Post portfolio failed")
-  //       });
-  //     }
-  //   }
-  // },
-  postPortfolio(user, title, body, img, id, avatar, nickname) {
-    var type = "포트폴리오"
-    FirebaseService.pushBullet(user, title, type)
-    var date = new Date()
-    console.log("here is avatar : "+  avatar)
-    if(id != null) {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(fireUrl) {
+          /* Check id
+          if id != null : it is exist PORTFOLIO
+          if id == null : it is new PORTFOLIO */ 
+          if(id != null) {
+            firestore.collection(PORTFOLIOS).doc(id).set({
+              user,
+              title,
+              body,
+              fireUrl,
+              dataUrl: img,
+              avatar,
+              nickname,
+              created_at: date,
+            }).then(function(){
+              console.log("Modify portfolio succeed")
+            }).catch(function() {
+              console.error("Modify portfolio failed")
+            });
+          }
+          else{
+            firestore.collection(PORTFOLIOS).add({
+              user,
+              title,
+              body,
+              fireUrl,
+              dataUrl: img,
+              avatar,
+              nickname,
+              created_at: date,
+            }).then(function(){
+              console.log("Post portfolio succeed")
+            }).catch(function() {
+              console.error("Post portfolio failed")
+            });
+          }
+        });
+      });
+    }
+    else {
       firestore.collection(PORTFOLIOS).doc(id).set({
         user,
         title,
         body,
-        img,
-        avatar,
-        nickname,
-        created_at: date, //firebase.firestore.FieldValue.serverTimestamp(),
+        created_at: date
       }).then(function(){
         console.log("Modify portfolio succeed")
       }).catch(function() {
         console.error("Modify portfolio failed")
       });
     }
-    else{
-      firestore.collection(PORTFOLIOS).add({
-        user,
-        title,
-        body,
-        img,
-        avatar,
-        nickname,
-        created_at: date //firebase.firestore.FieldValue.serverTimestamp()
-      }).then(function(){
-        console.log("Post portfolio succeed")
-      }).catch(function() {
-        console.error("Post portfolio failed")
-      });
-    }
   },
   deletePortfolio(id, imgSrc){
+    var desertRef = firebase.storage().refFromURL(imgSrc);
+    desertRef.delete().then(function() {
+      console.log("Delete image succeed(firestorage)")
+    }).catch(function(error) {
+      console.error("Delete image error(firestorage)")
+    });
+
     firestore.collection(PORTFOLIOS).doc(id).delete().then(function() {
       console.log("Delete portfolio succeed(firestore)")
     }).catch(function() {
