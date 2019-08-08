@@ -74,7 +74,6 @@ export default {
       firebase.database().ref().child("commits").child(today).child('team3').on("value", snapshot => {
         var commits = snapshot.val();
         if(commits === null){
-          console.log('없쟈')
           // commits데이터가 없을때
           this.getTeamCommits(
             "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",

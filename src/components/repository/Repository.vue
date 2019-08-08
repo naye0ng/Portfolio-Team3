@@ -21,6 +21,7 @@
 <script>
 import chart from "chart.js";
 import axios from "axios";
+import firebase from "firebase";
 
 export default {
   name: "Repository",
@@ -33,6 +34,24 @@ export default {
     };
   },
   methods: {
+    initCommitData(){
+      var today = new Date().toString().slice(0,15)
+      firebase.database().ref().child("commits").child(today).child('members').child(this.$props.repos.nickname).on("value", snapshot => {
+        var members = snapshot.val();
+        if(members === null){
+          // commits데이터가 없을때
+          // var commits = this.getCommits();
+          this.getCommits().then(data => {
+            this.createCommitData(data);
+            drawCommitGraph(data)
+          });
+        }
+        else {
+          // 차트 그리기
+          drawCommitGraph(members)
+        }
+      })  
+    },
     getImgUrl(img) {
       return require("@/assets/" + img);
     },
@@ -44,7 +63,7 @@ export default {
       );
       return response.data;
     },
-    createMemberGraph(data) {
+    createCommitData(data) {
       if (data){
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(
@@ -68,16 +87,24 @@ export default {
           }
           start.setDate(start.getDate() + 1);
         }
-        // Chart.js
-        var ctx = document.getElementById(this.$props.repos.username);
+        var result = {
+          label : labels,
+          data : commits,
+        }
+        firebase.database().ref().child("commits").child(today).child('member').child(this.$props.repos.nickname).set(result);
+        return result
+      }
+    },
+    drawCommitGraph(data){
+      var ctx = document.getElementById(this.$props.repos.username);
         if (labels){
           var teamChart = new chart.Chart(ctx, {
             type: "line",
             data: {
-              labels: labels,
+              labels: data.label,
               datasets: [
                 {
-                  data: commits,
+                  data: data.data,
                   backgroundColor: this.$props.repos.color[0],
                   borderColor: this.$props.repos.color[1],
                   borderWidth: 2
@@ -112,14 +139,10 @@ export default {
             }
           });
         }
-      }
     }
   },
   mounted() {
-    var commits = this.getCommits();
-    commits.then(data => {
-      this.createMemberGraph(data);
-    });
+    // this.initCommitData()
   }
 };
 </script>
