@@ -61,7 +61,7 @@ export default {
           status : 'E',
           name : '김동욱',
           img : "imageDU.png",
-          intro : ['안녕하세요 김동욱입니다.','백엔드 개발을 가장 좋아하지만,', '요즘은 프론트에 꽂힌 개발자입니다.', '알고리즘 B형을 목표로 하고있습니다.'],
+          intro : ['안녕하세요 김동욱입니다.','알고리즘 B형을 목표로 두고있는,', '백엔드 개발을 가장 좋아하지만,', '요즘은 프론트에 꽂힌', '개발자 입니다'],
           repo :
             [
               'https://github.com/ehddnr8813/Algorithm',
@@ -220,12 +220,12 @@ export default {
   height:5px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); 
-  -moz-transform: rotate(30deg);  
-  -o-transform: rotate(30deg);  
-  -webkit-transform: rotate(30deg);  
-  -ms-transform: rotate(30deg);  
-  transform: rotate(30deg); 
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%);
+  -moz-transform: rotate(30deg);
+  -o-transform: rotate(30deg);
+  -webkit-transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
+  transform: rotate(30deg);
 }
 .p2{
   position:absolute;
@@ -245,12 +245,12 @@ export default {
   height:2px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); 
-  -moz-transform: rotate(40deg);  
-  -o-transform: rotate(40deg);  
-  -webkit-transform: rotate(40deg);  
-  -ms-transform: rotate(40deg);  
-  transform: rotate(40deg); 
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%);
+  -moz-transform: rotate(40deg);
+  -o-transform: rotate(40deg);
+  -webkit-transform: rotate(40deg);
+  -ms-transform: rotate(40deg);
+  transform: rotate(40deg);
 }
 .p3{
   position:absolute;
@@ -270,12 +270,12 @@ export default {
   height:1px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); 
-  -moz-transform: rotate(20deg);  
-  -o-transform: rotate(20deg);  
-  -webkit-transform: rotate(20deg);  
-  -ms-transform: rotate(20deg);  
-  transform: rotate(20deg); 
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%);
+  -moz-transform: rotate(20deg);
+  -o-transform: rotate(20deg);
+  -webkit-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  transform: rotate(20deg);
 }
 .p-1{
   animation-duration:5s;

@@ -39,10 +39,10 @@ export default {
 <style>
 .aboutus-font {
   font-family: 'Jua', sans-serif;
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
 .aboutus-font-spotlight {
-  font-size:1.4em;
+  font-size:1.4rem;
   color:#EC407A;
 }
 </style>

@@ -32,20 +32,22 @@
                   <div v-html="port.body" style="font-size:1.24rem;word-break: break-all;"></div>
                 </v-card-text>
                 <v-card-actions class="pl-3 pt-0">
+                  <!-- <v-btn icon>
+                    <i class="material-icons-outlined" style="color:#ec407a;">
+                      sms
+                    </i>
+                  </v-btn> -->
+                  <CommentMain :port="this.port"/>          <!-- 댓글보기 -->
                   <v-btn icon v-if="curUser && liked" @click="likes">
                     <i class="material-icons" style="color:#ec407a;">
                       favorite
                     </i>
                   </v-btn>
                   <v-btn icon v-if="!curUser || !liked" @click="likes">
-                    <!-- <template v-slot:badge>{{likecount}}</template> -->
                     <i class="material-icons" style="color:#ec407a;">
                       favorite_border
                     </i>
                   </v-btn>
-                  <!-- <v-btn icon>
-                  <v-icon>bookmark</v-icon>
-                </v-btn> -->
                 <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
                 <v-dialog v-model="dialog" max-width="300px">
                   <v-card>
@@ -74,7 +76,7 @@
       <v-layout>
         <!-- go back button -->
         <v-flex xs12 text-xs-center round class="bg-3">
-          <CommentMain :port="this.port"/>          <!-- 댓글보기 -->
+          <!-- <CommentMain :port="this.port"/>        -->
           <router-link to="/portfolio">
             <button
             class="button button--wayra button--border-medium button--text-medium button--size-s"
