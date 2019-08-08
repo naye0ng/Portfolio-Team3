@@ -24,7 +24,6 @@ function getWeather(lat, lon, {commit}) {
     console.log(error);
   });
 }
-
 export default {
   initWeather({commit}, payload) {
     if(navigator.geolocation) {

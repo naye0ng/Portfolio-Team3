@@ -70,7 +70,57 @@ export default {
   name: "TeamGraph",
   methods: {
     // 한번 호출할 때마다 최대 100개의 commit을 받아온다.
-    async getCommits(API_URL, data) {
+    // async getCommits(API_URL, data) {
+    //   var response = await axios.get(API_URL);
+    //   data = data.concat(response.data);
+    //   var header = response.headers.link.split(", ")[0];
+    //   header = header.split("; ");
+    //   var nextUrl = header[0].slice(1, -1);
+    //   var isNext = header[1] === 'rel="next"' ? true : false;
+
+    //   if (isNext) {
+    //     // 다음 호출이 필요한 경우(isNext === true) 재귀적으로 getCommits함수를 호출한다.
+    //     this.getCommits(nextUrl, data);
+    //   } else {
+    //     this.$store.state.isLoading = false;
+    //     setTimeout(() => {
+    //       this.createDateMemberCommitGraph(data)
+    //       this.createTeamGraph(data)
+    //       this.createMemberGraph(data)
+    //       // team3 web site graph
+    //       this.createVisitorChart()
+    //       this.socialLoginChart()
+    //     }, 300);
+    //   }
+    // },
+    initCommitData(){
+      var today = new Date().toString().slice(0,15)
+      firebase.database().ref().child("commits").child(today).child('team3').on("value", snapshot => {
+        var commits = snapshot.val();
+        if(commits === null){
+          console.log('커밋 데이터 없음')
+          
+          // commits데이터가 없을때
+          getTeamCommits(
+            "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
+            [],
+            today);
+        }
+        else {
+          // commits가 이미 존재한다면
+          this.$store.state.isLoading = false;
+          setTimeout(() => {
+            this.createDateMemberCommitGraph(commits)
+            this.createTeamGraph(commits)
+            this.createMemberGraph(commits)
+            // team3 web site graph
+            this.createVisitorChart()
+            this.socialLoginChart()
+          }, 300);
+        }
+      })  
+    },
+    async getTeamCommits(API_URL, data, today) {
       var response = await axios.get(API_URL);
       data = data.concat(response.data);
       var header = response.headers.link.split(", ")[0];
@@ -80,7 +130,7 @@ export default {
 
       if (isNext) {
         // 다음 호출이 필요한 경우(isNext === true) 재귀적으로 getCommits함수를 호출한다.
-        this.getCommits(nextUrl, data);
+        getTeamCommits(nextUrl, data, today)
       } else {
         this.$store.state.isLoading = false;
         setTimeout(() => {
@@ -91,10 +141,12 @@ export default {
           this.createVisitorChart()
           this.socialLoginChart()
         }, 300);
+        firebase.database().ref().child("commits").child(today).child('team3').set(data);
       }
     },
     createDateMemberCommitGraph(data){
       if (data){
+        console.log('dddd',data)
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(data[data.length - 1].commit.author.date.slice(0, 10));
         
@@ -423,10 +475,13 @@ export default {
   },
   mounted() {
     // Draw git graph
-    this.getCommits(
-      "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
-      []
-    );
+    this.initCommitData()
+    // this.drawGraph(this.$store.state.commitsData.team)
+    // this.getCommits(
+    //   "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
+    //   []
+    // );
+    
   }
 };
 </script>
