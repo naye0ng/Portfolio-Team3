@@ -21,8 +21,8 @@
                 </v-flex>
               </v-card-title>
               <v-card-text style="background-color:#fff;" class="px-0 pb-0">
-                <v-img
-                :src="port.img"
+              <v-img
+                :src="port.fireUrl"
                 contain
                 style="max-height:70vh; max-width:70vw; margin:auto;"
                 ></v-img>
@@ -32,11 +32,6 @@
                   <div v-html="port.body" style="font-size:1.24rem;word-break: break-all;"></div>
                 </v-card-text>
                 <v-card-actions class="pl-3 pt-0">
-                  <!-- <v-btn icon>
-                    <i class="material-icons-outlined" style="color:#ec407a;">
-                      sms
-                    </i>
-                  </v-btn> -->
                   <CommentMain :port="this.port"/>          <!-- 댓글보기 -->
                   <v-btn icon v-if="curUser && liked" @click="likes">
                     <i class="material-icons" style="color:#ec407a;">
@@ -48,59 +43,62 @@
                       favorite_border
                     </i>
                   </v-btn>
-                <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
-                <v-dialog v-model="dialog" max-width="300px">
-                  <v-card>
-                    <v-card-title>
-                      Likes
-                    </v-card-title>
-                    <v-card-text>
-                      <div v-for="i in likers.length" class="py-1">
-                        <v-avatar>
-                          <img
-                          :src="likers[i-1].avatar"
-                          >
-                        </v-avatar>
-                        <span class="pl-3">{{likers[i-1].nickname}}</span>
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
-                <v-spacer></v-spacer>
-                <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
-              </v-card-actions>
-            </div>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <!-- go back button -->
-        <v-flex xs12 text-xs-center round class="bg-3">
-          <!-- <CommentMain :port="this.port"/>        -->
-          <router-link to="/portfolio">
-            <button
-            class="button button--wayra button--border-medium button--text-medium button--size-s"
-            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
-            >리스트로</button>
-          </router-link>
-          <router-link to="/home">
-            <button
-            class="button button--wayra button--border-medium button--text-medium button--size-s"
-            style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
-            >홈으로</button>
-          </router-link>
-          <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
-          <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
-          <router-link
-          :to="{
-            name: 'makecontents',
-            params: {
-              kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
-              title: port.title,
-              id: port.id,
-              body: port.body,
-              imgSrc: port.img,
-              user: port.user
+                  <!-- <v-btn icon>
+                    <v-icon>bookmark</v-icon>
+                  </v-btn> -->
+                  <div class="caption grey--text pt-1 pl-1" @click="dialog=true" style="cursor:pointer;">{{likecount}} likes </div>
+                  <v-dialog v-model="dialog" max-width="300px">
+                    <v-card>
+                      <v-card-title>
+                        Likes
+                      </v-card-title>
+                      <v-card-text>
+                        <div v-for="i in likers.length" class="py-1">
+                          <v-avatar>
+                            <img
+                              :src="likers[i-1].avatar"
+                            >
+                          </v-avatar>
+                          <span class="pl-3">{{likers[i-1].nickname}}</span>
+                        </div>
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
+                  <v-spacer></v-spacer>
+                  <div class="caption grey--text pt-0 pr-3">{{formatedDate}}</div>
+                </v-card-actions>
+              </div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <!-- go back button -->
+          <v-flex xs12 text-xs-center round class="bg-3">
+            <router-link to="/portfolio">
+              <button
+                class="button button--wayra button--border-medium button--text-medium button--size-s"
+                style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
+              >리스트로</button>
+            </router-link>
+            <router-link to="/home">
+              <button
+                class="button button--wayra button--border-medium button--text-medium button--size-s"
+                style="max-width: 150px;padding:0.5em 1em; margin:0.5em;"
+              >홈으로</button>
+            </router-link>
+            <!-- EditBtn, RemoveBtn check login user's email match with portfolio's email infomation-->
+            <!-- EditBtn pass portfolio infomation to PortfolioWriter.vue -->
+            <router-link
+              :to="{
+              name: 'makecontents',
+              params: {
+                kind: 'Portfolio', // MakeContents.vue will call PortfolioWriter.vue
+                title: port.title,
+                id: port.id,
+                body: port.body,
+                fireUrl: port.fireUrl,
+                dataUrl: port.dataUrl,
+                user: port.user
               }}"
               >
               <button
@@ -182,7 +180,7 @@ export default {
       this.getUserImg(this.port.user);
     },
     deletePortfolio() {
-      FirebaseService.deletePortfolio(this.port.id, this.port.img);
+      FirebaseService.deletePortfolio(this.port.id, this.port.fireUrl);
     },
     likes(){
       if (this.$store.getters.getUser){

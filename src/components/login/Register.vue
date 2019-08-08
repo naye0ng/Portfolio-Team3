@@ -42,9 +42,9 @@
               <v-flex xs2>
                 <v-icon size="30" color="secondary">question_answer</v-icon>
               </v-flex>
-              <v-flex xs6 d-flex>
+              <v-flex xs6 d-flex id="sdsd">
                 <v-select
-                  :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
+                  :items="['가장 기억에 남는 장소는?', '초등학교 때 나의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?','가장 기억에 남는 장소는?', '초등학교 때 나 의 별명은?', '가장 좋아하는 음식은?', '내가 어렸을 때 태어난 곳은?']"
                   label="비밀번호 찾기 질문*"
                   v-model="findPass"
                   append-icon="expand_more"
@@ -189,7 +189,7 @@ export default {
             });
           } else {
             Swal.fire({
-              text: "회원가입에 실패하였습니다",
+              text: "회원가입에 실패하였습니  다",
               type: "warning"
             });
           }
@@ -200,3 +200,9 @@ export default {
   }
 };
 </script>
+<style>
+.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active{
+  z-index:9999!important;
+  top: 450px;
+}
+</style>
