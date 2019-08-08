@@ -8,7 +8,7 @@
         light
         :class="`elevation-${hover ? 24 : 2}`"
       >
-        <v-img :src="imgSrc" height="40vh"></v-img>
+        <v-img :src="fireImg" height="40vh"></v-img>
         <v-expand-transition>
           <div
             v-if="hover"
@@ -46,7 +46,8 @@ export default {
     date: { type: String },
     title: { type: String },
     body: { type: String },
-    imgSrc: { type: String },
+    fireImg: { type: String},
+    dataImg: { type: String },
     id: { type: String }
   },
   data() {
