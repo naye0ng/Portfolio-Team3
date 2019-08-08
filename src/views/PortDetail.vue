@@ -19,11 +19,11 @@
                   <v-avatar size="35">
                     <v-img :src="userimg" aspect-ratio="1" height="35px"></v-img>
                   </v-avatar>
-                  {{port.user}}
+                  {{port.user}} 
                 </v-flex>
               </v-card-title>
               <v-img
-                :src="port.img"
+                :src="port.fireUrl"
                 contain
                 style="max-height:70vh; max-width:70vw; background-color:#000000;"
               ></v-img>
@@ -98,7 +98,8 @@
                 title: port.title,
                 id: port.id,
                 body: port.body,
-                imgSrc: port.img,
+                fireUrl: port.fireUrl,
+                dataUrl: port.dataUrl,
                 user: port.user
               }}"
             >
@@ -181,7 +182,7 @@ export default {
       this.getUserImg(this.port.user);
     },
     deletePortfolio() {
-      FirebaseService.deletePortfolio(this.port.id, this.port.img);
+      FirebaseService.deletePortfolio(this.port.id, this.port.fireUrl);
     },
     likes(){
       if (this.$store.getters.getUser){

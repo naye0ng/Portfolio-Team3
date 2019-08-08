@@ -7,7 +7,7 @@
               :key="comments[i-1].key"
               :post="curPost"
               @deleted="deleted"
-          ></PostSingleComment>
+          ></PostSingleComment> 
         </v-flex>
         <div style="text-align:center;">
           <button @click="loadMoreComments" class="more-btn mx-1" v-if="pageLimit<comments.length">

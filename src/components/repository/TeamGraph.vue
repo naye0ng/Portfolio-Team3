@@ -69,8 +69,33 @@ import firebase from "firebase";
 export default {
   name: "TeamGraph",
   methods: {
-    // 한번 호출할 때마다 최대 100개의 commit을 받아온다.
-    async getCommits(API_URL, data) {
+    initCommitData(){
+      var today = new Date().toString().slice(0,15)
+      firebase.database().ref().child("commits").child(today).child('team3').on("value", snapshot => {
+        var commits = snapshot.val();
+        if(commits === null){
+          // commits데이터가 없을때
+          this.getTeamCommits(
+            "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
+            [],
+            today);
+        }
+        else {
+          // 차트 그리기
+          setTimeout(() => {
+            this.$store.state.isLoading = false;
+            this.drawDateMemberCommitGraph(commits.teamMeamber)
+            this.drawTeamGraph(commits.team)
+            this.drawMemberGraph(commits.member)
+            // team3 web site graph
+            this.createVisitorChart()
+            this.socialLoginChart()
+          }, 500);
+        }
+      })  
+    },
+    /* Call Github API */
+    async getTeamCommits(API_URL, data, today) {
       var response = await axios.get(API_URL);
       data = data.concat(response.data);
       var header = response.headers.link.split(", ")[0];
@@ -80,20 +105,20 @@ export default {
 
       if (isNext) {
         // 다음 호출이 필요한 경우(isNext === true) 재귀적으로 getCommits함수를 호출한다.
-        this.getCommits(nextUrl, data);
+        this.getTeamCommits(nextUrl, data, today)
       } else {
-        this.$store.state.isLoading = false;
-        setTimeout(() => {
-          this.createDateMemberCommitGraph(data)
-          this.createTeamGraph(data)
-          this.createMemberGraph(data)
-          // team3 web site graph
-          this.createVisitorChart()
-          this.socialLoginChart()
-        }, 300);
+          setTimeout(() => {
+            this.$store.state.isLoading = false;
+            this.drawDateMemberCommitGraph(this.createDateMemberCommitGraph(data, today))
+            this.drawTeamGraph(this.createTeamGraph(data, today))
+            this.drawMemberGraph(this.createMemberGraph(data, today))
+            // team3 web site graph
+            this.createVisitorChart()
+            this.socialLoginChart()
+          }, 500);
       }
     },
-    createDateMemberCommitGraph(data){
+    createDateMemberCommitGraph(data, today){
       if (data){
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(data[data.length - 1].commit.author.date.slice(0, 10));
@@ -141,61 +166,19 @@ export default {
           }
           start.setDate(start.getDate() + 1);
         }
-        var ctx = document.getElementById("memberCommitChart");
-        var teamChart = new chart.Chart(ctx, {
-          type: "line",
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "김나영",
-                data: nana,
-                backgroundColor: ["rgba(255,99,132, 0.2)"],
-                borderColor: ["rgba(255,99,132, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "김동욱",
-                data: eddy,
-                backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-                borderColor: ["rgba(54, 162, 235, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "박해원",
-                data: hazel,
-                backgroundColor: ["rgba(255, 206, 86, 0.2)"],
-                borderColor: ["rgba(255, 206, 86, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "임현아",
-                data: anna,
-                backgroundColor: ["rgba(75, 192, 192, 0.2)"],
-                borderColor: ["rgba(75, 192, 192, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "조용범",
-                data: richard,
-                backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-                borderColor: ["rgba(153, 102, 255, 1)"],
-                borderWidth: 1
-              }
-            ]
-          },
-          options: {
-            legend: {
-              display: true
-            },
-            layout: {
-              padding: 5
-            }
-          }
-        });
+        var result = {
+          label : labels,
+          nana : nana,
+          eddy : eddy,
+          hazel : hazel,
+          anna : anna,
+          richard : richard,
+        }
+        firebase.database().ref().child("commits").child(today).child('team3').child('teamMeamber').set(result);
+        return result
       }
     },
-    createTeamGraph(data) {
+    createTeamGraph(data, today) {
       if (data){
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(
@@ -219,36 +202,15 @@ export default {
           }
           start.setDate(start.getDate() + 1);
         }
-        // Chart.js
-        var ctx = document.getElementById("teamChart");
-        if (commits){
-          var teamChart = new chart.Chart(ctx, {
-            type: "line",
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  label: "# commits",
-                  data: commits,
-                  backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-                  borderColor: ["rgba(153, 102, 255, 1)"],
-                  borderWidth: 1
-                }
-              ]
-            },
-            options: {
-              legend: {
-                display: false
-              },
-              layout: {
-                padding: 5
-              }
-            }
-          });
+        var result = {
+          label : labels,
+          data : commits,
         }
+        firebase.database().ref().child("commits").child(today).child('team3').child('team').set(result);
+        return result
       }
     },
-    createMemberGraph(data) {
+    createMemberGraph(data, today) {
       var m_na = 0;
       var m_won = 0;
       var m_ah = 0;
@@ -273,45 +235,13 @@ export default {
             }
           }
         }
-        // Chart.js
-        var ctx = document.getElementById("memberChart");
-        var memberChart = new chart.Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: ["김나영", "김동욱", "박해원", "임현아", "조용범"],
-            datasets: [
-              {
-                label: "# commit",
-                data: [m_na, m_tong, m_won, m_ah, m_jo],
-                backgroundColor: [
-                  "rgba(255, 99, 132, 0.2)",
-                  "rgba(54, 162, 235, 0.2)",
-                  "rgba(255, 206, 86, 0.2)",
-                  "rgba(75, 192, 192, 0.2)",
-                  "rgba(153, 102, 255, 0.2)"
-                ],
-                borderColor: [
-                  "rgba(255,99,132,1)",
-                  "rgba(54, 162, 235, 1)",
-                  "rgba(255, 206, 86, 1)",
-                  "rgba(75, 192, 192, 1)",
-                  "rgba(153, 102, 255, 1)"
-                ],
-                borderWidth: 1
-              }
-            ]
-          },
-          options: {
-            legend: {
-              display: false
-            },
-            layout: {
-              padding: 5
-            }
-          }
-        });
+        var result = {
+          label : ["김나영", "김동욱", "박해원", "임현아", "조용범"],
+          data : [m_na, m_tong, m_won, m_ah, m_jo],
+        }
+        firebase.database().ref().child("commits").child(today).child('team3').child('member').set(result);
+        return result
       }
-
     },
     createVisitorChart() {
       var today = new Date()
@@ -410,23 +340,129 @@ export default {
 
         });
     },
-    async asyncForEach(nextUrl, data) {
-      for (let index = 0; index < nextUrl.length; index++) {
-        await this.getCommits(nextUrl[index].split(">;")[0].slice(1)).then(
-          res2 => {
-            data = data.concat(res2.data);
+    /* Draw Graph Functions */
+    drawDateMemberCommitGraph(data){
+      var ctx = document.getElementById("memberCommitChart");
+        var teamChart = new chart.Chart(ctx, {
+          type: "line",
+          data: {
+            labels: data.label,
+            datasets: [
+              {
+                label: "김나영",
+                data: data.nana,
+                backgroundColor: ["rgba(255,99,132, 0.2)"],
+                borderColor: ["rgba(255,99,132, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "김동욱",
+                data: data.eddy,
+                backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+                borderColor: ["rgba(54, 162, 235, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "박해원",
+                data: data.hazel,
+                backgroundColor: ["rgba(255, 206, 86, 0.2)"],
+                borderColor: ["rgba(255, 206, 86, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "임현아",
+                data: data.anna,
+                backgroundColor: ["rgba(75, 192, 192, 0.2)"],
+                borderColor: ["rgba(75, 192, 192, 1)"],
+                borderWidth: 1
+              },
+              {
+                label: "조용범",
+                data: data.richard,
+                backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+                borderColor: ["rgba(153, 102, 255, 1)"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            legend: {
+              display: true
+            },
+            layout: {
+              padding: 5
+            }
           }
-        );
-      }
-      return data;
+        });
+    },
+    drawTeamGraph(data){
+      var ctx = document.getElementById("teamChart");
+      var teamChart = new chart.Chart(ctx, {
+        type: "line",
+        data: {
+          labels: data.label,
+          datasets: [
+            {
+              label: "# commits",
+              data: data.data,
+              backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+              borderColor: ["rgba(153, 102, 255, 1)"],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          layout: {
+            padding: 5
+          }
+        }
+      });
+    },
+    drawMemberGraph(data){
+      var ctx = document.getElementById("memberChart");
+      var memberChart = new chart.Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: data.label ,
+          datasets: [
+            {
+              label: "# commit",
+              data: data.data ,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)"
+              ],
+              borderColor: [
+                "rgba(255,99,132,1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)"
+              ],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          layout: {
+            padding: 5
+          }
+        }
+      });
     }
   },
   mounted() {
     // Draw git graph
-    // this.getCommits(
-    //   "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
-    //   []
-    // );
+    this.initCommitData()
   }
 };
 </script>
