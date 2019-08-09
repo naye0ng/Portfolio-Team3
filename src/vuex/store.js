@@ -27,7 +27,11 @@ export default new Vuex.Store({
   mutations:{
     setDBUser(state, payload) {
       state.dbuser = payload
-      state.isAdmin = payload.accessLevel == 2 ? true : false
+      if (payload){
+        if (payload.hasOwnProperty("accessLevel")){
+          state.isAdmin = payload.accessLevel == 2 ? true : false
+        }
+      }
     },
     setDBUserTel(state, payload) {
       state.dbuser.telephone = payload

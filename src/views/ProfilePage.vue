@@ -122,7 +122,7 @@ export default {
   watch: {
     user: function(val) {
       if (!this.user) {
-        this.$router.push("/");
+        this.$router.push("/home");
       }
     }
   },

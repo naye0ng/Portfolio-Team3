@@ -34,7 +34,7 @@
       </v-layout>
 
       <!-- Portfolio List -->
-      <v-layout justify-center>
+      <v-layout justify-center mb-5>
         <v-flex xs11>
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>

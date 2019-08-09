@@ -141,7 +141,7 @@ export default {
         { title: "PORTFOLIO", icon: "border_color", to: "/portfolio" },
         { title: "TEAM3", icon: "group", to: "/team3" }
       ],
-      profile_image: ""
+      profile_image: ''
     };
   },
   components: {
@@ -167,18 +167,25 @@ export default {
       }
     },
     getListTitleName() {
-      return this.$store.getters.dbuser.nickname;
+    
+      if (this.$store.getters.dbuser){
+        if (this.$store.getters.dbuser.hasOwnProperty("nickname")){
+          return this.$store.getters.dbuser.nickname;
+        } 
+      }
     },
     user() {
-      if (this.$store.getters.getUser) {
+      if (this.$store.getters.getUser && this.$store.getters.dbuser) {
+        // console.log(this.$store.getters.dbuser);
         this.profile_image = this.$store.getters.dbuser.photoURL;
+        // console.log(this.profile_image);
       }
       return this.$store.getters.getUser;
     },
     isAdmin() {
       var typeIsAdmin = typeof this.$store.getters.dbuser;
       var check = false;
-      if (typeIsAdmin === "object") {
+      if (typeIsAdmin === "object" && this.$store.getters.dbuser && this.$store.getters.dbuser.hasOwnProperty("email")) {
         firebase
           .database()
           .ref("user")
