@@ -16,6 +16,8 @@ const state = {
   dbuser : '',
   isAdmin : false,
   isLoading : true,
+
+  temp_profile : '',
 }
 
 export default new Vuex.Store({
@@ -66,5 +68,8 @@ export default new Vuex.Store({
     SET_searchtag(state,tag){
       state.searchtag = tag;
     },
+    SET_temp_profile(state,payload){
+      state.temp_profile = payload;
+    }
   }
 })

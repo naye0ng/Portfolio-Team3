@@ -25,5 +25,8 @@ export default {
   },
   isAdmin(state) {
     return state.isAdmin
+  },
+  get_temp_profile(state){
+    return state.temp_profile
   }
 }

@@ -311,7 +311,7 @@ export default {
         })
       })
   },
-  async profilePhotoUploader(email, img) {
+  async profilePhotoUploader(email, key, img) {
     
     var ref = firebase.storage().ref();
     
@@ -320,7 +320,6 @@ export default {
 
     // Upload image to firestorage
     var uploadTask = ref.child('profile/' + name).putString(img, 'data_url');
-    
     await uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
     function(snapshot) {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -346,7 +345,7 @@ export default {
       // Get stored image url from firestorage
       uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
         console.log("storageOutput : " + storageOutputUrl)
-        return storageOutputUrl
+        firebase.database().ref("user").child(key).child('photoURL').set(storageOutputUrl)
       })
     })
   },

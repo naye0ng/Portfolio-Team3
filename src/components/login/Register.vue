@@ -126,26 +126,18 @@ export default {
       // key값 생성
       return email.split('@')[0];
     },
-    useRandomImg(){ // RandomImgBtn
+    async useRandomImg(){ // RandomImgBtn
       this.photoURL = 'https://source.unsplash.com/random/100x100'
-      this.onUrlImagePicked(this.photoURL)
+      console.log(this.photoURL);
+      await this.onUrlImagePicked(this.photoURL)
     },
-    onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+    async onUrlImagePicked(url) { // Transform Url Image to base64 type data url
       const image2base64 = require('image-to-base64');
-      image2base64(url)
-        .then(
-          (response) => {
-              this.photoURL = 'data:image/jpeg;base64,' + response
-              console.log("i264 : " +this.photoURL)
-              var fire = FirebaseService.profilePhotoUploader('cse@kw.ac.kr', this.photoURL)
-              this.photoURL = fire
-              //console.log("i264 : " +this.photoURL)
-            }
-        )
+      var response = await image2base64(url)
+      this.photoURL = 'data:image/jpeg;base64,' + response
+      await FirebaseService.profilePhotoUploader(this.email, this.emailSplit(this.email), this.photoURL)
     },
     async SignUp() {
-
-      await this.useRandomImg();
 
       const user = {
         email: this.email,
@@ -157,8 +149,10 @@ export default {
         accessLevel : "0", // 권한 부여 x- 방문자
         biography : '즐거운 인생, 오늘도 개발 내일도 개발🎉',
         nickname : this.name,
-        photoURL : this.photoURL
+        // photoURL : this.photoURL
       };
+
+      await this.useRandomImg();
 
       user.password = registerService.Crypto(user.email, user.password);
       firebase

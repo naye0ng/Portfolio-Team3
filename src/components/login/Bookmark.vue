@@ -1,7 +1,7 @@
 <template>
   <v-layout row justify-center wrap>
     <!-- Portfolio -->
-    <v-flex xs12 v-if="userports">
+    <v-flex xs12 v-if="userports" style="min-height:50vh;">
       <v-layout row wrap class="bg-3" justify-center>
         <v-flex xs10>
           <h2
@@ -9,7 +9,7 @@
             style="color:#fff;font-size:calc(3.4vw + 0.8em);"
           >Portfolio Bookmarks</h2>
         </v-flex>
-        <v-flex v-for="i in userports.length > portlimit ? portlimit : userports.length" xs12 md6 px-3>
+        <v-flex v-for="i in userports.length > portlimit ? portlimit : userports.length" xs12 md6 px-3 v-show="userports.length>0">
           <!-- Give post infomation to each Post.vue -->
           <Portfolio class="ma-3"
             :email="userports[i - 1].user"
