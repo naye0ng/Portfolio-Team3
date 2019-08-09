@@ -30,22 +30,23 @@ export default {
   },
   data() {
     return {
-      stats: {}
+      stats: {},
+      visited: false,
     };
   },
   methods: {
-    initCommitData(){
+    initCommitRepoData(){
       var today = new Date().toString().slice(0,15)
       firebase.database().ref().child("commits").child(today).child('members').child(this.$props.repos.nickname).on("value", snapshot => {
         var members = snapshot.val();
-        if(members === null){
-          // commits데이터가 없을때
+        if(members == null && this.visited == false){
+          this.visited = true
           this.getCommits(today).then(result => {
             this.drawCommitGraph(this.createCommitData(result[0], result[1]))
           });
         }
-        else {
-          // 차트 그리기
+        else if(this.visited == false){
+          this.visited = true
           this.drawCommitGraph(members)
         }
       })  
@@ -139,7 +140,7 @@ export default {
     }
   },
   mounted() {
-    this.initCommitData()
+    this.initCommitRepoData()
   }
 };
 </script>
