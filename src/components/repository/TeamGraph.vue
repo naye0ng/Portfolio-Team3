@@ -68,29 +68,34 @@ import firebase from "firebase";
 
 export default {
   name: "TeamGraph",
+  data() {
+    return {
+      visited: false,
+    }
+  },
   methods: {
     initCommitData(){
       var today = new Date().toString().slice(0,15)
       firebase.database().ref().child("commits").child(today).child('team3').on("value", snapshot => {
         var commits = snapshot.val();
-        if(commits === null){
-          // commits데이터가 없을때
+        if(commits == null && this.visited == false){
+          this.visited = true
           this.getTeamCommits(
             "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
             [],
             today);
         }
-        else {
-          // 차트 그리기
-          setTimeout(() => {
-            this.$store.state.isLoading = false;
-            this.drawDateMemberCommitGraph(commits.teamMeamber)
-            this.drawTeamGraph(commits.team)
-            this.drawMemberGraph(commits.member)
-            // team3 web site graph
-            this.createVisitorChart()
-            this.socialLoginChart()
-          }, 500);
+        else if(this.visited == false) {
+          this.visited = true
+          this.$store.state.isLoading = false;
+            setTimeout(() => {
+              this.drawDateMemberCommitGraph(commits.teamMember)
+              this.drawTeamGraph(commits.team)
+              this.drawMemberGraph(commits.member)
+              // team3 web site graph
+              this.createVisitorChart()
+              this.socialLoginChart()
+            }, 500);
         }
       })  
     },
@@ -102,23 +107,32 @@ export default {
       header = header.split("; ");
       var nextUrl = header[0].slice(1, -1);
       var isNext = header[1] === 'rel="next"' ? true : false;
-
       if (isNext) {
         // 다음 호출이 필요한 경우(isNext === true) 재귀적으로 getCommits함수를 호출한다.
-        this.getTeamCommits(nextUrl, data, today)
-      } else {
-          setTimeout(() => {
-            this.$store.state.isLoading = false;
-            this.drawDateMemberCommitGraph(this.createDateMemberCommitGraph(data, today))
-            this.drawTeamGraph(this.createTeamGraph(data, today))
-            this.drawMemberGraph(this.createMemberGraph(data, today))
-            // team3 web site graph
-            this.createVisitorChart()
-            this.socialLoginChart()
-          }, 500);
+        await this.getTeamCommits(nextUrl, data, today)
+      } 
+      else {
+        this.$store.state.isLoading = false;
+        setTimeout(() => {
+          this.createDateMemberCommitGraph(data, today)
+            .then(data => {
+              this.drawDateMemberCommitGraph(data)
+            })
+          this.createTeamGraph(data, today)
+            .then(data =>{
+              this.drawTeamGraph(data)
+            })
+          this.createMemberGraph(data, today)
+            .then(data => {
+              this.drawMemberGraph(data)
+            })
+          // team3 web site graph
+          this.createVisitorChart()
+          this.socialLoginChart()
+        }, 500);
       }
     },
-    createDateMemberCommitGraph(data, today){
+    async createDateMemberCommitGraph(data, today){
       if (data){
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(data[data.length - 1].commit.author.date.slice(0, 10));
@@ -174,11 +188,11 @@ export default {
           anna : anna,
           richard : richard,
         }
-        firebase.database().ref().child("commits").child(today).child('team3').child('teamMeamber').set(result);
+        await firebase.database().ref().child("commits").child(today).child('team3').child('teamMember').set(result);
         return result
       }
     },
-    createTeamGraph(data, today) {
+    async createTeamGraph(data, today) {
       if (data){
         let end = new Date(data[0].commit.author.date.slice(0, 10));
         let start = new Date(
@@ -206,11 +220,11 @@ export default {
           label : labels,
           data : commits,
         }
-        firebase.database().ref().child("commits").child(today).child('team3').child('team').set(result);
+        await firebase.database().ref().child("commits").child(today).child('team3').child('team').set(result);
         return result
       }
     },
-    createMemberGraph(data, today) {
+    async createMemberGraph(data, today) {
       var m_na = 0;
       var m_won = 0;
       var m_ah = 0;
@@ -239,7 +253,7 @@ export default {
           label : ["김나영", "김동욱", "박해원", "임현아", "조용범"],
           data : [m_na, m_tong, m_won, m_ah, m_jo],
         }
-        firebase.database().ref().child("commits").child(today).child('team3').child('member').set(result);
+        await firebase.database().ref().child("commits").child(today).child('team3').child('member').set(result);
         return result
       }
     },
