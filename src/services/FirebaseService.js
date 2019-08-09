@@ -311,7 +311,7 @@ export default {
         })
       })
   },
-  async profilePhotoUploader(email, img) {
+  async profilePhotoUploader(email, key, img) {
     
     var ref = firebase.storage().ref();
     
@@ -346,7 +346,7 @@ export default {
       // Get stored image url from firestorage
       uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
         console.log("storageOutput : " + storageOutputUrl)
-        return storageOutputUrl
+        firebase.database().ref("user").child(key).child('photoURL').set(storageOutputUrl)
       })
     })
   },
