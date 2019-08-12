@@ -59,7 +59,7 @@ firebase.firestore().enablePersistence()
   
 //FCM PUSH
 //Get firebase messaging function
-const messaging = firebase.messaging();
+// const messaging = firebase.messaging();
 //Set VApiIdKey
 messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
 
