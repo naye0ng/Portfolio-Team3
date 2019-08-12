@@ -14,7 +14,7 @@
       </v-toolbar-items>
 
       <!-- Login area -->
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items>
         <!-- Login button -->
         <v-btn flat @click.stop="dialog = true" v-if="!user">LOGIN</v-btn>
 
@@ -29,15 +29,15 @@
           </template>
 
           <!-- Logout menu -->
-          <v-list>
+          <v-list height="30px" rounded class="py-0 secondary" style="color:white; font-weight:bold">
             <v-list-tile @click="dialog = true">
               <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile>
             <v-list-tile to="/profile">
-              <v-list-tile-title style="color:black;">My Page</v-list-tile-title>
+              <v-list-tile-title style="color:white">My Page</v-list-tile-title>
             </v-list-tile>
             <v-list-tile to="/admin" v-if="isAdmin">
-              <v-list-tile-title style="color:black;">Admin</v-list-tile-title>
+              <v-list-tile-title style="color:white">Admin</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -56,7 +56,7 @@
           </v-card>
         </v-dialog>
       </v-toolbar-items>
-      <v-toolbar-items>
+      <v-toolbar-items class="hidden-sm-and-down">
         <v-btn icon @click="notify()">
           <v-icon>star</v-icon>
         </v-btn>
@@ -80,7 +80,7 @@
           <v-list-tile-content>
             <router-link to="/profile">
               <v-list-tile-title style="color:#ffffff">{{getListTitleName}}</v-list-tile-title>
-            </router-link> 
+            </router-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -167,11 +167,11 @@ export default {
       }
     },
     getListTitleName() {
-    
+
       if (this.$store.getters.dbuser){
         if (this.$store.getters.dbuser.hasOwnProperty("nickname")){
           return this.$store.getters.dbuser.nickname;
-        } 
+        }
       }
     },
     user() {
