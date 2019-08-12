@@ -65,7 +65,6 @@ firebase.firestore().enablePersistence()
 
 
 // Get push in foreground status. payload = push notification
-<<<<<<< HEAD
 // messaging.onMessage(function(payload){
 //   console.log('onMessage: ', payload);
 //   const notificationTitle = payload.notification.title;
@@ -76,18 +75,6 @@ firebase.firestore().enablePersistence()
 //     var notification = new Notification(notificationTitle, notificationOptions);
 //   }
 // });
-=======
-messaging.onMessage(function(payload){
-  //console.log('onMessage: ', payload);
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-  };
-  if (Notification.permission === "granted") {
-    var notification = new Notification(notificationTitle, notificationOptions);
-  }
-});
->>>>>>> testing
 
 export default {
   getPushPermission(email){
