@@ -66,7 +66,7 @@ messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXa
 
 // Get push in foreground status. payload = push notification
 messaging.onMessage(function(payload){
-  console.log('onMessage: ', payload);
+  //console.log('onMessage: ', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
@@ -101,7 +101,7 @@ export default {
     return token.get()
       .then(doc => {
         var data = doc.data();
-        console.log("fbs : " + data.token)
+        //console.log("fbs : " + data.token)
         return data;
       });
   },
@@ -147,7 +147,7 @@ export default {
     )
   },
   ShotPushMessage(to, userId, title, type, img) {
-    console.log("Shot to : " + to)
+    //console.log("Shot to : " + to)
     var request = require("request");
     request.post({
       headers: {
@@ -168,7 +168,7 @@ export default {
         }
       }),
     }, function (error, response, body) {
-      console.log(body);
+      //console.log(body);
     });
   },
   getPosts() {
@@ -344,7 +344,7 @@ export default {
     }, function() {
       // Get stored image url from firestorage
       uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
-        console.log("storageOutput : " + storageOutputUrl)
+        //console.log("storageOutput : " + storageOutputUrl)
         firebase.database().ref("user").child(key).child('photoURL').set(storageOutputUrl)
       })
     })

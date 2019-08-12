@@ -114,7 +114,7 @@ export default {
 
       //get receiver's token
       var tkr = await FirebaseService.getSingleToken(this.port.user)
-      console.log("incommentMain : " + tkr.token)
+      //console.log("incommentMain : " + tkr.token)
       var type = "댓글"
       //필요없는 정보는 '' 으로 보내기
       FirebaseService.ShotPushMessage(tkr.token, user.email, reply, type)
