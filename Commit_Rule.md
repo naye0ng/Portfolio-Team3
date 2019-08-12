@@ -1,4 +1,9 @@
-Hello Universe Commit Rule
+# Hello Universe : Commit Rule
+
+개발에 앞서, 커밋 로그만으로 한 눈에 작업 내용을 알아볼 수 있도록 만든 규칙
+
+<br/>
+
 
 ## Project setup
 ```
