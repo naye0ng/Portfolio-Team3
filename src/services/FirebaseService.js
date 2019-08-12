@@ -61,20 +61,20 @@ firebase.firestore().enablePersistence()
 //Get firebase messaging function
 // const messaging = firebase.messaging();
 //Set VApiIdKey
-messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
+// messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
 
 
 // Get push in foreground status. payload = push notification
-messaging.onMessage(function(payload){
-  console.log('onMessage: ', payload);
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-  };
-  if (Notification.permission === "granted") {
-    var notification = new Notification(notificationTitle, notificationOptions);
-  }
-});
+// messaging.onMessage(function(payload){
+//   console.log('onMessage: ', payload);
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//   };
+//   if (Notification.permission === "granted") {
+//     var notification = new Notification(notificationTitle, notificationOptions);
+//   }
+// });
 
 export default {
   getPushPermission(email){
