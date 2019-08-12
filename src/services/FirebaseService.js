@@ -56,7 +56,7 @@ firebase.firestore().enablePersistence()
       });
   });
 
-  
+
 //FCM PUSH
 //Get firebase messaging function
 const messaging = firebase.messaging();
@@ -105,7 +105,7 @@ export default {
         return data;
       });
   },
-  async getTokens() { 
+  async getTokens() {
     console.log("getTokenSequence")
     const tokenbox = []
     await firestore.collection(TOKENS)
@@ -159,7 +159,7 @@ export default {
         "to": to,
         "notification": {
           "title": title,
-          "body": userId + "님의 새 " + type, 
+          "body": userId + "님의 새 " + type,
           "icon": img
           // 'https://source.unsplash.com/random/100x100' is Success
           // '../assets/logo.png' is Fail
@@ -192,7 +192,7 @@ export default {
     var date = new Date()
     /* Check id
           if id != null : it is exist POST
-          if id == null : it is new POST */ 
+          if id == null : it is new POST */
     if(id != null) {
       //이전 태그를 아니깐, 지우는거 처리
       var tmp = await this.deleteTag(id);
@@ -312,9 +312,9 @@ export default {
       })
   },
   async profilePhotoUploader(email, key, img) {
-    
+
     var ref = firebase.storage().ref();
-    
+
     // Image name setting
     var name = email;
 
@@ -354,14 +354,14 @@ export default {
     var type = "포트폴리오"
     //FirebaseService.pushBullet(user, title, type)
     var date = new Date()
-    
+
     /* Check image status
       if img.substr(0,4) === 'data' : it is base64 type data url (not uploaded yet)
-      img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */ 
+      img.substr(0,4) !== 'data' : it is firestorage url (already uploaded firestorage) */
     if(fireUrl == ''){
       // Create firestorage reference
       var ref = firebase.storage().ref();
-      
+
       // Create simple date
       function getFormatDate(date){ var year = date.getFullYear();
         var year = date.getFullYear();
@@ -377,7 +377,7 @@ export default {
 
       // Upload image to firestorage
       var uploadTask = ref.child('images/' + name).putString(dataUrl, 'data_url');
-      
+
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
       function(snapshot) {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
