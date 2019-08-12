@@ -44,14 +44,12 @@
 
 <script>
 import Weather from '@/components/template/Weather'
-import Visited from '@/components/repository/Visited'
 import firebase from 'firebase'
 
 export default {
 	name: 'main-footer',
   components : {
     'weather' : Weather,
-    Visited
   },
   methods : {
     openWindow(url) {
