@@ -16,7 +16,7 @@
             :date="userports[i - 1].created_at.toString()"
             :title="userports[i - 1].title"
             :body="userports[i - 1].body"
-            :imgSrc="userports[i - 1].img"
+            :fireImg="userports[i - 1].fireUrl"
             :id="userports[i - 1].id"
             >
           </Portfolio>
@@ -39,7 +39,7 @@
       <v-layout row wrap class="bg-3">
         <v-flex xs12>
           <h2
-            class="mb-5 mt-2 text-xs-center text-shadow homepage-title"
+            class="mb-5 mt-5 text-xs-center text-shadow homepage-title"
             style="color:#fff;font-size:calc(3.4vw + 0.8em);"
           >Post Bookmarks</h2>
         </v-flex>

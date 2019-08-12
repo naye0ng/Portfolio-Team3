@@ -16,7 +16,7 @@
             :date="userports[i - 1].created_at.toString()"
             :title="userports[i - 1].title"
             :body="userports[i - 1].body"
-            :imgSrc="userports[i - 1].img"
+            :fireImg="userports[i - 1].fireUrl"
             :id="userports[i - 1].id"
             >
           </Portfolio>
