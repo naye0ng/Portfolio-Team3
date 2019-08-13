@@ -26,7 +26,7 @@ export default {
       visited: 0,
       visitedWeek: {},
       dates: [],
-      count: []
+      count: [],
     }
   },
   computed : {
@@ -45,7 +45,7 @@ export default {
         start.setDate(start.getDate() + 1);
       }
       if(this.dates){
-        firebase.database().ref().child("logs").on('value', (snapshot)=>{
+        firebase.database().ref().child("logs").once('value', (snapshot)=>{
           var todayV = snapshot.val()
           this.visited = Object.keys(todayV[this.dates[4]]).length
           this.visitedWeek = {}
