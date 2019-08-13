@@ -91,7 +91,6 @@ export default {
           type: 'warning'
         })
       }
-      // console.log(error);
     });
   }
 }

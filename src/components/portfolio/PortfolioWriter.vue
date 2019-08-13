@@ -130,9 +130,6 @@ export default {
     };
   },
   mounted() {
-    // console.log("this.$route.params.id : " + this.$route.params.id)
-    // console.log(this.$store.getters.getUser.email)
-
     //If modify portfolio, PortfolioWriter.vue can get data from Portdetail.vue
     this.portfolioId = this.$route.params.id
     this.title = this.$route.params.title
@@ -144,7 +141,7 @@ export default {
     const user=this.$store.getters.dbuser;
     this.avatar=user.photoURL;
     this.userNick=user.nickname;
-    
+
     //Get userinfo from vuex
     if (this.$route.params.user){
       this.userEmail = this.$route.params.user
@@ -155,7 +152,7 @@ export default {
         this.userEmail = this.$store.getters.getUser.email;
       });
     }
-    
+
   },
   methods : {
     //Save Portfolio
@@ -181,13 +178,11 @@ export default {
 
       else {
         //Call Firebase service
-        console.log(this.title)
         if(this.inputUrl == this.fireUrl){
           FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.dataUrl, this.fireUrl, this.portfolioId, this.avatar, this.userNick, this.date)
         } else {
-          console.log("newImg")
           FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick, this.date)
-        }    
+        }
         this.dialog = false
 
         //Reinitialize data
@@ -235,19 +230,14 @@ export default {
       this.$refs.image.click()
     },
     onLocalImagePicked(e) { // Transform Local Image to base64 type data url
-      console.log("select section")
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
-        console.log("name : " + this.imageName)
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.inputUrl = fr.result
           this.imageFile = files[0]
-          console.log("url : " + this.inputUrl)
-          console.log("file : " + this.imageFile)
-          console.log(this.inputUrl.name)
         })
       } else {
         this.imageName=''
@@ -261,7 +251,6 @@ export default {
         .then(
           (response) => {
               this.inputUrl = 'data:image/jpeg;base64,' + response
-              console.log("i264 : " +this.inputUrl)
             }
         )
     },

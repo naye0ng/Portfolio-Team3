@@ -4,7 +4,7 @@
       <div style="line-height:1.2em;" slot="text">{{kind}} Writer</div>
     </ImgBanner>
     <v-container ref="destination">
-      
+
       <!-- Portfolio Writer(check kind status) -->
       <portfolioWriter v-if="kind==='Portfolio'"></portfolioWriter>
 
@@ -34,7 +34,6 @@ export default {
   methods:{
     goto(refName) {
         var element = this.$refs[refName];
-        // console.log(element);
         var top = element.offsetTop;
         window.scrollTo(0, top);
     }
