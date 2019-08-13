@@ -186,7 +186,7 @@ export default {
         })
       })
   },
-  async postPost(user, title, body, id, tag, img) {
+  async postPost(user, title, body, id, tag, img, yesterday) {
     var type = "게시글"
     FirebaseService.pushBullet(user, title, type, img)
     var date = new Date()
@@ -200,7 +200,7 @@ export default {
         user,
         title,
         body,
-        created_at: date,//firebase.firestore.FieldValue.serverTimestamp(),
+        created_at: yesterday,
         tag
       }).then(function(){
         console.log("Modify post succeed")
@@ -230,7 +230,7 @@ export default {
         user,
         title,
         body,
-        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        created_at: date,
         tag
       }).then(ref=>{
         console.log("Post post succeed")
@@ -350,7 +350,7 @@ export default {
     })
   },
 
-  postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname) {
+  postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterday) {
     var type = "포트폴리오"
     //FirebaseService.pushBullet(user, title, type)
     var date = new Date()
@@ -416,7 +416,7 @@ export default {
               //dataUrl,
               avatar,
               nickname,
-              created_at: date,
+              created_at: yesterday,
             }).then(function(){
               console.log("Modify portfolio succeed")
             }).catch(function() {
@@ -452,7 +452,7 @@ export default {
         //dataUrl,
         avatar,
         nickname,
-        created_at: date,
+        created_at: yesterday,
       }).then(function(){
         console.log("Modify portfolio succeed")
       }).catch(function() {

@@ -125,6 +125,7 @@ export default {
       avatar : '',
       fireUrl : '',
       dataUrl : '',
+      date : '',
       dialog: false
     };
   },
@@ -138,6 +139,7 @@ export default {
     this.fireUrl = this.$route.params.fireUrl
     this.dataUrl = this.$route.params.dataUrl
     this.inputUrl = this.$route.params.fireUrl
+    this.date = this.$route.params.date
     this.text = this.$route.params.body
     const user=this.$store.getters.dbuser;
     this.avatar=user.photoURL;
@@ -181,10 +183,10 @@ export default {
         //Call Firebase service
         console.log(this.title)
         if(this.inputUrl == this.fireUrl){
-          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.dataUrl, this.fireUrl, this.portfolioId, this.avatar, this.userNick)
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.dataUrl, this.fireUrl, this.portfolioId, this.avatar, this.userNick, this.date)
         } else {
           console.log("newImg")
-          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick)
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick, this.date)
         }    
         this.dialog = false
 
@@ -196,8 +198,9 @@ export default {
         this.imageFile = ''
         this.text = ''
         this.title = ''
-        this.avatar=''
-        this.userNick=''
+        this.avatar = ''
+        this.userNick = ''
+        this.date = ''
         //Popup
         this.$swal({
           type : 'success',

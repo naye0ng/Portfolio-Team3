@@ -100,7 +100,8 @@
                 body: port.body,
                 fireUrl: port.fireUrl,
                 dataUrl: port.dataUrl,
-                user: port.user
+                user: port.user,
+                date: port.created_at
               }}"
               >
               <button
