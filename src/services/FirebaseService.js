@@ -119,13 +119,17 @@ export default {
   },
   async getTokens() {
     console.log("getTokenSequence")
-    const tokenbox = []
+    var temp = []
+    var tokenbox = []
     await firestore.collection(TOKENS)
     .get()
     .then((docSnapshots) => {
       docSnapshots.forEach((doc) => {
-        tokenbox.push(doc.data().token)
+        temp.push(doc.data().token)
       })
+      tokenbox = temp.filter( (item, idx, array) => {
+        return array.indexOf( item ) === idx ;
+      });
     })
     .catch(function(err){
       console.log("Get Tokens fail : " + err)
