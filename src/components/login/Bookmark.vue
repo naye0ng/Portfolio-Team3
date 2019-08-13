@@ -17,6 +17,7 @@
             :title="userports[i - 1].title"
             :body="userports[i - 1].body"
             :fireImg="userports[i - 1].fireUrl"
+            :dataImg="portfolios[i - 1].dataUrl"
             :id="userports[i - 1].id"
             >
           </Portfolio>
