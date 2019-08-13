@@ -171,7 +171,6 @@ export default {
     }
   },
   mounted() {
-    this.checkChrome();
     this.pushWebLog();
     this.Scrolling();
   }
