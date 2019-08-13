@@ -193,7 +193,7 @@ export default {
       this.onUrlImagePicked(this.image)
     },
     useRandomImg(){ // RandomImgBtn
-      this.image = 'https://source.unsplash.com/random/100x100'
+      this.image = 'https://source.unsplash.com/random/200x200'
       this.onUrlImagePicked(this.image)
     },
     useLocalFile() { // UseLocalImageBtn

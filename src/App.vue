@@ -30,26 +30,30 @@ export default {
   methods: {
     isNotRoot() {
       return this.$route.path === '/' ? false : true
-    }
+    },
+    browserChecking(){
+      var agent = window.navigator.userAgent;
+      var isIE = agent.indexOf('Trident');
+      var isEdge = agent.indexOf('Edge');
+      //var isChrome = userAgent.indexOf('Chrome');
+      //var isChromeMobile = userAgent.indexOf('CriOS');
+      console.log(agent);
+      if(isIE>-1||isEdge>-1){
+          this.$swal({
+          type: "error",
+          title: "Oops...",
+          text:
+          "해당 사이트는 크롬에 최적화되어있습니다. 정상적으로 작동하지 않을 수 있습니다."
+        });
+      }
+    },
   },
   created() {
     // App이 생성될 때, init에 필요한 부분.
     // 날씨 정보를 받아와 vuex에 저장.
     this.$store.dispatch('initWeather');
+    this.browserChecking()
   },
-  beforeCreate() {
-    var isChrome =
-    !!window.chrome &&
-    (!!window.chrome.webstore || !!window.chrome.runtime);
-    if (isChrome == false) {
-      this.$swal({
-        type: "error",
-        title: "Oops...",
-        text:
-        "해당 사이트는 크롬에 최적화되어있습니다. 정상적으로 작동하지 않을 수 있습니다."
-      });
-    }
-  }
 }
 </script>
 <style>
