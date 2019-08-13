@@ -168,17 +168,18 @@ export default {
     },
     getListTitleName() {
 
-      if (this.$store.getters.dbuser){
+      if (this.$store.getters.dbuser && this.$store.getters.getUser){
         if (this.$store.getters.dbuser.hasOwnProperty("nickname")){
           return this.$store.getters.dbuser.nickname;
         }
       }
+      else{
+        return '';
+      }
     },
     user() {
       if (this.$store.getters.getUser && this.$store.getters.dbuser) {
-        // console.log(this.$store.getters.dbuser);
         this.profile_image = this.$store.getters.dbuser.photoURL;
-        // console.log(this.profile_image);
       }
       return this.$store.getters.getUser;
     },
@@ -243,5 +244,4 @@ export default {
 #header .v-btn:before {
   background-color: transparent !important;
 }
-
 </style>

@@ -128,7 +128,6 @@ export default {
     },
     async useRandomImg(){ // RandomImgBtn
       this.photoURL = 'https://source.unsplash.com/random/100x100'
-      console.log(this.photoURL);
       await this.onUrlImagePicked(this.photoURL)
     },
     async onUrlImagePicked(url) { // Transform Url Image to base64 type data url
@@ -161,7 +160,6 @@ export default {
         .child(this.emailSplit(this.email)) // key값 부여 - email의 앞부분
         .set(user)
         .then(data => {
-          console.log("회원가입완료--db")
           this.$store.commit("setDBUser", user);
         })
         .catch(error => {
@@ -193,7 +191,7 @@ export default {
             });
           }
         });
-      
+
 
     }
   }
