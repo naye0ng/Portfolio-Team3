@@ -5,7 +5,7 @@
       <v-layout row wrap class="bg-3">
         <v-flex xs12>
           <h2
-            class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
+            class="mb-5 mx-2 mt-0 text-xs-center text-shadow homepage-title"
             style="color:#fff;font-size:calc(3.4vw + 0.8em);"
           >Portfolio Bookmarks</h2>
         </v-flex>
