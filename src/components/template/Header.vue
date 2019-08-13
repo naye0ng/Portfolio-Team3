@@ -84,7 +84,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-divider></v-divider>
+      <!-- <v-divider></v-divider> -->
       <v-list class="pt-0 mb-1" dense>
         <v-list-tile
           v-for="item in items"
@@ -99,7 +99,7 @@
             <v-icon color="white">{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title class="nav-list">{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -223,6 +223,9 @@ export default {
   background-color: #181818 !important;
   color: white;
 }
+#navigation-style .nav-list {
+  color: white;
+}
 
 .v-btn--icon:before {
   background-color: transparent !important;
@@ -240,4 +243,5 @@ export default {
 #header .v-btn:before {
   background-color: transparent !important;
 }
+
 </style>
