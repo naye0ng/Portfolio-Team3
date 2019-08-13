@@ -59,22 +59,32 @@ firebase.firestore().enablePersistence()
 
 //FCM PUSH
 //Get firebase messaging function
-// const messaging = firebase.messaging();
+var fcm_flag = false;
+var messaging = {};
+
+try {
+  messaging = firebase.messaging();
+  fcm_flag = true;
+  console.log("success")
+} catch {
+  console.log("error")
+}
 //Set VApiIdKey
-// messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
+if(fcm_flag) {
+  messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
 
-
-// Get push in foreground status. payload = push notification
-// messaging.onMessage(function(payload){
-//   console.log('onMessage: ', payload);
-//   const notificationTitle = payload.notification.title;
-//   const notificationOptions = {
-//     body: payload.notification.body,
-//   };
-//   if (Notification.permission === "granted") {
-//     var notification = new Notification(notificationTitle, notificationOptions);
-//   }
-// });
+  // Get push in foreground status. payload = push notification
+  messaging.onMessage(function(payload){
+    console.log('onMessage: ', payload);
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+      body: payload.notification.body,
+    };
+    if (Notification.permission === "granted") {
+      var notification = new Notification(notificationTitle, notificationOptions);
+    }
+  });
+}
 
 export default {
   getPushPermission(email){
