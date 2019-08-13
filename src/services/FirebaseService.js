@@ -65,13 +65,11 @@ var messaging = {};
 try {
   messaging = firebase.messaging();
   fcm_flag = true;
-  console.log("success")
-} catch {
+} catch { // fcm 존재하지 않을 때
   console.log("error")
 }
 //Set VApiIdKey
 if(fcm_flag) {
-  console.log("true야")
   messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
 
   // Get push in foreground status. payload = push notification
@@ -91,7 +89,6 @@ export default {
   getPushPermission(email){
     //Request notification permission
     if(fcm_flag) {
-      console.log("함수호출 되어따")
       messaging.requestPermission()
       .then(function() {
         console.log("WE HAVE PERMISSION");
