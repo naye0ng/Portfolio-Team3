@@ -79,6 +79,8 @@ export default {
       firebase.database().ref().child("commits").child(today).child('team3').on("value", snapshot => {
         var commits = snapshot.val();
         if(commits == null && this.visited == false){
+          // 이전 commits 삭제
+          firebase.database().ref().child("commits").set('')
           this.visited = true
           this.getTeamCommits(
             "https://api.github.com/repos/naye0ng/Portfolio-Team3/commits?per_page=100",
