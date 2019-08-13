@@ -272,7 +272,7 @@ export default {
         .database()
         .ref()
         .child("logs")
-        .on("value", snapshot => {
+        .once("value", snapshot => {
           var logs = snapshot.val();
           dates.forEach(date => {
             // 방문자가 존재하지 않는 날은 0으로 처리
@@ -314,7 +314,7 @@ export default {
         .database()
         .ref()
         .child("social")
-        .on("value", snapshot => {
+        .once("value", snapshot => {
           var social = snapshot.val();
           socialName = Object.keys(social);
           socialName.forEach(name => {
