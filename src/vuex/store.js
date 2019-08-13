@@ -16,7 +16,7 @@ const state = {
   dbuser : '',
   isAdmin : false,
   isLoading : true,
-
+  onlineFlag : true,
   temp_profile : '',
 }
 

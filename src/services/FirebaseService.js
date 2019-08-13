@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import FirebaseService from '@/services/FirebaseService'
+import vuex from '../vuex/store'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
@@ -10,13 +11,6 @@ const TOKENS = 'tokens'
 
 // Setup Firebase
 const config = {
-  // apiKey: "AIzaSyABGamq__VCiuIy4lAANPeLLEtaOsl8v6k",
-  // authDomain: "blogs-a7359.firebaseapp.com",
-  // databaseURL: "https://blogs-a7359.firebaseio.com",
-  // projectId: "blogs-a7359",
-  // storageBucket: "blogs-a7359.appspot.com",
-  // messagingSenderId: "749597724898",
-  //appId: "1:749597724898:web:dc4033993f01a42c"
   apiKey: "AIzaSyBwi4B2tqFYbNQD3GOr44VQgcpO4CINH7w",
   authDomain: "hello-team3.firebaseapp.com",
   databaseURL: "https://hello-team3.firebaseio.com",
@@ -25,7 +19,6 @@ const config = {
   messagingSenderId: "253343349927",
   appId: "1:253343349927:web:29381730f0313bc1"
 };
-
 
 var app = firebase.initializeApp(config)
 var db = firebase.firestore(app)
@@ -86,6 +79,18 @@ if(fcm_flag) {
 }
 
 export default {
+  checkOfflineStatus(){
+    firebase.database().ref('.info/connected').on('value', function(snapshot) {
+      if (snapshot.val() == true) {
+        // OfflineStatus
+        vuex.state.onlineFlag = true;
+      }
+      else{
+        // OnlineStatus
+        vuex.state.onlineFlag = false;
+      }
+    })
+  },
   getPushPermission(email){
     //Request notification permission
     if(fcm_flag) {
@@ -429,7 +434,7 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
             title,
             body,
             fireUrl,
-            //dataUrl,
+            dataUrl,
             avatar,
             nickname,
             created_at: yesterday,
@@ -446,7 +451,7 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
             title,
             body,
             fireUrl,
-            //dataUrl,
+            dataUrl,
             avatar,
             nickname,
             created_at: date,
@@ -465,7 +470,7 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
       title,
       body,
       fireUrl,
-      //dataUrl,
+      dataUrl,
       avatar,
       nickname,
       created_at: yesterday,
