@@ -33,13 +33,15 @@ export default {
     },
     browserChecking(){
       var agent = window.navigator.userAgent;
-      var isIE = agent.indexOf('Trident');
-      var isEdge = agent.indexOf('Edge');
-      //var isChrome = userAgent.indexOf('Chrome');
-      //var isChromeMobile = userAgent.indexOf('CriOS');
+      //var isIE = agent.indexOf('Trident');
+      //var isEdge = agent.indexOf('Edge');
+      var isChrome = agent.indexOf('Chrome');
+      var isChromeMobile = agent.indexOf('CriOS');
       console.log(agent);
-      if(isIE>-1||isEdge>-1){
-          this.$swal({
+      if(isChrome>-1||isChromeMobile>-1){
+      }
+      else{
+        this.$swal({
           type: "error",
           title: "Oops...",
           text:

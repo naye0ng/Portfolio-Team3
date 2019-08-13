@@ -64,14 +64,15 @@ export default {
   },
   data() {
     return {
-      text: "", // Bind with markdown editor
-      title: "",
+      text: '', // Bind with markdown editor
+      title: '',
       postId: null,
       userEmail : '',
-      tag:[],
-      tag1:"",
-      tag2:"",
-      tag3:"",
+      tag: [],
+      tag1: '',
+      tag2: '',
+      tag3: '',
+      date: '',
       dialog: false,
       logoImg: require('@/assets/logo.png')
     };
@@ -84,6 +85,7 @@ export default {
       this.text = this.$route.params.body
       this.tag = this.$route.params.tag
       this.userEmail = this.$route.params.user
+      this.date = this.$route.params.date
       if (this.tag){
         this.tag1 = this.tag[0];
         if (this.tag.length>1){
@@ -137,13 +139,14 @@ export default {
           this.tag = [...new Set(this.tag)]
         }
         // Call Firebase service
-        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag, this.logoImg)
+        FirebaseService.postPost(this.userEmail, this.title, this.text, this.postId, this.tag, this.logoImg, this.date)
         this.dialog = false
         
         // Reinitialize data
         this.text = ''
         this.title = ''
-        this.tag=[]
+        this.tag = []
+        this.date = ''
 
         // Success popup
         Swal.fire({
