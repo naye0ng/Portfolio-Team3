@@ -2,7 +2,8 @@
 
 팀 및 개발자 포트폴리오 웹 블로그
 
-[Demo](https://hello-team3.firebaseapp.com)
+- [firebase deploy demo](https://hello-team3.firebaseapp.com)
+- [aws deploy demo](http://13.209.12.2)
 
 >   **Why Hello Universe?**
 >
@@ -183,4 +184,4 @@
 
 ### (2) 배포 환경
 
-- 배포 플랫폼 : firebase
+- 배포 플랫폼 : Firebase, AWS Ubuntu EC2
