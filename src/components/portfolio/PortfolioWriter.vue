@@ -106,6 +106,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import FirebaseService from '@/services/FirebaseService'
+import ResizeImage from 'image-resize';
 
 export default {
   name : 'PortfolioWriter',
@@ -131,6 +132,7 @@ export default {
   },
   mounted() {
     //If modify portfolio, PortfolioWriter.vue can get data from Portdetail.vue
+    this.$store.state.isLoading = false
     this.portfolioId = this.$route.params.id
     this.title = this.$route.params.title
     this.fireUrl = this.$route.params.fireUrl
@@ -246,6 +248,7 @@ export default {
       }
     },
     onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+      this.tryResizeImage(url)
       const image2base64 = require('image-to-base64');
       image2base64(url)
         .then(
@@ -256,6 +259,20 @@ export default {
     },
     goPortfolio() {
       this.$router.push('/portfolio');
+    },
+    tryResizeImage(url){
+      var resizeImage = new ResizeImage({
+        format: 'gif',
+        width: 640
+      })
+      console.log(resizeImage)
+      resizeImage.play(url)
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
     }
   }
 };
