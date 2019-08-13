@@ -37,7 +37,6 @@ export default {
       //var isEdge = agent.indexOf('Edge');
       var isChrome = agent.indexOf('Chrome');
       var isChromeMobile = agent.indexOf('CriOS');
-      console.log(agent);
       if(isChrome>-1||isChromeMobile>-1){
       }
       else{

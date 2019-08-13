@@ -237,7 +237,6 @@ export default {
     getUserImg(id){
       var key=id.split('@')[0];
       firebase.database().ref("user").child(key).child('photoURL').on("value", snapshot => {
-        // console.log(snapshot.val())
         this.userimg = snapshot.val()
       })
     }

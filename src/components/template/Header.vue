@@ -179,9 +179,7 @@ export default {
     },
     user() {
       if (this.$store.getters.getUser && this.$store.getters.dbuser) {
-        // console.log(this.$store.getters.dbuser);
         this.profile_image = this.$store.getters.dbuser.photoURL;
-        // console.log(this.profile_image);
       }
       return this.$store.getters.getUser;
     },

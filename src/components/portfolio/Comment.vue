@@ -11,9 +11,6 @@
     </div>
     <hr/>
     <div class="reply" v-show="this.$store.getters.getUser">
-      <!-- <div class="avatar">
-        <img :src="current_user.avatar" alt />
-      </div> -->
       <v-avatar size="40">
         <v-img :src="current_user.avatar" aspect-ratio="1" height="40px"></v-img>
       </v-avatar>
