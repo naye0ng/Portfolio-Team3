@@ -168,10 +168,13 @@ export default {
     },
     getListTitleName() {
 
-      if (this.$store.getters.dbuser){
+      if (this.$store.getters.dbuser && this.$store.getters.getUser){
         if (this.$store.getters.dbuser.hasOwnProperty("nickname")){
           return this.$store.getters.dbuser.nickname;
         }
+      }
+      else{
+        return '';
       }
     },
     user() {
@@ -243,5 +246,4 @@ export default {
 #header .v-btn:before {
   background-color: transparent !important;
 }
-
 </style>

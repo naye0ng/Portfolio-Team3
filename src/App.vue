@@ -72,4 +72,7 @@ export default {
 .hide {
   display: none !important;
 }
+.v-overlay{
+  z-index:100!important;
+}
 </style>
