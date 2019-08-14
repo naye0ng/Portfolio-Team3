@@ -124,9 +124,10 @@ export default {
       userNick : '',
       userEmail : '',
       avatar : '',
-      fireUrl : '',
-      dataUrl : '',
+      fireStorageUrl : '',
+      fireStoreUrl : '',
       date : '',
+      replaceUrl : '',
       dialog: false
     };
   },
@@ -135,8 +136,8 @@ export default {
     this.$store.state.isLoading = false
     this.portfolioId = this.$route.params.id
     this.title = this.$route.params.title
-    this.fireUrl = this.$route.params.fireUrl
-    this.dataUrl = this.$route.params.dataUrl
+    this.fireStorageUrl = this.$route.params.fireUrl
+    this.fireStoreUrl = this.$route.params.dataUrl
     this.inputUrl = this.$route.params.fireUrl
     this.date = this.$route.params.date
     this.text = this.$route.params.body
@@ -180,18 +181,19 @@ export default {
 
       else {
         //Call Firebase service
-        if(this.inputUrl == this.fireUrl){
-          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.dataUrl, this.fireUrl, this.portfolioId, this.avatar, this.userNick, this.date)
+        if(this.inputUrl == this.fireStorageUrl){
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.fireStoreUrl, this.fireStorageUrl, this.portfolioId, this.avatar, this.userNick, this.date)
         } else {
-          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick, this.date)
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick, this.date, this.replaceUrl)
         }
         this.dialog = false
 
         //Reinitialize data
         this.imageName = ''
         this.inputUrl = ''
-        this.dataUrl = ''
-        this.fireUrl = ''
+        this.fireStoreUrl = ''
+        this.fireStorageUrl = ''
+        this.replaceUrl = ''
         this.imageFile = ''
         this.text = ''
         this.title = ''
@@ -222,7 +224,8 @@ export default {
     clearimg(){ // DeleteImageBtn
       this.inputUrl = ''
       this.dataUrl = ''
-      this.fireUrl = ''
+      this.fireStorageUrl = ''
+      this.replaceUrl = ''
     },
     useRandomImg(){ // RandomImgBtn
       this.inputUrl = 'https://source.unsplash.com/random/800x600'
@@ -232,9 +235,11 @@ export default {
       this.$refs.image.click()
     },
     onLocalImagePicked(e) { // Transform Local Image to base64 type data url
+      
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
+        this.checkGif(this.imageName)
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
@@ -248,7 +253,7 @@ export default {
       }
     },
     onUrlImagePicked(url) { // Transform Url Image to base64 type data url
-      this.tryResizeImage(url)
+      this.checkGif(url)
       const image2base64 = require('image-to-base64');
       image2base64(url)
         .then(
@@ -260,19 +265,17 @@ export default {
     goPortfolio() {
       this.$router.push('/portfolio');
     },
-    tryResizeImage(url){
-      var resizeImage = new ResizeImage({
-        format: 'gif',
-        width: 640
-      })
-      console.log(resizeImage)
-      resizeImage.play(url)
-        .then(function(response) {
-            console.log(response);
-        })
-        .catch(function(error) {
-            console.error(error);
-        });
+    checkGif(target){
+      var files = require('@/assets/dummy_img.jpg')
+      if(target.slice(target.length-3, target.length) == 'gif') {
+        var image2base64 = require('image-to-base64');
+        image2base64(files)
+          .then(
+            (response) => {
+                this.replaceUrl = 'data:image/jpeg;base64,' + response
+              }
+          )
+      }
     }
   }
 };

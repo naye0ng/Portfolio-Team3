@@ -74,7 +74,7 @@ export default {
       tag3: '',
       date: '',
       dialog: false,
-      logoImg: require('@/assets/logo.png')
+      logoImg: require('@/assets/commentModBefore.png')
     };
   },
   mounted() {
