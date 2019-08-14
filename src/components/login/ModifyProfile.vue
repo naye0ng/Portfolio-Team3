@@ -168,6 +168,7 @@ export default {
     },
     upgradeAL() {
       var upgradeL = this.accessLevel == "0" ? "1" : "2"
+      FirebaseService.pushBullet(this.email, "등업 요청", "등업 요청")
       firebase
         .database()
         .ref("upgrade")

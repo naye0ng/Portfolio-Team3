@@ -44,7 +44,7 @@ export default {
       var ref = Firebase.database().ref("user");
       var photo= result.user.photoURL;
 
-      FirebaseService.getPushPermission(email)
+      FirebaseService.getPushPermission(email, user.accessLevel)
 
       const user = {
         email: email,

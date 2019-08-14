@@ -92,7 +92,7 @@ firebase.database().ref('.info/connected').on('value', function(snapshot) {
 })
 
 export default {
-  getPushPermission(email){
+  getPushPermission(email, grade){
     //Request notification permission
     if(fcm_flag) {
       messaging.requestPermission()
@@ -104,7 +104,7 @@ export default {
       .then(function(token){
         console.log("TOKEN IS : " + token)
         //Save token into firestore database
-        FirebaseService.saveTokens(token, email)
+        FirebaseService.saveTokens(token, email, grade)
         //TODO : need to check admin
       })
       .catch(function(err) {
@@ -123,19 +123,27 @@ export default {
       return data;
     });
   },
-  async getTokens() {
+  async getTokens(type) { 
     console.log("getTokenSequence")
-    var temp = []
-    var tokenbox = []
+    const tokenbox = []
+    var getAdmin = false
+    if(type == "등업 요청"){
+      getAdmin = true;
+    }
+    console.log("getAdmin : " + getAdmin)
     await firestore.collection(TOKENS)
     .get()
     .then((docSnapshots) => {
       docSnapshots.forEach((doc) => {
-        temp.push(doc.data().token)
+        if(getAdmin == true){
+          if(doc.grade == "2"){
+            tokenbox.push(doc.data().token)  
+          }
+        }
+        else {
+          tokenbox.push(doc.data().token)
+        }
       })
-      tokenbox = temp.filter( (item, idx, array) => {
-        return array.indexOf( item ) === idx ;
-      });
     })
     .catch(function(err){
       console.log("Get Tokens fail : " + err)
@@ -143,11 +151,15 @@ export default {
     console.log("tokenbox : " + tokenbox)
     return tokenbox
   },
-  saveTokens(token, email) {
+  saveTokens(token, email, grade) {
+    if(token == ''){
+      token = 'dummyToken'
+    }
     console.log("saveTokenSequence")
     console.log("Token id is : " + token)
     firestore.collection(TOKENS).doc(email).set({
       token,
+      grade,
       email
     })
     .then(function(){
@@ -159,7 +171,7 @@ export default {
   },
   pushBullet(id, title, type, img){
     console.log("pushbullet : " + img)
-    var tokenList = FirebaseService.getTokens()
+    var tokenList = FirebaseService.getTokens(type)
     .then(function(result) {
       result.forEach(function(singleToken) {
         console.log("SingleToken ::: " + singleToken)
@@ -429,7 +441,7 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
         /* Check id
         if id != null : it is exist PORTFOLIO
         if id == null : it is new PORTFOLIO */
-        if(replaceUrl != null){
+        if(replaceUrl != ''){
           dataUrl = replaceUrl
         }
         

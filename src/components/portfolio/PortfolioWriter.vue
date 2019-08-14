@@ -238,11 +238,14 @@ export default {
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
+        
         this.checkGif(this.imageName)
+        
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.inputUrl = fr.result
+          console.log("fileinputurl : " + this.inputUrl)
           this.imageFile = files[0]
         })
       } else {
@@ -265,10 +268,10 @@ export default {
       this.$router.push('/portfolio');
     },
     checkGif(target){
-      var files = require('@/assets/dummy_img.jpg')
+      var buf = require('@/assets/dummy_img.jpg')
       if(target.slice(target.length-3, target.length) == 'gif') {
         var image2base64 = require('image-to-base64');
-        image2base64(files)
+        image2base64(buf)
           .then(
             (response) => {
                 this.replaceUrl = 'data:image/jpeg;base64,' + response
