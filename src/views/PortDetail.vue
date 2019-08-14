@@ -9,7 +9,7 @@
       <v-container id="portcard" class="mt-3">
         <v-layout my-5 wrap justify-center row>
           <v-flex xs10 md8 mt-5>
-            <v-card outlined style="border:1.2px solid #f7f7f7;">
+            <v-card>
               <v-card-title primary-title class="pb-3 pt-3" style="background-color:#fff;">
                 <v-flex xs8>
                   <div class="color-333 font-weight-heavy mt-2 mb-1 ml-1" style="text-overflow:clip;">{{port.title}}</div>
@@ -22,7 +22,7 @@
                   {{port.user}}
                 </v-flex>
               </v-card-title>
-              <v-card-text style="background-color:#fff;" class="px-0 pb-0">
+              <v-card-text style="background-color:#fff; border-bottom: 1px solid #CCD1D1; border-top: 1px solid #CCD1D1;" class="px-0 pb-0">
               <div v-if="$store.state.onlineFlag">
                 <v-img
                   :src="port.fireUrl"
