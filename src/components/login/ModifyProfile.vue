@@ -136,7 +136,6 @@ export default {
   }),
   mounted(){
     if (this.$store.getters.dbuser.photoURL){
-      // console.log(this.$store.getters.dbuser.photoURL);
       this.image = this.$store.getters.dbuser.photoURL;
     }
   },
@@ -161,7 +160,7 @@ export default {
           this.$store.commit("setDBUserNick", this.datanick);
         })
       }
-      
+
       if (this.image && this.image != this.$store.getters.dbuser.photoURL){
         FirebaseService.profilePhotoUploader(this.email, this.emailKey, this.image)
         this.$store.commit("setDBPhotoURL", this.image);
@@ -169,6 +168,7 @@ export default {
     },
     upgradeAL() {
       var upgradeL = this.accessLevel == "0" ? "1" : "2"
+      FirebaseService.pushBullet(this.email, "등업 요청", "등업 요청")
       firebase
         .database()
         .ref("upgrade")
@@ -200,19 +200,14 @@ export default {
       this.$refs.image.click()
     },
     onLocalImagePicked(e) { // Transform Local Image to base64 type data url
-      console.log("select section")
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
-        // console.log("name : " + this.imageName)
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.image = fr.result
           this.imageFile = files[0]
-          // console.log("url : " + this.image)
-          // console.log("file : " + this.imageFile)
-          // console.log(this.image.name)
         })
       } else {
         this.imageName=''
@@ -226,7 +221,6 @@ export default {
         .then(
           (response) => {
               this.image = 'data:image/jpeg;base64,' + response
-              // console.log("i264 : " +this.image)
             }
         )
     },

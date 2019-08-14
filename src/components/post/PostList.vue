@@ -83,30 +83,25 @@ export default {
   watch: {
     search : async function(newVal,oldVal){
       if (!newVal){
-        // this.posts = await FirebaseService.getPosts()
-        this.posts = this.allposts;
         this.message = false;
       }
-      else{
-        var FilterTag = await this.tags.filter(tag=>{
-          return tag.id.includes(newVal)
+      var FilterTag = await this.tags.filter(tag=>{
+        return tag.id.includes(newVal)
+      })
+      if (FilterTag){
+        var temppost = [];
+        await this.asyncForEach(FilterTag, async (tagg) => {
+          temppost = temppost.concat(tagg.postlist);
+        });
+        temppost = [...new Set(temppost)];
+        var templist = []
+        await this.asyncForEach(temppost, async (post) => {
+          templist.push(await FirebaseService.getPost(post));
         })
-        if (FilterTag){
-          var temppost = [];
-          await this.asyncForEach(FilterTag, async (tagg) => {
-            temppost = temppost.concat(tagg.postlist);
-          });
-          temppost = [...new Set(temppost)];
-          var templist = []
-          await this.asyncForEach(temppost, async (post) => {
-            templist.push(await FirebaseService.getPost(post));
-          })
-          this.message = false;
-          this.posts = templist;
-        }
-        else{
+        this.message = false;
+        this.posts = templist;
+        if (!this.posts.length){
           this.message = true;
-          this.posts = [];
         }
       }
     }

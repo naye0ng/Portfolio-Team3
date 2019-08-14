@@ -166,7 +166,7 @@ export default {
     },
     formatedDate() {
       if (this.post.created_at){
-        return `${this.post.created_at.getFullYear()}년 ${this.post.created_at.getMonth()}월 ${this.post.created_at.getDate()}일`
+        return `${this.post.created_at.getFullYear()}년 ${this.post.created_at.getMonth()+1}월 ${this.post.created_at.getDate()}일`
       }
     },
   },
@@ -239,7 +239,6 @@ export default {
     getUserImg(id){
       var key=id.split('@')[0];
       firebase.database().ref("user").child(key).child('photoURL').on("value", snapshot => {
-        // console.log(snapshot.val())
         this.userimg = snapshot.val()
       })
     }

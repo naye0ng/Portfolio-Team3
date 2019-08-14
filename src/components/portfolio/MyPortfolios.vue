@@ -2,10 +2,10 @@
   <v-layout row justify-center wrap> 
     <!-- Portfolio -->
     <v-flex xs12 v-if="userports">
-      <v-layout row wrap class="bg-3" justify-center>
-        <v-flex xs10>
+      <v-layout row wrap class="bg-3">
+        <v-flex xs12>
           <h2
-            class="mb-5 mt-0 text-xs-center text-shadow homepage-title"
+            class="mb-5 mx-3 mt-0 text-xs-center text-shadow homepage-title"
             style="color:#fff;font-size:calc(3.4vw + 0.8em);"
           >내가 작성한 portfolio</h2>
         </v-flex>
@@ -17,6 +17,7 @@
             :title="userports[i - 1].title"
             :body="userports[i - 1].body"
             :fireImg="userports[i - 1].fireUrl"
+            :dataImg="portfolios[i - 1].dataUrl"
             :id="userports[i - 1].id"
             >
           </Portfolio>

@@ -8,7 +8,12 @@
         light
         :class="`elevation-${hover ? 24 : 2}`"
       >
-        <v-img :src="fireImg" height="40vh"></v-img>
+        <div v-if="$store.state.onlineFlag">
+          <v-img :src="fireImg" height="40vh"></v-img>
+        </div>
+        <div v-else>
+          <v-img :src="dataImg" height="40vh"></v-img>
+        </div>
         <v-expand-transition>
           <div
             v-if="hover"

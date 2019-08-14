@@ -74,11 +74,12 @@ export default {
       tag3: '',
       date: '',
       dialog: false,
-      logoImg: require('@/assets/logo.png')
+      logoImg: require('@/assets/commentModBefore.png')
     };
   },
   mounted() {
     // If modify post, PostWriter.vue can get data from Post modal
+    this.$store.state.isLoading = false
     if (this.$route.params.id){
       this.postId = this.$route.params.id
       this.title = this.$route.params.title

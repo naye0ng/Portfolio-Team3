@@ -32,7 +32,7 @@ export default {
           text: "로그인에 성공하셨습니다!",
           type: 'success'
         })
-        FirebaseService.getPushPermission(user.email)
+        FirebaseService.getPushPermission(user.email, user.accessLevel)
         return user;
       } else {
       }

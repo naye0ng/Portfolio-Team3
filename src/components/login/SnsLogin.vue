@@ -44,8 +44,6 @@ export default {
       var ref = Firebase.database().ref("user");
       var photo= result.user.photoURL;
 
-      FirebaseService.getPushPermission(email)
-      
       const user = {
         email: email,
         password: '',
@@ -63,16 +61,14 @@ export default {
           if(hasKey) {
             // 데이터베이스에 이미 존재하는 경우 => 소셜 로그인 시 vuex 저장
             this.$store.commit("setDBUser",snapshot.val()[emailKey]);
-            console.log(this.$store.getters.dbuser)
+            FirebaseService.getPushPermission(email, this.$store.getters.dbuser.accessLevel)
           } else {
             // 데이터베이스에 존재하지 않는 경우 - 처음 로그인 => user를 vuex 저장
+            FirebaseService.getPushPermission(email, '0')
             ref.child(emailKey) // key값 부여 - email의 앞부분
             .set(user)
             .then(data => {
-              console.log("회원가입완료--db")
-              // console.log(user);
               this.$store.commit("setDBUser",user);
-              // console.log(this.$store.getters.dbuser)
             })
             .catch(error => {
               console.log(error);

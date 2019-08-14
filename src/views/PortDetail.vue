@@ -23,11 +23,20 @@
                 </v-flex>
               </v-card-title>
               <v-card-text style="background-color:#fff;" class="px-0 pb-0">
-              <v-img
-                :src="port.fireUrl"
-                contain
-                style="max-height:70vh; max-width:70vw; margin:auto;"
+              <div v-if="$store.state.onlineFlag">
+                <v-img
+                  :src="port.fireUrl"
+                  contain
+                  style="max-height:70vh; max-width:70vw; margin:auto;"
                 ></v-img>
+              </div>
+              <div v-else>
+                <v-img
+                  :src="port.dataUrl"
+                  contain
+                  style="max-height:70vh; max-width:70vw; margin:auto;"
+                ></v-img>
+              </div>
               </v-card-text>
               <div style="background-color:#ffffff;">
                 <v-card-text class="pb-0 pl-4 pt-3">
@@ -237,7 +246,6 @@ export default {
     getUserImg(id){
       var key=id.split('@')[0];
       firebase.database().ref("user").child(key).child('photoURL').on("value", snapshot => {
-        // console.log(snapshot.val())
         this.userimg = snapshot.val()
       })
     }

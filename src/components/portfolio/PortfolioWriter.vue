@@ -123,28 +123,27 @@ export default {
       userNick : '',
       userEmail : '',
       avatar : '',
-      fireUrl : '',
-      dataUrl : '',
+      fireStorageUrl : '',
+      fireStoreUrl : '',
       date : '',
+      replaceUrl : '',
       dialog: false
     };
   },
   mounted() {
-    // console.log("this.$route.params.id : " + this.$route.params.id)
-    // console.log(this.$store.getters.getUser.email)
-
     //If modify portfolio, PortfolioWriter.vue can get data from Portdetail.vue
+    this.$store.state.isLoading = false
     this.portfolioId = this.$route.params.id
     this.title = this.$route.params.title
-    this.fireUrl = this.$route.params.fireUrl
-    this.dataUrl = this.$route.params.dataUrl
+    this.fireStorageUrl = this.$route.params.fireUrl
+    this.fireStoreUrl = this.$route.params.dataUrl
     this.inputUrl = this.$route.params.fireUrl
     this.date = this.$route.params.date
     this.text = this.$route.params.body
     const user=this.$store.getters.dbuser;
     this.avatar=user.photoURL;
     this.userNick=user.nickname;
-    
+
     //Get userinfo from vuex
     if (this.$route.params.user){
       this.userEmail = this.$route.params.user
@@ -155,7 +154,7 @@ export default {
         this.userEmail = this.$store.getters.getUser.email;
       });
     }
-    
+
   },
   methods : {
     //Save Portfolio
@@ -181,20 +180,19 @@ export default {
 
       else {
         //Call Firebase service
-        console.log(this.title)
-        if(this.inputUrl == this.fireUrl){
-          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.dataUrl, this.fireUrl, this.portfolioId, this.avatar, this.userNick, this.date)
+        if(this.inputUrl == this.fireStorageUrl){
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.fireStoreUrl, this.fireStorageUrl, this.portfolioId, this.avatar, this.userNick, this.date)
         } else {
-          console.log("newImg")
-          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick, this.date)
-        }    
+          FirebaseService.postPortfolio(this.userEmail, this.title, this.text, this.inputUrl, '', this.portfolioId, this.avatar, this.userNick, this.date, this.replaceUrl)
+        }
         this.dialog = false
 
         //Reinitialize data
         this.imageName = ''
         this.inputUrl = ''
-        this.dataUrl = ''
-        this.fireUrl = ''
+        this.fireStoreUrl = ''
+        this.fireStorageUrl = ''
+        this.replaceUrl = ''
         this.imageFile = ''
         this.text = ''
         this.title = ''
@@ -225,7 +223,8 @@ export default {
     clearimg(){ // DeleteImageBtn
       this.inputUrl = ''
       this.dataUrl = ''
-      this.fireUrl = ''
+      this.fireStorageUrl = ''
+      this.replaceUrl = ''
     },
     useRandomImg(){ // RandomImgBtn
       this.inputUrl = 'https://source.unsplash.com/random/800x600'
@@ -235,19 +234,18 @@ export default {
       this.$refs.image.click()
     },
     onLocalImagePicked(e) { // Transform Local Image to base64 type data url
-      console.log("select section")
+      
       const files = e.target.files
       if(files[0] !== undefined) {
         this.imageName = files[0].name
-        console.log("name : " + this.imageName)
+        
+        this.checkGif(this.imageName)
+        
         const fr = new FileReader()
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.inputUrl = fr.result
           this.imageFile = files[0]
-          console.log("url : " + this.inputUrl)
-          console.log("file : " + this.imageFile)
-          console.log(this.inputUrl.name)
         })
       } else {
         this.imageName=''
@@ -256,17 +254,29 @@ export default {
       }
     },
     onUrlImagePicked(url) { // Transform Url Image to base64 type data url
+      this.checkGif(url)
       const image2base64 = require('image-to-base64');
       image2base64(url)
         .then(
           (response) => {
               this.inputUrl = 'data:image/jpeg;base64,' + response
-              console.log("i264 : " +this.inputUrl)
             }
         )
     },
     goPortfolio() {
       this.$router.push('/portfolio');
+    },
+    checkGif(target){
+      var buf = require('@/assets/dummy_img.jpg')
+      if(target.slice(target.length-3, target.length) == 'gif') {
+        var image2base64 = require('image-to-base64');
+        image2base64(buf)
+          .then(
+            (response) => {
+                this.replaceUrl = 'data:image/jpeg;base64,' + response
+              }
+          )
+      }
     }
   }
 };

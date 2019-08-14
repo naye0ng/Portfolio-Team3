@@ -122,13 +122,11 @@ export default {
     },
     getNickname(id){
       firebase.database().ref("user").child(id).child('nickname').on("value", snapshot => {
-        // console.log(snapshot.val())
         this.nickname = snapshot.val()
       })
     },
     getAvatar(id){
       firebase.database().ref("user").child(id).child('photoURL').on("value", snapshot => {
-        // console.log(snapshot.val())
         this.avatar = snapshot.val()
       })
     }
