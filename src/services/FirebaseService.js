@@ -78,19 +78,20 @@ if(fcm_flag) {
   });
 }
 
+firebase.database().ref('.info/connected').on('value', function(snapshot) {
+  if (snapshot.val() == true) {
+    // onlineStatus
+    vuex.state.onlineFlag = true;
+    console.log("online")
+  }
+  else{
+    // offlineStatus
+    vuex.state.onlineFlag = false;
+    console.log("offline")
+  }
+})
+
 export default {
-  checkOfflineStatus(){
-    firebase.database().ref('.info/connected').on('value', function(snapshot) {
-      if (snapshot.val() == true) {
-        // OfflineStatus
-        vuex.state.onlineFlag = true;
-      }
-      else{
-        // OnlineStatus
-        vuex.state.onlineFlag = false;
-      }
-    })
-  },
   getPushPermission(email){
     //Request notification permission
     if(fcm_flag) {
@@ -371,7 +372,7 @@ async profilePhotoUploader(email, key, img) {
   })
 },
 
-postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterday) {
+postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterday, replaceUrl) {
   var type = "포트폴리오"
   //FirebaseService.pushBullet(user, title, type)
   var date = new Date()
@@ -428,6 +429,10 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
         /* Check id
         if id != null : it is exist PORTFOLIO
         if id == null : it is new PORTFOLIO */
+        if(replaceUrl != null){
+          dataUrl = replaceUrl
+        }
+        
         if(id != null) {
           firestore.collection(PORTFOLIOS).doc(id).set({
             user,
@@ -445,7 +450,7 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
           });
         }
         else{
-          console.log("ADDPORTFOLIO")
+          console.log("ADDPORTFOLIO : ")
           firestore.collection(PORTFOLIOS).add({
             user,
             title,
