@@ -82,7 +82,6 @@ export default {
   },
   watch: {
     search : async function(newVal,oldVal){
-      // console.log(newVal);
       if (!newVal){
         this.message = false;
       }
@@ -105,7 +104,6 @@ export default {
           this.message = true;
         }
       }
-      // console.log(this.posts);
     }
   }
   

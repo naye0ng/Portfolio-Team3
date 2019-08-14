@@ -245,7 +245,6 @@ export default {
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.inputUrl = fr.result
-          console.log("fileinputurl : " + this.inputUrl)
           this.imageFile = files[0]
         })
       } else {

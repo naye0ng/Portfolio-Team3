@@ -24,6 +24,7 @@ var app = firebase.initializeApp(config)
 var db = firebase.firestore(app)
 var firestore = firebase.firestore()
 
+// offline database initialize
 firebase.firestore().enablePersistence()
 .catch(function(err) {
   if (err.code == 'failed-precondition') {
@@ -41,17 +42,14 @@ db.collection("cities").where("state", "==", "CA")
 .onSnapshot({ includeMetadataChanges: true }, function(snapshot) {
   snapshot.docChanges().forEach(function(change) {
     if (change.type === "added") {
-      console.log("New city: ", change.doc.data());
     }
-
     var source = snapshot.metadata.fromCache ? "local cache" : "server";
-    console.log("Data came from " + source);
   });
 });
 
 
-//FCM PUSH
-//Get firebase messaging function
+// FCM PUSH
+// Get firebase messaging function
 var fcm_flag = false;
 var messaging = {};
 
@@ -63,11 +61,10 @@ try {
 }
 //Set VApiIdKey
 if(fcm_flag) {
-  messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
+  //messaging.usePublicVapidKey("BIzmSWlNtAHJFGEKd6MczQdoVoXBH2LrXOp6opk7zKd-7MpWLXaDpQUxaMcHvnc9fN2dNcf65x-KAJoa--56KVw");
 
   // Get push in foreground status. payload = push notification
   messaging.onMessage(function(payload){
-    console.log('onMessage: ', payload);
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
       body: payload.notification.body,
@@ -78,16 +75,15 @@ if(fcm_flag) {
   });
 }
 
+// Internet connection status check
 firebase.database().ref('.info/connected').on('value', function(snapshot) {
   if (snapshot.val() == true) {
     // onlineStatus
     vuex.state.onlineFlag = true;
-    console.log("online")
   }
   else{
     // offlineStatus
     vuex.state.onlineFlag = false;
-    console.log("offline")
   }
 })
 
@@ -97,12 +93,10 @@ export default {
     if(fcm_flag) {
       messaging.requestPermission()
       .then(function() {
-        console.log("WE HAVE PERMISSION");
         return messaging.getToken();
       })
       //If messaging called with token
       .then(function(token){
-        console.log("TOKEN IS : " + token)
         //Save token into firestore database
         FirebaseService.saveTokens(token, email, grade)
         //TODO : need to check admin
@@ -114,23 +108,19 @@ export default {
 
   },
   async getSingleToken(email){
-    console.log("getSingleToken")
     var token = await firestore.collection(TOKENS).doc(email)
     return token.get()
     .then(doc => {
       var data = doc.data();
-      //console.log("fbs : " + data.token)
       return data;
     });
   },
   async getTokens(type) { 
-    console.log("getTokenSequence")
     const tokenbox = []
     var getAdmin = false
     if(type == "등업 요청"){
       getAdmin = true;
     }
-    console.log("getAdmin : " + getAdmin)
     await firestore.collection(TOKENS)
     .get()
     .then((docSnapshots) => {
@@ -148,40 +138,33 @@ export default {
     .catch(function(err){
       console.log("Get Tokens fail : " + err)
     })
-    console.log("tokenbox : " + tokenbox)
     return tokenbox
   },
   saveTokens(token, email, grade) {
     if(token == ''){
       token = 'dummyToken'
     }
-    console.log("saveTokenSequence")
-    console.log("Token id is : " + token)
     firestore.collection(TOKENS).doc(email).set({
       token,
       grade,
       email
     })
     .then(function(){
-      console.log("Save token success")
     })
     .catch(function(err){
       console.log("Save token failed : " + err)
     })
   },
   pushBullet(id, title, type, img){
-    console.log("pushbullet : " + img)
     var tokenList = FirebaseService.getTokens(type)
     .then(function(result) {
       result.forEach(function(singleToken) {
-        console.log("SingleToken ::: " + singleToken)
         FirebaseService.ShotPushMessage(singleToken, id, title, type, img)
       })
     }
   )
 },
 ShotPushMessage(to, userId, title, type, img) {
-  //console.log("Shot to : " + to)
   var request = require("request");
   request.post({
     headers: {
@@ -237,7 +220,6 @@ async postPost(user, title, body, id, tag, img, yesterday) {
       created_at: yesterday,
       tag
     }).then(function(){
-      console.log("Modify post succeed")
       tag.forEach(async tagg => {
         let curtag = firestore.collection(TAGS).doc(tagg)
         var temp = tagg
@@ -267,7 +249,6 @@ async postPost(user, title, body, id, tag, img, yesterday) {
       created_at: date,
       tag
     }).then(ref=>{
-      console.log("Post post succeed")
       var id = ref.id
       tag.forEach(async tagg => {
         let curtag = firestore.collection(TAGS).doc(tagg)
@@ -295,7 +276,6 @@ async postPost(user, title, body, id, tag, img, yesterday) {
 async deletePost(id){
   var cons = await this.deleteTag(id);
   firestore.collection(POSTS).doc(id).delete().then(function() {
-    console.log("Delete post succeed(firestore)")
   }).catch(function() {
     console.error("Delete post error(firestore)")
   });
@@ -318,7 +298,6 @@ async deleteTag(id){
     var data = doc.data();
     var index = data.postlist.indexOf(id);
     data.postlist.splice(index, 1);
-    // console.log(data.postlist);
     if (data.postlist.length>0){
       await firestore.collection(TAGS).doc(tagg).set({
         postlist : data.postlist
@@ -337,7 +316,6 @@ getPortfolios() {
   .then((docSnapshots) => {
     return docSnapshots.docs.map((doc) => {
       let data = doc.data()
-      // console.log(data);
       // Get firestore documentID
       data.id = doc.id;
       data.created_at = new Date(data.created_at.toDate())
@@ -378,7 +356,6 @@ async profilePhotoUploader(email, key, img) {
   }, function() {
     // Get stored image url from firestorage
     uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
-      //console.log("storageOutput : " + storageOutputUrl)
       firebase.database().ref("user").child(key).child('photoURL').set(storageOutputUrl)
     })
   })
@@ -436,7 +413,6 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
     }, function() {
       // Get stored image url from firestorage
       uploadTask.snapshot.ref.getDownloadURL().then(function(storageOutputUrl) {
-        console.log("storageOutput : " + storageOutputUrl)
         fireUrl = storageOutputUrl
         /* Check id
         if id != null : it is exist PORTFOLIO
@@ -456,13 +432,11 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
             nickname,
             created_at: yesterday,
           }).then(function(){
-            console.log("Modify portfolio succeed")
           }).catch(function() {
             console.error("Modify portfolio failed")
           });
         }
         else{
-          console.log("ADDPORTFOLIO : ")
           firestore.collection(PORTFOLIOS).add({
             user,
             title,
@@ -473,7 +447,6 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
             nickname,
             created_at: date,
           }).then(function(){
-            console.log("Post portfolio succeed")
           }).catch(function() {
             console.error("Post portfolio failed")
           });
@@ -492,7 +465,6 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
       nickname,
       created_at: yesterday,
     }).then(function(){
-      console.log("Modify portfolio succeed")
     }).catch(function() {
       console.error("Modify portfolio failed")
     });
@@ -501,13 +473,11 @@ postPortfolio(user, title, body, dataUrl, fireUrl, id, avatar, nickname, yesterd
 deletePortfolio(id, imgSrc){
   var desertRef = firebase.storage().refFromURL(imgSrc);
   desertRef.delete().then(function() {
-    console.log("Delete image succeed(firestorage)")
   }).catch(function(error) {
     console.error("Delete image error(firestorage)")
   });
 
   firestore.collection(PORTFOLIOS).doc(id).delete().then(function() {
-    console.log("Delete portfolio succeed(firestore)")
   }).catch(function() {
     console.error("Delete portfolio error(firestore)")
   });
