@@ -154,7 +154,6 @@ export default {
         this.userEmail = this.$store.getters.getUser.email;
       });
     }
-
   },
   methods : {
     //Save Portfolio
