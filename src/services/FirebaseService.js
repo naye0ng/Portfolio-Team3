@@ -11,13 +11,13 @@ const TOKENS = 'tokens'
 
 // Setup Firebase
 const config = {
-  apiKey: "AIzaSyBwi4B2tqFYbNQD3GOr44VQgcpO4CINH7w",
-  authDomain: "hello-team3.firebaseapp.com",
-  databaseURL: "https://hello-team3.firebaseio.com",
-  projectId: "hello-team3",
-  storageBucket: "hello-team3.appspot.com",
-  messagingSenderId: "253343349927",
-  appId: "1:253343349927:web:29381730f0313bc1"
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
 
 var app = firebase.initializeApp(config)
