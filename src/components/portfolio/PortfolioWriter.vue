@@ -106,7 +106,6 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import FirebaseService from '@/services/FirebaseService'
-import ResizeImage from 'image-resize';
 
 export default {
   name : 'PortfolioWriter',
