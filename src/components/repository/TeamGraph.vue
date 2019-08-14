@@ -89,7 +89,6 @@ export default {
         }
         else if(this.visited == false) {
           this.visited = true
-          this.$store.state.isLoading = false;
             setTimeout(() => {
               this.drawDateMemberCommitGraph(commits.teamMember)
               this.drawTeamGraph(commits.team)
