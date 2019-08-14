@@ -166,7 +166,7 @@ export default {
     },
     formatedDate() {
       if (this.post.created_at){
-        return `${this.post.created_at.getFullYear()}년 ${this.post.created_at.getMonth()}월 ${this.post.created_at.getDate()}일`
+        return `${this.post.created_at.getFullYear()}년 ${this.post.created_at.getMonth()+1}월 ${this.post.created_at.getDate()}일`
       }
     },
   },
