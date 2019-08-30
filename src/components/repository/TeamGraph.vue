@@ -89,7 +89,9 @@ export default {
         }
         else if(this.visited == false) {
           this.visited = true
+          // firebase
             setTimeout(() => {
+              this.$store.state.isLoading = false;
               this.drawDateMemberCommitGraph(commits.teamMember)
               this.drawTeamGraph(commits.team)
               this.drawMemberGraph(commits.member)
@@ -357,58 +359,59 @@ export default {
     },
     /* Draw Graph Functions */
     drawDateMemberCommitGraph(data){
+      console.log('나옴',data)
       var ctx = document.getElementById("memberCommitChart");
-        var teamChart = new chart.Chart(ctx, {
-          type: "line",
-          data: {
-            labels: data.label,
-            datasets: [
-              {
-                label: "김나영",
-                data: data.nana,
-                backgroundColor: ["rgba(255,99,132, 0.2)"],
-                borderColor: ["rgba(255,99,132, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "김동욱",
-                data: data.eddy,
-                backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-                borderColor: ["rgba(54, 162, 235, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "박해원",
-                data: data.hazel,
-                backgroundColor: ["rgba(255, 206, 86, 0.2)"],
-                borderColor: ["rgba(255, 206, 86, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "임현아",
-                data: data.anna,
-                backgroundColor: ["rgba(75, 192, 192, 0.2)"],
-                borderColor: ["rgba(75, 192, 192, 1)"],
-                borderWidth: 1
-              },
-              {
-                label: "조용범",
-                data: data.richard,
-                backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-                borderColor: ["rgba(153, 102, 255, 1)"],
-                borderWidth: 1
-              }
-            ]
-          },
-          options: {
-            legend: {
-              display: true
+      var teamChart = new chart.Chart(ctx, {
+        type: "line",
+        data: {
+          labels: data.label,
+          datasets: [
+            {
+              label: "김나영",
+              data: data.nana,
+              backgroundColor: ["rgba(255,99,132, 0.2)"],
+              borderColor: ["rgba(255,99,132, 1)"],
+              borderWidth: 1
             },
-            layout: {
-              padding: 5
+            {
+              label: "김동욱",
+              data: data.eddy,
+              backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+              borderColor: ["rgba(54, 162, 235, 1)"],
+              borderWidth: 1
+            },
+            {
+              label: "박해원",
+              data: data.hazel,
+              backgroundColor: ["rgba(255, 206, 86, 0.2)"],
+              borderColor: ["rgba(255, 206, 86, 1)"],
+              borderWidth: 1
+            },
+            {
+              label: "임현아",
+              data: data.anna,
+              backgroundColor: ["rgba(75, 192, 192, 0.2)"],
+              borderColor: ["rgba(75, 192, 192, 1)"],
+              borderWidth: 1
+            },
+            {
+              label: "조용범",
+              data: data.richard,
+              backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+              borderColor: ["rgba(153, 102, 255, 1)"],
+              borderWidth: 1
             }
+          ]
+        },
+        options: {
+          legend: {
+            display: true
+          },
+          layout: {
+            padding: 5
           }
-        });
+        }
+      });
     },
     drawTeamGraph(data){
       var ctx = document.getElementById("teamChart");
