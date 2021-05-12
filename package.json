@@ -11,7 +11,7 @@
     "axios": "^0.19.0",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "core-js": "^2.6.5",
     "cryptiles": "^4.1.2",
     "es6-promise": "^4.2.8",
